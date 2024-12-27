@@ -1,0 +1,87 @@
+\documentclass{article}
+\usepackage[spanish]{babel} % Sets language to Spanish
+\usepackage[utf8]{inputenc} % Ensures proper handling of special characters
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+
+
+\begin{document}
+
+
+\title{Teoría del Aprendizaje Estadístico}
+\author{Nicolas Silva Nash \\ Departamento de Matemática \\ Universidad Nacional del Comahue}
+%\date{\today}
+\maketitle
+
+\section{Introducción}
+La Teoría del Aprendizaje Estadístico proporciona la base teórica para muchos de los algoritmos de aprendizaje automático actuales y,
+sin lugar a dudas, es una de las ramas más bellamente desarrolladas de la inteligencia artificial en general. Nació con el perceptrón de Rossenblat
+y la escuela matemática de la Unión Soviética en la década de 1960, y ganó amplia popularidad en la década de 1990 tras el desarrollo de las llamadas 
+Máquinas de Vectores de Soporte (\textit{SVM}, por sus siglas en inglés), que se han convertido en una herramienta estándar para el reconocimiento de 
+patrones en muchas disciplinas, que van desde la visión por computadora hasta la biología computacional.\\
+
+Proporcionar la base para nuevos algoritmos de aprendizaje no ha sido la única motivación para desarrollar la Teoría del Aprendizaje 
+Estadístico. También ha sido una gesta de caracter filosófico, en el intento de responder a la pregunta de qué nos permite extraer conclusiones válidas 
+a partir de datos empíricos.  
+
+\section{El aprendizaje}
+
+En este contexto, el \textit{aprendizaje} es el proceso a través del cual pueden inferirse reglas generales a partir de ejemplos. Nos interesa 
+entender como una máquina -una computadora- puede resolver ciertos problemas sin conocer las reglas de antemano, solo a partir de ejemplos y a través
+de un \textit{algoritmo de aprendizaje}. El objetivo es que la máquina pueda no solo aprender a reconocer las reglas que rigen a los ejemplos dados,
+si no que también pueden generalizar dichas reglas para ejemplos que le serán presentados con posterioridad.\\
+
+Llamamos a esta disciplina \textit{aprendizaje automático} (en inglés, \textit{Machine Learning}, literalmente ``aprendizaje de máquinas") y reconocemos
+sus raíces en otras disciplinas: Estadística Matemática, Ciencias de la Computación e Inteligencia Artificial. Si bien el aprendizaje suele ser una
+parte fundamental de la mayoría de los esfuerzos en materia de Inteligencia Artificial, el objetivo del Machine Learning es más acotado que el de su 
+rama madre: En vez de intentar definir, explicar o generar comportamiento inteligente o \textit{inteligencia}, aquí nos interesa solamente descubrir los mecanismos
+a través de los cuales las computadoras pueden resolver algunas tareas acotadas y bien definidas, y que en general escapan a soluciones que pueden
+ser especificadas con una cantidad finita de código de programación (reglas determinísticas). \\
+
+Con fines ilustrativos, nos centraremos primero en el más conocido de los problemas del Machine Learning, el de clasificación. Consideremos dos espacios
+de variables: \(X\), llamado \textit{espacio de entrada}, e \(Y\), el  \textit{espacio de etiquetas}. En un problema de clasificación, deseamos poder etiquetar
+correctamente elementos de \(X\) con los valores de \(Y\). Por ejemplo, podríamos querer clasificar un conjunto de datos, en alguna representación fija, de distintos 
+objetos en una cantidad de etiquetas como: silla, cama, microondas, perro, gato. Si esta representación es en imágenes de \(N\times M\) pixeles en blanco y negro (realmente, 
+matrices de orden \(N\times M\) con coeficientes reales en el interavalo \([0,1]\) que representan la intensidad de cada pixel, del negro al blanco), el espacio \(X\) es 
+el conjunto de dichas matrices y el espacio \(Y\) las categorías distintas que corresponden a lo que las imágenes muestran. Con el fin de aprender, a un algoritmo se le 
+muestran ejemplos de imágenes y sus respectivas etiquetas \((X_1,Y_1)\), \((X_2,Y_2)\), ..., \((X_n,Y_n)\), a partir de los cuales este debe encontrar una función
+\(f: X\rightarrow Y\), que comete la menor cantidad de errores posibles. A esta función \(f\) la llamamos \textit{clasificador}.
+
+\section{La historia del aprendizaje automático}
+
+El primer modelo de aprendizaje automático, según Vapnik en [2], fue sugerido por F. Rosenblatt, un psicólogo estadounidense, al que llamó \textit{perceptrón}, y su introducción
+constituye el comienzo del análisis matemático del aprendizaje. Conceptualmente, la idea del perceptrón no era nueva, estando presente en la litetura de Neurofisiología durante
+varios años. Rosenblatt, sin embargo, se aventuró en describir el modelo como un programa para computadoras y demostró con simples experimentos que dicho modelo era generalizable.
+El perceptrón fue construído como una solución a un problema particular dentro del aprendizaje automático, el reconocimiento de patrones. En el caso más sencillo, este problema
+consiste en hallar una regla para separar datos en dos categorías distintas a partir de ejemplos.\\
+
+Para construir la regla de separación, el perceptrón sigue el modelo más sencillo de neurona, propuesto previamente por McCulloch y Pitts, de acuerdo al cual una neurona recibe
+\(n\) valores (o \textit{inputs}) en la forma de un vector \(x = (x^1,\dots, x^n) \in X \subset \mathbb{R}^n \) y genera una etiqueta (\textit{output}) 
+\(y\in\{-1,+1\}\) a través de una dependecia funcional dada por
+\[
+y = sgn\{(w\cdot x)-b\}
+\]
+
+con \(\cdot\) el producto interno de vectores en \(\mathbb{R}^n\), \(b\) un valor de límite y un vector \(w\) que se genera en el proceso de aprendizaje. Geométricamente, una 
+neurona divide el espacio \(X\) en dos regiones: en una la etiqueta \(y\) vale \(+1\) y en la otra \(-1\). Las dos regiones son separadas por el hiperplano:
+\[
+(w\cdot x) - b = 0
+\]
+
+El vector \(w\) y el escalar \(b\) determinan la posición del hiperplano y sus valores son aprendidos por el perceptrón. Cuando combinamos varias neuronas, el perceptrón
+separa el espacio de entrada en en dos regiones lineales a trozos y no necesariamente conexas. En 1960 no era claro como elegir todos los parametros \((w_1,\dots,w_k)\) y
+\((b_1,\cdots, b_k)\) de todas las neuronas, por lo que se fijaban los valores de las primeras \(k-1\) y se intentaba encontrar los valores deseables para la última
+de ellas. Rosenblat proponía 
+
+
+
+\bigbreak
+\pagebreak
+\section{Bibliografía}
+
+[1] \textit{Statistical Learning Theory: Models, Concepts and Results} - von Luxburg, Schölkopf (2008)
+
+[2] \textit{The Nature of Statistical Learning Theory, second edition} - Vladimir Vapnik (2000)
+
+\end{document}
