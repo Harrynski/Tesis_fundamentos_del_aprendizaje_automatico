@@ -1,10 +1,13 @@
 \documentclass{article}
-\usepackage[spanish]{babel} % Sets language to Spanish
+\usepackage[spanish]{babel}
 \usepackage[utf8]{inputenc} % Ensures proper handling of special characters
+\usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 
-
+% Define the unnumbered theorem
+\newtheorem*{teorema}{Teorema}
+%\newtheorem*{def}{Definicion}
 
 \begin{document}
 
@@ -69,10 +72,154 @@ neurona divide el espacio \(X\) en dos regiones: en una la etiqueta \(y\) vale \
 (w\cdot x) - b = 0
 \]
 
+
 El vector \(w\) y el escalar \(b\) determinan la posición del hiperplano y sus valores son aprendidos por el perceptrón. Cuando combinamos varias neuronas, el perceptrón
 separa el espacio de entrada en en dos regiones lineales a trozos y no necesariamente conexas. En 1960 no era claro como elegir todos los parametros \((w_1,\dots,w_k)\) y
 \((b_1,\cdots, b_k)\) de todas las neuronas, por lo que se fijaban los valores de las primeras \(k-1\) y se intentaba encontrar los valores deseables para la última
-de ellas. Rosenblat proponía 
+de ellas. Geométricamente, se transformaba el espacio de entrada $X$ en un nuevo espacio $Z$ (eligiendo coeficientes apropiados para las primeras $k-1$ neuronas) y luego
+se utilizaban los datos de entrenamiento para construir un hiperplano que separe el plano $Z$.
+Tomando prestados de la fisiología los conceptos de aprendizaje con estímulos de premios y castigos, Rosenblat propuso un simple algoritmo para hallar estos 
+coeficientes de manera iterativa, el cual describiremos a continuación.
+
+DESCRIBIR perceptrón.\\
+
+En 1962 Novikoff demostró el primer teorema relacionado al perceptrón. Podemos decir que este teorema inció propiamente la teoría del aprendizaje.
+
+\begin{teorema}
+Dado un conjunto de datos de entrenamiento como el descrito previamente, de manera que\\
+1) La norma de los vectores de entrenamiento $z_i$ está acotada por una constante $R$:
+$$
+|z_i| \leq R, \qquad \forall i=1,2,\dots,k
+$$
+2) Los datos de entrenamiento pueden separados con un margen $\rho$:
+$$
+\sup_{w} \min_{i} y_i(z_i\cdot w) > \rho
+$$
+3) Los datos son alimentandos al perceptrón una cantidad \textit{suficiente} de veces.\\
+
+Entonces el algoritmo encuentra el hiperplano que separa los datos de entrenamiento, luego de a lo
+sumo $N$ correcciones, con $N$ verificando:
+$$
+N \leq \left [ \frac{R^2}{\rho^2}\right ]
+$$
+
+\end{teorema}
+
+Resaltamos este teorema porque jugó un papel fundamental en la creación de la teoría del aprendizaje, conectando el
+principio de minimización de errores en el conjunto de datos de entrenamiento con la capacidad de generalización
+de los algoritmos de clasificación y su causa.
+
+\section{Hacia la formalización}
+
+Volviendo al caso de clasificación binaria en aprendizaje supervisado, partimos de ejemplos (datos de entrenamiento) 
+en un espacio de entrada $X$ con alguna de las dos posibles etiquetas del espacio $Y=\{-1,+1\}$. Aquí, \textit{aprender}
+se reduce a estimar una relación funcional $f:X\rightarrow Y$, el clasificador. Un algoritmo de aprendizaje es aquel
+que a partir de los datos de entrenamiento construye una función $f$. Nos interesa construir una teoría que no asuma
+de manera estricta nada acerca de $X$ e $Y$, pero nos permitimos asumir ciertas cosas del mecanismo que genera los
+datos de entrenamiento. En particular, asumiremos que existe una \textit{distribución de probabilidad conjunta} $P=P(X,Y)$
+sobre $X\times Y$ y que las muestras son tomadas de forma independiente de esta distribución de forma \textit{iid} -independiente
+e idénticamente distribuída-. Notemos lo siguiente:
+\begin{enumerate}
+    \item \textit{No imponemos condiciones a la distribución de probabilidad $P$}. La gran diferencia que encontramos entre la Estadística
+    tradicional y la teoría del aprendizaje estadístico es que en esta última trabajamos de manera agnóstica a la distribución
+    que genera las muestras y deseamos llegar a conclusiones generales.
+    \item \textit{Consideramos a las etiquetas de manera no determinística.} Consideramos a $P$ como una distribución de probabilidad
+    no solo sobre las instancias de $X$, si no también sobre las propias etiquetas de $Y$. Por lo tanto, estas últimas no son solo 
+    funciones tradicionales de los datos en $X$, si no que ellas mismas pueden ser aleatorias. Tenemos al menos dos buenas razones
+    para tomar esta consideración: por un lado, el proceso de generación de datos puede tener ruido al asignar etiquetas (por ejemplo
+    tomemos el caso de un detector de spam basado en la opinión de etiquetadores humanos que clasifican emails con un porcentaje de error; incluso
+    los humanos pueden clasificar incorrectament algunos de esos emails), y por otro, ciertos problemas se prestan a que existan
+    clases que se solapan (pensemos en la dificultad en diferenciar a un perro de un gato en una fotografías que los captura desde
+    una gran distancia o con baja resolución).\\
+    En la práctica, en vez de asignar etiquetas a los elementos en $X$ de manera determinística, daremos la probabilidad condicional
+    de la etiqueta $y$ dado el valor $x$. En el caso de clasificación binaria, basta solo dar la probabilidad $P(Y=1|X=x)$ de que la etiqueta
+    tenga valor $Y=1$, dado que la restante es complementaria:
+    $$
+    P(Y=-1|X=x) \quad = \quad 1 - P(Y=1|X=x)
+    $$
+    Ciertos problemas que hagan uso de datos con etiquetas con poco ruido nos llevaran naturalmente a probabilidades condicionales cercanas
+    a $0$ y $1$, dejando un margen de error pequeño, pero cuando tratemos con solapamiento de clases, las probabilidades condicionales
+    pueden acercarse a $\frac{1}{2}$ para cada etiqueta. Independientemente de la causa, que las probabilidades condicionales sobre
+    las etiquetas se acerquen a $\frac{1}{2}$ vuelve más dificil el aprendizaje, dado que crece el número de errores del clasificador.
+    \item \textit{Muestro independiente}. Una de las condiciones más fuertes que imponemos en la teoría del aprendizaje estadístico es
+    que asumimos que las muestras son tomadas de forma independiente. En muchas aplicaciones, esta suposición está justificada, pero
+    hay ramas muy importantes de la disciplina en donde esto no se cumple, por ejemplo en el análisis de series de tiempo, en donde
+    la secuencialidad de los datos viola la condición de iid (cada valor depende en alguna medida de los anteriores). Esto es también 
+    cierto para las aplicaciones a lenguaje natural, y constituye una de las razones principales por las cuales esta rama más moderna 
+    del aprendizaje tiene bases teóricas menos fuertes que el aprendizaje automático tradicional.
+    \item \textit{La distribución P es fija}. Al no considerar al tiempo como un parámetro, ni existir un orden en las muestras, asumimos
+    que la distribución que las origina es siempre la misma. Esto, como en el punto anterior, no se cumple en las series de tiempo. Otro
+    caso donde se viola esta suposición es en aquellos problemas en donde la distribución de probabilidad de los datos de entrenamiento no
+    coincide con el de los datos posteriores, llamado \textit{covariate shift}, por ejemplo en un sistema de \textit{scoring} de usuarios
+    de una empresa que crece súbitamente y que suma a personas que no se corresponden a los perfiles que existían originalmente en su base
+    de datos (e.g. se admite que inmigrantes no bancarizados y sobre los que no hay datos previos accedan a préstamos).
+    \item \textit{La distribución P es desconocida al momento de aprender}. Si conociéramos de antemano la probabilidad condicional $P$,
+    el problema del aprendizaje sería trivial pues podríamos siempre determinar el mejor clasificador posible (aunque no sea perfecto,
+    dada la naturaleza aleatoria de las etiquetas). Solo tenemos acceso a $P$ de manera indirecta, a través de las muestras. Intuitivamente,
+    esto nos hace pensar que, consiguiendo un número lo suficientemente grande de muestras, podemos aproximar las propiedades de la distribución
+    $P$, pero con errores. Uno de los principales logros de la teoría del aprendizaje estadístico es brindarnos un marco teórico para
+    acotar este error.
+\end{enumerate}
+
+Para saber qué tan bien se comporta un clasificador $f$, necesitamos medir sus equivocaciones. Para esto, definiremos una \textit{función de pérdida},
+$\ell$, que le asigne un valor al hecho de que $f$ clasifique a cierto $x\in X$ con la etiqueta $y\in Y$. Llamermos \textit{costo} a dicho valor, 
+dado que más adelante penalizaremos al clasificador en base a los errores que cometa a través del alogritmo de aprendizaje.\\
+El ejemplo más sencillo de función de pérdida es la ``pérdida-0-1'', que le asigna un costo de $0$ a una instancia de clasificación correcta y un costo
+$1$ a una incorrecta, es decir:
+$$
+\ell(X,Y,f(X)):= \begin{cases}
+    1 \qquad \text{si } f(X) \neq Y \\
+    0 \qquad \text{si } f(X) = Y
+\end{cases}
+$$
+En problemas de regresión, la función de pérdida más conocida es el \textit{error cuadrático medio}, dado por
+$$
+\ell(X,Y,f(X)):= (Y-f(X))^2
+$$
+Por convención, una pérdida igual a $0$ implica una clasificación perfecta y valores mayores implican peor clasificación. Es decir,
+el aprendizaje suele implicar un desafío de optimización en dónde deseamos hallar el mínimo de la función de perdida.
+
+Mientras que la función de pérdida mide el error del clasificador en un punto individual $x\in X$, llamamos \textit{riesgo}, $\mathcal{R}$, 
+del clasificador a la pérdida esperada sobre todos los datos generados por la distribución de probabilidad $P$. Es decir
+$$
+\mathcal{R}(f) := E\left( \ell(X,Y,f(X)) \right)
+$$
+Desde luego que otra función $g$ es un mejor clasificador que $f$ para un problema dado si su riesgo es más bajo, es decir si $\mathcal{R}(g)
+< \mathcal{R}(f)$, por lo que el mejor clasificador de todos es aquel con el riesgo más bajo.\\
+
+Algo que no hemos considerado aún es si los clasificadores $f$ tienen alguna característica especial. Para formalizarlo, tomaremos funciones de un
+espacio de funciones $\mathcal{F}$ que aplican $X$ en $Y$. En un principio, parecería aceptable tomar el espacio de todas las funciones posibles, o 
+más precisamente, el conjunto de todas las funciones \textit{medibles} que aplican $X$ en $Y$, $\mathcal{F}_{all} = \{f \text{ medibles  } | 
+\; f: X \rightarrow Y \}$. En este caso, podemos señalar cuál es el clasificador ideal, dada la distribución $P$, al que llamamos
+\textit{clasificador Bayesiano}, $f_{\text{Bayes}}$, y al que definimos como:
+$$
+f_{\text{Bayes}} := \begin{cases}
+1 \qquad \; \; \text{  si } P(Y=1 | X=x) \geq \frac{1}{2}\\
+-1 \qquad \text{en otro caso }
+\end{cases}
+$$
+
+Observermos que, en caso de que las etiquetas fueran determinísticas, es decir donde $P(Y=y|X=x)=1$ para cada $x\in X$ con su
+respectiva etiqueta $y$, $f_{\text{Bayes}}$ eligiría correctamente en todos los casos.\\
+De existir un ligero solapamiento de clases de tal manera que para un cierto $x$ tengamos $P(Y=1|X=x) = 0.9$, entonces tendríamos
+que en la mayoría de los casos la etiqueta de $x$ es $+1$ y, siendo este el valor elegido por $f_{\text{Bayes}}$, el clasificador
+Bayesiano estaría en lo correcto.\\
+
+En la práctica no es posible computar directamente el clasificador Bayesiano dado que, como dijimos, la distribución de probabilidad
+conjunta $P$ es desconocida. Sin embargo, este clasificador es una herramienta teórica que nos permite formular el problema
+estandar de la clasificación binaria, el cual es:\\
+
+\textit{Dado un conjunto de datos de entrenamiento $ \{ (X_1,Y_1),\dots,(X_n, Y_m)\}$ obtenidos iid de una distribución $P$, y dada una
+función de pérdida $\ell$, deseamos construir una funión clasificadora $f:X\rightarrow Y$ cuyo riesgo $\mathcal{R}(f)$ sea lo
+más cercano posible al riesgo de $f_{\text{Bayes}}$.}\\
+
+Notemos que no solo es imposible to computar el error del clasificador Bayesiano, sino también el propio riesgo de cualquier clasificador
+$f$. Es decir, dado un problema definido (minimizar el riesgo del clasificador), con una solución ideal que podemos escribir (el propio
+clasificador Bayesiano), no tenemos manera de computar ninguna cosa de utilidad. Aquí es donde la teoría de aprendizaje estadístico
+nos permite llegar a resultados y obtener garantías de la utilidad de esas soluciones.
+
+
+
 
 
 
@@ -83,5 +230,9 @@ de ellas. Rosenblat proponía
 [1] \textit{Statistical Learning Theory: Models, Concepts and Results} - von Luxburg, Schölkopf (2008)
 
 [2] \textit{The Nature of Statistical Learning Theory, second edition} - Vladimir Vapnik (2000)
+
+
+
+
 
 \end{document}
