@@ -4,9 +4,10 @@
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{amsfonts}
-
+\DeclareMathOperator*{\argmin}{arg\,min}
 % Define the unnumbered theorem
-\newtheorem*{teorema}{Teorema}
+\newtheorem*{thm}{Teorema}
+\newtheorem{dfn}{Definición}
 %\newtheorem*{def}{Definicion}
 
 \begin{document}
@@ -85,7 +86,7 @@ DESCRIBIR perceptrón.\\
 
 En 1962 Novikoff demostró el primer teorema relacionado al perceptrón. Podemos decir que este teorema inció propiamente la teoría del aprendizaje.
 
-\begin{teorema}
+\begin{thm}
 Dado un conjunto de datos de entrenamiento como el descrito previamente, de manera que\\
 1) La norma de los vectores de entrenamiento $z_i$ está acotada por una constante $R$:
 $$
@@ -103,7 +104,7 @@ $$
 N \leq \left [ \frac{R^2}{\rho^2}\right ]
 $$
 
-\end{teorema}
+\end{thm}
 
 Resaltamos este teorema porque jugó un papel fundamental en la creación de la teoría del aprendizaje, conectando el
 principio de minimización de errores en el conjunto de datos de entrenamiento con la capacidad de generalización
@@ -161,6 +162,8 @@ e idénticamente distribuída-. Notemos lo siguiente:
     acotar este error.
 \end{enumerate}
 
+\subsection{Pérdida y Riesgo}
+
 Para saber qué tan bien se comporta un clasificador $f$, necesitamos medir sus equivocaciones. Para esto, definiremos una \textit{función de pérdida},
 $\ell$, que le asigne un valor al hecho de que $f$ clasifique a cierto $x\in X$ con la etiqueta $y\in Y$. Llamermos \textit{costo} a dicho valor, 
 dado que más adelante penalizaremos al clasificador en base a los errores que cometa a través del alogritmo de aprendizaje.\\
@@ -172,7 +175,7 @@ $$
     0 \qquad \text{si } f(X) = Y
 \end{cases}
 $$
-En problemas de regresión, la función de pérdida más conocida es el \textit{error cuadrático medio}, dado por
+En problemas de regresión, la función de pérdida más conocida es el \textit{error cuadrático}, dado por
 $$
 \ell(X,Y,f(X)):= (Y-f(X))^2
 $$
@@ -200,8 +203,8 @@ f_{\text{Bayes}} := \begin{cases}
 $$
 
 Observermos que, en caso de que las etiquetas fueran determinísticas, es decir donde $P(Y=y|X=x)=1$ para cada $x\in X$ con su
-respectiva etiqueta $y$, $f_{\text{Bayes}}$ eligiría correctamente en todos los casos.\\
-De existir un ligero solapamiento de clases de tal manera que para un cierto $x$ tengamos $P(Y=1|X=x) = 0.9$, entonces tendríamos
+respectiva etiqueta $y$, $f_{\text{Bayes}}$ eligiría correctamente en todos los casos. De existir un ligero solapamiento de clases 
+de tal manera que para un cierto $x$ tengamos $P(Y=1|X=x) = 0.9$, entonces tendríamos
 que en la mayoría de los casos la etiqueta de $x$ es $+1$ y, siendo este el valor elegido por $f_{\text{Bayes}}$, el clasificador
 Bayesiano estaría en lo correcto.\\
 
@@ -213,13 +216,82 @@ estandar de la clasificación binaria, el cual es:\\
 función de pérdida $\ell$, deseamos construir una funión clasificadora $f:X\rightarrow Y$ cuyo riesgo $\mathcal{R}(f)$ sea lo
 más cercano posible al riesgo de $f_{\text{Bayes}}$.}\\
 
-Notemos que no solo es imposible to computar el error del clasificador Bayesiano, sino también el propio riesgo de cualquier clasificador
+Notemos que no solo es imposible computar el error del clasificador Bayesiano, sino también el propio riesgo de cualquier clasificador
 $f$. Es decir, dado un problema definido (minimizar el riesgo del clasificador), con una solución ideal que podemos escribir (el propio
 clasificador Bayesiano), no tenemos manera de computar ninguna cosa de utilidad. Aquí es donde la teoría de aprendizaje estadístico
 nos permite llegar a resultados y obtener garantías de la utilidad de esas soluciones.
 
+\subsection{Generalización}
+
+Dado que no conocemos la distribución de probabilidad $P(X,Y)$, no podemos calcular la esperanza de la pérdida de un clasificador cualquiera
+$f$, es decir su riesgo. Lo que si podemos hacer, dado un conjunto de entrenamiento, es ''contar" (o medir, en general, para problemas
+que no son de clasificación binaria) el número de errores del clasificador sobre los datos de entrenamiento. A esta cantidad le daremos
+el nombre de \textit{riesgo empírico} y lo veremos presente en la literatura también como \textit{error de entrenamiento}. Lo definimos
+como
+$$
+R_{emp}(f) := \frac{1}{n} \sum_{i=1}^n \ell(X_i,Y_i,f(X_i))
+$$
+
+Por ejemplo, de la función de pérdida llamada error cuadrático se deriva el riesgo empírico \textit{error cuadrático medio}, que es ampliamente
+utilizado en la práctica.
+
+Usualmente, un algoritmo de aprendizaje aceptable es capaz de producir un clasificador $f$ que performa aceptablemente bien en un conjunto de datos
+conocido, es decir tal que el riesgo empírico del clasificador es bajo. Nos interesa que un clasificador $f$ tenga riesgo bajo en todo el espacio
+de entrada $X$, no solo en los datos de entrenamiento. Decimos que un clasificador \textit{generaliza} bien si la diferencia entre su riesgo
+y su riesgo empírico es baja.\\
+
+DEFINICIÓN Generalización\\
+
+Por supuesto que una buena generalización no asegura que el riesgo, ni el riesgo empírico, sean bajos, si no que dichas cantidades son cercanas.
+Pero lo que nos interesa es que el riesgo empírico sea un buen estimativo del riesgo del clasificador, y esto es lo que nos permitirá
+hacer afirmaciones acerca del error del clasificador en la práctica.
+
+\subsection{Consistencia}
+Intuitivamente, parece razonable pedirle a un algoritmo de aprendizaje que, al ser presentado con más y más ejemplos, converja a una
+solución óptima. En Estadística, la noción de \textit{consistencia} se relaciona con la capacidad de hacer afirmaciones con respecto a lo que
+sucede en el límite de una cantidad infinita de muestras y, a diferencia de la generalización, que es acerca de una función en particular,
+es una propiedad de un conjunto de funciones. Para ilustrar este concepto, denotemos como $f_n$ al clasificador construido por un algoritmo
+de aprendizaje luego de ser presentado con $n$ puntos de entrenamiento. Por el momento no repararemos en cómo el algoritmo construye esta
+función, pero podemos estar seguro que la elige de un cierto espacio funcional $\mathcal{F}$. Más adelante veremos que dicho espacio puede
+estar explícitamente dado, como en el caso de la regresión lineal, o no, y existir implícitamente en el mecanismo del propio algoritmo,
+como es el caso de las redes neuronales. Más allá de si $\mathcal{F}$ es explícito o no, el algoritmo debe elegir a la mejor función
+en dicho espacio basándose en los puntos de entrenamiento. Por otro lado, sabemos precisamente cuál es en teoría el mejor clasificador 
+en $\mathcal{F}$: el que tiene el menor riesgo. Por simplicidad, supongamos que este es único (no tiene por qué serlo, puede no haber
+un solo mínimo global para la función de riesgo). Definimos a este clasificador óptimo como:
+$$
+f_{\mathcal{F}} = \argmin _{f\in{\mathcal{F}}} \mathcal{R}(f)
+$$
+Considerando que el clasificador bayesiano introducido en la sección anterior es el mejor clasificador posible, podríamos denotarlo,
+siguiendo la misma convención, como $f_{\mathcal{F}_{all}}$. Desde luego que el espacio $\mathcal{F}$ que elegimos 
+puede no contenerlo, por lo que $\mathcal{R}(f_{\text{Bayes}}) < \mathcal{R}(f_{\mathcal{F}})$. Con estas ideas, podemos definir
+los distintos de convergencia que trataremos al considerar el concepto de consistencia.
+
+\begin{dfn}
+    Sea $(X_i,Y_i)_{i\in\mathbb{N}}$ una sucesión infinita de puntos de entrenamiento que han sido tomados iid de una distribución $P$.
+    Sea $\ell$ una función de pérdida. Por cada $n\in \mathbb{N}$, sea $f_n$ un clasificador construído por algún algoritmo de aprendizaje
+    usando los primeros $n$ puntos de entrenamiento. Sea $\mathcal{F}$ el espacio funcional de todos los posibles clasificadores según
+    el mecanismo de construcción del algoritmo. Entonces
+    \begin{enumerate}
+    \item  El algoritmo de aprendizaje se dice \textnormal{consistente con respecto a $\mathcal{F}$ y a $P$} si el riesgo $\mathcal{R}(f_n)$
+     converge en probabilidad al riesgo  $\mathcal{R}(f_{\mathcal{F}})$ del mejor clasificador en $\mathcal{F}$. Esto es,
+     que para todo $\epsilon>0$:
+     $$
+     P\left(\mathcal{R}(f_n)-\mathcal{R}(f_{\mathcal{F}})>\epsilon\right) \rightarrow 0 \qquad \text{ cuando } \qquad n\rightarrow \infty
+     $$ 
+     \item  El algoritmo de aprendizaje se dice \textnormal{Bayes-consistente con respecto a $P$} si el riesgo $\mathcal(R)(f_n)$
+     converge en probabilidad al riesgo  $\mathcal(R)(f_{\text{Bayes}})$ del clasificador bayesiano. Esto es, para todo $\epsilon>0$
+     $$
+     P\left(\mathcal{R}(f_n)-\mathcal{R}(f_{\text{Bayes}})>\epsilon\right) \rightarrow 0 \qquad \text{ cuando } \qquad n\rightarrow \infty
+     $$ 
+    \item  El algoritmo de aprendizaje se dice \textnormal{universalmente consistente con respecto a $\mathcal{F}$} si 
+    es consistente con respecto a $\mathcal{F}$ para toda distribución de probabilidad $P$.
+    \item  El algoritmo de aprendizaje se dice \textnormal{universalmente Bayes-consistente } si 
+    es Bayes-consistente para toda distribución de probabilidad $P$.
+    \end{enumerate}
+\end{dfn}
 
 
+\subsection{Overfitting y Underfitting}
 
 
 
