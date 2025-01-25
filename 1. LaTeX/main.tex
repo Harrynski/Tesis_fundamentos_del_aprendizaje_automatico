@@ -1,13 +1,15 @@
 \documentclass{article}
+\usepackage{graphicx}
 \usepackage[spanish]{babel}
 \usepackage[utf8]{inputenc} % Ensures proper handling of special characters
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{amsfonts}
+\usepackage[font=footnotesize,labelfont=bf,labelsep=colon]{caption} % Personalización de captions
 \DeclareMathOperator*{\argmin}{arg\,min}
 % Define the unnumbered theorem
-\newtheorem*{thm}{Teorema}
-\newtheorem{dfn}{Definición}
+\newtheorem{thm}{Teorema}[section]
+\newtheorem{dfn}{Definición}[section]
 %\newtheorem*{def}{Definicion}
 
 \begin{document}
@@ -314,17 +316,325 @@ Observamos que la consistencia como está aquí enunciada suele llamarse \textit
 en probabilidad, si no con probabilidad $1$, lo que también llamamos \textit{convergencia casi segura}. En la práctica, la consistencia fuerte es una propiedad muy fuerte y no es comúnmente
 alcanzada por los algoritmos de aprendizaje.\\
 
-Notemos que en estas definiciones no se hace mención del riesgo empírico $\mathcal{R}_{\text{Emp}}(f_n)$, si no del riesgo real $\mathcal{R}(f_n)$, lo que
+Notemos que en estas definiciones no se hace mención del riesgo empírico $\mathcal{R}_{\text{emp}}(f_n)$, si no del riesgo real $\mathcal{R}(f_n)$, lo que
 se debe a que la única medida de calidad de un clasificador es su riesgo real y es sobre el cual deseamos obtener resultados. El problema, claro,
 es que no podemos medirlo, como si podemos hacer con el riesgo empírico. Es natural entonces pensar que, además de la convergencia que hemos anunciado
 de tipo $\mathcal{R}(f_n) \rightarrow \mathcal{R}(f_{\text{Bayes}})$, intentemos buscar las condiciones bajo las cuales el riesgo empírico
-converge al riesgo real, es decir donde  $\mathcal{R}_{\text{Emp}}(f_n) \rightarrow \mathcal{R}(f_{\text{Bayes}})$. Esta es una de las metas
+converge al riesgo real, es decir donde  $\mathcal{R}_{\text{emp}}(f_n) \rightarrow \mathcal{R}(f_{\text{Bayes}})$. Esta es una de las metas
 de la teoría del aprendizaje estadístico, y es lo que nos permitirá hacer afirmaciones acerca de la calidad de los clasificadores en la práctica.\\
+
+
+\subsection{Sobreajuste y subajuste}
+
+
+Consideremos un ejemplo de regresión. Se nos da un conjunto de observaciones empíricas 
+\((x_1, y_1), \dots, (x_m, y_m) \in X \times Y\), donde, simplemente, tomamos \(X = Y = \mathbb{R}\). 
+Por ejemplo, los datos podrían haberse recopilado en un experimento físico donde \(X\) representa el peso 
+de un objeto e \(Y\) la fuerza necesaria para arrastrar este objeto sobre una superficie rugosa.
+
+La Figura ~\ref{fig:Sobreajuste y subajuste} muestra una representación gráfica de dicho conjunto de datos (indicados por los puntos redondos), 
+junto con dos posibles dependencias funcionales que podrían explicar los datos. 
+La línea discontinua, \(f_{\text{no lineal}}\), representa un modelo bastante complejo y ajusta perfectamente 
+los datos de entrenamiento, es decir, tiene un error de entrenamiento igual a 0. Por otro lado, 
+la línea recta, \(f_{\text{lineal}}\), no “explica” completamente los datos de entrenamiento, 
+ya que hay algunos errores residuales, lo que genera un error de entrenamiento pequeño pero positivo 
+(por ejemplo, medido mediante la función de pérdida cuadrática).
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Images/1.png}
+    \caption{Dos posibles modelos de regresión, uno lineal y otro no, para un conjunto de datos dado.}
+    \label{fig:Sobreajuste y subajuste}
+\end{figure}
+
+¿Pero qué sucede con los riesgos verdaderos \(R(f_{\text{no lineal}})\) y \(R(f_{\text{lineal}})\)? 
+El problema es que no podemos calcular estos riesgos a partir de los datos de entrenamiento. 
+Además, las funciones \(f_{\text{no lineal}}\) y \(f_{\text{lineal}}\) tienen comportamientos muy diferentes. 
+Por ejemplo, si la línea recta \(f_{\text{lineal}}\) fuera la verdadera función subyacente, 
+entonces la función discontinua \(f_{\text{no lineal}}\) tendría un riesgo verdadero elevado, 
+ya que la “distancia” entre la función verdadera y la estimada es muy grande. 
+Lo mismo ocurre en sentido contrario. En ambos casos, el riesgo verdadero sería mucho mayor que el riesgo empírico.
+
+
+Este ejemplo resalta una decisión importante que debemos tomar: ¿preferimos ajustar los datos de entrenamiento 
+con una función relativamente compleja, lo que conduce a un error de entrenamiento muy pequeño, o preferimos 
+ajustarlos con una función simple a costa de un error de entrenamiento ligeramente mayor? En el ejemplo 
+anterior, un físico que mida estos puntos de datos podría argumentar que no puede ser coincidencia que las mediciones 
+estén casi alineadas y preferiría atribuir los residuos a errores de medición en lugar de a un modelo erróneo. Pero, 
+¿es posible caracterizar en qué sentido la línea recta es más simple y por qué esto debería implicar que está, de 
+alguna manera, más cerca de la verdadera dependencia subyacente? Es decir, nos interesa saber cuál es el 
+aumento en el error de entrenamiento que deberíamos estar dispuestos a tolerar para ajustar un modelo más simple.
+
+De una forma u otra, esta cuestión ha ocupado durante mucho tiempo las mentes de los investigadores que estudian 
+el problema del aprendizaje. En la estadística clásica, se ha estudiado como el dilema \textit{sesgo-varianza} 
+(\textit{bias-variance tradeoff}). Si ajustamos un modelo lineal para cada conjunto de datos que encontramos, 
+podríamos pensar que toda dependencia funcional es lineal. Pero no sería por la naturaleza de los procesos que
+generan los datos, sino un sesgo impuesto por nosotros. Por otro lado, 
+si tomamos un polinomio de grado suficientemente alto para cualquier muestra, siempre podríamos ajustar 
+perfectamente los datos, pero el modelo exacto que obtendríamos estaría sujeto a grandes fluctuaciones, dependiendo 
+de qué tan precisas fueran nuestras mediciones en primer lugar. Esto implicaría que el modelo sufra de una gran varianza.
+
+Una dicotomía relacionada es la existente entre el error de estimación y el error de aproximación. Si usamos una clase 
+pequeña de funciones, incluso la mejor solución posible aproximará pobremente la dependencia real, mientras 
+que una clase grande de funciones llevará a un error de estimación estadística alto. En la terminología del aprendizaje 
+estádistico aplicado, el modelo complejo muestra \textbf{sobreajuste} (overfitting), 
+mientras que el modelo lineal simple es más proclive a sufrir de \textbf{subajuste} (underfitting).
 
 \subsection{Los dilemas sesgo-varianza y estimación-aproximación}
 
-\subsection{Overfitting y Underfitting}
 
+El ejemplo ilustrado en la Figura ~\ref{fig:Sobreajuste y subajuste}
+ya señaló de manera intuitiva el problema de la complejidad del modelo: ¿cuándo un modelo es “más simple” que otro? 
+¿Es bueno que un modelo sea simple? ¿Qué tan simple? 
+Ya hemos mencionado anteriormente que el objetivo de la clasificación es lograr un riesgo tan bueno 
+como el del clasificador de Bayes. ¿Podríamos simplemente elegir \(\mathcal{F}\) como el espacio \(\mathcal{F}_{\text{all}}\) 
+de todas las funciones, definir el clasificador \(f_n := \arg\min_{f \in \mathcal{F}_{\text{all}}} \left(R_{\text{emp}}(f)\right)\), 
+y obtener consistencia? Desafortunadamente, la respuesta es no. Luego veremos que, 
+si optimizamos sobre clases de funciones \(\mathcal{F}\) demasiado grandes, y en particular si hacemos \(\mathcal{F}\) tan 
+grande que contenga todos los clasificadores de Bayes para todas las distribuciones de probabilidad \(P\), 
+esto conduce a la inconsistencia. Por lo tanto, si queremos aprender con éxito, necesitamos trabajar 
+con una clase de funciones \(\mathcal{F}\) más pequeña. Para investigar las propiedades contrapuestas de la 
+complejidad del modelo y la generalización, queremos introducir algunas nociones que serán útiles más adelante.
+
+Recordemos las definiciones \(f_n\), \(f_\mathcal{F}\) y \(f_{\text{Bayes}}\) introducidas anteriormente. Hemos visto que 
+la consistencia de Bayes trata sobre la convergencia del término \(R(f_n) - R(f_{\text{Bayes}})\). 
+Es importante notar que podemos descomponer esta cantidad de la siguiente manera:
+\[ 
+\mathcal{R}(f_n) - \mathcal{R}(f_{\text{Bayes}}) = \underbrace{\mathcal{R}(f_n) - \mathcal{R}(f_\mathcal{F})}_{\text{error de generalización}} +
+\underbrace{\mathcal{R}(f_\mathcal{F}) - \mathcal{R}(f_{\text{Bayes}})}_{\text{error de aproximación}} 
+\]
+
+Los dos términos en el lado derecho tienen nombres particulares: el primero se denomina 
+\textbf{error de estimación} y el segundo \textbf{error de aproximación}. En la Figura 
+\ref{fig:error de estimación y aproximación} 
+tenemos una ilustración. El primer término aborda la 
+incertidumbre introducida por el proceso de muestreo aleatorio. Dado un conjunto de datos 
+finitos, necesitamos estimar la mejor función en \(\mathcal{F}\). Por supuesto, en este proceso cometeremos 
+errores. Este error se denomina error de estimación. El segundo término no está influido por cantidades aleatorias.
+Trata sobre el error que cometemos al buscar la mejor función en un espacio de funciones \(\mathcal{F}\) pequeño, 
+en lugar de buscar la mejor función en el espacio \(F_{\text{all}}\) de todas las funciones posibles. 
+La pregunta fundamental en este contexto es qué tan bien las funciones en \(\mathcal{F}\) pueden aproximar a las 
+funciones en \(F_{\text{all}}\) y de allí proviene el nombre error de aproximación.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Images/2.png}
+    \caption{Error de estimación y de aproximación.}
+    \label{fig:error de estimación y aproximación}
+\end{figure}
+
+
+En estadística, el error de estimación también se llama \textbf{varianza}, y el error de aproximación 
+se llama \textbf{sesgo} de un estimador. Originalmente, estos términos se acuñaron para la situación 
+especial de regresión con función de pérdida cuadrática, pero ahora se usan en contextos más generales, 
+como el que se describe aquí. Su significado intuitivo es el mismo: el primer término mide la 
+variación del riesgo de la función \(f_n\) estimada en la muestra, mientras que el segundo mide el 
+sesgo introducido en el modelo al elegir una clase de funciones demasiado pequeña.
+
+En este punto, ya podemos señalar que el espacio \(\mathcal{F}\) es el medio para equilibrar el compromiso 
+entre el error de estimación y el error de aproximación. Podemos hacernos una idea gráfica viendo la Figura
+. Si elegimos un espacio \(\mathcal{F}\) muy grande, el 
+término de aproximación será pequeño (el clasificador de Bayes podría incluso estar contenido en 
+\(\mathcal{F}\) o ser aproximado de manera cercana por algún elemento en \(\mathcal{F}\)). Sin embargo, el error de 
+estimación será bastante grande en este caso: el espacio \(\mathcal{F}\) contendrá funciones complejas que 
+conducirán al \textbf{sobreajuste} (overfitting). El efecto opuesto ocurrirá si la clase de funciones 
+\(\mathcal{F}\) es muy pequeña.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Images/3.png}
+    \caption{Compromiso entre error de estimación y de aproximación. Si el espacio funcional $\mathcal{F}$ que define
+    el algoritmo de aprendizaje es pequeño, es decir es poco complejo, el error de estimación es bajo, pero el de aproximación
+    es alto, y estamos en una situación proclive al subajuste. Si, por otro lado,  $\mathcal{F}$ es complejo, el error de estimación
+    es alto y el de aproximación bajo, y tendemos al sobreajuste. El error ideal es usualmente obtenido con una complejidad moderada.}
+    \label{fig:Compromiso entre error de estimación y de aproximación.}
+\end{figure}
+
+En lo que sigue, trataremos el error de estimación y el error de aproximación por separado. Veremos 
+que tienen comportamientos bastante diferentes y que se necesitan métodos distintos para controlar 
+cada uno.
+
+\section{El clasificador de los $k$ vecinos más cercanos}
+
+Hasta 1977, no se sabía si existía un clasificador universalmente consistente. 
+Esta pregunta fue resuelta positivamente por Stone (1977), quien demostró, mediante una elegante prueba, 
+que un clasificador particular, el denominado clasificador de los \(k\)-vecinos más cercanos 
+(\textit{k-nearest neighbors classifier}, abreviado como $k$-NN), es universalmente consistente. Como el clasificador de los \(k\)-vecinos 
+más cercanos es uno de los clasificadores más simples y todavía se usa ampliamente en la práctica, 
+dedicaremos esta sección a ilustrar las nociones introducidas en la sección anterior, tales como 
+generalización, sobreajuste, subajuste y consistencia, usando el ejemplo del clasificador \(k\)-NN.
+
+Consideremos una muestra de puntos con etiquetas \((X_1, Y_1), \dots, (X_n, Y_n)\) que 
+pertenecen a un espacio métrico. De manera general, el paradigma del aprendizaje consiste en asignar salidas 
+similares a entradas similares. Es decir, creemos que los puntos que están cercanos en el espacio 
+de entrada tienden a tener la misma etiqueta en el espacio de salida. Nótese que si esta afirmación 
+no se cumple, el aprendizaje se vuelve muy difícil o incluso imposible. Para un aprendizaje exitoso, 
+debe existir alguna forma de relacionar las etiquetas de los puntos de entrenamiento con las de los 
+puntos de prueba, y esto siempre implica suposiciones previas sobre las relaciones entre los puntos 
+de entrada. La relación más simple es una distancia entre puntos, pero existen otras formas de medir 
+la similitud, como los \textit{kernels}, que forman la base de algunos de los algoritmos 
+de aprendizaje más populares (Schölkopf y Smola, 2002).
+
+Supongamos entonces que existe una función de distancia en el espacio de entrada, es decir, una función 
+\(d : X \times X \to \mathbb{R}\), que asigna un valor de distancia \(d(X, X')\) a cada par de puntos 
+de entrenamiento \(X, X'\). Dados algunos puntos de entrenamiento, ahora queremos predecir una buena 
+etiqueta para un nuevo punto \(X\) que no se halla en el conjunto de entrenamiento.
+ Una idea simple es buscar el punto de entrenamiento \(X_i\) 
+que tenga la distancia más pequeña a \(X\) y asignar a \(X\) la etiqueta correspondiente \(Y_i\) de 
+ese punto. Para definir esto de manera más formal, denotamos por \(\text{NN}(X)\) al vecino más cercano 
+de \(X\) entre todos los puntos de entrenamiento, es decir:
+
+\[
+\text{NN}(X) = \arg\min \{X' \in \{X_1, \dots, X_n\} \mid d(X, X') \leq d(X, X'') \ \text{para todo} \ X'' \in \{X_1, \dots, X_n\}\}.
+\]
+
+Luego, podemos definir el clasificador \(f_n\) basado en la muestra de \(n\) puntos como:
+
+\[
+f_n(X) = Y_i \quad \text{donde} \quad X_i = \text{NN}(X).
+\]
+
+Este clasificador se denomina clasificador de un vecino más cercano (\textit{1-nearest neighbor}, 1NN). 
+Podemos generalizarlo en el clasificador de los \(k\)-vecinos más cercanos (\textit{kNN}), considerando los \(k\) puntos de 
+entrenamiento más cercanos, con $k>1$ en este caso, y tomando el promedio de todas sus etiquetas. 
+
+
+\begin{dfn}
+    Dados un espacio métrico \(X\) junto a una función de distancia \(d : X \times X \to \mathbb{R}\), 
+    un conjunto de puntos de entrenamiento con sus etiquetas \((X_1, Y_1), \dots, (X_n, Y_n)\) y un entero \(k \geq 1\), 
+    definimos los \textbf{\(k\)-vecinos más cercanos} de un punto \(X\) como el conjunto de los \(k\) puntos 
+    de entrenamiento más cercanos a \(X\), es decir:
+
+    \[
+    \text{kNN}(X) = \{X_{i_1}, \dots, X_{i_k}\} \quad \text{donde} \quad i_1, \dots, i_k = \arg\min_{1 \leq j \leq n} d(X, X_j).
+    \]
+\end{dfn}
+
+Es decir, definimos los 
+\(k\)-vecinos más cercanos de \(X\), \(\text{kNN}(X)\), como el conjunto de los \(k\) puntos de 
+entrenamiento más cercanos a \(X\). Luego, el clasificador \(k\)-NN se define como:
+
+\begin{dfn}
+    Con las mismas condiciones de la definición anterior,
+    definimos el \textbf{clasificador de los \(k\)-vecinos más cercanos} como la función \(f_n : X \to Y\) 
+    que asigna a un punto \(X\) la etiqueta que resulta de una votación mayoritaria entre las etiquetas 
+    de los puntos de entrenamiento en la vecindad de \(k\)-vecinos más cercanos de \(X\):
+
+
+    \[
+f_n(X) = 
+\begin{cases} 
++1 & \text{si } \sum_{X_i \in \text{kNN}(X)} Y_i > 0, \\ 
+-1 & \text{en otro caso}.
+\end{cases}
+\]
+\end{dfn}
+
+
+Es decir, decidimos la etiqueta de \(X\) mediante una votación mayoritaria entre las etiquetas de los 
+puntos de entrenamiento en la vecindad de \(k\)-vecinos más cercanos de \(X\). Para evitar empates, 
+generalmente se elige \(k\) como un número impar.
+
+
+\begin{thm}
+    El clasificador de un vecino más cercano (1NN) no es Bayes-consistente.
+\end{thm}
+
+\begin{proof}
+
+Consideremos 
+el intervalo real \(X = [0, 1]\) y la distribución de probabilidad \(P([0, 1])\),  que asigna etiquetas 
+de manera uniforme a todos los puntos \(X \in [0, 1]\) con ruido, de modo que 
+\(P(Y = 1 \mid X = x) = 0.9\) para todo \(x \in X\). Es decir, la etiqueta correcta (la que 
+asigna el clasificador de Bayes) es \(+1\) para todos los puntos \(x \in X\). Ya hemos mencionado 
+este ejemplo cuando introdujimos el clasificador de Bayes. En este caso, el clasificador de Bayes 
+es simplemente la función que devuelve \(1\) para todos los puntos en \(X\), y su riesgo Bayesiano 
+con respecto a la pérdida 0-1 será
+
+\[
+\begin{aligned}
+    \mathcal{R}(f_{\text{Bayes}}) & = E(\ell(X,Y,f_{\text{Bayes}}(X))) \\
+    & = E(1\cdot P(f_{\text{Bayes}}(X)\neq Y) + 0 \cdot P(f_{\text{Bayes}}(X) = Y))\\
+    & = E(P(f_{\text{Bayes}}(X)\neq Y))\\
+    & = \int_{0}^{1} P(Y = 1 \mid X = x) \cdot \mathbb{I}_{\{f_{\text{Bayes}}(x) \neq 1\}} \, dx \\
+    & \qquad \qquad + \int_{0}^{1} P(Y=0 \mid X=x) \cdot \mathbb{I}_{\{f_{\text{Bayes}}(x) = 1\}} \\
+    & = \int_{0}^{1} (0.9 \cdot 0 + 0.1 \cdot 1) \, dx = 0.1.
+\end{aligned}
+\]
+
+Ahora investiguemos el comportamiento del clasificador 1NN 
+en este caso. Al tomar puntos de entrenamiento \((X_i, Y_i)_{i=1,\dots,n}\) de acuerdo con la 
+distribución subyacente, estos estarán aproximadamente uniformemente distribuidos en el intervalo 
+\([0, 1]\). En promedio, cada décimo punto tendrá una etiqueta de entrenamiento \(Y = -1\), y todos 
+los demás tendrán etiqueta \(Y = +1\). Si ahora consideramos el comportamiento del clasificador \(f_n\), 
+podemos escribir la probabilidad de que el clasificador 1NN cometa un error al etiqueta un punto como:
+
+\[
+\begin{aligned}
+P(Y \neq f_n(X)) & = P(Y = 1 \mid f_n(X) = 0) + P(Y = 0 \mid f_n(X) = 1) \\
+                 & = 0.1 \cdot 0.9 + 0.9 \cdot 0.1 \\
+                 & = 2 \cdot 0.1 \cdot 0.9 = 0.18.
+\end{aligned}
+\]
+
+Podemos ver que el riesgo \(R(f_n)\) del clasificador \(f_n\) es también $0,18$,
+independientemente del tamaño de la muestra $n$. En efecto:
+
+\[
+\begin{aligned}
+    \mathcal{R}(f_n) & = E(\ell(X,Y,f_n(X))) \\
+    & = \int_{0}^{1} 1\cdot P(Y \neq f_n(X=x)) + 0 \cdot P(Y = f_n(X=x)) \, dx \\
+    & = \int_{0}^{1} P(Y \neq f_n(X=x)) \, dx \\
+    & = \int_{0}^{1} 0.18 \, dx = 0.18.
+\end{aligned}
+\]
+
+Por otro lado el riesgo Bayesiano es $0.1$. Por lo tanto, el clasificador $1$NN no es consistente, ya que 
+\(R(f_n) \not\to R(f_{\text{Bayes}})\).
+\end{proof}
+
+Consideremos por un momento el clasificador de los 100 vecinos 
+más cercanos, $100$NN. En este caso, el clasificador cometería muchos menos errores que su primo de un vecino: 
+es muy poco probable tener una vecindad de 100 puntos donde la mayoría de los votos sean \(Y = -1\). 
+Así, el clasificador de 100 vecinos más cercanos, aunque sigue sin ser consistente, comete un error 
+menor que el clasificador 1NN.
+
+El truco para lograr consistencia está relacionado con esta observación. Esencialmente, se debe permitir 
+que el tamaño \(k\) de la vecindad bajo consideración crezca con el tamaño de la muestra \(n\). Formalmente, 
+se puede demostrar el siguiente teorema:
+
+
+\begin{thm}[Stone, 1977]
+Sea \(f_n\) el clasificador de los \(k\)-vecinos más cercanos construido 
+a partir de una muestra de \(n\) puntos. Si \(n \to \infty\) y \(k \to \infty\) de modo que \(k/n \to 0\), 
+entonces \(R(f_n) \to R(f_{\text{Bayes}})\) para todas las distribuciones de probabilidad \(P\). 
+Es decir, la regla de clasificación \(k\)-NN es universalmente consistente con Bayes.
+\end{thm}
+
+Este teorema esencialmente nos dice que si elegimos el parámetro de vecindad \(k\) de forma que crezca 
+lentamente con \(n\), por ejemplo \(k \approx \log(n)\), entonces la regla de clasificación \(k\)-NN es 
+universalmente Bayes-consistente.
+
+En las secciones anteriores mencionamos que la clase de funciones \(\mathcal{F}\) de la cual se elige el clasificador 
+es un componente importante para la teoría del aprendizaje estadístico. En el caso del clasificador \(k\)-NN, 
+esto no es tan obvio como lo será para los clasificadores que estudiaremos en secciones posteriores. 
+Intuitivamente, se puede decir que, para un parámetro fijo \(k\), la clase de funciones \(\mathcal{F}_k\) es un espacio 
+de funciones constantes por partes. Cuanto mayor sea \(k\), más grandes serán las vecindades de los \(k\)-vecinos 
+y, por lo tanto, mayores serán los segmentos donde las funciones deben ser constantes. Esto significa que, 
+para valores muy grandes de \(k\), la clase de funciones \(\mathcal{F}_k\) es relativamente pequeña (las funciones no 
+pueden oscilar mucho). En el caso extremo de \(k = n\), la vecindad de los \(k\)-vecinos simplemente incluye 
+todos los puntos de entrenamiento, por lo que el clasificador \(k\)-NN no puede cambiar su signo en absoluto; 
+debe ser constante en todo el espacio de entrada \(X\). En este caso, la clase de funciones \(\mathcal{F}_k\) contiene solo 
+dos elementos: la función que es constantemente \(+1\) y la función que es constantemente \(-1\).
+
+Por otro lado, si \(k\) es pequeño, entonces \(\mathcal{F}_k\) se vuelve bastante grande (las funciones pueden cambiar sus 
+etiquetas con mucha frecuencia y de manera abrupta). En los términos explicados en las secciones anteriores, 
+podemos decir que si elegimos \(k\) demasiado pequeño, entonces la clase de funciones sobreajusta; 
+por ejemplo, esto ocurre en el caso extremo del clasificador 1NN. Por el contrario, si \(k\) es demasiado grande, 
+la clase de funciones subajusta, ya que simplemente no contiene funciones capaces de modelar los 
+datos de entrenamiento.
+
+En esta sección, solo hemos tocado los aspectos básicos del clasificador \(k\)-NN y no hemos desarrollado 
+técnicas de prueba. Para un tratamiento más detallado de los aspectos teóricos de los clasificadores \(k\)-NN, 
+recomendamos la monografía de Devroye et al. (1996).
 
 
 \bigbreak

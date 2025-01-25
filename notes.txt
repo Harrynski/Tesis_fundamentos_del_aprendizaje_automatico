@@ -1,0 +1,4 @@
+Traducciones:
+    - Error de estimacion y aproximación
+    - Aprendizaje estadístico / Automatico
+    
