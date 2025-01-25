@@ -290,6 +290,38 @@ los distintos de convergencia que trataremos al considerar el concepto de consis
     \end{enumerate}
 \end{dfn}
 
+Incurrimos en un abuso del lenguaje al decir que "el clasificador $f_n$ es consistente" para referirnos más precisamente a que
+"el alogritmo de aprendizaje que produce a $f_n$ en base a las primeras $n$ muestras es consistente". Analicemos un poco más el
+significado de las definiciones anteriores. La primer definición nos habla del caso donde, a medida que $n$ crece, el riesgo
+del clasificador $f_n$ converge al riesgo del mejor clasificador $f_{\mathcal{F}}$ en el espacio funcional $\mathcal{F}$, con alta probabilidad.
+En la práctica, esto significa que alguna instancia de $f_n$ puede no tener un riesgo cercano al riesgo de $f_{\mathcal{F}}$, pero que esto es poco
+probable, es decir que de repetir muchas veces el experimento, la mayoría de las veces el riesgo de $f_n$ será cercano al riesgo de $f_{\mathcal{F}}$
+a medida que $n$ crece. 
+
+La segunda definición es similar, pero en vez de comparar el riesgo de $f_n$ con el riesgo del mejor clasificador en $\mathcal{F}$,
+lo hace con el riesgo del clasificador bayesiano $f_{\text{Bayes}}$. La diferencia es clara, la primera definción se encarga de 
+comparar el riesgo de $f_n$ con el mejor clasificador posible dadas las condiciones del aprendizaje, que son las que definen al espacio funcional 
+$\mathcal{F}$ (por ejemplo, el mejor clasificador lineal si estamos hablando de regresión lineal), mientras que la segunda lo hace con el
+mejor clasificador posible, independientemente de las condiciones del aprendizaje (la función clasificadora ideal podría no ser lineal
+para un problema dado).\\
+
+La tercera y cuarta definición son más fuertes, pues piden que el algoritmo sea consistente para cualquier distribución de probabilidad $P$.
+Dado que en la práctica no sabemos cuál es la distribución que genera los datos, estas son las definciones que nos interesan a la hora de 
+enunciar resultados.\\
+
+Observamos que la consistencia como está aquí enunciada suele llamarse \textit{consistencia débil}. Existe una noción más fuerte, la de
+\textit{consistencia fuerte}, que pide que el riesgo empírico de $f_n$ converja al riesgo del mejor clasificador en $\mathcal{F}$, no solo
+en probabilidad, si no con probabilidad $1$, lo que también llamamos \textit{convergencia casi segura}. En la práctica, la consistencia fuerte es una propiedad muy fuerte y no es comúnmente
+alcanzada por los algoritmos de aprendizaje.\\
+
+Notemos que en estas definiciones no se hace mención del riesgo empírico $\mathcal{R}_{\text{Emp}}(f_n)$, si no del riesgo real $\mathcal{R}(f_n)$, lo que
+se debe a que la única medida de calidad de un clasificador es su riesgo real y es sobre el cual deseamos obtener resultados. El problema, claro,
+es que no podemos medirlo, como si podemos hacer con el riesgo empírico. Es natural entonces pensar que, además de la convergencia que hemos anunciado
+de tipo $\mathcal{R}(f_n) \rightarrow \mathcal{R}(f_{\text{Bayes}})$, intentemos buscar las condiciones bajo las cuales el riesgo empírico
+converge al riesgo real, es decir donde  $\mathcal{R}_{\text{Emp}}(f_n) \rightarrow \mathcal{R}(f_{\text{Bayes}})$. Esta es una de las metas
+de la teoría del aprendizaje estadístico, y es lo que nos permitirá hacer afirmaciones acerca de la calidad de los clasificadores en la práctica.\\
+
+\subsection{Los dilemas sesgo-varianza y estimación-aproximación}
 
 \subsection{Overfitting y Underfitting}
 

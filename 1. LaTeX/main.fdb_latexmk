@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1736356045.55064 "/Users/niconash/Desktop/Tesis/1. LaTeX/main.tex" "main.pdf" "main" 1736356046.05722 0
-  "/Users/niconash/Desktop/Tesis/1. LaTeX/main.tex" 1736356044.78816 23765 0e7824c5be5b671d93daf0550e2e2a2d ""
+["pdflatex"] 1737765402.55376 "/Users/niconash/Desktop/Tesis/1. LaTeX/main.tex" "main.pdf" "main" 1737765403.06988 0
+  "/Users/niconash/Desktop/Tesis/1. LaTeX/main.tex" 1737765402.32233 27124 d8f69fbc3d4c5cbd7b2c31462287a76a ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -63,8 +63,8 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1721489192.04358 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1721489138 8221428 92b56bc5bc9ffc255f75256b7d10a695 ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "main.aux" 1736356045.99247 1180 b1ddffe026e28cb5f8846892865318fd "pdflatex"
-  "main.tex" 1736356044.78816 23765 0e7824c5be5b671d93daf0550e2e2a2d ""
+  "main.aux" 1737765403.00023 1329 c82085463c24ce5dba755ec9bc910a43 "pdflatex"
+  "main.tex" 1737765402.32233 27124 d8f69fbc3d4c5cbd7b2c31462287a76a ""
   (generated)
   "main.aux"
   "main.log"
