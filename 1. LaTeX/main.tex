@@ -187,7 +187,7 @@ el aprendizaje suele implicar un desafío de optimización en dónde deseamos ha
 Mientras que la función de pérdida mide el error del clasificador en un punto individual $x\in X$, llamamos \textit{riesgo}, $\mathcal{R}$, 
 del clasificador a la pérdida esperada sobre todos los datos generados por la distribución de probabilidad $P$. Es decir
 $$
-\mathcal{R}(f) := E\left( \ell(X,Y,f(X)) \right)
+\mathcal{R}(f) := \mathbb{E}\left( \ell(X,Y,f(X)) \right)
 $$
 Desde luego que otra función $g$ es un mejor clasificador que $f$ para un problema dado si su riesgo es más bajo, es decir si $\mathcal{R}(g)
 < \mathcal{R}(f)$, por lo que el mejor clasificador de todos es aquel con el riesgo más bajo.\\
@@ -551,9 +551,9 @@ con respecto a la pérdida 0-1 será
 
 \[
 \begin{aligned}
-    \mathcal{R}(f_{\text{Bayes}}) & = E(\ell(X,Y,f_{\text{Bayes}}(X))) \\
-    & = E(1\cdot P(f_{\text{Bayes}}(X)\neq Y) + 0 \cdot P(f_{\text{Bayes}}(X) = Y))\\
-    & = E(P(f_{\text{Bayes}}(X)\neq Y))\\
+    \mathcal{R}(f_{\text{Bayes}}) & = \mathbb{E}(\ell(X,Y,f_{\text{Bayes}}(X))) \\
+    & = \mathbb{E}(1\cdot P(f_{\text{Bayes}}(X)\neq Y) + 0 \cdot P(f_{\text{Bayes}}(X) = Y))\\
+    & = \mathbb{E}(P(f_{\text{Bayes}}(X)\neq Y))\\
     & = \int_{0}^{1} P(Y = 1 \mid X = x) \cdot \mathbb{I}_{\{f_{\text{Bayes}}(x) \neq 1\}} \, dx \\
     & \qquad \qquad + \int_{0}^{1} P(Y=0 \mid X=x) \cdot \mathbb{I}_{\{f_{\text{Bayes}}(x) = 1\}} \\
     & = \int_{0}^{1} (0.9 \cdot 0 + 0.1 \cdot 1) \, dx = 0.1.
@@ -580,7 +580,7 @@ independientemente del tamaño de la muestra $n$. En efecto:
 
 \[
 \begin{aligned}
-    \mathcal{R}(f_n) & = E(\ell(X,Y,f_n(X))) \\
+    \mathcal{R}(f_n) & = \mathbb{E}(\ell(X,Y,f_n(X))) \\
     & = \int_{0}^{1} 1\cdot P(Y \neq f_n(X=x)) + 0 \cdot P(Y = f_n(X=x)) \, dx \\
     & = \int_{0}^{1} P(Y \neq f_n(X=x)) \, dx \\
     & = \int_{0}^{1} 0.18 \, dx = 0.18.
@@ -632,9 +632,314 @@ por ejemplo, esto ocurre en el caso extremo del clasificador 1NN. Por el contrar
 la clase de funciones subajusta, ya que simplemente no contiene funciones capaces de modelar los 
 datos de entrenamiento.
 
-En esta sección, solo hemos tocado los aspectos básicos del clasificador \(k\)-NN y no hemos desarrollado 
-técnicas de prueba. Para un tratamiento más detallado de los aspectos teóricos de los clasificadores \(k\)-NN, 
-recomendamos la monografía de Devroye et al. (1996).
+\section{Minimización del riesgo empírico}
+
+En la sección anterior encontramos nuestro primer clasificador simple: el clasificador \(k\)-NN. En esta sección, 
+queremos abordar una forma más poderosa de clasificar datos, el llamado principio de \textbf{minimización 
+del riesgo empírico}. Recordemos la suposición de que los datos son generados de manera \textit{iid} 
+(independientes e idénticamente distribuidos) a partir de una distribución subyacente desconocida \(P(X, Y)\). 
+Como ya hemos visto, el problema de aprendizaje consiste en minimizar el riesgo (o pérdida esperada sobre 
+los datos de prueba):
+
+\[
+R(f) = \mathbb{E}(\ell(X, Y, f(X))),
+\]
+
+donde \(f\) es una función que mapea el espacio de entrada \(X\) al espacio de etiquetas \(Y\), y \(\ell\) 
+es la función de pérdida. 
+
+La dificultad de esta tarea radica en el hecho de que estamos intentando minimizar una cantidad que no 
+podemos evaluar directamente: dado que no conocemos la distribución de probabilidad subyacente \(P\), 
+no podemos calcular el riesgo \(R(f)\). Sin embargo, lo que sí conocemos son los datos de entrenamiento, 
+muestreados a partir de \(P\). Por lo tanto, podemos intentar inferir una función \(f\) a partir de la muestra 
+de entrenamiento cuyo riesgo esté cercano al mejor riesgo posible. Para ello, necesitamos lo que se llama 
+un \textit{principio de inducción}.
+
+Quizás la forma más directa de proceder sea aproximar el riesgo verdadero mediante el \textbf{riesgo empírico} 
+calculado sobre los datos de entrenamiento. En lugar de buscar una función que minimice el riesgo verdadero 
+\(R(f)\), intentamos encontrar aquella que minimice el riesgo empírico:
+
+\[
+R_{\text{emp}}(f) = \frac{1}{n} \sum_{i=1}^{n} \ell(X_i, Y_i, f(X_i)).
+\]
+
+Es decir, dados algunos datos de entrenamiento \((X_1, Y_1), \dots, (X_n, Y_n)\), un espacio de funciones 
+\(F\) con el cual trabajar, y una función de pérdida \(\ell\), definimos el clasificador \(f_n\) como la función:
+
+\[
+f_n := \arg\min_{f \in F} R_{\text{emp}}(f).
+\]
+
+Este enfoque se denomina \textbf{principio de inducción de minimización del riesgo empírico}, abreviado como 
+ERM (\textit{Empirical Risk Minimization}). La motivación para este principio está dada por la ley de los 
+grandes números, como explicaremos a continuación.
+
+\subsection{La ley de los grandes números}
+
+Recordemos que, en su forma más simple, la ley de los grandes números
+establece que, bajo condiciones suaves, la media de variables aleatorias \(\xi_i\) que han sido extraídas 
+de manera \textit{iid} (independiente e idénticamente distribuida) a partir de una distribución de probabilidad 
+\(P\), converge a la media de la distribución subyacente cuando el tamaño de la muestra tiende a infinito:
+
+\[
+\frac{1}{n} \sum_{i=1}^n \xi_i \to \mathbb{E}(\xi) \quad \text{cuando } n \to \infty.
+\]
+
+Aquí, la notación supone que la secuencia \(\xi_1, \xi_2, \dots\) ha sido muestreada de manera \textit{iid} 
+a partir de \(P\) y que \(\xi\) también está distribuida según \(P\). Este teorema puede aplicarse al caso del 
+riesgo empírico y el riesgo verdadero. Para ver esto, notemos que el riesgo empírico se define como la media de 
+la pérdida \(\ell(X_i, Y_i, f(X_i))\) en puntos de muestra individuales, y el riesgo verdadero es la media de 
+esta pérdida sobre toda la distribución. Es decir, a partir de la ley de los grandes números, podemos concluir 
+que, para una función fija \(f\), el riesgo empírico converge al riesgo verdadero a medida que el tamaño de la 
+muestra tiende a infinito:
+
+\[
+R_{\text{emp}}(f) = \frac{1}{n} \sum_{i=1}^n \ell(X_i, Y_i, f(X_i)) \to \mathbb{E}(\ell(X, Y, f(X))) \quad 
+\text{cuando } n \to \infty.
+\]
+
+Aquí, la función de pérdida \(\ell(X, Y, f(X))\) desempeña el papel de la variable aleatoria \(\xi\). Para una 
+muestra finita dada, esto significa que podemos aproximar el riesgo verdadero (el que nos interesa) de manera 
+bastante precisa mediante el riesgo empírico (el que podemos calcular sobre la muestra).
+
+Una desigualdad famosa, atribuida a Chernoff (1952) y luego generalizada por Hoeffding (1963), caracteriza qué 
+tan bien la media empírica aproxima el valor esperado. Específicamente, si las variables aleatorias \(\xi_i\) 
+toman valores solo en el intervalo \([0, 1]\), entonces:
+
+\[
+P\left( \left| \frac{1}{n} \sum_{i=1}^n \xi_i - \mathbb{E}(\xi) \right| \geq \epsilon \right) \leq 
+2 \exp(-2n\epsilon^2). \tag{I}
+\]
+
+Este teorema establece que la probabilidad de que la media de la muestra se desvíe más de \(\epsilon\) del 
+valor esperado de la distribución está acotada por una cantidad muy pequeña, específicamente \(2 \exp(-2n\epsilon^2)\). 
+Nótese que, cuanto mayor sea \(n\), más pequeña será esta cantidad; es decir, la probabilidad de desviaciones 
+grandes disminuye rápidamente con \(n\). Una vez más, podemos aplicar este teorema al contexto del riesgo empírico 
+y verdadero. Esto conduce a una cota que establece qué tan probable es que el riesgo empírico esté cerca del 
+riesgo verdadero para una función dada \(f\):
+
+\[
+P(|R_{\text{emp}}(f) - R(f)| \geq \epsilon) \leq 2 \exp(-2n\epsilon^2). \tag{II}
+\]
+
+Para cualquier función fija (y un \(n\) suficientemente grande), es muy probable que el error de entrenamiento 
+proporcione una buena estimación del error de prueba.
+
+Existen algunos hechos importantes relacionados con la cota de Chernoff (\(II\)). Primero, una propiedad crucial 
+de la cota de Chernoff es que es de naturaleza probabilística. Establece que la probabilidad de una gran desviación 
+entre el error de prueba y el error de entrenamiento de \(f\) es pequeña; cuanto mayor sea el tamaño de la muestra 
+\(n\), menor será esta probabilidad. Por lo tanto, no descarta la presencia de casos en los que la desviación sea 
+grande; simplemente dice que, para una función fija \(f\), esto es muy poco probable. La razón de esto radica en la 
+generación aleatoria de los puntos de entrenamiento. Podría ocurrir que, en algunos casos desafortunados, nuestros 
+datos de entrenamiento sean tan engañosos que sea imposible construir un buen clasificador a partir de ellos. Sin 
+embargo, a medida que el tamaño de la muestra aumenta, tales casos desafortunados se vuelven muy raros. En este 
+sentido, cualquier garantía de consistencia solo puede ser de la forma: ``el riesgo empírico está cerca del riesgo 
+verdadero, con alta probabilidad".
+
+A primera vista, parece que la cota de Chernoff (\(II\)) es suficiente para probar la consistencia de la minimización 
+del riesgo empírico. Sin embargo, hay una advertencia importante: la cota de Chernoff solo se cumple para una función 
+fija \(f\) que no depende de los datos de entrenamiento. Sin embargo, el clasificador \(f_n\), por supuesto, depende 
+de los datos de entrenamiento (usamos los datos de entrenamiento para seleccionar \(f_n\)). Aunque esto pueda parecer 
+una diferencia matemática sutil, aquí es donde la minimización del riesgo empírico puede fallar por completo. A 
+continuación, discutiremos este problema en detalle y veremos cómo adaptar la ley fuerte de los grandes números para 
+poder tratar funciones que dependen de los datos.
+
+\subsection{Inconsistencia en la minimización del riesgo empírico} \label{Inconsistencia en la minimización del riesgo empírico}
+
+Supongamos que nuestro espacio de datos subyacente es \(X = [0,1]\). Elegimos la distribución uniforme sobre 
+\(X\) como la distribución de probabilidad y definimos la etiqueta \(Y\) para un punto de entrada \(X\) de 
+manera determinista como sigue:
+
+\[
+Y = 
+\begin{cases} 
+-1 & \text{si } X < 0.5, \\ 
+1 & \text{si } X \geq 0.5.
+\end{cases}
+\]
+
+Ahora supongamos que se nos da un conjunto de puntos de entrenamiento \((X_i, Y_i)_{i=1,\dots,n}\) y 
+consideremos el siguiente clasificador:
+
+\[
+f_n(X) = 
+\begin{cases} 
+Y_i & \text{si } X = X_i \text{ para algún } i = 1, \dots, n, \\ 
+1 & \text{en otro caso.}
+\end{cases}
+\]
+
+Este clasificador \(f_n\) clasifica perfectamente todos los puntos de entrenamiento. Es decir, tiene un 
+riesgo empírico \(R_{\text{emp}}(f_n) = 0\). En consecuencia, dado que el riesgo empírico no puede ser 
+negativo, \(f_n\) es un minimizador del riesgo empírico. Sin embargo, \(f_n\) claramente no ha aprendido 
+nada; el clasificador simplemente memoriza las etiquetas de entrenamiento y, en otros casos, predice 
+simplemente la etiqueta \(1\).
+
+Formalmente, esto significa que el clasificador \(f_n\) no será consistente. Para ver esto, supongamos que 
+se nos da un punto de prueba \((X, Y)\) extraído de la distribución subyacente. Usualmente, este punto de 
+prueba no será idéntico a ninguno de los puntos de entrenamiento, y en este caso el clasificador simplemente 
+predice la etiqueta \(1\). Si \(X\) resulta ser mayor que \(0.5\), esta es la etiqueta correcta, pero si 
+\(X < 0.5\), es la etiqueta incorrecta. Por lo tanto, el clasificador \(f_n\) cometerá errores en la mitad 
+de todos los puntos de prueba, lo que implica que su error de prueba es \(R(f_n) = 1/2\). Este es el mismo 
+error que se obtendría con una predicción aleatoria. De hecho, este es un buen ejemplo de 
+\textbf{sobreajuste}: el clasificador \(f_n\) se ajusta perfectamente a los datos de entrenamiento, pero no 
+aprende nada sobre los nuevos datos de prueba.
+
+Es fácil ver que el clasificador \(f_n\) es inconsistente. Nótese que, como las etiquetas son una función 
+determinista de los puntos de entrada, el clasificador de Bayes tiene un riesgo igual a \(0\). Así, tenemos:
+
+\[
+\frac{1}{2} = R(f_n) \not\to R(f_{\text{Bayes}}) = 0.
+\]
+
+Hemos construido un ejemplo donde la minimización del riesgo empírico falla de manera estrepitosa. ¿Existe 
+alguna manera de rescatar el principio de ERM? Afortunadamente, la respuesta es sí. El objeto principal al 
+que debemos prestar atención es la clase de funciones \(\mathcal{F}\) de la cual extraemos nuestro clasificador. Si 
+permitimos que nuestra clase de funciones contenga funciones que simplemente memorizan los datos de 
+entrenamiento, entonces el principio de ERM no puede funcionar. En particular, si elegimos el minimizador 
+del riesgo empírico del espacio \(F_{\text{all}}\) de todas las funciones entre \(X\) e \(Y\), entonces los 
+valores de \(f_n\) en los puntos de entrenamiento \(X_1, \dots, X_n\) no necesariamente contienen ninguna 
+información sobre los valores en otros puntos. Por lo tanto, a menos que impongamos restricciones en el 
+espacio de funciones del cual elegimos nuestra estimación \(f\), no podemos esperar aprender nada. 
+
+
+\subsection*{4.3 Convergencia uniforme}
+
+Resulta que las condiciones necesarias para que la minimización del riesgo empírico sea consistente 
+implican restringir el conjunto de funciones admisibles. La idea principal de la teoría de Vapnik-Chervonenkis 
+(VC) es que la consistencia de la minimización del riesgo empírico está determinada por el comportamiento 
+en el peor caso sobre todas las funciones \(f \in \mathcal{F}\) que la máquina de aprendizaje podría elegir. Veremos que, 
+en lugar de la ley estándar de los grandes números introducida anteriormente, este caso extremo corresponde 
+a una versión de la ley de los grandes números que es uniforme sobre todas las funciones en \(\mathcal{F}\).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Images/4.png}
+    
+    \caption{Representación simplificada de la convergencia del riesgo empírico al riesgo verdadero. El eje \(x\) 
+    representa una dimensión de la clase de funciones \(F\), mientras que el eje \(y\) denota el riesgo. Para cada 
+    función fija \(f\), la ley de los grandes números nos dice que, a medida que el tamaño de la muestra tiende a 
+    infinito, el riesgo empírico \(R_{\text{emp}}(f)\) converge al riesgo verdadero \(R(f)\) (indicado por la flecha). 
+    Sin embargo, esto no implica que, en el límite de tamaños de muestra infinitos, el minimizador del riesgo 
+    empírico, \(f_n\), lleve a un valor del riesgo tan bueno como el del mejor \(f_F\) en la clase de funciones. 
+    Para que esto sea cierto, requerimos la convergencia uniforme de \(R_{\text{emp}}(f)\) a \(R(f)\) sobre todas 
+    las funciones en \(F\). (Adaptado de Schölkopf y Smola, 2002).}
+    \label{riesgo vs riesgo empirico}
+    \end{figure}
+    
+La Figura \ref{riesgo vs riesgo empirico} presenta una representación simplificada de la ley uniforme de los grandes números y la cuestión 
+de la consistencia. Tanto el riesgo empírico como el riesgo verdadero se grafican como funciones de \(f\). 
+Para simplificar, hemos resumido todas las funciones posibles \(f\) en un solo eje del gráfico. La minimización 
+del riesgo empírico consiste en elegir la función \(f\) que minimiza \(R_{\text{emp}}\). Es consistente si el 
+mínimo de \(R_{\text{emp}}\) converge al de \(R\) a medida que el tamaño de la muestra aumenta. Una forma de 
+garantizar la convergencia del mínimo para todas las funciones en \(\mathcal{F}\) es la \textbf{convergencia uniforme} sobre 
+\(\mathcal{F}\): requerimos que para todas las funciones \(f \in \mathcal{F}\), la diferencia entre \(R(f)\) y \(R_{\text{emp}}(f)\) 
+se vuelva pequeña simultáneamente. Es decir, requerimos que exista un valor grande de \(n\) tal que, para un 
+tamaño de muestra al menos \(n\):
+
+\[
+\sup_{f \in \mathcal{F}} |R(f) - R_{\text{emp}}(f)| \leq \epsilon.
+\]
+
+Luego
+
+\[
+|R(f) - R_{\text{emp}}(f)| \leq \sup_{f \in \mathcal{F}} |R(f) - R_{\text{emp}}(f)|.
+\]
+
+En particular, esto también se cumple para una función \(f_n\) que se haya elegido en base a una muestra finita 
+de puntos de entrenamiento
+
+\[
+P(|R(f_n) - R_{\text{emp}}(f_n)| \geq \epsilon) \leq P\left(\sup_{f \in \mathcal{F}} |R(f) - R_{\text{emp}}(f)| \geq \epsilon\right). \tag{III}
+\]
+
+La cantidad en el lado derecho de la ecuación (III) es ahora el objeto de la ley uniforme de los grandes números. 
+Decimos que la ley de los grandes números se cumple de manera uniforme sobre una clase de funciones \(\mathcal{F}\) si, 
+para todo \(\epsilon > 0\),
+
+\[
+P\left(\sup_{f \in \mathcal{F}} |R(f) - R_{\text{emp}}(f)| \geq \epsilon \right) \to 0 \quad \text{cuando } n \to \infty.
+\]
+
+Ahora podemos usar la ecuación (III) para mostrar que, si la ley uniforme de los grandes números se cumple para 
+alguna clase de funciones \(\mathcal{F}\), entonces la minimización del riesgo empírico es consistente con respecto a \(\mathcal{F}\). 
+Para verlo, consideremos el siguiente desarrollo:
+
+\[
+|R(f_n) - R(f_\mathcal{F})| = R(f_n) - R(f_\mathcal{F})
+\]
+
+Puesto que  \(R(f_n) - R(f_\mathcal{F}) \geq 0\), por definición de \(f_\mathcal{F}\). Sumando y restando cantidades idénticas,
+esta expresión se puede reescribir como:
+\[
+R(f_n) - R_{\text{emp}}(f_n) + R_{\text{emp}}(f_n) - R_{\text{emp}}(f_\mathcal{F}) + R_{\text{emp}}(f_F) - R(f_\mathcal{F}).
+\]
+\[
+    \leq R(f_n) - R_{\text{emp}}(f_n) + R_{\text{emp}}(f_\mathcal{F}) - R(f_\mathcal{F}).
+\] 
+\[
+    \leq 2 \sup_{f \in F} |R(f) - R_{\text{emp}}(f)|.
+\]
+Dado que \(R_{\text{emp}}(f_n) - R_{\text{emp}}(f_\mathcal{F}) \leq 0\) por definición de \(f_n\), y luego acotando
+al tomar el supremo de todas las funciones en el espacio $\mathcal{F}$.\\
+
+De esto podemos concluir:
+
+\[
+P\left(|R(f_n) - R(f_\mathcal{F})| \geq \epsilon \right) \leq P\left(\sup_{f \in \mathcal{F}} |R(f) - R_{\text{emp}}(f)| \geq \epsilon/2\right).
+\]
+
+Bajo la ley uniforme de los grandes números, el lado derecho tiende a \(0\), lo que lleva a la consistencia de 
+la minimización del riesgo empírico con respecto a la clase de funciones subyacente \(\mathcal{F}\). En otras palabras, 
+la convergencia uniforme sobre \(\mathcal{F}\) es una condición suficiente para la consistencia de la minimización del 
+riesgo empírico sobre \(\mathcal{F}\).
+
+
+Parte de la elegancia de la teoría VC radica en que el recíproco también es cierto. Es decir, 
+la convergencia uniforme no solo es una condición suficiente, sino también una condición necesaria para la 
+consistencia de la minimización del riesgo empírico con respecto a \(\mathcal{F}\). Esto se formaliza en el siguiente 
+teorema:
+
+\begin{thm}[Vapnik y Chervonenkis, 1971]
+La convergencia uniforme
+    
+    \[
+        P\left(\sup_{f \in F} |R(f) - R_{\text{emp}}(f)| > \epsilon \right) \to 0 \quad \text{cuando } n \to \infty, 
+        \]
+        
+        para todo \(\epsilon > 0\), es una condición necesaria y suficiente para la consistencia de la minimización del 
+        riesgo empírico con respecto a \(\mathcal{F}\).
+\end{thm}
+        
+En la sección \ref{Inconsistencia en la minimización del riesgo empírico} dimos un ejemplo donde consideramos el conjunto de todas las funciones posibles y mostramos 
+que el aprendizaje era imposible. Ahora, la dependencia del aprendizaje en el conjunto de funciones subyacente 
+ha regresado bajo una forma diferente: la condición de convergencia uniforme depende críticamente del conjunto 
+de funciones para el cual debe cumplirse. 
+
+Intuitivamente, parece claro que cuanto mayor sea el espacio de funciones \(\mathcal{F}\), mayor será:
+
+\[
+\sup_{f \in F} |R(f) - R_{\text{emp}}(f)|.
+\]
+
+Por lo tanto, cuanto mayor sea \(\mathcal{F}\), mayor será 
+
+\[
+P\left(\sup_{f \in F} |R(f) - R_{\text{emp}}(f)| > \epsilon \right).
+\]
+
+En consecuencia, cuanto mayor sea \(\mathcal{F}\), más difícil será satisfacer la ley uniforme de los grandes números. 
+Esto implica que para espacios de funciones más grandes, la consistencia es más difícil de lograr en comparación 
+con espacios de funciones más pequeños.
+
+
+Esta caracterización abstracta de la consistencia como una propiedad de convergencia uniforme es teóricamente 
+fascinante, pero no siempre es útil en la práctica. La razón es que parece complicado determinar si la ley uniforme 
+de los grandes números se cumple para una clase de funciones \(\mathcal{F}\) particular. Por esta razón, se han desarrollado 
+herramientas como la dimensión VC para analizar y limitar la capacidad de las clases de funciones, lo cual discutiremos 
+en las siguientes secciones.
+
 
 
 \bigbreak
@@ -644,6 +949,8 @@ recomendamos la monografía de Devroye et al. (1996).
 [1] \textit{Statistical Learning Theory: Models, Concepts and Results} - von Luxburg, Schölkopf (2008)
 
 [2] \textit{The Nature of Statistical Learning Theory, second edition} - Vladimir Vapnik (2000)
+
+[3] \textit{A Probabilistic Theory of Pattern Recognition} - Luc Devroye, László Györfi, Gábor Lugosi (1996)
 
 
 
