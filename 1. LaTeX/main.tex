@@ -10,6 +10,7 @@
 % Define the unnumbered theorem
 \newtheorem{thm}{Teorema}[section]
 \newtheorem{dfn}{Definición}[section]
+\newtheorem{obs}{Observación}[section]
 %\newtheorem*{def}{Definicion}
 
 \begin{document}
@@ -667,7 +668,7 @@ Es decir, dados algunos datos de entrenamiento \((X_1, Y_1), \dots, (X_n, Y_n)\)
 \(F\) con el cual trabajar, y una función de pérdida \(\ell\), definimos el clasificador \(f_n\) como la función:
 
 \[
-f_n := \arg\min_{f \in F} \mathcal{R}_{\text{emp}}(f).
+f_n := \arg\min_{f \in \mathcal{F}} \mathcal{R}_{\text{emp}}(f).
 \]
 
 Este enfoque se denomina \textbf{principio de inducción de minimización del riesgo empírico}, abreviado como 
@@ -706,10 +707,10 @@ Una desigualdad famosa, atribuida a Chernoff (1952) y luego generalizada por Hoe
 tan bien la media empírica aproxima el valor esperado. Específicamente, si las variables aleatorias \(\xi_i\) 
 toman valores solo en el intervalo \([0, 1]\), entonces:
 
-\[
+\begin{equation}
 P\left( \left| \frac{1}{n} \sum_{i=1}^n \xi_i - \mathbb{E}(\xi) \right| \geq \epsilon \right) \leq 
-2 \exp(-2n\epsilon^2). \tag{I}
-\]
+2 \exp(-2n\epsilon^2). 
+\end{equation}
 
 Este teorema establece que la probabilidad de que la media de la muestra se desvíe más de \(\epsilon\) del 
 valor esperado de la distribución está acotada por una cantidad muy pequeña, específicamente \(2 \exp(-2n\epsilon^2)\). 
@@ -718,14 +719,14 @@ grandes disminuye rápidamente con \(n\). Una vez más, podemos aplicar este teo
 y verdadero. Esto conduce a una cota que establece qué tan probable es que el riesgo empírico esté cerca del 
 riesgo verdadero para una función dada \(f\):
 
-\[
-P(|\mathcal{R}_{\text{emp}}(f) - \mathcal{R}(f)| \geq \epsilon) \leq 2 \exp(-2n\epsilon^2). \tag{II}
-\]
+\begin{equation}
+P(|\mathcal{R}_{\text{emp}}(f) - \mathcal{R}(f)| \geq \epsilon) \leq 2 \exp(-2n\epsilon^2).  \label{eq:Chernoff}
+\end{equation}
 
 Para cualquier función fija (y un \(n\) suficientemente grande), es muy probable que el error de entrenamiento 
 proporcione una buena estimación del error de prueba.
 
-Existen algunos hechos importantes relacionados con la cota de Chernoff (\(II\)). Primero, una propiedad crucial 
+Existen algunos hechos importantes relacionados con la cota de Chernoff (\ref{eq:Chernoff}). Primero, una propiedad crucial 
 de la cota de Chernoff es que es de naturaleza probabilística. Establece que la probabilidad de una gran desviación 
 entre el error de prueba y el error de entrenamiento de \(f\) es pequeña; cuanto mayor sea el tamaño de la muestra 
 \(n\), menor será esta probabilidad. Por lo tanto, no descarta la presencia de casos en los que la desviación sea 
@@ -736,7 +737,7 @@ embargo, a medida que el tamaño de la muestra aumenta, tales casos desafortunad
 sentido, cualquier garantía de consistencia solo puede ser de la forma: el riesgo empírico está cerca del riesgo 
 verdadero, con alta probabilidad.
 
-A primera vista, parece que la cota de Chernoff (\(II\)) es suficiente para probar la consistencia de la minimización 
+A primera vista, parece que la cota de Chernoff (\ref{eq:Chernoff}) es suficiente para probar la consistencia de la minimización 
 del riesgo empírico. Sin embargo, hay una advertencia importante: la cota de Chernoff solo se cumple para una función 
 fija \(f\) que no depende de los datos de entrenamiento. Sin embargo, el clasificador \(f_n\), por supuesto, depende 
 de los datos de entrenamiento (usamos los datos de entrenamiento para seleccionar \(f_n\)). Aunque esto pueda parecer 
@@ -803,7 +804,7 @@ información sobre los valores en otros puntos. Por lo tanto, a menos que impong
 espacio de funciones del cual elegimos nuestra estimación \(f\), no podemos esperar aprender nada. 
 
 
-\subsection*{4.3 Convergencia uniforme}
+\subsection{Convergencia uniforme}
 
 Resulta que las condiciones necesarias para que la minimización del riesgo empírico sea consistente 
 implican restringir el conjunto de funciones admisibles. La idea principal de la teoría de Vapnik-Chervonenkis 
@@ -850,11 +851,11 @@ Luego
 En particular, esto también se cumple para una función \(f_n\) que se haya elegido en base a una muestra finita 
 de puntos de entrenamiento
 
-\[
-P(|R(f_n) - \mathcal{R}_{\text{emp}}(f_n)| \geq \epsilon) \leq P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \geq \epsilon\right). \tag{III}
-\]
+\begin{equation}
+P(|R(f_n) - \mathcal{R}_{\text{emp}}(f_n)| \geq \epsilon) \leq P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \geq \epsilon\right). \label{eq:cota_uniforme}
+\end{equation}
 
-La cantidad en el lado derecho de la ecuación (III) es ahora el objeto de la ley uniforme de los grandes números. 
+La cantidad en el lado derecho de la ecuación (\ref{eq:cota_uniforme}) es ahora el objeto de la ley uniforme de los grandes números. 
 Decimos que la ley de los grandes números se cumple de manera uniforme sobre una clase de funciones \(\mathcal{F}\) si, 
 para todo \(\epsilon > 0\),
 
@@ -862,7 +863,7 @@ para todo \(\epsilon > 0\),
 P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \geq \epsilon \right) \to 0 \quad \text{cuando } n \to \infty.
 \]
 
-Ahora podemos usar la ecuación (III) para mostrar que, si la ley uniforme de los grandes números se cumple para 
+Ahora podemos usar la ecuación (\ref{eq:cota_uniforme}) para mostrar que, si la ley uniforme de los grandes números se cumple para 
 alguna clase de funciones \(\mathcal{F}\), entonces la minimización del riesgo empírico es consistente con respecto a \(\mathcal{F}\). 
 Para verlo, consideremos:
 
@@ -879,7 +880,7 @@ R(f_n) - \mathcal{R}_{\text{emp}}(f_n) + \mathcal{R}_{\text{emp}}(f_n) - \mathca
     \leq R(f_n) - \mathcal{R}_{\text{emp}}(f_n) + \mathcal{R}_{\text{emp}}(f_\mathcal{F}) - R(f_\mathcal{F})
 \] 
 \[
-    \leq 2 \sup_{f \in F} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)|.
+    \leq 2 \sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)|.
 \]
 Dado que \(\mathcal{R}_{\text{emp}}(f_n) - \mathcal{R}_{\text{emp}}(f_\mathcal{F}) \leq 0\) por definición de \(f_n\), y luego acotando
 al tomar el supremo de todas las funciones en el espacio $\mathcal{F}$.\\
@@ -905,7 +906,7 @@ teorema:
 La convergencia uniforme
     
     \[
-        P\left(\sup_{f \in F} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| > \epsilon \right) \to 0 \quad \text{cuando } n \to \infty, 
+        P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| > \epsilon \right) \to 0 \quad \text{cuando } n \to \infty, 
         \]
         
         para todo \(\epsilon > 0\), es una condición necesaria y suficiente para la consistencia de la minimización del 
@@ -920,13 +921,13 @@ de funciones para el cual debe cumplirse.
 Intuitivamente, parece claro que cuanto mayor sea el espacio de funciones \(\mathcal{F}\), mayor será:
 
 \[
-\sup_{f \in F} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)|.
+\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)|.
 \]
 
 Por lo tanto, cuanto mayor sea \(\mathcal{F}\), mayor será la medida de probabilidad:
 
 \[
-P\left(\sup_{f \in F} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| > \epsilon \right).
+P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| > \epsilon \right).
 \]
 
 En consecuencia, cuanto mayor sea \(\mathcal{F}\), más difícil será satisfacer la ley uniforme de los grandes números. 
@@ -949,9 +950,10 @@ convergencia uniforme del riesgo empírico al verdadero.
 qué propiedades de las clases de funciones determinan si la convergencia uniforme puede tener lugar. Detengámonos
 en la probabilidad del Teorema anterior:
 
-\[
-P\left(\sup_{f \in F} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| > \epsilon \right).
-\]
+\begin{equation}
+P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| > \epsilon \right). \label{eq:med_unif_riesgo_riesgo_emp}
+\end{equation}
+
 Consideremos entonces un espacio de funciones finito, como el que nos encontramos en la práctica. Sea
 \(\mathcal{F}_{emp} = \{f_1, f_2, \dots, f_m\}\) un conjunto de \(m\) funciones. Cada una de las funciones 
 \(f_i \in \mathcal{F}_{emp}\) satisface la ley estándar de los grandes números en la forma de la cota de Chernoff:
@@ -964,19 +966,19 @@ Ahora queremos transformar estas afirmaciones sobre funciones individuales \(f_i
 grandes números. Dada la subatividad de la probabilidad, tenemos:
 
 \[
-P\left(\sup_{f \in F} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \geq \epsilon \right) \leq \sum_{i=1}^m P\left(|R(f_i) - \mathcal{R}_{\text{emp}}(f_i)| \geq \epsilon \right).
+P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \geq \epsilon \right) \leq \sum_{i=1}^m P\left(|R(f_i) - \mathcal{R}_{\text{emp}}(f_i)| \geq \epsilon \right).
 \]
 
 Y aplicando la cota de Chernoff a cada término en la suma, obtenemos:
 
-\[
-P\left(\sup_{f \in F} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \geq \epsilon \right) \leq 2m \exp(-2n\epsilon^2).
-\]
+\begin{equation}
+P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \geq \epsilon \right) \leq 2m \exp(-2n\epsilon^2). \label{eq: chernoff acotada por m}
+\end{equation}
 
 Si el espacio de funciones \(\mathcal{F}_{emp}\) es fijo, \(m\) puede considerarse una 
 constante, y el término \(2m \exp(-2n\epsilon^2)\) converge a \(0\) cuando \(n \to \infty\). Por lo tanto,
 la minimización del riesgo empírico sobre un conjunto finito de funciones es consistente con respecto 
-a \(\mathcal{F}_{emp}\). 
+a \(\mathcal{F}_{emp}\). \\
 
 En la práctica, nuestros espacios de funciones estarán definidos por los paramétros que nos permitimos 
 seleccionar para cada posible clasificador, como la ordenada al origen y la pendiente en el caso de la regresión lineal y serán usualmente
@@ -991,7 +993,7 @@ La \textit{simetrización} es un paso técnico importante para usar medidas de c
 funciones. Su propósito principal es reemplazar el evento 
 
 \[
-\sup_{f \in F} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)|
+\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)|
 \]
 
 por un evento alternativo que pueda calcularse únicamente en una muestra dada. Supongamos que tenemos una muestra 
@@ -1011,8 +1013,8 @@ sean $\mathcal{R}(f)$ su riesgo, $\mathcal{R}_{emp}(f)$ su riesgo empírico sobr
 $\mathcal{R}'_{emp}(f)$ el riesgo sobre la segunda. Entonces, para cualquier $\epsilon > 0$
 
 \[
-P\left(\sup_{f \in F} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| > 
-\epsilon \right) \leq 2P\left(\sup_{f \in F} |\mathcal{R}_{\text{emp}}(f) - \mathcal{R}'_{\text{emp}}(f)| > \frac{\epsilon}{2}\right).
+P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| > 
+\epsilon \right) \leq 2P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}_{\text{emp}}(f) - \mathcal{R}'_{\text{emp}}(f)| > \frac{\epsilon}{2}\right).
 \]
 \end{thm}
 
@@ -1031,11 +1033,10 @@ mucho \(2^n\) formas diferentes en que esas funciones pueden clasificar los punt
 \(n\) puntos. Tomando
 
 \[
-\sup_{f \in F} |R_{\text{emp}}(f) - R'_{\text{emp}}(f)|,
+\sup_{f \in \mathcal{F}} |R_{\text{emp}}(f) - R'_{\text{emp}}(f)|,
 \]
-
 entonces el supremo efectivamente solo recorre una clase de funciones finita. Para entender esto, notemos que 
-dos funciones \(f, g \in F\) que toman los mismos valores en la muestra dada tienen el mismo riesgo empírico, 
+dos funciones \(f, g \in \mathcal{F}\) que toman los mismos valores en la muestra dada tienen el mismo riesgo empírico, 
 es decir, \(R_{\text{emp}}(f) = R_{\text{emp}}(g)\). La afirmación análoga se cumple para la muestra fantasma 
 y el riesgo empírico asociado \(R'_{\text{emp}}\). \\
 
@@ -1044,86 +1045,146 @@ AGREGAR FIGURA DE EJEMPLO CON DOS FUNCIONES LINEALES SEPARANDO DE IGUAL MANERA L
 Por lo tanto, todas las funciones \(f, g\) que coinciden tanto en la muestra original como en la muestra fantasma 
 producirán el mismo término \(|R_{\text{emp}}(f) - R'_{\text{emp}}(f)|\). Así, las únicas funciones que 
 necesitamos considerar para calcular el supremo son las \(2^{n}\) funciones que podemos obtener en la muestra 
-original y la muestra fantasma juntas. Por lo tanto, podemos reemplazar el supremo sobre \(f \in F\) por el 
+original y la muestra fantasma juntas. Por lo tanto, podemos reemplazar el supremo sobre \(f \in \mathcal{F}\) por el 
 supremo sobre una clase finita de funciones con como máximo \(2^{n}\) funciones.\\
 
 
-\subsection{ El coeficiente de shattering}
+\subsection{ El coeficiente de fragmentación}
 
-Para analizar más a fondo la capacidad de una clase de funciones \(F\), introducimos el concepto de 
-\textbf{coeficiente de shattering}. Este coeficiente mide la cantidad de formas en que las funciones 
-de \(F\) pueden separar las etiquetas en un conjunto de puntos de muestra. Formalmente, sea 
-\(Z_n := \{(X_1, Y_1), \dots, (X_n, Y_n)\}\) una muestra de tamaño \(n\). Denotamos por \(|F_{Z_n}|\) 
-la cardinalidad de \(F\) restringida al conjunto de puntos \(\{X_1, \dots, X_n\}\), es decir, el número 
-de funciones de \(F\) que producen diferentes particiones en este conjunto. Definimos el coeficiente 
-de shattering como:
+Con la intención de analizar más a fondo la capacidad de una clase de funciones 
+\(\mathcal{F}\), intentaremos acotar la medida (\ref{eq:med_unif_riesgo_riesgo_emp}).
+Para esto, introducimos el concepto de coeficiente de fragmentación.  Este coeficiente mide la 
+cantidad de formas en que las funciones de \(\mathcal{F}\) pueden separar los puntos de cualquier muestra
+tomada sobre $X$.\\
 
-\[
-N(F, n) = \max \{|F_{Z_n}| \mid X_1, \dots, X_n \in X\}.
-\]
+\begin{dfn}
+    Sean \(\mathcal{F}\) una clase de funciones y \(Z_n := \{(X_1, Y_1), \dots, (X_n, Y_n)\}\) un conjunto de \(n\) puntos
+    etiquetados. Definimos la relación $\sim$ sobre \(\mathcal{F}\):
+        \[
+        f_1 \sim f_2 \qquad \text{si} \qquad f_1(X_i) = f_2(X_i) \quad \forall i = 1, \dots, n.
+        \]
+\end{dfn}
+\begin{obs}
+    La relación \(\sim\) es una relación de equivalencia sobre \(\mathcal{F}\). Luego, para una muestra fija,
+    define una partición sobre $X$.
+\end{obs}
+\begin{dfn}
+    Definimos el \textbf{conjunto de fragmentación} \(\mathcal{F}_{Z_n}\) a cualquier conjunto de representantes de \(\mathcal{F}\)
+    bajo la relación de equivalencia \(\sim\) .
+\end{dfn}
+\begin{dfn}
+    Dado un espacio muestral $X$ y \(Z_n := \{(X_1, Y_1), \dots, (X_n, Y_n)\}\) una muestra de tamaño \(n\). Definimos el 
+    \textbf{coeficiente de fragmentación} del espacio funcional $\mathcal{F}$ como:
+    
+    \[
+    \mathcal{N}(\mathcal{F}, n) = \max_{Z_n} \{|\mathcal{F}_{Z_n}|\} = \max_{\{X_1, \dots, X_n\}}\{|\mathcal{F}_{\{X_1, \dots, X_n\}}| \mid X_1, \dots, X_n \in X\}. 
+    \]\\
+\end{dfn}
 
-El coeficiente \(N(F, n)\) tiene una interpretación sencilla: mide cuántos resultados diferentes 
-(\(Y_1, \dots, Y_n\)) pueden ser realizados por las funciones de \(F\) en muestras de tamaño \(n\). 
-Si \(N(F, n) = 2^n\), esto significa que existe una muestra de tamaño \(n\) que puede ser separada 
-de todas las formas posibles por funciones en \(F\). En este caso, decimos que la clase de funciones 
-\(F\) \textbf{shatters} (fragmenta) el conjunto de \(n\) puntos.
+El coeficiente $\mathcal{N}(\mathcal{F}, n)$ tiene una interpretación sencilla: mide cuántos conjuntos de etiquetas 
+\( \{Y_1, \dots, Y_n\} \) pueden ser generados por las funciones de \(\mathcal{F}\), considerando todas las posibles
+muestras de tamaño \(n\). Es decir, es el número de formas en las que \(\mathcal{F}\) puede separar en dos clases al 
+espacio de entrada $X$.\\
 
-El coeficiente de shattering es una medida de la capacidad de una clase de funciones, es decir, mide 
-el "tamaño" de \(F\) en un sentido particular. Si \(F\) contiene muchas funciones, entonces 
-\(N(F, n)\) tiende a ser grande. Sin embargo, el coeficiente de shattering también tiene en cuenta 
-la relación entre \(F\) y los puntos de muestra; no considera simplemente el número total de funciones 
-en \(F\), sino cómo estas funciones se comportan en relación con las muestras.
+En el caso de clasificación binaria, como el que estamos tratando, el mayor cardinal posible para un conjunto de fragmentación
+coincide con el cardinal del conjunto de partes de un conjunto de tamaño $n$ (basta considerar cada subconjunto posible del mismo
+como aquel donde el clasificador etiqueta con $+1$ todos los valores en el subconjunto y con $-1$ los valores fuera de él). Entonces,
+si \(\mathcal{N}(\mathcal{F}, n) = 2^n\), existe al menos una muestra de tamaño \(n\) que puede ser separada 
+de todas las formas posibles por funciones en \(\mathcal{F}\). En este caso, decimos que la clase de funciones 
+\(\mathcal{F}\) \textit{fragmenta completamente} al conjunto de \(n\) puntos. \\
+
+En la definición, tomamos el máximo puesto que ciertas muestras pueden no ser fragmentables de la misma manera que otras por \(\mathcal{F}\). 
+Consideremos el espacio $\mathbb{R}^2$ y sea $\mathcal{F}=\{f: f(x)= \alpha x + \beta; \; \alpha, \beta\in\mathbb{R}\}$, el espacio
+de funciones lineales.
+Es claro que podemos separar dos puntos de la manera que deseemos en este espacio, pero no podemos hacer lo mismo con tres puntos \textit{cualesquiera}.
+En efecto, sea $Z_3 = \{X_1,X_2,X_3\} \in \mathbb{R}^2$ y supongamos que los puntos en dicho conjuntos son colineales. Tomemos el caso en el que el primero y el tercero de ellos pertenecen a la misma categoría,
+mientras que el que queda en medio a la otra categoría, como en la figura \ref{fragmentacion perceptron} (a). 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Images/5.png}
+    
+    \caption{Fragmentación de muestras en $\mathbb{R}^2$ de tres y cuatro puntos.}
+    \label{fragmentacion perceptron}
+    \end{figure}
+
+Es claro que no es posible separar de todas las maneras posibles a esta muestra en particular, por lo que su conjunto de fragmentación
+tiene un cardinal menor a $2^3=8$. Pero sí es posible hacerlo con otras muestras de tres elementos, como por ejemplo cualquiera que tenga 
+tres puntos no colineales, como en la figura \ref{fragmentacion perceptron} (b). De esto sigue
+que los clasificadores lineales de este tipo tienen un coeficiente de fragmentación máximo de $2^3=4$ para muestras de tres puntos en $\mathbb{R}^2$.
+Pero notemos que no es así cuando tomamos una muestra de cuatro puntos en $\mathbb{R}^2$. En este caso, es imposible separar de todas las maneras posibles
+a una muestra de cuatro puntos, sean colineales o no, como se aprecia en la parte (c) de la figura. Demostraremos estos hechos más adelante.
+\\
+
+El coeficiente de fragmentación es una medida de la capacidad de una clase de funciones, es decir, mide 
+el tamaño o la \textit{complejidad} de \(\mathcal{F}\) en un sentido particular. Si \(\mathcal{F}\) contiene muchas funciones, entonces 
+$\mathcal{N}(\mathcal{F}, n)$ tiende a ser grande. Sin embargo, el coeficiente de fragmentación también tiene en cuenta 
+la relación entre \(\mathcal{F}\) y el espacio de entrada de donde provienen los puntos de muestra. Más aún, nos permite asignar un número
+finito a cada espacio de clasificadores para cada tamaño de muestras, aún cuando los espacios de funciones sean infinitos. Este número puede
+ser en el peor de los casos exponencial en el tamaño de la muestra, pero nos ayudará a pasar del factor $m$, que depende de la cantidad
+de funciones en el espacio (en la ecuación \ref{eq: chernoff acotada por m}), a un valor que es finito y, como veremos más adelante,
+potencialmente polinómico.
 
 \subsection{Cotas de convergencia uniforme}
 
-Dado un espacio de funciones arbitrario, posiblemente infinito, ahora queremos analizar la probabilidad 
+Mantenemos la atención sobre la ecuación ()\ref{eq:med_unif_riesgo_riesgo_emp}). Dado un espacio de funciones arbitrario, 
+posiblemente infinito, ahora queremos analizar la probabilidad 
 de que el riesgo empírico difiera significativamente del riesgo verdadero. Con las herramientas anteriores, 
 podemos derivar una cota como sigue. Consideremos una muestra de \(2n\) puntos, es decir, un conjunto 
 \(Z_{2n}\), donde interpretamos los primeros \(n\) puntos como la muestra original y los otros \(n\) 
-puntos como la muestra fantasma. La idea es reemplazar el supremo sobre \(F\) en términos de \(R(f)\) y 
-\(R_{\text{emp}}(f)\) por un supremo sobre los riesgos empíricos calculados en ambas muestras:
+puntos como la muestra fantasma.
+
+La idea es reemplazar el supremo sobre \(\mathcal{F}\) en términos de \(R(f)\) y 
+\(R_{\text{emp}}(f)\) por un supremo sobre los riesgos empíricos calculados en ambas muestras, es decir, por un expresión
+que utilice el supremo sobre \(\mathcal{F}_{Z_{2n}}\). En este espacio, existen a lo sumo $\mathcal{N}(\mathcal{F}, n)<2^{2n}$
+funciones distintas, lo que nos permite reemplazar, como indicabamos, el valor potencialmente infinito $m$ por el coeficiente de 
+fragmentación. Escribimos:
 
 \[
-P\left(\sup_{f \in F} |R(f) - R_{\text{emp}}(f)| > \epsilon\right) \leq 
-2P\left(\sup_{f \in F} |R_{\text{emp}}(f) - R'_{\text{emp}}(f)| > \frac{\epsilon}{2}\right).
+\begin{aligned}
+P\left(\sup_{f \in \mathcal{F}} |R(f) - R_{\text{emp}}(f)| > \epsilon\right) &\leq 
+2P\left(\sup_{f \in \mathcal{F}} |R_{\text{emp}}(f) - R'_{\text{emp}}(f)| > \frac{\epsilon}{2}\right).\\
+& = 2P\left(\sup_{f \in \mathcal{F}_{Z_{2n}}} |R_{\text{emp}}(f) - R'_{\text{emp}}(f)| > \frac{\epsilon}{2}\right).\\
+& \leq  \mathcal{N}(\mathcal{F}, n)\cdot \exp\left(\frac{-n\epsilon^2}{4}\right).
+\end{aligned}
 \]
 
-El paso clave aquí es observar que, incluso si \(F\) contiene infinitas funciones, estas funciones solo 
-pueden clasificarse en un número finito de maneras en la muestra combinada \(Z_{2n}\). Esto se debe 
-a que solo importa cómo las funciones actúan sobre los puntos en la muestra, no sobre el dominio completo. 
-En consecuencia, el supremo puede restringirse a un conjunto finito de funciones.
+Primero, utilizando el argumento de simetrización, como antes. Luego, el supremo puede restringirse a un conjunto finito de funciones
+dado que estamos considerando solo los riesgos empíricos sobre dos muestras de tamaño $n$, que consideramos fijas, y de allí igualamos
+en el segundo paso. Por último, aplicamos la cota de Chernoff (\ref{eq:Chernoff}), sabiendo que el numero de funciones
+posibles $m$ es a lo sumo el coeficiente de fragmentación.
 
-Para formalizar esto, usamos el coeficiente de shattering \(N(F, 2n)\), que proporciona el número máximo 
-de particiones que \(F\) puede realizar sobre una muestra de \(2n\) puntos. Aplicando el límite de la unión 
+Para formalizar esto, usamos el coeficiente de fragmentación \(\mathcal{N}(\mathcal{F}, 2n)\), que proporciona el número máximo 
+de particiones que \(\mathcal{F}\) puede realizar sobre una muestra de \(2n\) puntos. Aplicando el límite de la unión 
 y la cota de Chernoff, obtenemos:
 
 \[
-P\left(\sup_{f \in F} |R(f) - R_{\text{emp}}(f)| > \epsilon \right) \leq 
-2N(F, 2n) \exp\left(-\frac{n\epsilon^2}{4}\right).
+P\left(\sup_{f \in \mathcal{F}} |R(f) - R_{\text{emp}}(f)| > \epsilon \right) \leq 
+2\mathcal{N}(\mathcal{F}, 2n) \exp\left(-\frac{n\epsilon^2}{4}\right).
 \]
 
-Esta es una cota de convergencia uniforme que conecta el coeficiente de shattering con la probabilidad de 
+Esta es una cota de convergencia uniforme que conecta el coeficiente de fragmentación con la probabilidad de 
 que el riesgo empírico se desvíe significativamente del riesgo verdadero. Para que la minimización del riesgo 
-empírico sea consistente, es suficiente que \(N(F, n)\) crezca a un ritmo razonablemente lento, por ejemplo, 
+empírico sea consistente, es suficiente que $\mathcal{N}(\mathcal{F}, n)$ crezca a un ritmo razonablemente lento, por ejemplo, 
 polinomialmente en \(n\).
 
 \subsection{La dimensión VC}
 
-Aunque el coeficiente de shattering es útil, a menudo es difícil calcularlo para clases de funciones arbitrarias. 
+Aunque el coeficiente de fragmentación es útil, a menudo es difícil calcularlo para clases de funciones arbitrarias. 
 Para abordar esto, introducimos la \textbf{dimensión VC} (dimensión de Vapnik-Chervonenkis), que es una 
 medida más simple y ampliamente utilizada de la capacidad de una clase de funciones.
 
 Decimos que una muestra \(Z_n\) de tamaño \(n\) es fragmentada (\textit{shattered}) por la clase de funciones 
-\(F\) si \(N(F, n) = 2^n\). Es decir, \(F\) puede realizar cualquier separación posible de etiquetas sobre 
-los puntos de la muestra. La dimensión VC de \(F\), denotada como \(\text{VC}(F)\), se define como el tamaño 
-máximo de una muestra que puede ser fragmentada por \(F\). Formalmente:
+\(\mathcal{F}\) si \(\mathcal{N}(\mathcal{F}, n) = 2^n\). Es decir, \(\mathcal{F}\) puede realizar cualquier separación posible de etiquetas sobre 
+los puntos de la muestra. La dimensión VC de \(\mathcal{F}\), denotada como \(\text{VC}(\mathcal{F})\), se define como el tamaño 
+máximo de una muestra que puede ser fragmentada por \(\mathcal{F}\). Formalmente:
 
 \[
-\text{VC}(F) = \max \{n \in \mathbb{N} \mid N(F, n) = 2^n\}.
+\text{VC}(\mathcal{F}) = \max \{n \in \mathbb{N} \mid \mathcal{N}(\mathcal{F}, n) = 2^n\}.
 \]
 
-Si no existe tal máximo, definimos \(\text{VC}(F) = \infty\). La dimensión VC tiene una interpretación combinatoria 
-elegante y proporciona una forma práctica de analizar la capacidad de \(F\). Por ejemplo, si \(\text{VC}(F)\) 
+Si no existe tal máximo, definimos \(\text{VC}(\mathcal{F}) = \infty\). La dimensión VC tiene una interpretación combinatoria 
+elegante y proporciona una forma práctica de analizar la capacidad de \(\mathcal{F}\). Por ejemplo, si \(\text{VC}(\mathcal{F})\) 
 es finita, podemos garantizar la consistencia de la minimización del riesgo empírico. Además, una clase de funciones 
 con dimensión VC más baja tiende a tener una mejor capacidad de generalización.
 
