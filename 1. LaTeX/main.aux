@@ -5,41 +5,47 @@
 \catcode `<\active 
 \catcode `>\active 
 \@nameuse{es@quoting}
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
 \babel@aux{spanish}{}
-\@writefile{toc}{\contentsline {section}{\numberline {1}Introducción}{1}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2}El aprendizaje}{1}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3}La historia del aprendizaje automático}{2}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4}Hacia la formalización}{4}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Pérdida y Riesgo}{5}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Generalización}{7}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Consistencia}{7}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Sobreajuste y subajuste}{10}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Dos posibles modelos de regresión, uno lineal y otro no, para un conjunto de datos dado.}}{10}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introducción}{1}{section.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}El aprendizaje}{1}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}La historia del aprendizaje automático}{2}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Hacia la formalización}{4}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Pérdida y Riesgo}{5}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Generalización}{7}{subsection.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Consistencia}{7}{subsection.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Sobreajuste y subajuste}{10}{subsection.4.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Dos posibles modelos de regresión, uno lineal y otro no, para un conjunto de datos dado.}}{10}{figure.caption.1}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:Sobreajuste y subajuste}{{1}{10}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Los dilemas sesgo-varianza y estimación-aproximación}{11}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Error de estimación y de aproximación.}}{12}{}\protected@file@percent }
-\newlabel{fig:error de estimación y aproximación}{{2}{12}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Compromiso entre error de estimación y de aproximación. Si el espacio funcional $\mathcal  {F}$ que define el algoritmo de aprendizaje es pequeño, es decir es poco complejo, el error de estimación es bajo, pero el de aproximación es alto, y estamos en una situación proclive al subajuste. Si, por otro lado, $\mathcal  {F}$ es complejo, el error de estimación es alto y el de aproximación bajo, y tendemos al sobreajuste. El error ideal es usualmente obtenido con una complejidad moderada.}}{13}{}\protected@file@percent }
-\newlabel{fig:Compromiso entre error de estimación y de aproximación.}{{3}{13}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}El clasificador de los $k$ vecinos más cercanos}{13}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6}Minimización del riesgo empírico}{17}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}La ley de los grandes números}{18}{}\protected@file@percent }
-\newlabel{eq:Chernoff}{{2}{18}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Inconsistencia en la minimización del riesgo empírico}{19}{}\protected@file@percent }
-\newlabel{Inconsistencia en la minimización del riesgo empírico}{{6.2}{19}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Convergencia uniforme}{20}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Representación simplificada de la convergencia del riesgo empírico al riesgo verdadero. El eje \(x\) representa una dimensión de la clase de funciones \(F\), mientras que el eje \(y\) denota el riesgo. Para cada función fija \(f\), la ley de los grandes números nos dice que, a medida que el tamaño de la muestra tiende a infinito, el riesgo empírico \(\mathcal  {R}_{\text  {emp}}(f)\) converge al riesgo verdadero \(\mathcal  {R}(f)\) (indicado por la flecha). Sin embargo, esto no implica que, en el límite de tamaños de muestra infinitos, el minimizador del riesgo empírico, \(f_n\), lleve a un valor del riesgo tan bueno como el del mejor \(f_F\) en la clase de funciones. Para que esto sea cierto, requerimos la convergencia uniforme de \(\mathcal  {R}_{\text  {emp}}(f)\) a \(\mathcal  {R}(f)\) sobre todas las funciones en \(F\). (Adaptado de Schölkopf y Smola, 2002).}}{21}{}\protected@file@percent }
-\newlabel{riesgo vs riesgo empirico}{{4}{21}{}{}{}}
-\newlabel{eq:cota_uniforme}{{3}{22}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Cotas de generalización}{23}{}\protected@file@percent }
-\newlabel{eq:med_unif_riesgo_riesgo_emp}{{4}{23}{}{}{}}
-\newlabel{eq: chernoff acotada por m}{{5}{24}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Simetrización}{24}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.2} El coeficiente de fragmentación}{26}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Fragmentación de muestras en $\mathbb  {R}^2$ de tres y cuatro puntos.}}{27}{}\protected@file@percent }
-\newlabel{fragmentacion perceptron}{{5}{27}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Cotas de convergencia uniforme}{27}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.4}La dimensión VC}{28}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {8}Bibliografía}{30}{}\protected@file@percent }
-\gdef \@abspage@last{30}
+\newlabel{fig:Sobreajuste y subajuste}{{1}{10}{Dos posibles modelos de regresión, uno lineal y otro no, para un conjunto de datos dado}{figure.caption.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Los dilemas sesgo-varianza y estimación-aproximación}{11}{subsection.4.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Error de estimación y de aproximación.}}{12}{figure.caption.2}\protected@file@percent }
+\newlabel{fig:error de estimación y aproximación}{{2}{12}{Error de estimación y de aproximación}{figure.caption.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Compromiso entre error de estimación y de aproximación. Si el espacio funcional $\mathcal  {F}$ que define el algoritmo de aprendizaje es pequeño, es decir es poco complejo, el error de estimación es bajo, pero el de aproximación es alto, y estamos en una situación proclive al subajuste. Si, por otro lado, $\mathcal  {F}$ es complejo, el error de estimación es alto y el de aproximación bajo, y tendemos al sobreajuste. El error ideal es usualmente obtenido con una complejidad moderada.}}{13}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:Compromiso entre error de estimación y de aproximación.}{{3}{13}{Compromiso entre error de estimación y de aproximación. Si el espacio funcional $\mathcal {F}$ que define el algoritmo de aprendizaje es pequeño, es decir es poco complejo, el error de estimación es bajo, pero el de aproximación es alto, y estamos en una situación proclive al subajuste. Si, por otro lado, $\mathcal {F}$ es complejo, el error de estimación es alto y el de aproximación bajo, y tendemos al sobreajuste. El error ideal es usualmente obtenido con una complejidad moderada}{figure.caption.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}El clasificador de los $k$ vecinos más cercanos}{13}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Minimización del riesgo empírico}{17}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}La ley de los grandes números}{18}{subsection.6.1}\protected@file@percent }
+\newlabel{eq:Chernoff}{{2}{18}{La ley de los grandes números}{equation.6.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Inconsistencia en la minimización del riesgo empírico}{19}{subsection.6.2}\protected@file@percent }
+\newlabel{Inconsistencia en la minimización del riesgo empírico}{{6.2}{19}{Inconsistencia en la minimización del riesgo empírico}{subsection.6.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Convergencia uniforme}{20}{subsection.6.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Representación simplificada de la convergencia del riesgo empírico al riesgo verdadero. El eje \(x\) representa una dimensión de la clase de funciones \(F\), mientras que el eje \(y\) denota el riesgo. Para cada función fija \(f\), la ley de los grandes números nos dice que, a medida que el tamaño de la muestra tiende a infinito, el riesgo empírico \(\mathcal  {R}_{\text  {emp}}(f)\) converge al riesgo verdadero \(\mathcal  {R}(f)\) (indicado por la flecha). Sin embargo, esto no implica que, en el límite de tamaños de muestra infinitos, el minimizador del riesgo empírico, \(f_n\), lleve a un valor del riesgo tan bueno como el del mejor \(f_F\) en la clase de funciones. Para que esto sea cierto, requerimos la convergencia uniforme de \(\mathcal  {R}_{\text  {emp}}(f)\) a \(\mathcal  {R}(f)\) sobre todas las funciones en \(F\). (Adaptado de Schölkopf y Smola, 2002).}}{21}{figure.caption.4}\protected@file@percent }
+\newlabel{riesgo vs riesgo empirico}{{4}{21}{Representación simplificada de la convergencia del riesgo empírico al riesgo verdadero. El eje \(x\) representa una dimensión de la clase de funciones \(F\), mientras que el eje \(y\) denota el riesgo. Para cada función fija \(f\), la ley de los grandes números nos dice que, a medida que el tamaño de la muestra tiende a infinito, el riesgo empírico \(\mathcal {R}_{\text {emp}}(f)\) converge al riesgo verdadero \(\mathcal {R}(f)\) (indicado por la flecha). Sin embargo, esto no implica que, en el límite de tamaños de muestra infinitos, el minimizador del riesgo empírico, \(f_n\), lleve a un valor del riesgo tan bueno como el del mejor \(f_F\) en la clase de funciones. Para que esto sea cierto, requerimos la convergencia uniforme de \(\mathcal {R}_{\text {emp}}(f)\) a \(\mathcal {R}(f)\) sobre todas las funciones en \(F\). (Adaptado de Schölkopf y Smola, 2002)}{figure.caption.4}{}}
+\newlabel{eq:cota_uniforme}{{3}{22}{Convergencia uniforme}{equation.6.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Cotas de generalización y medidas de capacidad}{23}{section.7}\protected@file@percent }
+\newlabel{eq:med_unif_riesgo_riesgo_emp}{{4}{23}{Cotas de generalización y medidas de capacidad}{equation.7.4}{}}
+\newlabel{eq: chernoff acotada por m}{{5}{24}{Cotas de generalización y medidas de capacidad}{equation.7.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Simetrización}{24}{subsection.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2} El coeficiente de fragmentación}{26}{subsection.7.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Fragmentación de muestras en $\mathbb  {R}^2$ de tres y cuatro puntos.}}{27}{figure.caption.5}\protected@file@percent }
+\newlabel{fragmentacion perceptron}{{5}{27}{Fragmentación de muestras en $\mathbb {R}^2$ de tres y cuatro puntos}{figure.caption.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Cotas de convergencia uniforme}{27}{subsection.7.3}\protected@file@percent }
+\newlabel{eq: cota convergencia coeficiente fragmentacion}{{6}{28}{Cotas de convergencia uniforme}{equation.7.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.4}Cotas de generalización}{29}{subsection.7.4}\protected@file@percent }
+\newlabel{eq: cota generalizacion}{{7}{29}{Cotas de generalización}{equation.7.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.5}La dimensión VC}{30}{subsection.7.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8}Bibliografía}{33}{section.8}\protected@file@percent }
+\gdef \@abspage@last{33}

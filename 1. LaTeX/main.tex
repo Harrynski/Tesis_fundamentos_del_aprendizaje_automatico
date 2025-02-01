@@ -5,12 +5,16 @@
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{amsfonts}
+\usepackage{hyperref}
 \usepackage[font=footnotesize,labelfont=bf,labelsep=colon]{caption} % Personalización de captions
 \DeclareMathOperator*{\argmin}{arg\,min}
 % Define the unnumbered theorem
-\newtheorem{thm}{Teorema}[section]
-\newtheorem{dfn}{Definición}[section]
-\newtheorem{obs}{Observación}[section]
+\newtheorem{thm}{Teorema}[subsection]
+\newtheorem{lem}{Lema}[subsection]
+\newtheorem{cor}{Corolario}[thm]
+\newtheorem{dfn}{Definición}[subsection]
+\newtheorem{obs}{Observación}[subsection]
+
 %\newtheorem*{def}{Definicion}
 
 \begin{document}
@@ -293,8 +297,8 @@ los distintos de convergencia que trataremos al considerar el concepto de consis
     \end{enumerate}
 \end{dfn}
 
-Incurrimos en un abuso del lenguaje al decir que "el clasificador $f_n$ es consistente" para referirnos más precisamente a que
-"el alogritmo de aprendizaje que produce a $f_n$ en base a las primeras $n$ muestras es consistente". Analicemos un poco más el
+Incurrimos en un abuso del lenguaje al decir que el clasificador $f_n$ es consistente para referirnos más precisamente a que
+el alogritmo de aprendizaje que produce a $f_n$ en base a las primeras $n$ muestras es consistente. Analicemos un poco más el
 significado de las definiciones anteriores. La primer definición nos habla del caso donde, a medida que $n$ crece, el riesgo
 del clasificador $f_n$ converge al riesgo del mejor clasificador $f_{\mathcal{F}}$ en el espacio funcional $\mathcal{F}$, con alta probabilidad.
 En la práctica, esto significa que alguna instancia de $f_n$ puede no tener un riesgo cercano al riesgo de $f_{\mathcal{F}}$, pero que esto es poco
@@ -941,7 +945,7 @@ de los grandes números se cumple para una clase de funciones \(\mathcal{F}\) pa
 herramientas como la dimensión VC para analizar y limitar la capacidad de las clases de funciones, lo cual discutiremos 
 en las siguientes secciones.
 
-\section{Cotas de generalización}
+\section{Cotas de generalización y medidas de capacidad}
 
 Para hacer afirmaciones sobre lo que ocurre después de observar solo un número finito de puntos de datos 
 —que en la práctica será siempre el caso—, necesitamos examinar más de cerca la 
@@ -1091,7 +1095,7 @@ coincide con el cardinal del conjunto de partes de un conjunto de tamaño $n$ (b
 como aquel donde el clasificador etiqueta con $+1$ todos los valores en el subconjunto y con $-1$ los valores fuera de él). Entonces,
 si \(\mathcal{N}(\mathcal{F}, n) = 2^n\), existe al menos una muestra de tamaño \(n\) que puede ser separada 
 de todas las formas posibles por funciones en \(\mathcal{F}\). En este caso, decimos que la clase de funciones 
-\(\mathcal{F}\) \textit{fragmenta completamente} al conjunto de \(n\) puntos. \\
+\(\mathcal{F}\) \textit{fragmenta} al conjunto de \(n\) puntos. \\
 
 En la definición, tomamos el máximo puesto que ciertas muestras pueden no ser fragmentables de la misma manera que otras por \(\mathcal{F}\). 
 Consideremos el espacio $\mathbb{R}^2$ y sea $\mathcal{F}=\{f: f(x)= \alpha x + \beta; \; \alpha, \beta\in\mathbb{R}\}$, el espacio
@@ -1127,12 +1131,12 @@ potencialmente polinómico.
 
 \subsection{Cotas de convergencia uniforme}
 
-Mantenemos la atención sobre la ecuación ()\ref{eq:med_unif_riesgo_riesgo_emp}). Dado un espacio de funciones arbitrario, 
+Mantenemos la atención sobre la ecuación (\ref{eq:med_unif_riesgo_riesgo_emp}). Dado un espacio de funciones arbitrario, 
 posiblemente infinito, ahora queremos analizar la probabilidad 
 de que el riesgo empírico difiera significativamente del riesgo verdadero. Con las herramientas anteriores, 
 podemos derivar una cota como sigue. Consideremos una muestra de \(2n\) puntos, es decir, un conjunto 
 \(Z_{2n}\), donde interpretamos los primeros \(n\) puntos como la muestra original y los otros \(n\) 
-puntos como la muestra fantasma.
+puntos como la muestra fantasma.\\
 
 La idea es reemplazar el supremo sobre \(\mathcal{F}\) en términos de \(R(f)\) y 
 \(R_{\text{emp}}(f)\) por un supremo sobre los riesgos empíricos calculados en ambas muestras, es decir, por un expresión
@@ -1152,41 +1156,168 @@ P\left(\sup_{f \in \mathcal{F}} |R(f) - R_{\text{emp}}(f)| > \epsilon\right) &\l
 Primero, utilizando el argumento de simetrización, como antes. Luego, el supremo puede restringirse a un conjunto finito de funciones
 dado que estamos considerando solo los riesgos empíricos sobre dos muestras de tamaño $n$, que consideramos fijas, y de allí igualamos
 en el segundo paso. Por último, aplicamos la cota de Chernoff (\ref{eq:Chernoff}), sabiendo que el numero de funciones
-posibles $m$ es a lo sumo el coeficiente de fragmentación.
+posibles $m$ es a lo sumo el coeficiente de fragmentación.\\
 
 Para formalizar esto, usamos el coeficiente de fragmentación \(\mathcal{N}(\mathcal{F}, 2n)\), que proporciona el número máximo 
 de particiones que \(\mathcal{F}\) puede realizar sobre una muestra de \(2n\) puntos. Aplicando el límite de la unión 
 y la cota de Chernoff, obtenemos:
 
-\[
-P\left(\sup_{f \in \mathcal{F}} |R(f) - R_{\text{emp}}(f)| > \epsilon \right) \leq 
-2\mathcal{N}(\mathcal{F}, 2n) \exp\left(-\frac{n\epsilon^2}{4}\right).
-\]
+\begin{equation} 
+    P\left(\sup_{f \in \mathcal{F}} |R(f) - R_{\text{emp}}(f)| > \epsilon \right) \leq 
+    2\mathcal{N}(\mathcal{F}, 2n) \exp\left(-\frac{n\epsilon^2}{4}\right). \label{eq: cota convergencia coeficiente fragmentacion}
+\end{equation}
 
 Esta es una cota de convergencia uniforme que conecta el coeficiente de fragmentación con la probabilidad de 
 que el riesgo empírico se desvíe significativamente del riesgo verdadero. Para que la minimización del riesgo 
 empírico sea consistente, es suficiente que $\mathcal{N}(\mathcal{F}, n)$ crezca a un ritmo razonablemente lento, por ejemplo, 
-polinomialmente en \(n\).
+polinomialmente en \(n\).\\
+
+Tomemos $\mathcal{F}_{all}$, el espacio de todos los clasificadores posibles. Es claro que, en este caso, $\mathcal{N}(\mathcal{F}_{all}, n)=2^{2n}$,
+pues cualquier muestra de $2n$ puntos puede ser separada de $2^{2n}$ formas posibles. Entonces, la cota de convergencia uniforme para este espacio
+es:
+
+\[
+P\left(\sup_{f \in \mathcal{F}_{all}} |R(f) - R_{\text{emp}}(f)| > \epsilon \right) \leq
+2\cdot 2^{2n} \exp\left(-\frac{n\epsilon^2}{4}\right) = 2\exp\left(n\left( 2\log(2) - \frac{n\epsilon^2}{4}\right)\right).
+\]
+
+Que es una expresión que no tiende a $0$ cuando $n$ tiende a infinito. Con lo que sabemos hasta ahora, esto no significa que podamos 
+concluir que la minimización del riesgo empírico
+usando el espacio de todas las funciones clasificadoras posibles sea inconsistente, dado que la cota de convergencia uniforme anterior
+es solo una condicion suficiente. Pero si podemos dar el siguiente resultado para definir una condición necesaria y suficiente para
+la consistencia de la minimización del riesgo empírico.
+\begin{thm}
+    La minimización del riesgo empírico es consistente con respecto a un espacio de funciones $\mathcal{F}$ si y solo si
+    \[
+    \frac{\log\left(\mathcal{N}(\mathcal{F}, n)\right)}{n} \rightarrow 0 \qquad \text{cuando } n \to \infty.
+    \]
+    
+\end{thm}
+\begin{proof}
+    cf Mendelson 2003. Para teoremas relacionados, ver Vapnik y Chernovenkis 1971,1981, section 12.4, Devroye et al 1996.\\
+\end{proof}
+
+\begin{cor}
+    Si $\mathcal{N}(\mathcal{F}, n)$ es polinómica, entonces la minimización del riesgo empírico es consistente con respecto a $\mathcal{F}$.\\
+\end{cor}
+\begin{cor}
+    Si $\mathcal{N}(\mathcal{F}, n)=2^n$, entonces la minimización del riesgo empírico no es consistente con respecto a $\mathcal{F}$. En 
+    particular, no es consistente con respecto al espacio de todas los clasificadores posibles $\mathcal{F}_{all}$.
+\end{cor}
+
+\subsection{Cotas de generalización}
+
+Es a veces útil reescribir la ecuación (\ref{eq: cota convergencia coeficiente fragmentacion}) de forma inversa. Es decir, en lugar de 
+fijar \(\epsilon\) y 
+luego calcular la probabilidad de que el riesgo empírico se desvíe del riesgo verdadero en más de \(\epsilon\), 
+podemos especificar la probabilidad con la que queremos que la cota se cumpla, y luego obtener una afirmación 
+que nos indique qué tan cerca podemos esperar que esté el riesgo del riesgo empírico. Es decir, fijamos \(\delta > 0\) 
+y resolviendo para \(\epsilon\). Como resultado, obtenemos que, con una probabilidad al menos \(1 - \delta\), cualquier 
+función \(f \in \mathcal{F}\) satisface:
+
+\begin{equation}
+    R(f) \leq R_{\text{emp}}(f) + \sqrt{\frac{4}{n} \log(2\mathcal{N}(\mathcal{F}, n)) - \log(\delta)}. \label{eq: cota generalizacion}
+\end{equation}
+
+
+De la misma manera que antes, podemos usar esta cota para derivar afirmaciones de consistencia. Por ejemplo, 
+ahora es evidente que la minimización del riesgo empírico es consistente para la clase de funciones \(\mathcal{F}\) 
+si el término \(\log(2\mathcal{N}(\mathcal{F}, 2n))/n\) converge a \(0\) cuando \(n \to \infty\). Una vez más, 
+este es el caso si \(\mathcal{N}(\mathcal{F}, 2n)\) crece de manera polinómica con \(n\).\\
+
+Nótese que la cota (\ref{eq: cota generalizacion}) se cumple para todas las funciones \(f \in \mathcal{F}\). 
+Por un lado, esto es una fortaleza 
+de la cota, ya que se cumple en particular para la función \(f_n\) que minimiza el riesgo empírico, que es lo que 
+buscamos. Además, muchos algoritmos de aprendizaje no minimizan exactamente el riesgo empírico, por lo que la cota 
+también se cumple para ellos. Sin embargo, esto también puede interpretarse como una debilidad, ya que, al considerar 
+un espacio más grande del necesario, obtenemos una cota menos ajustada de lo que podríamos si solo considerásemos
+funciones en el espacio del algoritmo de aprendizaje..\\
+
+Intentemos obtener una intuición sobre esta cota. Nos dice que si tanto \(R_{\text{emp}}(f)\) como el término 
+de raíz cuadrada son pequeños simultáneamente, entonces podemos garantizar que, con alta probabilidad, el 
+riesgo (es decir, el error en puntos futuros que aún no hemos visto) será pequeño. Esto puede parecer una 
+afirmación sorprendente, sin embargo, no afirma nada imposible. Si usamos una clase de funciones con un 
+\(\mathcal{N}(\mathcal{F}, n)\) relativamente pequeño, es decir, una clase de funciones que no puede explicar 
+muchas funciones posibles, y luego notamos que usando una función de esta clase podemos explicar los datos muestreados 
+del problema en cuestión, entonces es probable que esto no sea una coincidencia y hayamos capturado algunos aspectos 
+esenciales del problema. \\
+
+Por otro lado, si el problema es demasiado difícil de aprender a partir de la cantidad de datos dada, entonces 
+descubriremos que, para explicar los datos (es decir, para lograr un \(R_{\text{emp}}(f)\) pequeño), necesitamos 
+una clase de funciones que sea tan grande que pueda, en esencia, explicar cualquier cosa. En ese caso, el término 
+de raíz cuadrada sería grande. Finalmente, nótese que la dificultad de aprender un problema está completamente 
+determinada por si podemos encontrar una clase de funciones adecuada y, por lo tanto, por nuestro conocimiento 
+previo sobre él. Incluso si la función óptima es subjetivamente muy compleja, si nuestra clase de funciones 
+contiene esa función y pocas o ninguna otra, estamos en una excelente posición para aprender.\\
+
+Existe una gran cantidad de cotas similares a (\ref{eq: cota convergencia coeficiente fragmentacion}) 
+y su forma alternativa (\ref{eq: cota generalizacion}). Las diferencias ocurren en 
+las constantes, tanto en el coeficiente frente a la exponencial como en su exponente. Las cotas también 
+difieren en el exponente de \(\epsilon\) y en la forma en que miden la capacidad. \\
 
 \subsection{La dimensión VC}
 
-Aunque el coeficiente de fragmentación es útil, a menudo es difícil calcularlo para clases de funciones arbitrarias. 
-Para abordar esto, introducimos la \textbf{dimensión VC} (dimensión de Vapnik-Chervonenkis), que es una 
-medida más simple y ampliamente utilizada de la capacidad de una clase de funciones.
+Hasta ahora hemos definido cotas de generalización en términos del coeficiente de framentación.
+Aunque este es útil, a menudo es difícil calcularlo para clases de funciones arbitrarias. Existen otras medidas de capacidad
+que son más fáciles de calcular y que proporcionan cotas más ajustadas, con ventajas y desventajas.
+Introducimos la más conocida de todas, la llamada \textbf{dimensión VC} (dimensión de Vapnik-Chervonenkis). En pocas palabras,
+esta medida intenta caratecterizar el crecimiento del coeficiente de fragmentación a medida que $n$ crece, destilado en un 
+solo valor.\\
 
-Decimos que una muestra \(Z_n\) de tamaño \(n\) es fragmentada (\textit{shattered}) por la clase de funciones 
+Decimos que una muestra \(Z_n\) de tamaño \(n\) es fragmentada por la clase de funciones 
 \(\mathcal{F}\) si \(\mathcal{N}(\mathcal{F}, n) = 2^n\). Es decir, \(\mathcal{F}\) puede realizar cualquier separación posible de etiquetas sobre 
 los puntos de la muestra. La dimensión VC de \(\mathcal{F}\), denotada como \(\text{VC}(\mathcal{F})\), se define como el tamaño 
-máximo de una muestra que puede ser fragmentada por \(\mathcal{F}\). Formalmente:
+máximo de una muestra que puede ser fragmentada por \(\mathcal{F}\). Formalmente:\\
 
+\begin{dfn}
+La dimensión VC de una clase de funciones \(\mathcal{F}\) es el tamaño máximo de una muestra que puede ser fragmentada por \(\mathcal{F}\), es decir:
 \[
 \text{VC}(\mathcal{F}) = \max \{n \in \mathbb{N} \mid \mathcal{N}(\mathcal{F}, n) = 2^n\}.
 \]
+Si no existe tal máximo, definimos \(\text{VC}(\mathcal{F}) = \infty\). \\
+\end{dfn}
 
-Si no existe tal máximo, definimos \(\text{VC}(\mathcal{F}) = \infty\). La dimensión VC tiene una interpretación combinatoria 
+La dimensión VC tiene una interpretación combinatoria 
 elegante y proporciona una forma práctica de analizar la capacidad de \(\mathcal{F}\). Por ejemplo, si \(\text{VC}(\mathcal{F})\) 
 es finita, podemos garantizar la consistencia de la minimización del riesgo empírico. Además, una clase de funciones 
-con dimensión VC más baja tiende a tener una mejor capacidad de generalización.
+con dimensión VC más baja tiende a tener una mejor capacidad de generalización.\\
+
+\begin{lem}
+    Sea $\mathcal{F}$ una clase de funciones con dimensión VC finita. Entonces
+    \[
+    \mathcal{N}(\mathcal{F}, n) \leq \sum_{i=0}^{\text{VC}(\mathcal{F})} \binom{n}{i} , \qquad \forall n \in \mathbb{N}.
+    \]
+    En particular, para $n\geq \text{VC}(\mathcal{F})$ se tiene que 
+    \[
+    \mathcal{N}(\mathcal{F}, n) \leq \left(\frac{e\cdot n}{\text{VC}(\mathcal{F})}\right)^{\text{VC}(\mathcal{F})}.
+    \]
+\end{lem}
+
+La importancia de esta afirmación radica en el último hecho. Si \( n \geq \text{VC}(\mathcal{F}) \), 
+el coeficiente de fragmentación se comporta como una función polinómica del tamaño de la muestra \( n \). 
+Este es un resultado muy notable: una vez que sabemos que la dimensión VC de una clase de funciones 
+\(\mathcal{F}\) es finita, ya sabemos que los coeficientes de fragmentación crecen polinómicamente con \( n \). 
+Por los resultados de la sección anterior, esto implica la consistencia de la minimización del riesgo empírico.\\
+Nótese que también tenemos una afirmación en la otra dirección. Si la dimensión VC es infinita, esto significa 
+que para cada \( n \) existe alguna muestra que puede ser fragmentada por \(\mathcal{F}\), es decir, tal que
+\(\mathcal{N}(\mathcal{F}, n) = 2^n. \) Para este caso, ya vimos anteriormente que ERM no es consistente.\\
+Enunciamos todo esto en el siguiente Teorema.\\
+
+\begin{thm}
+    La minimización del riesgo empírico es consistente con respecto a una clase de funciones \(\mathcal{F}\) si y solo si
+    \(\text{VC}(\mathcal{F}) < \infty\).\\ 
+\end{thm}
+
+Una propiedad importante a notar tanto sobre el coeficiente de fragmentación como sobre la 
+dimensión VC es que no dependen de la distribución subyacente \( P \), sino únicamente de la 
+clase de funciones \(\mathcal{F}\). Por un lado, esto es una ventaja, ya que todas las cotas de 
+generalización derivadas de estos conceptos se aplican a todas las distribuciones de probabilidad 
+posibles. Por otro lado, esto también puede considerarse una desventaja, ya que los conceptos de 
+capacidad no tienen en cuenta propiedades particulares de la distribución en cuestión. En este 
+sentido, estos conceptos de capacidad a menudo conducen a cotas bastante amplias, pero es lo que desde
+un comienzo nos interesaba.
+
+
 
 
 \bigbreak
