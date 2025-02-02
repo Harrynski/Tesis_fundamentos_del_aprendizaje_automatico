@@ -6,6 +6,7 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{hyperref}
+\usepackage{mathrsfs}
 \usepackage[font=footnotesize,labelfont=bf,labelsep=colon]{caption} % Personalización de captions
 \DeclareMathOperator*{\argmin}{arg\,min}
 % Define the unnumbered theorem
@@ -1315,20 +1316,140 @@ generalización derivadas de estos conceptos se aplican a todas las distribucion
 posibles. Por otro lado, esto también puede considerarse una desventaja, ya que los conceptos de 
 capacidad no tienen en cuenta propiedades particulares de la distribución en cuestión. En este 
 sentido, estos conceptos de capacidad a menudo conducen a cotas bastante amplias, pero es lo que desde
-un comienzo nos interesaba.
+un comienzo nos interesaba.\\
+
+\subsection{Complejidad de Rademacher}
+Un concepto diferente para medir la capacidad de un espacio funcional es la \textbf{complejidad de Rademacher}. 
+En comparación con el coeficiente de fragmentación y la dimensión VC, esta sí depende de la distribución de 
+probabilidad subyacente y, por lo general, conduce a cotas mucho más ajustadas que ambas. \\
+
+La complejidad de Rademacher se define de la siguiente manera.
+
+\begin{dfn}
+Sean \(\sigma_1, \sigma_2, \dots\) variables aleatorias independientes que toman los valores \(+1\) y \(-1\) 
+con probabilidad \(0.5\). Definimos la complejidad de Rademacher \(\mathscr{R}(\mathcal{F})\) de un espacio funcional 
+\(\mathcal{F}\) como:
+
+\[
+    \mathscr{R}(\mathcal{F}) := \mathbb{E} \sup_{f \in \mathcal{F}} \frac{1}{n} \sum_{i=1}^{n} \sigma_i f(X_i).
+\]
+\end{dfn}
+
+Cada una de estas variables aleatorias se denominan \textit{variables de Rademacher}. 
+Por ejemplo, pueden interpretarse como los resultados de lanzar repetidamente una moneda no cargada. 
+
+Consideremos primero los valores \(\sigma_i\) como fijos e interpretémoslos como etiquetas asignadas a los puntos \(X_i\). Como tanto 
+\(\sigma_i\) como \(f(X_i)\) solo toman los valores \(+1\) o \(-1\), el producto \(\sigma_i f(X_i)\) toma el 
+valor \(+1\) si \(\sigma_i = f(X_i)\), y \(-1\) si \(\sigma_i \neq f(X_i)\). \\
+
+Como consecuencia, la suma en el lado derecho de la ecuación será grande si las etiquetas \(f(X_i)\) 
+coinciden con las etiquetas \(\sigma_i\) en muchos puntos de datos. Esto significa que la función \(f\) 
+se ajusta bien a las etiquetas \(\sigma_i\): si las etiquetas \(\sigma_i\) fueran en general correctas, 
+\(f\) tendría un error de entrenamiento (o riesgo empírico) pequeño. Luego
+
+\[
+\sup_{f \in \mathcal{F}} \sum_{i=1}^{n} \sigma_i f(X_i)
+\]
+
+es grande si existe una función en \(\mathcal{F}\) que se ajusta bien a la secuencia dada de etiquetas \(\sigma_i\). \\
+
+Ahora recordemos que las etiquetas \(\sigma_i\) son variables aleatorias. Podemos considerarlas 
+como etiquetas aleatorias asignadas a los puntos de datos \(X_i\). Como tomamos la esperanza sobre ambos, los 
+puntos de datos y las etiquetas aleatorias, la complejidad de Rademacher será alta si el espacio funcional 
+\(\mathcal{F}\) es capaz de ajustarse bien a etiquetas aleatorias. Esta intuición tiene sentido: un espacio 
+funcional debe ser bastante grande para poder ajustarse a todo tipo de etiquetas aleatorias en todo tipo de 
+conjuntos de datos. En este sentido, la complejidad de Rademacher mide qué tan complejo es el espacio 
+funcional: cuanto mayor sea \(\mathscr{R}(\mathcal{F})\), mayor será la complejidad de \(\mathcal{F}\).\\
+
+Desde un punto de vista matemático, la complejidad de Rademacher es conveniente para trabajar. Se pueden 
+demostrar cotas de generalización de la siguiente forma:
+\begin{thm}
+    Sea $\mathcal{F}$ un espacio funcional y $Z_n$ una muestra de tamaño $n$. Entonces, para cualquier $\delta > 0$,
+\[
+\mathcal{R}(f) \leq \mathcal{R}_{\text{emp}}(f) + 2\mathscr{R}(\mathcal{F}) + \sqrt{\frac{\log(1/\delta)}{2n}}.
+\]
+con probabilidad al menos \(1 - \delta\).\\
+\end{thm}
 
 
+La complejidad de Rademacher tienen algunas ventajas sobre los conceptos clásicos de capacidad, como la 
+dimensión VC. En particular, las cotas obtenidas mediante complejidades de Rademacher tienden a ser mucho más 
+precisas que las obtenidas mediante herramientas clásicas. Las técnicas de demostración son diferentes de las 
+explicadas anteriormente, pero no entraremos en detalles aquí. Para literatura sobre cotas basadas en la 
+complejidad de Rademacher, véase, por ejemplo, Mendelson (2003), Bousquet et al. (2003) o Boucheron et al. 
+(2005) y las referencias allí citadas.\\
+
+\subsection{Cotas con grandes márgenes de separación}
+
+Finalmente, queremos introducir otro tipo de medida de capacidad de clases de funciones que es 
+más especializada que las cantidades combinatorias generales presentadas anteriormente. Consideremos 
+el caso particular en el que el espacio de datos consiste en puntos en el espacio bidimensional 
+\(\mathbb{R}^2\) y donde queremos separar las clases mediante una línea recta. Dado un conjunto 
+de puntos de entrenamiento y un clasificador \(f_n\) que puede separarlos perfectamente, definimos 
+el \textbf{margen} del clasificador \(f_n\) como la menor distancia de cualquier punto de entrenamiento 
+a la línea separadora definida por \(f_n\) (véase la Figura 5). De manera análoga, se puede definir 
+un margen para clasificadores lineales en un espacio de dimensión arbitraria \(d\).
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Images/6.png}
+    \caption{Margen de un clasificador lineal: las cruces representan puntos de entrenamiento con 
+    etiqueta \(+1\), mientras que los círculos representan puntos de entrenamiento con etiqueta \(-1\). 
+    La línea recta es el clasificador lineal \(f_n\), y la línea discontinua muestra el margen. La 
+    anchura \(\rho\) del margen está representada por la flecha.}
+    \label{fig:Clasificación con margen}
+\end{figure}
+
+Se puede demostrar que la dimensión VC de la clase \(\mathcal{F}_\rho\) de funciones lineales con 
+margen al menos \(\rho\) puede ser acotada esencialmente por la razón entre el radio \(R\) de la 
+esfera más pequeña que encierra los puntos de datos y el margen \(\rho\), es decir,
+
+\[
+\text{VC}(\mathcal{F}_\rho) \leq \min \left(d, \frac{4R^2}{\rho^2} + 1 \right).
+\]
+
+(cf. Teorema 5.1 en Vapnik, 1995). Es decir, cuanto mayor sea el margen \(\rho\) de las funciones 
+en la clase \(\mathcal{F}_\rho\), menor será su dimensión VC. De esta manera, se puede usar el 
+margen de los clasificadores como un concepto de capacidad. Uno de los clasificadores más conocidos, 
+la \textbf{máquina de soporte vectorial} (SVM, \textit{Support Vector Machine}), se basa en este 
+resultado. Para un tratamiento más completo, véase Schölkopf y Smola (2002).
+
+Un ejemplo de cota de generalización que involucra el gran margen es el siguiente (para una 
+declaración más precisa, véase el Teorema 7.3 en Schölkopf y Smola, 2002):
+
+\begin{thm}[Cotas de grandes márgenes]
+
+Supongamos que el espacio de datos está contenido dentro de una esfera de radio \(R\) en 
+\(\mathbb{R}^d\). Consideremos el conjunto \(\mathcal{F}_\rho\) de clasificadores lineales con 
+margen al menos \(\rho\). Supongamos que se nos dan \(n\) ejemplos de entrenamiento. Denotemos 
+por \(\nu(f)\) la fracción de ejemplos de entrenamiento con margen menor que \(\rho\) o que han 
+sido clasificados erróneamente por algún clasificador \(f \in \mathcal{F}_\rho\). Entonces, con 
+probabilidad al menos \(1 - \delta\), el error verdadero de cualquier \(f \in \mathcal{F}_\rho\) 
+puede ser acotado por:
+
+\[
+\mathcal{R}(f) \leq \nu(f) + \sqrt{\frac{c}{n} \left( \frac{R^2}{\rho^2} \log(n)^2 + \log(1/\delta) \right)} .
+\]
+\end{thm}
 
 
 \bigbreak
 \pagebreak
 \section{Bibliografía}
 
-[1] \textit{Statistical Learning Theory: Models, Concepts and Results} - von Luxburg, Schölkopf (2008)
+[1] \textit{Statistical Learning Theory: Models, Concepts and Results} - von Luxburg, Schölkopf (2008). \\
 
-[2] \textit{The Nature of Statistical Learning Theory, second edition} - Vladimir Vapnik (2000)
+[2] \textit{The Nature of Statistical Learning Theory} - Vladimir Vapnik (1995). \\
 
-[3] \textit{A Probabilistic Theory of Pattern Recognition} - Luc Devroye, László Györfi, Gábor Lugosi (1996)
+[3] \textit{Statistical Learning Theory} - Vladimir Vapnik (1998). \\
+
+[4] \textit{A Probabilistic Theory of Pattern Recognition} - Luc Devroye, László Györfi, Gábor Lugosi (1996). \\
+
+[5] \textit{Learning with Kernels} - B. Schölkopf, A. Smola (1996). \\
+
+[6] \textit{Statistical Inference} - Casella, Berger . \\
+
+[7] \textit{Pattern Recognition and Machine Learning} - C. Bishop (2006). \\
 
 
 
