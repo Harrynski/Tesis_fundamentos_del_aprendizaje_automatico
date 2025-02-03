@@ -12,11 +12,12 @@
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introducción}{1}{section.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {2}El aprendizaje}{1}{section.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {3}La historia del aprendizaje automático}{2}{section.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4}Hacia la formalización}{4}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Hacia la formalización}{3}{section.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Pérdida y Riesgo}{5}{subsection.4.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Generalización}{7}{subsection.4.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Consistencia}{7}{subsection.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Sobreajuste y subajuste}{10}{subsection.4.4}\protected@file@percent }
+\newlabel{def:consistencias}{{4.3.1}{8}{}{Item.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Sobreajuste y subajuste}{9}{subsection.4.4}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Dos posibles modelos de regresión, uno lineal y otro no, para un conjunto de datos dado.}}{10}{figure.caption.1}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{fig:Sobreajuste y subajuste}{{1}{10}{Dos posibles modelos de regresión, uno lineal y otro no, para un conjunto de datos dado}{figure.caption.1}{}}
@@ -28,28 +29,33 @@
 \@writefile{toc}{\contentsline {section}{\numberline {5}El clasificador de los $k$ vecinos más cercanos}{13}{section.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {6}Minimización del riesgo empírico}{17}{section.6}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.1}La ley de los grandes números}{18}{subsection.6.1}\protected@file@percent }
-\newlabel{eq:Chernoff}{{2}{18}{La ley de los grandes números}{equation.6.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Inconsistencia en la minimización del riesgo empírico}{19}{subsection.6.2}\protected@file@percent }
-\newlabel{Inconsistencia en la minimización del riesgo empírico}{{6.2}{19}{Inconsistencia en la minimización del riesgo empírico}{subsection.6.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Convergencia uniforme}{20}{subsection.6.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Representación simplificada de la convergencia del riesgo empírico al riesgo verdadero. El eje \(x\) representa una dimensión de la clase de funciones \(F\), mientras que el eje \(y\) denota el riesgo. Para cada función fija \(f\), la ley de los grandes números nos dice que, a medida que el tamaño de la muestra tiende a infinito, el riesgo empírico \(\mathcal  {R}_{\text  {emp}}(f)\) converge al riesgo verdadero \(\mathcal  {R}(f)\) (indicado por la flecha). Sin embargo, esto no implica que, en el límite de tamaños de muestra infinitos, el minimizador del riesgo empírico, \(f_n\), lleve a un valor del riesgo tan bueno como el del mejor \(f_F\) en la clase de funciones. Para que esto sea cierto, requerimos la convergencia uniforme de \(\mathcal  {R}_{\text  {emp}}(f)\) a \(\mathcal  {R}(f)\) sobre todas las funciones en \(F\). (Adaptado de Schölkopf y Smola, 2002).}}{21}{figure.caption.4}\protected@file@percent }
-\newlabel{riesgo vs riesgo empirico}{{4}{21}{Representación simplificada de la convergencia del riesgo empírico al riesgo verdadero. El eje \(x\) representa una dimensión de la clase de funciones \(F\), mientras que el eje \(y\) denota el riesgo. Para cada función fija \(f\), la ley de los grandes números nos dice que, a medida que el tamaño de la muestra tiende a infinito, el riesgo empírico \(\mathcal {R}_{\text {emp}}(f)\) converge al riesgo verdadero \(\mathcal {R}(f)\) (indicado por la flecha). Sin embargo, esto no implica que, en el límite de tamaños de muestra infinitos, el minimizador del riesgo empírico, \(f_n\), lleve a un valor del riesgo tan bueno como el del mejor \(f_F\) en la clase de funciones. Para que esto sea cierto, requerimos la convergencia uniforme de \(\mathcal {R}_{\text {emp}}(f)\) a \(\mathcal {R}(f)\) sobre todas las funciones en \(F\). (Adaptado de Schölkopf y Smola, 2002)}{figure.caption.4}{}}
+\newlabel{eq:Chernoff}{{2}{19}{La ley de los grandes números}{equation.6.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Inconsistencia en la minimización del riesgo empírico}{20}{subsection.6.2}\protected@file@percent }
+\newlabel{Inconsistencia en la minimización del riesgo empírico}{{6.2}{20}{Inconsistencia en la minimización del riesgo empírico}{subsection.6.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Convergencia uniforme}{21}{subsection.6.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Representación simplificada de la convergencia del riesgo empírico al riesgo verdadero. El eje \(x\) representa una dimensión de la clase de funciones \(F\), mientras que el eje \(y\) denota el riesgo. Para cada función fija \(f\), la ley de los grandes números nos dice que, a medida que el tamaño de la muestra tiende a infinito, el riesgo empírico \(\mathcal  {R}_{\text  {emp}}(f)\) converge al riesgo verdadero \(\mathcal  {R}(f)\) (indicado por la flecha). Sin embargo, esto no implica que, en el límite de tamaños de muestra infinitos, el minimizador del riesgo empírico, \(f_n\), lleve a un valor del riesgo tan bueno como el del mejor \(f_F\) en la clase de funciones. Para que esto sea cierto, requerimos la convergencia uniforme de \(\mathcal  {R}_{\text  {emp}}(f)\) a \(\mathcal  {R}(f)\) sobre todas las funciones en \(F\). (Adaptado de Schölkopf y Smola, 2002).}}{22}{figure.caption.4}\protected@file@percent }
+\newlabel{riesgo vs riesgo empirico}{{4}{22}{Representación simplificada de la convergencia del riesgo empírico al riesgo verdadero. El eje \(x\) representa una dimensión de la clase de funciones \(F\), mientras que el eje \(y\) denota el riesgo. Para cada función fija \(f\), la ley de los grandes números nos dice que, a medida que el tamaño de la muestra tiende a infinito, el riesgo empírico \(\mathcal {R}_{\text {emp}}(f)\) converge al riesgo verdadero \(\mathcal {R}(f)\) (indicado por la flecha). Sin embargo, esto no implica que, en el límite de tamaños de muestra infinitos, el minimizador del riesgo empírico, \(f_n\), lleve a un valor del riesgo tan bueno como el del mejor \(f_F\) en la clase de funciones. Para que esto sea cierto, requerimos la convergencia uniforme de \(\mathcal {R}_{\text {emp}}(f)\) a \(\mathcal {R}(f)\) sobre todas las funciones en \(F\). (Adaptado de Schölkopf y Smola, 2002)}{figure.caption.4}{}}
 \newlabel{eq:cota_uniforme}{{3}{22}{Convergencia uniforme}{equation.6.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Cotas de generalización y medidas de capacidad}{23}{section.7}\protected@file@percent }
-\newlabel{eq:med_unif_riesgo_riesgo_emp}{{4}{23}{Cotas de generalización y medidas de capacidad}{equation.7.4}{}}
-\newlabel{eq: chernoff acotada por m}{{5}{24}{Cotas de generalización y medidas de capacidad}{equation.7.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Simetrización}{24}{subsection.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}Cotas de generalización y medidas de capacidad}{24}{section.7}\protected@file@percent }
+\newlabel{eq:med_unif_riesgo_riesgo_emp}{{4}{24}{Cotas de generalización y medidas de capacidad}{equation.7.4}{}}
+\newlabel{eq: chernoff acotada por m}{{5}{25}{Cotas de generalización y medidas de capacidad}{equation.7.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Simetrización}{25}{subsection.7.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {7.2} El coeficiente de fragmentación}{26}{subsection.7.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Fragmentación de muestras en $\mathbb  {R}^2$ de tres y cuatro puntos.}}{27}{figure.caption.5}\protected@file@percent }
-\newlabel{fragmentacion perceptron}{{5}{27}{Fragmentación de muestras en $\mathbb {R}^2$ de tres y cuatro puntos}{figure.caption.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Cotas de convergencia uniforme}{27}{subsection.7.3}\protected@file@percent }
-\newlabel{eq: cota convergencia coeficiente fragmentacion}{{6}{28}{Cotas de convergencia uniforme}{equation.7.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.4}Cotas de generalización}{29}{subsection.7.4}\protected@file@percent }
-\newlabel{eq: cota generalizacion}{{7}{29}{Cotas de generalización}{equation.7.7}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.5}La dimensión VC}{30}{subsection.7.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.6}Complejidad de Rademacher}{32}{subsection.7.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.7}Cotas con grandes márgenes de separación}{33}{subsection.7.7}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Margen de un clasificador lineal: las cruces representan puntos de entrenamiento con etiqueta \(+1\), mientras que los círculos representan puntos de entrenamiento con etiqueta \(-1\). La línea recta es el clasificador lineal \(f_n\), y la línea discontinua muestra el margen. La anchura \(\rho \) del margen está representada por la flecha.}}{34}{figure.caption.6}\protected@file@percent }
-\newlabel{fig:Clasificación con margen}{{6}{34}{Margen de un clasificador lineal: las cruces representan puntos de entrenamiento con etiqueta \(+1\), mientras que los círculos representan puntos de entrenamiento con etiqueta \(-1\). La línea recta es el clasificador lineal \(f_n\), y la línea discontinua muestra el margen. La anchura \(\rho \) del margen está representada por la flecha}{figure.caption.6}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Bibliografía}{35}{section.8}\protected@file@percent }
-\gdef \@abspage@last{35}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Fragmentación de muestras en $\mathbb  {R}^2$ de tres y cuatro puntos.}}{28}{figure.caption.5}\protected@file@percent }
+\newlabel{fragmentacion perceptron}{{5}{28}{Fragmentación de muestras en $\mathbb {R}^2$ de tres y cuatro puntos}{figure.caption.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Cotas de convergencia uniforme}{28}{subsection.7.3}\protected@file@percent }
+\newlabel{eq: cota convergencia coeficiente fragmentacion}{{6}{29}{Cotas de convergencia uniforme}{equation.7.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.4}Cotas de generalización}{30}{subsection.7.4}\protected@file@percent }
+\newlabel{eq: cota generalizacion}{{7}{30}{Cotas de generalización}{equation.7.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.5}La dimensión VC}{31}{subsection.7.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.6}Complejidad de Rademacher}{33}{subsection.7.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.7}Cotas con grandes márgenes de separación}{34}{subsection.7.7}\protected@file@percent }
+\newlabel{def:margen}{{7.7.1}{35}{}{dfn.7.7.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Margen de un clasificador lineal: las cruces representan puntos de entrenamiento con etiqueta \(+1\), mientras que los círculos representan puntos de entrenamiento con etiqueta \(-1\). La línea recta es el clasificador lineal \(f_n\), y la línea discontinua muestra el margen. La anchura \(\rho \) del margen está representada por la flecha.}}{35}{figure.caption.6}\protected@file@percent }
+\newlabel{fig:Clasificación con margen}{{6}{35}{Margen de un clasificador lineal: las cruces representan puntos de entrenamiento con etiqueta \(+1\), mientras que los círculos representan puntos de entrenamiento con etiqueta \(-1\). La línea recta es el clasificador lineal \(f_n\), y la línea discontinua muestra el margen. La anchura \(\rho \) del margen está representada por la flecha}{figure.caption.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.8}Conclusiones acerca de las cotas de generalización}{36}{subsection.7.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8}Consistencia de Bayes y error de aproximación}{36}{section.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Espacios funcionales anidados}{37}{subsection.8.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Regularización}{39}{subsection.8.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9}Bibliografía}{42}{section.9}\protected@file@percent }
+\gdef \@abspage@last{42}

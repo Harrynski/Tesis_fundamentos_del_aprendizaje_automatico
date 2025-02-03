@@ -31,7 +31,7 @@ La Teoría del Aprendizaje Estadístico proporciona la base teórica para muchos
 sin lugar a dudas, es una de las ramas más bellamente desarrolladas de la inteligencia artificial en general. Nació con el perceptrón de Rossenblat
 y la escuela matemática de la Unión Soviética en la década de 1960, y ganó amplia popularidad en la década de 1990 tras el desarrollo de las llamadas 
 Máquinas de Vectores de Soporte (\textit{SVM}, por sus siglas en inglés), que se han convertido en una herramienta estándar para el reconocimiento de 
-patrones en muchas disciplinas, que van desde la visión por computadora hasta la biología computacional.\\
+patrones en muchas disciplinas, que van desde la visión por computadora hasta la biología computacional.
 
 Proporcionar la base para nuevos algoritmos de aprendizaje no ha sido la única motivación para desarrollar la Teoría del Aprendizaje 
 Estadístico. También ha sido una gesta de caracter filosófico, en el intento de responder a la pregunta de qué nos permite extraer conclusiones válidas 
@@ -42,14 +42,14 @@ a partir de datos empíricos.
 En este contexto, el \textit{aprendizaje} es el proceso a través del cual pueden inferirse reglas generales a partir de ejemplos. Nos interesa 
 entender como una máquina -una computadora- puede resolver ciertos problemas sin conocer las reglas de antemano, solo a partir de ejemplos y a través
 de un \textit{algoritmo de aprendizaje}. El objetivo es que la máquina pueda no solo aprender a reconocer las reglas que rigen a los ejemplos dados,
-si no que también pueden generalizar dichas reglas para ejemplos que le serán presentados con posterioridad.\\
+si no que también pueden generalizar dichas reglas para ejemplos que le serán presentados con posterioridad.
 
-Llamamos a esta disciplina \textit{aprendizaje automático} (en inglés, \textit{Machine Learning}, literalmente ``aprendizaje de máquinas") y reconocemos
+Llamamos a esta disciplina \textit{aprendizaje automático} (en inglés, \textit{Machine Learning}, literalmente ``aprendizaje de máquinas'') y reconocemos
 sus raíces en otras disciplinas: Estadística Matemática, Ciencias de la Computación e Inteligencia Artificial. Si bien el aprendizaje suele ser una
 parte fundamental de la mayoría de los esfuerzos en materia de Inteligencia Artificial, el objetivo del Machine Learning es más acotado que el de su 
 rama madre: En vez de intentar definir, explicar o generar comportamiento inteligente o \textit{inteligencia}, aquí nos interesa solamente descubrir los mecanismos
 a través de los cuales las computadoras pueden resolver algunas tareas acotadas y bien definidas, y que en general escapan a soluciones que pueden
-ser especificadas con una cantidad finita de código de programación (reglas determinísticas). \\
+ser especificadas con una cantidad finita de código de programación (reglas determinísticas).
 
 Con fines ilustrativos, nos centraremos primero en el más conocido de los problemas del Machine Learning, el de clasificación. Consideremos dos espacios
 de variables: \(X\), llamado \textit{espacio de entrada}, e \(Y\), el  \textit{espacio de etiquetas}. En un problema de clasificación, deseamos poder etiquetar
@@ -57,7 +57,7 @@ correctamente elementos de \(X\) con los valores de \(Y\). Por ejemplo, podríam
 objetos en una cantidad de etiquetas como: silla, cama, microondas, perro, gato. Si esta representación es en imágenes de \(N\times M\) pixeles en blanco y negro (realmente, 
 matrices de orden \(N\times M\) con coeficientes reales en el interavalo \([0,1]\) que representan la intensidad de cada pixel, del negro al blanco), el espacio \(X\) es 
 el conjunto de dichas matrices y el espacio \(Y\) las categorías distintas que corresponden a lo que las imágenes muestran. Con el fin de aprender, a un algoritmo se le 
-muestran ejemplos de imágenes y sus respectivas etiquetas \((X_1,Y_1)\), \((X_2,Y_2)\), ..., \((X_n,Y_n)\), a partir de los cuales este debe encontrar una función
+muestran ejemplos de imágenes y sus respectivas etiquetas \((X_1,Y_1)\), \((X_2,Y_2)\), \dots, \((X_n,Y_n)\), a partir de los cuales este debe encontrar una función
 \(f: X\rightarrow Y\), que comete la menor cantidad de errores posibles. A esta función \(f\) la llamamos \textit{clasificador}.
 
 \section{La historia del aprendizaje automático}
@@ -66,7 +66,7 @@ El primer modelo de aprendizaje automático, según Vapnik en [2], fue sugerido 
 constituye el comienzo del análisis matemático del aprendizaje. Conceptualmente, la idea del perceptrón no era nueva, estando presente en la litetura de Neurofisiología durante
 varios años. Rosenblatt, sin embargo, se aventuró en describir el modelo como un programa para computadoras y demostró con simples experimentos que dicho modelo era generalizable.
 El perceptrón fue construído como una solución a un problema particular dentro del aprendizaje automático, el reconocimiento de patrones. En el caso más sencillo, este problema
-consiste en hallar una regla para separar datos en dos categorías distintas a partir de ejemplos.\\
+consiste en hallar una regla para separar datos en dos categorías distintas a partir de ejemplos.
 
 Para construir la regla de separación, el perceptrón sigue el modelo más sencillo de neurona, propuesto previamente por McCulloch y Pitts, de acuerdo al cual una neurona recibe
 \(n\) valores (o \textit{inputs}) en la forma de un vector \(x = (x^1,\dots, x^n) \in X \subset \mathbb{R}^n \) y genera una etiqueta (\textit{output}) 
@@ -76,41 +76,41 @@ y = sgn\{(w\cdot x)-b\}
 \]
 
 con \(\cdot\) el producto interno de vectores en \(\mathbb{R}^n\), \(b\) un valor de límite y un vector \(w\) que se genera en el proceso de aprendizaje. Geométricamente, una 
-neurona divide el espacio \(X\) en dos regiones: en una la etiqueta \(y\) vale \(+1\) y en la otra \(-1\). Las dos regiones son separadas por el hiperplano:
-\[
-(w\cdot x) - b = 0
-\]
+neurona divide el espacio \(X\) en dos regiones: en una la etiqueta \(y\) vale \(+1\) y en la otra \(-1\). Las dos regiones son separadas por el hiperplano:\newline
 
+\[
+(w\cdot x) - b = 0 \newline
+\]
 
 El vector \(w\) y el escalar \(b\) determinan la posición del hiperplano y sus valores son aprendidos por el perceptrón. Cuando combinamos varias neuronas, el perceptrón
 separa el espacio de entrada en en dos regiones lineales a trozos y no necesariamente conexas. En 1960 no era claro como elegir todos los parametros \((w_1,\dots,w_k)\) y
-\((b_1,\cdots, b_k)\) de todas las neuronas, por lo que se fijaban los valores de las primeras \(k-1\) y se intentaba encontrar los valores deseables para la última
+\((b_1,\dots, b_k)\) de todas las neuronas, por lo que se fijaban los valores de las primeras \(k-1\) y se intentaba encontrar los valores deseables para la última
 de ellas. Geométricamente, se transformaba el espacio de entrada $X$ en un nuevo espacio $Z$ (eligiendo coeficientes apropiados para las primeras $k-1$ neuronas) y luego
 se utilizaban los datos de entrenamiento para construir un hiperplano que separe el plano $Z$.
 Tomando prestados de la fisiología los conceptos de aprendizaje con estímulos de premios y castigos, Rosenblat propuso un simple algoritmo para hallar estos 
-coeficientes de manera iterativa, el cual describiremos a continuación.
+coeficientes de manera iterativa, el cual describiremos a continuación.\newline
 
-DESCRIBIR perceptrón.\\
+DESCRIBIR perceptrón.\newline
 
 En 1962 Novikoff demostró el primer teorema relacionado al perceptrón. Podemos decir que este teorema inció propiamente la teoría del aprendizaje.
 
 \begin{thm}
-Dado un conjunto de datos de entrenamiento como el descrito previamente, de manera que\\
-1) La norma de los vectores de entrenamiento $z_i$ está acotada por una constante $R$:
-$$
+Dado un conjunto de datos de entrenamiento como el descrito previamente, de manera que\newline
+(1) La norma de los vectores de entrenamiento $z_i$ está acotada por una constante $R$:
+\[
 |z_i| \leq R, \qquad \forall i=1,2,\dots,k
-$$
-2) Los datos de entrenamiento pueden separados con un margen $\rho$:
-$$
+\]
+(2) Los datos de entrenamiento pueden separados con un margen $\rho$:
+\[
 \sup_{w} \min_{i} y_i(z_i\cdot w) > \rho
-$$
-3) Los datos son alimentandos al perceptrón una cantidad \textit{suficiente} de veces.\\
+\]
+(3) Los datos son alimentandos al perceptrón una cantidad \textit{suficiente} de veces.
 
 Entonces el algoritmo encuentra el hiperplano que separa los datos de entrenamiento, luego de a lo
 sumo $N$ correcciones, con $N$ verificando:
-$$
+\[
 N \leq \left [ \frac{R^2}{\rho^2}\right ]
-$$
+\]
 
 \end{thm}
 
@@ -139,13 +139,13 @@ e idénticamente distribuída-. Notemos lo siguiente:
     tomemos el caso de un detector de spam basado en la opinión de etiquetadores humanos que clasifican emails con un porcentaje de error; incluso
     los humanos pueden clasificar incorrectament algunos de esos emails), y por otro, ciertos problemas se prestan a que existan
     clases que se solapan (pensemos en la dificultad en diferenciar a un perro de un gato en una fotografías que los captura desde
-    una gran distancia o con baja resolución).\\
+    una gran distancia o con baja resolución).\newline
     En la práctica, en vez de asignar etiquetas a los elementos en $X$ de manera determinística, daremos la probabilidad condicional
     de la etiqueta $y$ dado el valor $x$. En el caso de clasificación binaria, basta solo dar la probabilidad $P(Y=1|X=x)$ de que la etiqueta
     tenga valor $Y=1$, dado que la restante es complementaria:
-    $$
+    \[
     P(Y=-1|X=x) \quad = \quad 1 - P(Y=1|X=x)
-    $$
+    \]
     Ciertos problemas que hagan uso de datos con etiquetas con poco ruido nos llevaran naturalmente a probabilidades condicionales cercanas
     a $0$ y $1$, dejando un margen de error pequeño, pero cuando tratemos con solapamiento de clases, las probabilidades condicionales
     pueden acercarse a $\frac{1}{2}$ para cada etiqueta. Independientemente de la causa, que las probabilidades condicionales sobre
@@ -174,55 +174,55 @@ e idénticamente distribuída-. Notemos lo siguiente:
 
 Para saber qué tan bien se comporta un clasificador $f$, necesitamos medir sus equivocaciones. Para esto, definiremos una \textit{función de pérdida},
 $\ell$, que le asigne un valor al hecho de que $f$ clasifique a cierto $x\in X$ con la etiqueta $y\in Y$. Llamermos \textit{costo} a dicho valor, 
-dado que más adelante penalizaremos al clasificador en base a los errores que cometa a través del alogritmo de aprendizaje.\\
+dado que más adelante penalizaremos al clasificador en base a los errores que cometa a través del alogritmo de aprendizaje.\newline
 El ejemplo más sencillo de función de pérdida es la ``pérdida-0-1'', que le asigna un costo de $0$ a una instancia de clasificación correcta y un costo
 $1$ a una incorrecta, es decir:
-$$
+\[
 \ell(X,Y,f(X)):= \begin{cases}
     1 \qquad \text{si } f(X) \neq Y \\
     0 \qquad \text{si } f(X) = Y
 \end{cases}
-$$
+\]
 En problemas de regresión, la función de pérdida más conocida es el \textit{error cuadrático}, dado por
-$$
+\[
 \ell(X,Y,f(X)):= (Y-f(X))^2
-$$
+\]
 Por convención, una pérdida igual a $0$ implica una clasificación perfecta y valores mayores implican peor clasificación. Es decir,
 el aprendizaje suele implicar un desafío de optimización en dónde deseamos hallar el mínimo de la función de perdida.
 
 Mientras que la función de pérdida mide el error del clasificador en un punto individual $x\in X$, llamamos \textit{riesgo}, $\mathcal{R}$, 
 del clasificador a la pérdida esperada sobre todos los datos generados por la distribución de probabilidad $P$. Es decir
-$$
+\[
 \mathcal{R}(f) := \mathbb{E}\left( \ell(X,Y,f(X)) \right)
-$$
+\]
 Desde luego que otra función $g$ es un mejor clasificador que $f$ para un problema dado si su riesgo es más bajo, es decir si $\mathcal{R}(g)
-< \mathcal{R}(f)$, por lo que el mejor clasificador de todos es aquel con el riesgo más bajo.\\
+< \mathcal{R}(f)$, por lo que el mejor clasificador de todos es aquel con el riesgo más bajo.
 
 Algo que no hemos considerado aún es si los clasificadores $f$ tienen alguna característica especial. Para formalizarlo, tomaremos funciones de un
 espacio de funciones $\mathcal{F}$ que aplican $X$ en $Y$. En un principio, parecería aceptable tomar el espacio de todas las funciones posibles, o 
 más precisamente, el conjunto de todas las funciones \textit{medibles} que aplican $X$ en $Y$, $\mathcal{F}_{all} = \{f \text{ medibles  } | 
 \; f: X \rightarrow Y \}$. En este caso, podemos señalar cuál es el clasificador ideal, dada la distribución $P$, al que llamamos
 \textit{clasificador Bayesiano}, $f_{\text{Bayes}}$, y al que definimos como:
-$$
+\[
 f_{\text{Bayes}} := \begin{cases}
 1 \qquad \; \; \text{  si } P(Y=1 | X=x) \geq \frac{1}{2}\\
 -1 \qquad \text{en otro caso }
 \end{cases}
-$$
+\]
 
 Observermos que, en caso de que las etiquetas fueran determinísticas, es decir donde $P(Y=y|X=x)=1$ para cada $x\in X$ con su
 respectiva etiqueta $y$, $f_{\text{Bayes}}$ eligiría correctamente en todos los casos. De existir un ligero solapamiento de clases 
 de tal manera que para un cierto $x$ tengamos $P(Y=1|X=x) = 0.9$, entonces tendríamos
 que en la mayoría de los casos la etiqueta de $x$ es $+1$ y, siendo este el valor elegido por $f_{\text{Bayes}}$, el clasificador
-Bayesiano estaría en lo correcto.\\
+Bayesiano estaría en lo correcto.
 
 En la práctica no es posible computar directamente el clasificador Bayesiano dado que, como dijimos, la distribución de probabilidad
 conjunta $P$ es desconocida. Sin embargo, este clasificador es una herramienta teórica que nos permite formular el problema
-estandar de la clasificación binaria, el cual es:\\
+estandar de la clasificación binaria, el cual es:
 
 \textit{Dado un conjunto de datos de entrenamiento $ \{ (X_1,Y_1),\dots,(X_n, Y_m)\}$ obtenidos iid de una distribución $P$, y dada una
 función de pérdida $\ell$, deseamos construir una funión clasificadora $f:X\rightarrow Y$ cuyo riesgo $\mathcal{R}(f)$ sea lo
-más cercano posible al riesgo de $f_{\text{Bayes}}$.}\\
+más cercano posible al riesgo de $f_{\text{Bayes}}$.}
 
 Notemos que no solo es imposible computar el error del clasificador Bayesiano, sino también el propio riesgo de cualquier clasificador
 $f$. Es decir, dado un problema definido (minimizar el riesgo del clasificador), con una solución ideal que podemos escribir (el propio
@@ -232,23 +232,21 @@ nos permite llegar a resultados y obtener garantías de la utilidad de esas solu
 \subsection{Generalización}
 
 Dado que no conocemos la distribución de probabilidad $P(X,Y)$, no podemos calcular la esperanza de la pérdida de un clasificador cualquiera
-$f$, es decir su riesgo. Lo que si podemos hacer, dado un conjunto de entrenamiento, es ''contar" (o medir, en general, para problemas
+$f$, es decir su riesgo. Lo que si podemos hacer, dado un conjunto de entrenamiento, es ``contar'' (o medir, en general, para problemas
 que no son de clasificación binaria) el número de errores del clasificador sobre los datos de entrenamiento. A esta cantidad le daremos
 el nombre de \textit{riesgo empírico} y lo veremos presente en la literatura también como \textit{error de entrenamiento}. Lo definimos
 como
-$$
+\[
 R_{emp}(f) := \frac{1}{n} \sum_{i=1}^n \ell(X_i,Y_i,f(X_i))
-$$
+\]
 
 Por ejemplo, de la función de pérdida llamada error cuadrático se deriva el riesgo empírico \textit{error cuadrático medio}, que es ampliamente
-utilizado en la práctica.
-
-Usualmente, un algoritmo de aprendizaje aceptable es capaz de producir un clasificador $f$ que performa aceptablemente bien en un conjunto de datos
+utilizado en la práctica. Usualmente, un algoritmo de aprendizaje aceptable es capaz de producir un clasificador $f$ que performa aceptablemente bien en un conjunto de datos
 conocido, es decir tal que el riesgo empírico del clasificador es bajo. Nos interesa que un clasificador $f$ tenga riesgo bajo en todo el espacio
 de entrada $X$, no solo en los datos de entrenamiento. Decimos que un clasificador \textit{generaliza} bien si la diferencia entre su riesgo
-y su riesgo empírico es baja.\\
+y su riesgo empírico es baja.\newline
 
-DEFINICIÓN Generalización\\
+DEFINICIÓN Generalización\newline
 
 Por supuesto que una buena generalización no asegura que el riesgo, ni el riesgo empírico, sean bajos, si no que dichas cantidades son cercanas.
 Pero lo que nos interesa es que el riesgo empírico sea un buen estimativo del riesgo del clasificador, y esto es lo que nos permitirá
@@ -266,9 +264,9 @@ como es el caso de las redes neuronales. Más allá de si $\mathcal{F}$ es expl�
 en dicho espacio basándose en los puntos de entrenamiento. Por otro lado, sabemos precisamente cuál es en teoría el mejor clasificador 
 en $\mathcal{F}$: el que tiene el menor riesgo. Por simplicidad, supongamos que este es único (no tiene por qué serlo, puede no haber
 un solo mínimo global para la función de riesgo). Definimos a este clasificador óptimo como:
-$$
+\[
 f_{\mathcal{F}} = \argmin _{f\in{\mathcal{F}}} \mathcal{R}(f)
-$$
+\]
 Considerando que el clasificador bayesiano introducido en la sección anterior es el mejor clasificador posible, podríamos denotarlo,
 siguiendo la misma convención, como $f_{\mathcal{F}_{all}}$. Desde luego que el espacio $\mathcal{F}$ que elegimos 
 puede no contenerlo, por lo que $\mathcal{R}(f_{\text{Bayes}}) < \mathcal{R}(f_{\mathcal{F}})$. Con estas ideas, podemos definir
@@ -283,19 +281,20 @@ los distintos de convergencia que trataremos al considerar el concepto de consis
     \item  El algoritmo de aprendizaje se dice \textnormal{consistente con respecto a $\mathcal{F}$ y a $P$} si el riesgo $\mathcal{R}(f_n)$
      converge en probabilidad al riesgo  $\mathcal{R}(f_{\mathcal{F}})$ del mejor clasificador en $\mathcal{F}$. Esto es,
      que para todo $\epsilon>0$:
-     $$
+     \[
      P\left(\mathcal{R}(f_n)-\mathcal{R}(f_{\mathcal{F}})>\epsilon\right) \rightarrow 0 \qquad \text{ cuando } \qquad n\rightarrow \infty
-     $$ 
+     \]
      \item  El algoritmo de aprendizaje se dice \textnormal{Bayes-consistente con respecto a $P$} si el riesgo $\mathcal(R)(f_n)$
      converge en probabilidad al riesgo  $\mathcal(R)(f_{\text{Bayes}})$ del clasificador bayesiano. Esto es, para todo $\epsilon>0$
-     $$
+    \[
      P\left(\mathcal{R}(f_n)-\mathcal{R}(f_{\text{Bayes}})>\epsilon\right) \rightarrow 0 \qquad \text{ cuando } \qquad n\rightarrow \infty
-     $$ 
+    \]
     \item  El algoritmo de aprendizaje se dice \textnormal{universalmente consistente con respecto a $\mathcal{F}$} si 
     es consistente con respecto a $\mathcal{F}$ para toda distribución de probabilidad $P$.
     \item  El algoritmo de aprendizaje se dice \textnormal{universalmente Bayes-consistente } si 
     es Bayes-consistente para toda distribución de probabilidad $P$.
     \end{enumerate}
+    \label{def:consistencias}
 \end{dfn}
 
 Incurrimos en un abuso del lenguaje al decir que el clasificador $f_n$ es consistente para referirnos más precisamente a que
@@ -304,30 +303,30 @@ significado de las definiciones anteriores. La primer definición nos habla del 
 del clasificador $f_n$ converge al riesgo del mejor clasificador $f_{\mathcal{F}}$ en el espacio funcional $\mathcal{F}$, con alta probabilidad.
 En la práctica, esto significa que alguna instancia de $f_n$ puede no tener un riesgo cercano al riesgo de $f_{\mathcal{F}}$, pero que esto es poco
 probable, es decir que de repetir muchas veces el experimento, la mayoría de las veces el riesgo de $f_n$ será cercano al riesgo de $f_{\mathcal{F}}$
-a medida que $n$ crece. 
+a medida que $n$ crece. \newline
 
 La segunda definición es similar, pero en vez de comparar el riesgo de $f_n$ con el riesgo del mejor clasificador en $\mathcal{F}$,
 lo hace con el riesgo del clasificador bayesiano $f_{\text{Bayes}}$. La diferencia es clara, la primera definción se encarga de 
 comparar el riesgo de $f_n$ con el mejor clasificador posible dadas las condiciones del aprendizaje, que son las que definen al espacio funcional 
 $\mathcal{F}$ (por ejemplo, el mejor clasificador lineal si estamos hablando de regresión lineal), mientras que la segunda lo hace con el
 mejor clasificador posible, independientemente de las condiciones del aprendizaje (la función clasificadora ideal podría no ser lineal
-para un problema dado).\\
+para un problema dado).\newline
 
 La tercera y cuarta definición son más fuertes, pues piden que el algoritmo sea consistente para cualquier distribución de probabilidad $P$.
 Dado que en la práctica no sabemos cuál es la distribución que genera los datos, estas son las definciones que nos interesan a la hora de 
-enunciar resultados.\\
+enunciar resultados.\newline
 
 Observamos que la consistencia como está aquí enunciada suele llamarse \textit{consistencia débil}. Existe una noción más fuerte, la de
 \textit{consistencia fuerte}, que pide que el riesgo empírico de $f_n$ converja al riesgo del mejor clasificador en $\mathcal{F}$, no solo
 en probabilidad, si no con probabilidad $1$, lo que también llamamos \textit{convergencia casi segura}. En la práctica, la consistencia fuerte es una propiedad muy fuerte y no es comúnmente
-alcanzada por los algoritmos de aprendizaje.\\
+alcanzada por los algoritmos de aprendizaje.\newline
 
 Notemos que en estas definiciones no se hace mención del riesgo empírico $\mathcal{R}_{\text{emp}}(f_n)$, si no del riesgo real $\mathcal{R}(f_n)$, lo que
 se debe a que la única medida de calidad de un clasificador es su riesgo real y es sobre el cual deseamos obtener resultados. El problema, claro,
 es que no podemos medirlo, como si podemos hacer con el riesgo empírico. Es natural entonces pensar que, además de la convergencia que hemos anunciado
 de tipo $\mathcal{R}(f_n) \rightarrow \mathcal{R}(f_{\text{Bayes}})$, intentemos buscar las condiciones bajo las cuales el riesgo empírico
 converge al riesgo real, es decir donde  $\mathcal{R}_{\text{emp}}(f_n) \rightarrow \mathcal{R}(f_{\text{Bayes}})$. Esta es una de las metas
-de la teoría del aprendizaje estadístico, y es lo que nos permitirá hacer afirmaciones acerca de la calidad de los clasificadores en la práctica.\\
+de la teoría del aprendizaje estadístico, y es lo que nos permitirá hacer afirmaciones acerca de la calidad de los clasificadores en la práctica.\newline
 
 
 \subsection{Sobreajuste y subajuste}
@@ -336,7 +335,7 @@ de la teoría del aprendizaje estadístico, y es lo que nos permitirá hacer afi
 Consideremos un ejemplo de regresión. Se nos da un conjunto de observaciones empíricas 
 \((x_1, y_1), \dots, (x_m, y_m) \in X \times Y\), donde, simplemente, tomamos \(X = Y = \mathbb{R}\). 
 Por ejemplo, los datos podrían haberse recopilado en un experimento físico donde \(X\) representa el peso 
-de un objeto e \(Y\) la fuerza necesaria para arrastrar este objeto sobre una superficie rugosa.
+de un objeto e \(Y\) la fuerza necesaria para arrastrar este objeto sobre una superficie rugosa.\newline
 
 La Figura ~\ref{fig:Sobreajuste y subajuste} muestra una representación gráfica de dicho conjunto de datos (indicados por los puntos redondos), 
 junto con dos posibles dependencias funcionales que podrían explicar los datos. 
@@ -345,7 +344,7 @@ los datos de entrenamiento, es decir, tiene un error de entrenamiento igual a 0.
 la línea recta, \(f_{\text{lineal}}\), no “explica” completamente los datos de entrenamiento, 
 ya que hay algunos errores residuales, lo que genera un error de entrenamiento pequeño pero positivo 
 (por ejemplo, medido mediante la función de pérdida cuadrática).
-\begin{figure}[h!]
+\begin{figure}[ht!]
     \centering
     \includegraphics[width=0.5\textwidth]{Images/1.png}
     \caption{Dos posibles modelos de regresión, uno lineal y otro no, para un conjunto de datos dado.}
@@ -358,7 +357,7 @@ Además, las funciones \(f_{\text{no lineal}}\) y \(f_{\text{lineal}}\) tienen c
 Por ejemplo, si la línea recta \(f_{\text{lineal}}\) fuera la verdadera función subyacente, 
 entonces la función discontinua \(f_{\text{no lineal}}\) tendría un riesgo verdadero elevado, 
 ya que la “distancia” entre la función verdadera y la estimada es muy grande. 
-Lo mismo ocurre en sentido contrario. En ambos casos, el riesgo verdadero sería mucho mayor que el riesgo empírico.
+Lo mismo ocurre en sentido contrario. En ambos casos, el riesgo verdadero sería mucho mayor que el riesgo empírico.\newline
 
 
 Este ejemplo resalta una decisión importante que debemos tomar: ¿preferimos ajustar los datos de entrenamiento 
@@ -368,7 +367,7 @@ anterior, un físico que mida estos puntos de datos podría argumentar que no pu
 estén casi alineadas y preferiría atribuir los residuos a errores de medición en lugar de a un modelo erróneo. Pero, 
 ¿es posible caracterizar en qué sentido la línea recta es más simple y por qué esto debería implicar que está, de 
 alguna manera, más cerca de la verdadera dependencia subyacente? Es decir, nos interesa saber cuál es el 
-aumento en el error de entrenamiento que deberíamos estar dispuestos a tolerar para ajustar un modelo más simple.
+aumento en el error de entrenamiento que deberíamos estar dispuestos a tolerar para ajustar un modelo más simple.\newline
 
 De una forma u otra, esta cuestión ha ocupado durante mucho tiempo las mentes de los investigadores que estudian 
 el problema del aprendizaje. En la estadística clásica, se ha estudiado como el dilema \textit{sesgo-varianza} 
@@ -377,13 +376,13 @@ podríamos pensar que toda dependencia funcional es lineal. Pero no sería por l
 generan los datos, sino un sesgo impuesto por nosotros. Por otro lado, 
 si tomamos un polinomio de grado suficientemente alto para cualquier muestra, siempre podríamos ajustar 
 perfectamente los datos, pero el modelo exacto que obtendríamos estaría sujeto a grandes fluctuaciones, dependiendo 
-de qué tan precisas fueran nuestras mediciones en primer lugar. Esto implicaría que el modelo sufra de una gran varianza.
+de qué tan precisas fueran nuestras mediciones en primer lugar. Esto implicaría que el modelo sufra de una gran varianza.\newline
 
 Una dicotomía relacionada es la existente entre el error de estimación y el error de aproximación. Si usamos una clase 
 pequeña de funciones, incluso la mejor solución posible aproximará pobremente la dependencia real, mientras 
 que una clase grande de funciones llevará a un error de estimación estadística alto. En la terminología del aprendizaje 
 estádistico aplicado, el modelo complejo muestra \textbf{sobreajuste} (overfitting), 
-mientras que el modelo lineal simple es más proclive a sufrir de \textbf{subajuste} (underfitting).
+mientras que el modelo lineal simple es más proclive a sufrir de \textbf{subajuste} (underfitting).\newline
 
 \subsection{Los dilemas sesgo-varianza y estimación-aproximación}
 
@@ -399,11 +398,11 @@ si optimizamos sobre clases de funciones \(\mathcal{F}\) demasiado grandes, y en
 grande que contenga todos los clasificadores de Bayes para todas las distribuciones de probabilidad \(P\), 
 esto conduce a la inconsistencia. Por lo tanto, si queremos aprender con éxito, necesitamos trabajar 
 con una clase de funciones \(\mathcal{F}\) más pequeña. Para investigar las propiedades contrapuestas de la 
-complejidad del modelo y la generalización, queremos introducir algunas nociones que serán útiles más adelante.
+complejidad del modelo y la generalización, queremos introducir algunas nociones que serán útiles más adelante.\newline
 
 Recordemos las definiciones \(f_n\), \(f_\mathcal{F}\) y \(f_{\text{Bayes}}\) introducidas anteriormente. Hemos visto que 
 la consistencia de Bayes trata sobre la convergencia del término \(R(f_n) - R(f_{\text{Bayes}})\). 
-Es importante notar que podemos descomponer esta cantidad de la siguiente manera:
+Es importante notar que podemos descomponer esta cantidad de la siguiente manera:\newline
 \[ 
 \mathcal{R}(f_n) - \mathcal{R}(f_{\text{Bayes}}) = \underbrace{\mathcal{R}(f_n) - \mathcal{R}(f_\mathcal{F})}_{\text{error de generalización}} +
 \underbrace{\mathcal{R}(f_\mathcal{F}) - \mathcal{R}(f_{\text{Bayes}})}_{\text{error de aproximación}} 
@@ -419,9 +418,9 @@ errores. Este error se denomina error de estimación. El segundo término no est
 Trata sobre el error que cometemos al buscar la mejor función en un espacio de funciones \(\mathcal{F}\) pequeño, 
 en lugar de buscar la mejor función en el espacio \(F_{\text{all}}\) de todas las funciones posibles. 
 La pregunta fundamental en este contexto es qué tan bien las funciones en \(\mathcal{F}\) pueden aproximar a las 
-funciones en \(F_{\text{all}}\) y de allí proviene el nombre error de aproximación.
+funciones en \(F_{\text{all}}\) y de allí proviene el nombre error de aproximación.\newline
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
     \centering
     \includegraphics[width=0.5\textwidth]{Images/2.png}
     \caption{Error de estimación y de aproximación.}
@@ -434,7 +433,7 @@ se llama \textbf{sesgo} de un estimador. Originalmente, estos términos se acuñ
 especial de regresión con función de pérdida cuadrática, pero ahora se usan en contextos más generales, 
 como el que se describe aquí. Su significado intuitivo es el mismo: el primer término mide la 
 variación del riesgo de la función \(f_n\) estimada en la muestra, mientras que el segundo mide el 
-sesgo introducido en el modelo al elegir una clase de funciones demasiado pequeña.
+sesgo introducido en el modelo al elegir una clase de funciones demasiado pequeña.\newline
 
 En este punto, ya podemos señalar que el espacio \(\mathcal{F}\) es el medio para equilibrar el compromiso 
 entre el error de estimación y el error de aproximación. Podemos hacernos una idea gráfica viendo la Figura
@@ -444,7 +443,7 @@ término de aproximación será pequeño (el clasificador de Bayes podría inclu
 estimación será bastante grande en este caso: el espacio \(\mathcal{F}\) contendrá funciones complejas que 
 conducirán al \textbf{sobreajuste} (overfitting). El efecto opuesto ocurrirá si la clase de funciones 
 \(\mathcal{F}\) es muy pequeña.
-\begin{figure}[h!]
+\begin{figure}[ht!]
     \centering
     \includegraphics[width=0.5\textwidth]{Images/3.png}
     \caption{Compromiso entre error de estimación y de aproximación. Si el espacio funcional $\mathcal{F}$ que define
@@ -456,7 +455,7 @@ conducirán al \textbf{sobreajuste} (overfitting). El efecto opuesto ocurrirá s
 
 En lo que sigue, trataremos el error de estimación y el error de aproximación por separado. Veremos 
 que tienen comportamientos bastante diferentes y que se necesitan métodos distintos para controlar 
-cada uno.
+cada uno.\newline
 
 \section{El clasificador de los $k$ vecinos más cercanos}
 
@@ -466,7 +465,7 @@ que un clasificador particular, el denominado clasificador de los \(k\)-vecinos 
 (\textit{k-nearest neighbors classifier}, abreviado como $k$-NN), es universalmente consistente. Como el clasificador de los \(k\)-vecinos 
 más cercanos es uno de los clasificadores más simples y todavía se usa ampliamente en la práctica, 
 dedicaremos esta sección a ilustrar las nociones introducidas en la sección anterior, tales como 
-generalización, sobreajuste, subajuste y consistencia, usando el ejemplo del clasificador \(k\)-NN.
+generalización, sobreajuste, subajuste y consistencia, usando el ejemplo del clasificador \(k\)-NN.\newline
 
 Consideremos una muestra de puntos con etiquetas \((X_1, Y_1), \dots, (X_n, Y_n)\) que 
 pertenecen a un espacio métrico. De manera general, el paradigma del aprendizaje consiste en asignar salidas 
@@ -477,7 +476,7 @@ debe existir alguna forma de relacionar las etiquetas de los puntos de entrenami
 puntos de prueba, y esto siempre implica suposiciones previas sobre las relaciones entre los puntos 
 de entrada. La relación más simple es una distancia entre puntos, pero existen otras formas de medir 
 la similitud, como los \textit{kernels}, que forman la base de algunos de los algoritmos 
-de aprendizaje más populares (Schölkopf y Smola, 2002).
+de aprendizaje más populares (Schölkopf y Smola, 2002).\newline
 
 Supongamos entonces que existe una función de distancia en el espacio de entrada, es decir, una función 
 \(d : X \times X \to \mathbb{R}\), que asigna un valor de distancia \(d(X, X')\) a cada par de puntos 
@@ -489,8 +488,9 @@ ese punto. Para definir esto de manera más formal, denotamos por \(\text{NN}(X)
 de \(X\) entre todos los puntos de entrenamiento, es decir:
 
 \[
-\text{NN}(X) = \arg\min \{X' \in \{X_1, \dots, X_n\} \mid d(X, X') \leq d(X, X'') \ \text{para todo} \ X'' \in \{X_1, \dots, X_n\}\}.
+\text{NN}(X) = \arg\min \{X' \in \{X_1, \dots, X_n\} \mid d(X, X') \leq d(X, X''), 
 \]
+para todo \( X'' \in \{X_1, \dots, X_n\}\}\). \newline
 
 Luego, podemos definir el clasificador \(f_n\) basado en la muestra de \(n\) puntos como:
 
@@ -500,7 +500,7 @@ f_n(X) = Y_i \quad \text{donde} \quad X_i = \text{NN}(X).
 
 Este clasificador se denomina clasificador de un vecino más cercano (\textit{1-nearest neighbor}, 1NN). 
 Podemos generalizarlo en el clasificador de los \(k\)-vecinos más cercanos (\textit{kNN}), considerando los \(k\) puntos de 
-entrenamiento más cercanos, con $k>1$ en este caso, y tomando el promedio de todas sus etiquetas. 
+entrenamiento más cercanos, con $k>1$ en este caso, y tomando el promedio de todas sus etiquetas. \newline
 
 
 \begin{dfn}
@@ -537,7 +537,7 @@ f_n(X) =
 
 Es decir, decidimos la etiqueta de \(X\) mediante una votación mayoritaria entre las etiquetas de los 
 puntos de entrenamiento en la vecindad de \(k\)-vecinos más cercanos de \(X\). Para evitar empates, 
-generalmente se elige \(k\) como un número impar.
+generalmente se elige \(k\) como un número impar.\newline
 
 
 \begin{thm}
@@ -594,30 +594,30 @@ independientemente del tamaño de la muestra $n$. En efecto:
 \]
 
 Por otro lado el riesgo Bayesiano es $0.1$. Por lo tanto, el clasificador $1$NN no es consistente, ya que 
-\(R(f_n) \not\to R(f_{\text{Bayes}})\).
+\(R(f_n) \not\to R(f_{\text{Bayes}})\).\newline
 \end{proof}
 
 Consideremos por un momento el clasificador de los 100 vecinos 
 más cercanos, $100$NN. En este caso, el clasificador cometería muchos menos errores que su primo de un vecino: 
 es muy poco probable tener una vecindad de 100 puntos donde la mayoría de los votos sean \(Y = -1\). 
 Así, el clasificador de 100 vecinos más cercanos, aunque sigue sin ser consistente, comete un error 
-menor que el clasificador 1NN.
+menor que el clasificador 1NN.\newline
 
 El truco para lograr consistencia está relacionado con esta observación. Esencialmente, se debe permitir 
 que el tamaño \(k\) de la vecindad bajo consideración crezca con el tamaño de la muestra \(n\). Formalmente, 
-se puede demostrar el siguiente teorema:
+se puede demostrar el siguiente teorema:\newline
 
 
 \begin{thm}[Stone, 1977]
 Sea \(f_n\) el clasificador de los \(k\)-vecinos más cercanos construido 
 a partir de una muestra de \(n\) puntos. Si \(n \to \infty\) y \(k \to \infty\) de modo que \(k/n \to 0\), 
 entonces \(R(f_n) \to R(f_{\text{Bayes}})\) para todas las distribuciones de probabilidad \(P\). 
-Es decir, la regla de clasificación \(k\)-NN es universalmente consistente con Bayes.
+Es decir, la regla de clasificación \(k\)-NN es universalmente consistente con Bayes.\newline
 \end{thm}
 
 Este teorema esencialmente nos dice que si elegimos el parámetro de vecindad \(k\) de forma que crezca 
 lentamente con \(n\), por ejemplo \(k \approx \log(n)\), entonces la regla de clasificación \(k\)-NN es 
-universalmente Bayes-consistente.
+universalmente Bayes-consistente.\newline
 
 En las secciones anteriores mencionamos que la clase de funciones \(\mathcal{F}\) de la cual se elige el clasificador 
 es un componente importante para la teoría del aprendizaje estadístico. En el caso del clasificador \(k\)-NN, 
@@ -629,7 +629,7 @@ para valores muy grandes de \(k\), la clase de funciones \(\mathcal{F}_k\) es re
 pueden oscilar mucho). En el caso extremo de \(k = n\), la vecindad de los \(k\)-vecinos simplemente incluye 
 todos los puntos de entrenamiento, por lo que el clasificador \(k\)-NN no puede cambiar su signo en absoluto; 
 debe ser constante en todo el espacio de entrada \(X\). En este caso, la clase de funciones \(\mathcal{F}_k\) contiene solo 
-dos elementos: la función que es constantemente \(+1\) y la función que es constantemente \(-1\).
+dos elementos: la función que es constantemente \(+1\) y la función que es constantemente \(-1\).\newline
 
 Por otro lado, si \(k\) es pequeño, entonces \(\mathcal{F}_k\) se vuelve bastante grande (las funciones pueden cambiar sus 
 etiquetas con mucha frecuencia y de manera abrupta). En los términos explicados en las secciones anteriores, 
@@ -652,14 +652,14 @@ los datos de prueba):
 \]
 
 donde \(f\) es una función que mapea el espacio de entrada \(X\) al espacio de etiquetas \(Y\), y \(\ell\) 
-es la función de pérdida. 
+es la función de pérdida.\newline
 
 La dificultad de esta tarea radica en el hecho de que estamos intentando minimizar una cantidad que no 
 podemos evaluar directamente: dado que no conocemos la distribución de probabilidad subyacente \(P\), 
 no podemos calcular el riesgo \(\mathcal{R}(f)\). Sin embargo, lo que sí conocemos son los datos de entrenamiento, 
 muestreados a partir de \(P\). Por lo tanto, podemos intentar inferir una función \(f\) a partir de la muestra 
 de entrenamiento cuyo riesgo esté cercano al mejor riesgo posible. Para ello, necesitamos lo que se llama 
-un \textit{principio de inducción}.
+un \textit{principio de inducción}.\newline
 
 Quizás la forma más directa de proceder sea aproximar el riesgo verdadero mediante el \textbf{riesgo empírico} 
 calculado sobre los datos de entrenamiento. En lugar de buscar una función que minimice el riesgo verdadero 
@@ -706,7 +706,7 @@ muestra tiende a infinito:
 
 Aquí, la función de pérdida \(\ell(X, Y, f(X))\) desempeña el papel de la variable aleatoria \(\xi\). Para una 
 muestra finita dada, esto significa que podemos aproximar el riesgo verdadero (el que nos interesa) de manera 
-bastante precisa mediante el riesgo empírico (el que podemos calcular sobre la muestra).
+bastante precisa mediante el riesgo empírico (el que podemos calcular sobre la muestra).\newline
 
 Una desigualdad famosa, atribuida a Chernoff (1952) y luego generalizada por Hoeffding (1963), caracteriza qué 
 tan bien la media empírica aproxima el valor esperado. Específicamente, si las variables aleatorias \(\xi_i\) 
@@ -729,7 +729,7 @@ P(|\mathcal{R}_{\text{emp}}(f) - \mathcal{R}(f)| \geq \epsilon) \leq 2 \exp(-2n\
 \end{equation}
 
 Para cualquier función fija (y un \(n\) suficientemente grande), es muy probable que el error de entrenamiento 
-proporcione una buena estimación del error de prueba.
+proporcione una buena estimación del error de prueba.\newline
 
 Existen algunos hechos importantes relacionados con la cota de Chernoff (\ref{eq:Chernoff}). Primero, una propiedad crucial 
 de la cota de Chernoff es que es de naturaleza probabilística. Establece que la probabilidad de una gran desviación 
@@ -740,7 +740,7 @@ generación aleatoria de los puntos de entrenamiento. Podría ocurrir que, en al
 datos de entrenamiento sean tan engañosos que sea imposible construir un buen clasificador a partir de ellos. Sin 
 embargo, a medida que el tamaño de la muestra aumenta, tales casos desafortunados se vuelven muy raros. En este 
 sentido, cualquier garantía de consistencia solo puede ser de la forma: el riesgo empírico está cerca del riesgo 
-verdadero, con alta probabilidad.
+verdadero, con alta probabilidad.\newline
 
 A primera vista, parece que la cota de Chernoff (\ref{eq:Chernoff}) es suficiente para probar la consistencia de la minimización 
 del riesgo empírico. Sin embargo, hay una advertencia importante: la cota de Chernoff solo se cumple para una función 
@@ -748,7 +748,7 @@ fija \(f\) que no depende de los datos de entrenamiento. Sin embargo, el clasifi
 de los datos de entrenamiento (usamos los datos de entrenamiento para seleccionar \(f_n\)). Aunque esto pueda parecer 
 una diferencia matemática sutil, aquí es donde la minimización del riesgo empírico puede fallar por completo. A 
 continuación, discutiremos este problema en detalle y veremos cómo adaptar la ley fuerte de los grandes números para 
-poder tratar funciones que dependen de los datos.
+poder tratar funciones que dependen de los datos.\newline
 
 \subsection{Inconsistencia en la minimización del riesgo empírico} \label{Inconsistencia en la minimización del riesgo empírico}
 
@@ -779,7 +779,7 @@ Este clasificador \(f_n\) clasifica perfectamente todos los puntos de entrenamie
 riesgo empírico \(\mathcal{R}_{\text{emp}}(f_n) = 0\). En consecuencia, dado que el riesgo empírico no puede ser 
 negativo, \(f_n\) es un minimizador del riesgo empírico. Sin embargo, \(f_n\) claramente no ha aprendido 
 nada; el clasificador simplemente memoriza las etiquetas de entrenamiento y, en otros casos, predice 
-simplemente la etiqueta \(1\).
+simplemente la etiqueta \(1\).\newline
 
 Formalmente, esto significa que el clasificador \(f_n\) no será consistente. Para ver esto, supongamos que 
 se nos da un punto de prueba \((X, Y)\) extraído de la distribución subyacente. Usualmente, este punto de 
@@ -789,7 +789,7 @@ predice la etiqueta \(1\). Si \(X\) resulta ser mayor que \(0.5\), esta es la et
 de todos los puntos de prueba, lo que implica que su error de prueba es \(R(f_n) = 1/2\). Este es el mismo 
 error que se obtendría con una predicción aleatoria. De hecho, este es un buen ejemplo de 
 \textbf{sobreajuste}: el clasificador \(f_n\) se ajusta perfectamente a los datos de entrenamiento, pero no 
-aprende nada sobre los nuevos datos de prueba.
+aprende nada sobre los nuevos datos de prueba.\newline
 
 Es fácil ver que el clasificador \(f_n\) es inconsistente. Nótese que, como las etiquetas son una función 
 determinista de los puntos de entrada, el clasificador de Bayes tiene un riesgo igual a \(0\). Así, tenemos:
@@ -806,7 +806,7 @@ entrenamiento, entonces el principio de ERM no puede funcionar. En particular, s
 del riesgo empírico del espacio \(F_{\text{all}}\) de todas las funciones entre \(X\) e \(Y\), entonces los 
 valores de \(f_n\) en los puntos de entrenamiento \(X_1, \dots, X_n\) no necesariamente contienen ninguna 
 información sobre los valores en otros puntos. Por lo tanto, a menos que impongamos restricciones en el 
-espacio de funciones del cual elegimos nuestra estimación \(f\), no podemos esperar aprender nada. 
+espacio de funciones del cual elegimos nuestra estimación \(f\), no podemos esperar aprender nada.\newline
 
 
 \subsection{Convergencia uniforme}
@@ -818,7 +818,7 @@ en el peor caso sobre todas las funciones \(f \in \mathcal{F}\) que la máquina 
 en lugar de la ley estándar de los grandes números introducida anteriormente, este caso extremo corresponde 
 a una versión de la ley de los grandes números que es uniforme sobre todas las funciones en \(\mathcal{F}\).
 
-\begin{figure}[h]
+\begin{figure}[ht!]
     \centering
     \includegraphics[width=0.8\textwidth]{Images/4.png}
     
@@ -899,13 +899,12 @@ P\left(|R(f_n) - R(f_\mathcal{F})| \geq \epsilon \right) \leq P\left(\sup_{f \in
 Bajo la ley uniforme de los grandes números, el lado derecho tiende a \(0\), lo que lleva a la consistencia de 
 la minimización del riesgo empírico con respecto a la clase de funciones subyacente \(\mathcal{F}\). En otras palabras, 
 la convergencia uniforme sobre \(\mathcal{F}\) es una condición suficiente para la consistencia de la minimización del 
-riesgo empírico sobre \(\mathcal{F}\).
-
+riesgo empírico sobre \(\mathcal{F}\).\newline
 
 Parte de la elegancia de la teoría VC radica en que el recíproco también es cierto. Es decir, 
 la convergencia uniforme no solo es una condición suficiente, sino también una condición necesaria para la 
 consistencia de la minimización del riesgo empírico con respecto a \(\mathcal{F}\). Esto se formaliza en el siguiente 
-teorema:
+teorema:\newline
 
 \begin{thm}[Vapnik y Chervonenkis, 1971]
 La convergencia uniforme
@@ -915,13 +914,13 @@ La convergencia uniforme
         \]
         
         para todo \(\epsilon > 0\), es una condición necesaria y suficiente para la consistencia de la minimización del 
-        riesgo empírico con respecto a \(\mathcal{F}\).
+        riesgo empírico con respecto a \(\mathcal{F}\).\newline
 \end{thm}
         
 En la sección \ref{Inconsistencia en la minimización del riesgo empírico} dimos un ejemplo donde consideramos el conjunto de todas las funciones posibles y mostramos 
 que el aprendizaje era imposible. Ahora, la dependencia del aprendizaje en el conjunto de funciones subyacente 
 ha regresado bajo una forma diferente: la condición de convergencia uniforme depende críticamente del conjunto 
-de funciones para el cual debe cumplirse. 
+de funciones para el cual debe cumplirse.\newline
 
 Intuitivamente, parece claro que cuanto mayor sea el espacio de funciones \(\mathcal{F}\), mayor será:
 
@@ -937,21 +936,22 @@ P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| >
 
 En consecuencia, cuanto mayor sea \(\mathcal{F}\), más difícil será satisfacer la ley uniforme de los grandes números. 
 Esto implica que para espacios de funciones más grandes, la consistencia es más difícil de lograr en comparación 
-con espacios de funciones más pequeños.
+con espacios de funciones más pequeños.\newline
 
 
 Esta caracterización abstracta de la consistencia como una propiedad de convergencia uniforme es teóricamente 
 fascinante, pero no siempre es útil en la práctica. La razón es que parece complicado determinar si la ley uniforme 
 de los grandes números se cumple para una clase de funciones \(\mathcal{F}\) particular. Por esta razón, se han desarrollado 
 herramientas como la dimensión VC para analizar y limitar la capacidad de las clases de funciones, lo cual discutiremos 
-en las siguientes secciones.
+en las siguientes secciones.\newline
 
 \section{Cotas de generalización y medidas de capacidad}
 
 Para hacer afirmaciones sobre lo que ocurre después de observar solo un número finito de puntos de datos 
 —que en la práctica será siempre el caso—, necesitamos examinar más de cerca la 
-convergencia uniforme del riesgo empírico al verdadero.
- Resultará que esto nos proporcionará cotas sobre el riesgo y también nos dará información sobre 
+convergencia uniforme del riesgo empírico al verdadero.\newline
+
+Resultará que esto nos proporcionará cotas sobre el riesgo y también nos dará información sobre 
 qué propiedades de las clases de funciones determinan si la convergencia uniforme puede tener lugar. Detengámonos
 en la probabilidad del Teorema anterior:
 
@@ -990,7 +990,7 @@ seleccionar para cada posible clasificador, como la ordenada al origen y la pend
 , como en ese ejemplo,
 espacios infinitos. Luego veremos que podemos llegar a una desigualdad similar a esta última, reemplazando $m$ por un valor que depende
 de cada tipo de espacio funcional y que, de ser finito, será necesariamente polinómico, lo que nos permitirá obtener cotas de generalización.
-Llamaremos a dicha cantidad, la \textit{dimensión VC}.
+Llamaremos a dicha cantidad, la \textit{dimensión VC}.\newline
 
 \subsection{Simetrización}
 
@@ -1005,10 +1005,10 @@ por un evento alternativo que pueda calcularse únicamente en una muestra dada. 
 \((X_i, Y_i)_{i=1,\dots,n}\). Ahora introducimos una nueva muestra llamada \textit{muestra fantasma}. 
 Esta es simplemente otra muestra \((X'_i, Y'_i)_{i=1,\dots,n}\), que también se extrae de manera 
 \textit{iid} de la misma distribución subyacente y que es independiente de la primera muestra. No necesitamos generar 
-esta muestra en la práctica; es solo una herramienta matemática para realizar el análisis. 
+esta muestra en la práctica; es solo una herramienta matemática para realizar el análisis. \newline
 
 Dfinimos el riesgo empírico con respecto a esta muestra como \(\mathcal{R}'_{\text{emp}}(f)\). 
-Con la ayuda de esta muestra fantasma, podemos demostrar el siguiente resultado:
+Con la ayuda de esta muestra fantasma, podemos demostrar el siguiente resultado:\newline
 
 \begin{thm}[Lema de simetrización]
 
@@ -1020,13 +1020,13 @@ $\mathcal{R}'_{emp}(f)$ el riesgo sobre la segunda. Entonces, para cualquier $\e
 \[
 P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| > 
 \epsilon \right) \leq 2P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}_{\text{emp}}(f) - \mathcal{R}'_{\text{emp}}(f)| > \frac{\epsilon}{2}\right).
-\]
+\]\newline
 \end{thm}
 
 Esta desigualdad, nos permite acotar el comportamiento 
 de la diferencia \(\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)\) mediante la diferencia entre riesgos empíricos \(\mathcal{R}_{\text{emp}}(f)\) y 
 \(\mathcal{R}'_{\text{emp}}(f)\) calculados sobre las muestras original y fantasma, respectivamente. Esto nos permite trabajar 
-con eventos que depende únicamente de las muestras observadas.\\
+con eventos que depende únicamente de las muestras observadas.\newline
 
 Notemos que, incluso si \(\mathcal{F}\) contiene un número infinito de funciones, 
 las diferentes formas en que estas pueden clasificar un conjunto de entrenamiento de \(n\) puntos de muestra 
@@ -1043,15 +1043,15 @@ mucho \(2^n\) formas diferentes en que esas funciones pueden clasificar los punt
 entonces el supremo efectivamente solo recorre una clase de funciones finita. Para entender esto, notemos que 
 dos funciones \(f, g \in \mathcal{F}\) que toman los mismos valores en la muestra dada tienen el mismo riesgo empírico, 
 es decir, \(R_{\text{emp}}(f) = R_{\text{emp}}(g)\). La afirmación análoga se cumple para la muestra fantasma 
-y el riesgo empírico asociado \(R'_{\text{emp}}\). \\
+y el riesgo empírico asociado \(R'_{\text{emp}}\). \newline
 
-AGREGAR FIGURA DE EJEMPLO CON DOS FUNCIONES LINEALES SEPARANDO DE IGUAL MANERA LAS MUESTRAS\\
+AGREGAR FIGURA DE EJEMPLO CON DOS FUNCIONES LINEALES SEPARANDO DE IGUAL MANERA LAS MUESTRAS\newline
 
 Por lo tanto, todas las funciones \(f, g\) que coinciden tanto en la muestra original como en la muestra fantasma 
 producirán el mismo término \(|R_{\text{emp}}(f) - R'_{\text{emp}}(f)|\). Así, las únicas funciones que 
 necesitamos considerar para calcular el supremo son las \(2^{n}\) funciones que podemos obtener en la muestra 
 original y la muestra fantasma juntas. Por lo tanto, podemos reemplazar el supremo sobre \(f \in \mathcal{F}\) por el 
-supremo sobre una clase finita de funciones con como máximo \(2^{n}\) funciones.\\
+supremo sobre una clase finita de funciones con como máximo \(2^{n}\) funciones.\newline
 
 
 \subsection{ El coeficiente de fragmentación}
@@ -1060,7 +1060,7 @@ Con la intención de analizar más a fondo la capacidad de una clase de funcione
 \(\mathcal{F}\), intentaremos acotar la medida (\ref{eq:med_unif_riesgo_riesgo_emp}).
 Para esto, introducimos el concepto de coeficiente de fragmentación.  Este coeficiente mide la 
 cantidad de formas en que las funciones de \(\mathcal{F}\) pueden separar los puntos de cualquier muestra
-tomada sobre $X$.\\
+tomada sobre $X$\newline
 
 \begin{dfn}
     Sean \(\mathcal{F}\) una clase de funciones y \(Z_n := \{(X_1, Y_1), \dots, (X_n, Y_n)\}\) un conjunto de \(n\) puntos
@@ -1083,29 +1083,30 @@ tomada sobre $X$.\\
     
     \[
     \mathcal{N}(\mathcal{F}, n) = \max_{Z_n} \{|\mathcal{F}_{Z_n}|\} = \max_{\{X_1, \dots, X_n\}}\{|\mathcal{F}_{\{X_1, \dots, X_n\}}| \mid X_1, \dots, X_n \in X\}. 
-    \]\\
+    \]
 \end{dfn}
 
 El coeficiente $\mathcal{N}(\mathcal{F}, n)$ tiene una interpretación sencilla: mide cuántos conjuntos de etiquetas 
 \( \{Y_1, \dots, Y_n\} \) pueden ser generados por las funciones de \(\mathcal{F}\), considerando todas las posibles
 muestras de tamaño \(n\). Es decir, es el número de formas en las que \(\mathcal{F}\) puede separar en dos clases al 
-espacio de entrada $X$.\\
+espacio de entrada $X$.\newline
 
 En el caso de clasificación binaria, como el que estamos tratando, el mayor cardinal posible para un conjunto de fragmentación
 coincide con el cardinal del conjunto de partes de un conjunto de tamaño $n$ (basta considerar cada subconjunto posible del mismo
 como aquel donde el clasificador etiqueta con $+1$ todos los valores en el subconjunto y con $-1$ los valores fuera de él). Entonces,
 si \(\mathcal{N}(\mathcal{F}, n) = 2^n\), existe al menos una muestra de tamaño \(n\) que puede ser separada 
 de todas las formas posibles por funciones en \(\mathcal{F}\). En este caso, decimos que la clase de funciones 
-\(\mathcal{F}\) \textit{fragmenta} al conjunto de \(n\) puntos. \\
+\(\mathcal{F}\) \textit{fragmenta} al conjunto de \(n\) puntos.\newline
 
 En la definición, tomamos el máximo puesto que ciertas muestras pueden no ser fragmentables de la misma manera que otras por \(\mathcal{F}\). 
 Consideremos el espacio $\mathbb{R}^2$ y sea $\mathcal{F}=\{f: f(x)= \alpha x + \beta; \; \alpha, \beta\in\mathbb{R}\}$, el espacio
-de funciones lineales.
+de funciones lineales.\newline
+
 Es claro que podemos separar dos puntos de la manera que deseemos en este espacio, pero no podemos hacer lo mismo con tres puntos \textit{cualesquiera}.
 En efecto, sea $Z_3 = \{X_1,X_2,X_3\} \in \mathbb{R}^2$ y supongamos que los puntos en dicho conjuntos son colineales. Tomemos el caso en el que el primero y el tercero de ellos pertenecen a la misma categoría,
-mientras que el que queda en medio a la otra categoría, como en la figura \ref{fragmentacion perceptron} (a). 
+mientras que el que queda en medio a la otra categoría, como en la figura \ref{fragmentacion perceptron} (a).\newline 
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\textwidth]{Images/5.png}
     
@@ -1118,8 +1119,7 @@ tiene un cardinal menor a $2^3=8$. Pero sí es posible hacerlo con otras muestra
 tres puntos no colineales, como en la figura \ref{fragmentacion perceptron} (b). De esto sigue
 que los clasificadores lineales de este tipo tienen un coeficiente de fragmentación máximo de $2^3=4$ para muestras de tres puntos en $\mathbb{R}^2$.
 Pero notemos que no es así cuando tomamos una muestra de cuatro puntos en $\mathbb{R}^2$. En este caso, es imposible separar de todas las maneras posibles
-a una muestra de cuatro puntos, sean colineales o no, como se aprecia en la parte (c) de la figura. Demostraremos estos hechos más adelante.
-\\
+a una muestra de cuatro puntos, sean colineales o no, como se aprecia en la parte (c) de la figura. Demostraremos estos hechos más adelante.\newline
 
 El coeficiente de fragmentación es una medida de la capacidad de una clase de funciones, es decir, mide 
 el tamaño o la \textit{complejidad} de \(\mathcal{F}\) en un sentido particular. Si \(\mathcal{F}\) contiene muchas funciones, entonces 
@@ -1128,7 +1128,7 @@ la relación entre \(\mathcal{F}\) y el espacio de entrada de donde provienen lo
 finito a cada espacio de clasificadores para cada tamaño de muestras, aún cuando los espacios de funciones sean infinitos. Este número puede
 ser en el peor de los casos exponencial en el tamaño de la muestra, pero nos ayudará a pasar del factor $m$, que depende de la cantidad
 de funciones en el espacio (en la ecuación \ref{eq: chernoff acotada por m}), a un valor que es finito y, como veremos más adelante,
-potencialmente polinómico.
+potencialmente polinómico.\newline
 
 \subsection{Cotas de convergencia uniforme}
 
@@ -1137,13 +1137,13 @@ posiblemente infinito, ahora queremos analizar la probabilidad
 de que el riesgo empírico difiera significativamente del riesgo verdadero. Con las herramientas anteriores, 
 podemos derivar una cota como sigue. Consideremos una muestra de \(2n\) puntos, es decir, un conjunto 
 \(Z_{2n}\), donde interpretamos los primeros \(n\) puntos como la muestra original y los otros \(n\) 
-puntos como la muestra fantasma.\\
+puntos como la muestra fantasma.\newline
 
 La idea es reemplazar el supremo sobre \(\mathcal{F}\) en términos de \(R(f)\) y 
 \(R_{\text{emp}}(f)\) por un supremo sobre los riesgos empíricos calculados en ambas muestras, es decir, por un expresión
 que utilice el supremo sobre \(\mathcal{F}_{Z_{2n}}\). En este espacio, existen a lo sumo $\mathcal{N}(\mathcal{F}, n)<2^{2n}$
 funciones distintas, lo que nos permite reemplazar, como indicabamos, el valor potencialmente infinito $m$ por el coeficiente de 
-fragmentación. Escribimos:
+fragmentación. Escribimos:\newline
 
 \[
 \begin{aligned}
@@ -1157,7 +1157,7 @@ P\left(\sup_{f \in \mathcal{F}} |R(f) - R_{\text{emp}}(f)| > \epsilon\right) &\l
 Primero, utilizando el argumento de simetrización, como antes. Luego, el supremo puede restringirse a un conjunto finito de funciones
 dado que estamos considerando solo los riesgos empíricos sobre dos muestras de tamaño $n$, que consideramos fijas, y de allí igualamos
 en el segundo paso. Por último, aplicamos la cota de Chernoff (\ref{eq:Chernoff}), sabiendo que el numero de funciones
-posibles $m$ es a lo sumo el coeficiente de fragmentación.\\
+posibles $m$ es a lo sumo el coeficiente de fragmentación.\newline
 
 Para formalizar esto, usamos el coeficiente de fragmentación \(\mathcal{N}(\mathcal{F}, 2n)\), que proporciona el número máximo 
 de particiones que \(\mathcal{F}\) puede realizar sobre una muestra de \(2n\) puntos. Aplicando el límite de la unión 
@@ -1171,7 +1171,7 @@ y la cota de Chernoff, obtenemos:
 Esta es una cota de convergencia uniforme que conecta el coeficiente de fragmentación con la probabilidad de 
 que el riesgo empírico se desvíe significativamente del riesgo verdadero. Para que la minimización del riesgo 
 empírico sea consistente, es suficiente que $\mathcal{N}(\mathcal{F}, n)$ crezca a un ritmo razonablemente lento, por ejemplo, 
-polinomialmente en \(n\).\\
+polinomialmente en \(n\).\newline
 
 Tomemos $\mathcal{F}_{all}$, el espacio de todos los clasificadores posibles. Es claro que, en este caso, $\mathcal{N}(\mathcal{F}_{all}, n)=2^{2n}$,
 pues cualquier muestra de $2n$ puntos puede ser separada de $2^{2n}$ formas posibles. Entonces, la cota de convergencia uniforme para este espacio
@@ -1219,12 +1219,12 @@ función \(f \in \mathcal{F}\) satisface:
 \begin{equation}
     R(f) \leq R_{\text{emp}}(f) + \sqrt{\frac{4}{n} \log(2\mathcal{N}(\mathcal{F}, n)) - \log(\delta)}. \label{eq: cota generalizacion}
 \end{equation}
-
+\newline
 
 De la misma manera que antes, podemos usar esta cota para derivar afirmaciones de consistencia. Por ejemplo, 
 ahora es evidente que la minimización del riesgo empírico es consistente para la clase de funciones \(\mathcal{F}\) 
 si el término \(\log(2\mathcal{N}(\mathcal{F}, 2n))/n\) converge a \(0\) cuando \(n \to \infty\). Una vez más, 
-este es el caso si \(\mathcal{N}(\mathcal{F}, 2n)\) crece de manera polinómica con \(n\).\\
+este es el caso si \(\mathcal{N}(\mathcal{F}, 2n)\) crece de manera polinómica con \(n\).\newline
 
 Nótese que la cota (\ref{eq: cota generalizacion}) se cumple para todas las funciones \(f \in \mathcal{F}\). 
 Por un lado, esto es una fortaleza 
@@ -1232,7 +1232,7 @@ de la cota, ya que se cumple en particular para la función \(f_n\) que minimiza
 buscamos. Además, muchos algoritmos de aprendizaje no minimizan exactamente el riesgo empírico, por lo que la cota 
 también se cumple para ellos. Sin embargo, esto también puede interpretarse como una debilidad, ya que, al considerar 
 un espacio más grande del necesario, obtenemos una cota menos ajustada de lo que podríamos si solo considerásemos
-funciones en el espacio del algoritmo de aprendizaje..\\
+funciones en el espacio del algoritmo de aprendizaje.\newline
 
 Intentemos obtener una intuición sobre esta cota. Nos dice que si tanto \(R_{\text{emp}}(f)\) como el término 
 de raíz cuadrada son pequeños simultáneamente, entonces podemos garantizar que, con alta probabilidad, el 
@@ -1241,7 +1241,7 @@ afirmación sorprendente, sin embargo, no afirma nada imposible. Si usamos una c
 \(\mathcal{N}(\mathcal{F}, n)\) relativamente pequeño, es decir, una clase de funciones que no puede explicar 
 muchas funciones posibles, y luego notamos que usando una función de esta clase podemos explicar los datos muestreados 
 del problema en cuestión, entonces es probable que esto no sea una coincidencia y hayamos capturado algunos aspectos 
-esenciales del problema. \\
+esenciales del problema. \newline
 
 Por otro lado, si el problema es demasiado difícil de aprender a partir de la cantidad de datos dada, entonces 
 descubriremos que, para explicar los datos (es decir, para lograr un \(R_{\text{emp}}(f)\) pequeño), necesitamos 
@@ -1254,7 +1254,7 @@ contiene esa función y pocas o ninguna otra, estamos en una excelente posición
 Existe una gran cantidad de cotas similares a (\ref{eq: cota convergencia coeficiente fragmentacion}) 
 y su forma alternativa (\ref{eq: cota generalizacion}). Las diferencias ocurren en 
 las constantes, tanto en el coeficiente frente a la exponencial como en su exponente. Las cotas también 
-difieren en el exponente de \(\epsilon\) y en la forma en que miden la capacidad. \\
+difieren en el exponente de \(\epsilon\) y en la forma en que miden la capacidad.\newline
 
 \subsection{La dimensión VC}
 
@@ -1263,25 +1263,25 @@ Aunque este es útil, a menudo es difícil calcularlo para clases de funciones a
 que son más fáciles de calcular y que proporcionan cotas más ajustadas, con ventajas y desventajas.
 Introducimos la más conocida de todas, la llamada \textbf{dimensión VC} (dimensión de Vapnik-Chervonenkis). En pocas palabras,
 esta medida intenta caratecterizar el crecimiento del coeficiente de fragmentación a medida que $n$ crece, destilado en un 
-solo valor.\\
+solo valor.\newline
 
 Decimos que una muestra \(Z_n\) de tamaño \(n\) es fragmentada por la clase de funciones 
 \(\mathcal{F}\) si \(\mathcal{N}(\mathcal{F}, n) = 2^n\). Es decir, \(\mathcal{F}\) puede realizar cualquier separación posible de etiquetas sobre 
 los puntos de la muestra. La dimensión VC de \(\mathcal{F}\), denotada como \(\text{VC}(\mathcal{F})\), se define como el tamaño 
-máximo de una muestra que puede ser fragmentada por \(\mathcal{F}\). Formalmente:\\
+máximo de una muestra que puede ser fragmentada por \(\mathcal{F}\). Formalmente:\newline
 
 \begin{dfn}
 La dimensión VC de una clase de funciones \(\mathcal{F}\) es el tamaño máximo de una muestra que puede ser fragmentada por \(\mathcal{F}\), es decir:
 \[
 \text{VC}(\mathcal{F}) = \max \{n \in \mathbb{N} \mid \mathcal{N}(\mathcal{F}, n) = 2^n\}.
 \]
-Si no existe tal máximo, definimos \(\text{VC}(\mathcal{F}) = \infty\). \\
+Si no existe tal máximo, definimos \(\text{VC}(\mathcal{F}) = \infty\).\newline
 \end{dfn}
 
 La dimensión VC tiene una interpretación combinatoria 
 elegante y proporciona una forma práctica de analizar la capacidad de \(\mathcal{F}\). Por ejemplo, si \(\text{VC}(\mathcal{F})\) 
 es finita, podemos garantizar la consistencia de la minimización del riesgo empírico. Además, una clase de funciones 
-con dimensión VC más baja tiende a tener una mejor capacidad de generalización.\\
+con dimensión VC más baja tiende a tener una mejor capacidad de generalización.\newline
 
 \begin{lem}
     Sea $\mathcal{F}$ una clase de funciones con dimensión VC finita. Entonces
@@ -1298,15 +1298,16 @@ La importancia de esta afirmación radica en el último hecho. Si \( n \geq \tex
 el coeficiente de fragmentación se comporta como una función polinómica del tamaño de la muestra \( n \). 
 Este es un resultado muy notable: una vez que sabemos que la dimensión VC de una clase de funciones 
 \(\mathcal{F}\) es finita, ya sabemos que los coeficientes de fragmentación crecen polinómicamente con \( n \). 
-Por los resultados de la sección anterior, esto implica la consistencia de la minimización del riesgo empírico.\\
+Por los resultados de la sección anterior, esto implica la consistencia de la minimización del riesgo empírico.\newline
+
 Nótese que también tenemos una afirmación en la otra dirección. Si la dimensión VC es infinita, esto significa 
 que para cada \( n \) existe alguna muestra que puede ser fragmentada por \(\mathcal{F}\), es decir, tal que
-\(\mathcal{N}(\mathcal{F}, n) = 2^n. \) Para este caso, ya vimos anteriormente que ERM no es consistente.\\
-Enunciamos todo esto en el siguiente Teorema.\\
+\(\mathcal{N}(\mathcal{F}, n) = 2^n. \) Para este caso, ya vimos anteriormente que ERM no es consistente.
+Enunciamos todo esto en el siguiente Teorema.\newline
 
 \begin{thm}
     La minimización del riesgo empírico es consistente con respecto a una clase de funciones \(\mathcal{F}\) si y solo si
-    \(\text{VC}(\mathcal{F}) < \infty\).\\ 
+    \(\text{VC}(\mathcal{F}) < \infty\).\newline 
 \end{thm}
 
 Una propiedad importante a notar tanto sobre el coeficiente de fragmentación como sobre la 
@@ -1316,14 +1317,14 @@ generalización derivadas de estos conceptos se aplican a todas las distribucion
 posibles. Por otro lado, esto también puede considerarse una desventaja, ya que los conceptos de 
 capacidad no tienen en cuenta propiedades particulares de la distribución en cuestión. En este 
 sentido, estos conceptos de capacidad a menudo conducen a cotas bastante amplias, pero es lo que desde
-un comienzo nos interesaba.\\
+un comienzo nos interesaba.\newline
 
 \subsection{Complejidad de Rademacher}
 Un concepto diferente para medir la capacidad de un espacio funcional es la \textbf{complejidad de Rademacher}. 
 En comparación con el coeficiente de fragmentación y la dimensión VC, esta sí depende de la distribución de 
-probabilidad subyacente y, por lo general, conduce a cotas mucho más ajustadas que ambas. \\
+probabilidad subyacente y, por lo general, conduce a cotas mucho más ajustadas que ambas.\newline
 
-La complejidad de Rademacher se define de la siguiente manera.
+La complejidad de Rademacher se define de la siguiente manera.\newline
 
 \begin{dfn}
 Sean \(\sigma_1, \sigma_2, \dots\) variables aleatorias independientes que toman los valores \(+1\) y \(-1\) 
@@ -1340,7 +1341,7 @@ Por ejemplo, pueden interpretarse como los resultados de lanzar repetidamente un
 
 Consideremos primero los valores \(\sigma_i\) como fijos e interpretémoslos como etiquetas asignadas a los puntos \(X_i\). Como tanto 
 \(\sigma_i\) como \(f(X_i)\) solo toman los valores \(+1\) o \(-1\), el producto \(\sigma_i f(X_i)\) toma el 
-valor \(+1\) si \(\sigma_i = f(X_i)\), y \(-1\) si \(\sigma_i \neq f(X_i)\). \\
+valor \(+1\) si \(\sigma_i = f(X_i)\), y \(-1\) si \(\sigma_i \neq f(X_i)\). \newline
 
 Como consecuencia, la suma en el lado derecho de la ecuación será grande si las etiquetas \(f(X_i)\) 
 coinciden con las etiquetas \(\sigma_i\) en muchos puntos de datos. Esto significa que la función \(f\) 
@@ -1351,7 +1352,7 @@ se ajusta bien a las etiquetas \(\sigma_i\): si las etiquetas \(\sigma_i\) fuera
 \sup_{f \in \mathcal{F}} \sum_{i=1}^{n} \sigma_i f(X_i)
 \]
 
-es grande si existe una función en \(\mathcal{F}\) que se ajusta bien a la secuencia dada de etiquetas \(\sigma_i\). \\
+es grande si existe una función en \(\mathcal{F}\) que se ajusta bien a la secuencia dada de etiquetas \(\sigma_i\). \newline
 
 Ahora recordemos que las etiquetas \(\sigma_i\) son variables aleatorias. Podemos considerarlas 
 como etiquetas aleatorias asignadas a los puntos de datos \(X_i\). Como tomamos la esperanza sobre ambos, los 
@@ -1359,7 +1360,7 @@ puntos de datos y las etiquetas aleatorias, la complejidad de Rademacher será a
 \(\mathcal{F}\) es capaz de ajustarse bien a etiquetas aleatorias. Esta intuición tiene sentido: un espacio 
 funcional debe ser bastante grande para poder ajustarse a todo tipo de etiquetas aleatorias en todo tipo de 
 conjuntos de datos. En este sentido, la complejidad de Rademacher mide qué tan complejo es el espacio 
-funcional: cuanto mayor sea \(\mathscr{R}(\mathcal{F})\), mayor será la complejidad de \(\mathcal{F}\).\\
+funcional: cuanto mayor sea \(\mathscr{R}(\mathcal{F})\), mayor será la complejidad de \(\mathcal{F}\).\newline
 
 Desde un punto de vista matemático, la complejidad de Rademacher es conveniente para trabajar. Se pueden 
 demostrar cotas de generalización de la siguiente forma:
@@ -1371,26 +1372,30 @@ demostrar cotas de generalización de la siguiente forma:
 con probabilidad al menos \(1 - \delta\).\\
 \end{thm}
 
-
 La complejidad de Rademacher tienen algunas ventajas sobre los conceptos clásicos de capacidad, como la 
 dimensión VC. En particular, las cotas obtenidas mediante complejidades de Rademacher tienden a ser mucho más 
 precisas que las obtenidas mediante herramientas clásicas. Las técnicas de demostración son diferentes de las 
 explicadas anteriormente, pero no entraremos en detalles aquí. Para literatura sobre cotas basadas en la 
 complejidad de Rademacher, véase, por ejemplo, Mendelson (2003), Bousquet et al. (2003) o Boucheron et al. 
-(2005) y las referencias allí citadas.\\
+(2005) y las referencias allí citadas.
 
 \subsection{Cotas con grandes márgenes de separación}
 
 Finalmente, queremos introducir otro tipo de medida de capacidad de clases de funciones que es 
 más especializada que las cantidades combinatorias generales presentadas anteriormente. Consideremos 
 el caso particular en el que el espacio de datos consiste en puntos en el espacio bidimensional 
-\(\mathbb{R}^2\) y donde queremos separar las clases mediante una línea recta. Dado un conjunto 
-de puntos de entrenamiento y un clasificador \(f_n\) que puede separarlos perfectamente, definimos 
-el \textbf{margen} del clasificador \(f_n\) como la menor distancia de cualquier punto de entrenamiento 
-a la línea separadora definida por \(f_n\) (véase la Figura 5). De manera análoga, se puede definir 
-un margen para clasificadores lineales en un espacio de dimensión arbitraria \(d\).
+\(\mathbb{R}^2\) y donde queremos separar las clases mediante una línea recta. 
 
-\begin{figure}[h!]
+\begin{dfn}
+    Dado un conjunto de puntos de entrenamiento y un clasificador \(f_n\) que puede separarlos perfectamente, definimos 
+    el \textbf{margen} del clasificador \(f_n\) como la menor distancia de cualquier punto de entrenamiento 
+    a la línea separadora definida por \(f_n\).  \label{def:margen} 
+\end{dfn}
+
+Esta definición está ilustrada en la Figura (\ref{fig:Clasificación con margen}). 
+De manera análoga, se puede definir un margen para clasificadores lineales en un espacio de dimensión arbitraria \(d\).
+
+\begin{figure}[ht!]
     \centering
     \includegraphics[width=0.5\textwidth]{Images/6.png}
     \caption{Margen de un clasificador lineal: las cruces representan puntos de entrenamiento con 
@@ -1405,17 +1410,17 @@ margen al menos \(\rho\) puede ser acotada esencialmente por la razón entre el 
 esfera más pequeña que encierra los puntos de datos y el margen \(\rho\), es decir,
 
 \[
-\text{VC}(\mathcal{F}_\rho) \leq \min \left(d, \frac{4R^2}{\rho^2} + 1 \right).
+\text{VC}(\mathcal{F}_\rho) \leq \min \left\{d, \frac{4R^2}{\rho^2} \right\} +1.
 \]
 
 (cf. Teorema 5.1 en Vapnik, 1995). Es decir, cuanto mayor sea el margen \(\rho\) de las funciones 
 en la clase \(\mathcal{F}_\rho\), menor será su dimensión VC. De esta manera, se puede usar el 
 margen de los clasificadores como un concepto de capacidad. Uno de los clasificadores más conocidos, 
 la \textbf{máquina de soporte vectorial} (SVM, \textit{Support Vector Machine}), se basa en este 
-resultado. Para un tratamiento más completo, véase Schölkopf y Smola (2002).
+resultado. Para un tratamiento más completo, véase Schölkopf y Smola (2002).\newline
 
 Un ejemplo de cota de generalización que involucra el gran margen es el siguiente (para una 
-declaración más precisa, véase el Teorema 7.3 en Schölkopf y Smola, 2002):
+declaración más precisa, véase el Teorema 7.3 en Schölkopf y Smola, 2002):\newline
 
 \begin{thm}[Cotas de grandes márgenes]
 
@@ -1432,12 +1437,245 @@ puede ser acotado por:
 \]
 \end{thm}
 
+\subsection{Conclusiones acerca de las cotas de generalización}
+
+Hasta ahora, hemos introducido algunos conceptos de capacidad para clases de funciones: el 
+coeficiente de fragmentación, la dimensión VC y la complejidad de Rademacher. En la literatura, 
+existen muchos otros conceptos de capacidad, y presentarlos todos está fuera del alcance de esta 
+visión general. Sin embargo, queremos destacar la forma general que suelen adoptar la mayoría 
+de las cotas de generalización.\newline
+
+Usualmente, estas cotas están compuestas por tres términos diferentes y tienen la siguiente forma: 
+con probabilidad al menos \(1 - \delta\),
+
+\[
+\mathcal{R}(f) \leq R_{\text{emp}}(f) + \text{capacidad}(\mathcal{F}) + \text{confianza}(\delta).
+\]
+
+Es decir, se puede acotar el riesgo verdadero de un clasificador por su riesgo empírico, un término 
+de capacidad que, en el caso más simple, solo depende de la clase de funciones subyacente 
+\(\mathcal{F}\), y un término de confianza que depende de la probabilidad con la que se desea que 
+la cota se cumpla.\newline
+
+Nótese que, por su naturaleza, todas las cotas de esta forma son cotas en el peor caso: dado que 
+la cota se cumple para todas las funciones en la clase \(\mathcal{F}\), el comportamiento de la cota 
+está determinado por el peor clasificador dentro del espacio funcional. Este punto suele ser 
+utilizado para criticar este enfoque en la teoría del aprendizaje estadístico, ya que los clasificadores 
+naturales no tienden a seleccionar la peor función dentro de una clase.\newline
+
+
+\section{Consistencia de Bayes y error de aproximación}
+
+Hasta ahora, hemos reparado tan solo en el enfoque estándar para acotar el error de estimación 
+de un clasificador. Esto es suficiente para lograr consistencia con respecto a una clase de funciones 
+dada \(\mathcal{F}\). En esta sección, queremos analizar la pieza faltante para lograr la 
+\textbf{consistencia de Bayes}: el error de aproximación.\newline
+
+Recordemos que el error de estimación se definía como \(\mathcal{R}(f_n) - \mathcal{R}(f_{\mathcal{F}})\) 
+y el error de aproximación como \(\mathcal{R}(f_{\mathcal{F}}) - \mathcal{R}(f_{\text{Bayes}})\) 
+(\ref{def:consistencias}). Para lograr consistencia de Bayes, ambos términos deben tender a cero cuando 
+\(n \to \infty\). Hemos visto que, para que el error de estimación converja a \(0\), debemos 
+asegurarnos de que el espacio funcional \(\mathcal{F}\) tenga una capacidad razonablemente baja.\newline
+
+Sin embargo, esto plantea un problema para el error de aproximación: si el espacio funcional 
+\(\mathcal{F}\) tiene una capacidad pequeña, esto significa, en particular, que el espacio 
+\(\mathcal{F}\) es considerablemente más pequeño que el espacio de todas las funciones posibles 
+\(\mathcal{F}_{\text{all}}\). Por lo tanto, si fijamos la clase de funciones \(\mathcal{F}\) y 
+\(f_{\text{Bayes}}\) no está contenido en \(\mathcal{F}\), entonces el 
+error de aproximación podría no ser cero.\newline
+
+Existen solo dos formas de resolver este problema. La primera es imponer condiciones sobre la 
+forma funcional del clasificador de Bayes. Si \(f_{\text{Bayes}} \in \mathcal{F}\) para algún 
+espacio funcional conocido \(\mathcal{F}\) con capacidad pequeña, entonces sabemos que el error 
+de aproximación es \(0\). En este caso, la consistencia de Bayes se reduce a la consistencia con 
+respecto a \(\mathcal{F}\), lo cual puede lograrse mediante los métodos discutidos previamente. 
+Sin embargo, si no queremos hacer suposiciones sobre el clasificador de Bayes, entonces 
+debemos optar por una enfoque diferente.\newline
+
+\subsection{Espacios funcionales anidados}
+
+En esta construcción, no consideraremos una única clase de funciones \(\mathcal{F}\), sino una 
+secuencia de espacios funcionales \(\mathcal{F}_1, \mathcal{F}_2, \dots\). Al construir un 
+clasificador sobre \(n\) puntos de datos, lo haremos a partir del espacio funcional \(\mathcal{F}_n\). 
+La clave de esta construcción es que el espacio funcional \(\mathcal{F}_n\) debe volverse más 
+complejo a medida que el tamaño de la muestra \(n\) aumenta.\newline
+
+El enfoque estándar es elegir los espacios \(\mathcal{F}_n\) de modo que formen una secuencia 
+creciente de espacios funcionales anidados, es decir,
+
+\[
+\mathcal{F}_1 \subset \mathcal{F}_2 \subset \mathcal{F}_3 \subset \dots
+\]
+
+La intuición detrás de esto es que comenzamos con un espacio funcional simple y luego, 
+gradualmente, agregamos funciones más complejas al espacio. Si ahora se nos da una muestra 
+de \(n\) puntos de datos, seleccionamos nuestro clasificador del espacio \(\mathcal{F}_n\). 
+Para que este clasificador sea consistente con Bayes, debemos garantizar dos condiciones:\newline
+
+\begin{enumerate}
+    \item \textbf{El error de estimación debe converger a 0 cuando \(n \to \infty\).} Para lograr esto, 
+    notemos que para cada \(n\) fijo, podemos acotar el error de estimación utilizando uno de los 
+    métodos conocidos. Esta cota disminuye conforme aumenta el tamaño de la muestra, pero 
+    crece cuando el término de complejidad aumenta. Debemos entonces asegurarnos de que el error de 
+    estimación total decrezca de forma neta, es decir, que el término de complejidad no domine al término 
+    del tamaño de la muestra. Para garantizar esto, debemos asegurarnos de que la complejidad de 
+    \(\mathcal{F}_n\) no crezca demasiado rápido a medida que aumenta \(n\).
+
+    \item \textbf{El error de aproximación debe converger a 0 cuando \(n \to \infty\).} Intuimos que 
+    para lograrlo, 
+    debiéramos garantizar que, eventualmente, para algún \(n\) suficientemente grande, cada función en 
+    \(\mathcal{F}_{\text{all}}\) esté contenida en \(\mathcal{F}_n\), o que pueda ser aproximada por 
+    una función en \(\mathcal{F}_n\). Discutiremos a continuación cómo puede lograrse.
+\end{enumerate}
+
+
+Un ejemplo de cómo estas dos condiciones pueden formularse de manera rigurosa se presenta en el 
+siguiente teorema, adaptado del Teorema 18.1 de Devroye et al. (1996):\newline
+
+\begin{thm}
+ Sea \(\mathcal{F}_1, \mathcal{F}_2, \dots\) una secuencia de espacios funcionales, y 
+consideremos los clasificadores 
+
+\[
+f_n = \arg\min_{f \in \mathcal{F}_n} R_{\text{emp}}(f).
+\]
+
+Supongamos que, para cualquier distribución \(P\), se satisfacen las siguientes dos condiciones:
+
+\begin{enumerate}
+    \item Las dimensiones VC de los espacios \(\mathcal{F}_n\) satisfacen 
+    \[
+    \text{VC}(\mathcal{F}_n) \cdot \log n / n \to 0
+    \]
+    cuando \(n \to \infty\).
+    
+    \item El error de aproximación satisface \(\mathcal{R}(f_{\mathcal{F}_n}) \to \mathcal{R}(f_{\text{Bayes}})\) 
+    cuando \(n \to \infty\).
+\end{enumerate}
+
+Entonces, la secuencia de clasificadores \(f_n\) es consistente con Bayes.
+
+\end{thm}
+\vspace{0.3cm}
+
+Intentemos entender este teorema. Se nos da una secuencia creciente de espacios funcionales \(\mathcal{F}_n\). 
+Para cada muestra de tamaño \(n\), elegimos la función en \(\mathcal{F}_n\) que minimiza el riesgo empírico. 
+Este es nuestro clasificador \(f_n\). Si queremos que este clasificador sea consistente, deben cumplirse dos 
+condiciones.\newline
+
+La primera condición establece que la complejidad de las clases de funciones, medida mediante la dimensión VC, 
+debe crecer lentamente. Por ejemplo, si elegimos los espacios funcionales \(\mathcal{F}_n\) de modo que 
+\(\text{VC}(\mathcal{F}_n) \approx n^\alpha\) para algún \(\alpha \in (0,1)\), entonces la primera condición 
+se satisface porque
+
+\[
+\text{VC}(\mathcal{F}_n) \cdot \frac{\log n}{n} \approx n^\alpha \cdot \frac{\log n}{n} = \frac{\log n}{n^{1-\alpha}} \to 0.
+\]
+
+Sin embargo, si elegimos \(\text{VC}(\mathcal{F}_n) \approx n\) (es decir, \(\alpha = 1\) en el cálculo anterior), 
+entonces la condición ya no se cumple:
+
+\[
+\text{VC}(\mathcal{F}_n) \cdot \frac{\log n}{n} \approx \log n \to \infty.
+\]
+
+La segunda condición del teorema simplemente establece que el error de aproximación debe converger a \(0\), pero 
+el teorema no proporciona información sobre cómo lograr esto. Sin embargo, como discutimos anteriormente, es claro 
+que esto solo se puede alcanzar mediante una secuencia creciente de clases de funciones.\newline
+
+\subsection{Regularización}
+
+Una forma implícita de trabajar con espacios funcionales anidados es el \textbf{principio de regularización}. 
+En lugar de minimizar el riesgo empírico \(R_{\text{emp}}(f)\) y luego expresar la capacidad de generalización 
+del clasificador resultante \(f_n\) mediante alguna medida de capacidad de la clase funcional subyacente 
+\(\mathcal{F}\), se puede seguir un enfoque más directo: se minimiza directamente el llamado \textbf{riesgo 
+regularizado}:
+
+\[
+\mathcal{R}_{\text{reg}}(f) = R_{\text{emp}}(f) + \lambda \Omega(f).
+\]
+
+Aquí, \(\Omega(f)\) es el llamado \textbf{regularizador}. Este regularizador está diseñado para penalizar 
+funciones excesivamente complejas. Por ejemplo, a menudo se elige un regularizador que penaliza funciones con 
+grandes fluctuaciones, es decir, se elige \(\Omega(f)\) de modo que sea pequeño para funciones que varían 
+lentamente y grande para funciones que fluctúan mucho. Como otro ejemplo, en clasificadores lineales se puede 
+elegir \(\Omega(f)\) como el inverso del margen de una función (definición \ref{def:margen}).\newline
+
+El parámetro \(\lambda\) en la definición del riesgo regularizado es una constante de ajuste que equilibra la 
+importancia de \(R_{\text{emp}}(f)\) y \(\Omega(f)\). Si \(\lambda\) es muy grande, tomamos la penalización 
+inducida por \(\Omega(f)\) muy seriamente y podríamos preferir funciones con \(\Omega(f)\) pequeño, incluso si 
+tienen un alto riesgo empírico. Por otro lado, si \(\lambda\) es pequeño, la influencia de la penalización 
+disminuye y simplemente elegimos funciones basándonos en sus riesgos empíricos.\newline
+
+El principio de regularización consiste en elegir el clasificador \(f_n\) que minimiza el riesgo regularizado 
+\(\mathcal{R}_{\text{reg}}(f)\). Muchos de los clasificadores ampliamente utilizados pueden formularse dentro 
+del marco de la regularización, por ejemplo, la máquina de soporte vectorial (conocidas como SVM o Support Vector Machines)
+(ver Schölkopf y Smola, 2002, 
+para más detalles).\newline
+
+Para demostrar la \textbf{consistencia de Bayes} de clasificadores regularizados, se procede esencialmente como 
+se describió en la subsección anterior: para alguna secuencia lentamente creciente \(\omega_1, \omega_2, \dots\), 
+consideramos espacios funcionales anidados \(\mathcal{F}_{\omega_1}, \mathcal{F}_{\omega_2}, \dots\), donde cada 
+\(\mathcal{F}_{\omega_i}\) contiene todas las funciones \(f\) que satisfacen \(\Omega(f) \leq \omega_i\). 
+Eventualmente, si \(i\) es lo suficientemente grande, el espacio \(\mathcal{F}_{\omega_i}\) aproximará el 
+espacio \(\mathcal{F}_{\text{all}}\) de todas las funciones.\newline
+
+Para garantizar la consistencia, se debe hacer que la constante \(\lambda\) tienda a \(0\) cuando \(n \to \infty\). 
+Esto asegura que, para \(n\) grande, efectivamente se nos permita elegir funciones de un espacio cercano a 
+\(\mathcal{F}_{\text{all}}\). Por otro lado, la constante \(\lambda\) no debe converger a \(0\) demasiado rápido, 
+ya que, de lo contrario, comenzaríamos a sobreajustar para valores pequeños de \(n\) (si \(\lambda\) es muy 
+pequeño, esencialmente se ignora el regularizador y, en consecuencia, se realiza algo similar a la minimización
+de riesgo empírico pero sobre un conjunto muy grande de funciones).\newline
+
+Nótese que existe una diferencia conceptual importante entre la minimización del riesgo empírico y la 
+regularización. En la regularización, se introduce una función \(\Omega\) que mide la \textbf{complejidad} de 
+una función individual \(f\). En ERM, por otro lado, nunca observamos la complejidad de funciones individuales, 
+sino solo la complejidad de una clase funcional completa. Esta última, sin embargo, es más bien una medida de 
+\textbf{capacidad}, es decir, una medida de la cantidad de funciones en \(\mathcal{F}\), y solo indirectamente 
+una medida de qué tan complejas son las funciones individuales en la clase. Desde un punto de vista intuitivo, 
+el primer enfoque es a menudo más fácil de comprender, ya que la complejidad de una función individual es un 
+concepto más tangible que la capacidad de una clase funcional completa.\newline
+
+El teorema anterior muestra el principio general de cómo podemos lograr la \textbf{consistencia de Bayes}. 
+Sin embargo, el teorema simplemente establece como su segunda condición que el error de aproximación 
+debe converger a \(0\). ¿Cómo se puede lograr esto en la práctica? Resulta que hay muchas situaciones 
+en las que esto no es tan difícil. Esencialmente, debemos asegurarnos de que cada función en 
+\(\mathcal{F}_{\text{all}}\) esté contenida en \(\mathcal{F}_n\) para algún \(n\) grande, o que pueda 
+ser aproximada arbitrariamente bien por una función de \(\mathcal{F}_n\).\newline
+
+El área de las matemáticas que estudia este tipo de problemas se llama \textbf{teoría de la aproximación}, 
+pero para los propósitos de la teoría del aprendizaje, resultados de aproximación simples suelen ser 
+suficientes. El único 
+problema técnico que debemos resolver es obtener una afirmación de la siguiente forma: si dos funciones 
+son cercanas entre sí, entonces sus valores de riesgo también son cercanos.
+
+Afirmaciones de este tipo suelen ser bastante fáciles de obtener. Por ejemplo, es directo ver que si 
+\(f\) es una función de clasificación binaria (es decir, con \(f(x) \in \{\pm1\}\)) y \(g\) es cualquier 
+otra función medible arbitraria, y la distancia \(L_1\) entre \(f\) y \(g\) es menor que \(\delta\), 
+entonces su diferencia en el riesgo 0-1 también es menor que \(\delta\), es decir,
+
+\[
+P(f(x) \neq \text{sgn}(g(x))) < \delta.
+\]
+
+Esto significa que, para demostrar que el error de aproximación de un espacio funcional \(\mathcal{F}\) 
+es menor que \(\delta\), solo necesitamos saber que cada función en \(\mathcal{F}_{\text{all}}\) puede 
+ser aproximada hasta \(\delta\) en la norma \(L_1\) por funciones de \(\mathcal{F}\).\newline
+
+Resultados de este tipo son abundantes en la literatura matemática. Por ejemplo, si \(X\) es un subconjunto 
+acotado de los números reales, es bien sabido que se puede aproximar cualquier función medible sobre este 
+conjunto de manera arbitrariamente precisa mediante un polinomio. Por lo tanto, podríamos elegir los espacios 
+\(\mathcal{F}_n\) como los espacios de polinomios de grado a lo sumo \(d_n\), donde \(d_n\) crece lentamente 
+con \(n\). Esto es suficiente para garantizar la convergencia del error de aproximación.
+
+
+
 
 \bigbreak
 \pagebreak
 \section{Bibliografía}
 
-[1] \textit{Statistical Learning Theory: Models, Concepts and Results} - von Luxburg, Schölkopf (2008). \\
+[1] \textit{Statistical Learning Theory: Models, Concepts and Results} - von Luxburg, B. Schölkopf (2008). \\
 
 [2] \textit{The Nature of Statistical Learning Theory} - Vladimir Vapnik (1995). \\
 
