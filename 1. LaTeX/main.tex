@@ -1666,8 +1666,215 @@ Resultados de este tipo son abundantes en la literatura matemática. Por ejemplo
 acotado de los números reales, es bien sabido que se puede aproximar cualquier función medible sobre este 
 conjunto de manera arbitrariamente precisa mediante un polinomio. Por lo tanto, podríamos elegir los espacios 
 \(\mathcal{F}_n\) como los espacios de polinomios de grado a lo sumo \(d_n\), donde \(d_n\) crece lentamente 
-con \(n\). Esto es suficiente para garantizar la convergencia del error de aproximación.
+con \(n\). Esto es suficiente para garantizar la convergencia del error de aproximación.\newline
 
+\section{No Free Lunch}
+
+Hemos presentado, además de parte de la historia de la disciplina, algunos resultados positivos en la teoría del aprendizaje estadístico. 
+Formalizamos el problema de aprendizaje, hemos definido el objetivo del aprendizaje -minimizar el 
+riesgo-, hemos especificado qué propiedades debe tener un clasificador -hablamos de la consistencia- y también hemos desarrollado un 
+marco para pensar estas propiedades de manera fundamental. Además, vimos que existen 
+diferentes formas de lograr clasificadores consistentes, de las cuales hemos mencionado algunas (como los \(k\)-vecinos más cercanos y la 
+minimización del riesgo empírico).\newline
+
+Ahora surge de manera natural la siguiente pregunta: ¿cuál de todos los clasificadores consistentes 
+es \textit{el mejor} clasificador? ¿Existe un clasificador universalmente bueno?\newline
+
+Intentemos reformular esta pregunta de una manera más formal. Manteniendo la restricción de muestreo iid
+a partir de alguna distribución de probabilidad subyacente pero desconocida, ¿existe 
+un clasificador que, en promedio sobre todas las distribuciones de probabilidad, obtenga mejores 
+resultados que cualquier otro clasificador? ¿Podemos comparar dos clasificadores \(f\) y \(g\), 
+en promedio sobre todas las distribuciones?\newline
+
+La razón por la cual consideramos afirmaciones ``en promedio sobre todas las distribuciones'' radica 
+en que no queremos hacer ninguna suposición sobre la distribución subyacente. Por lo tanto, parece 
+natural estudiar el comportamiento de los clasificadores en cualquier posible distribución. Veamos entonces
+que, no solamente no existe un clasificador universalmente bueno, sino que, \textbf{en promedio sobre todas las distribuciones
+posibles, todos los clasificadores son equivalentes}.\newline
+
+Para tener alguna intuición al respecto, supongamos que nuestro espacio de entrada \(X\) solo consiste en un conjunto finito de puntos, es decir, 
+\(X = \{x_1, \dots, x_m\}\) para algún número grande \(m\). Ahora consideremos todas las formas 
+posibles de asignar etiquetas a esos puntos de datos, es decir, consideremos todas las distribuciones 
+de probabilidad posibles sobre \(X\). \newline
+
+Dado un pequeño subconjunto de puntos de entrenamiento \((X_i, Y_i)_{i=1,\dots,n}\), con $n<m$, utilizamos 
+alguna regla de clasificación para construir un clasificador a partir de esos puntos. Es decir, fijamos un clasificador $f$
+construido con $n$ puntos etiquetados del espacio finito \(X\).\newline
+
+Ahora, consideremos todos los puntos de \(X\) que no han sido usados como 
+puntos de entrenamiento y sus etiquetas. Solemos llamar conjunto de prueba (\textit{test set}) a este conjunto.
+Por un lado, existe una asignación de etiquetas posible \(P_1\) sobre el conjunto de prueba (los datos que el clasificador
+no conoce) en la que el 
+clasificador no comete ningún error, específicamente aquella que coincide exactamente con la asignación 
+de etiquetas producida por el clasificador mismo. Sin embargo, también existe una asignación de 
+etiquetas \(P_2\) en la que el clasificador comete el mayor error posible: basta tomar la distribución
+que asigna a los datos de prueba etiquetas de forma inversa a la del clasificador. \newline
+
+De la misma manera, podemos ver que, esencialmente, para cualquier error \(R\) dado, podemos 
+construir una distribución de probabilidad sobre \(X\) tal que el error del clasificador \(f_n\) en el 
+conjunto de prueba sea exactamente \(R\). El mismo razonamiento se aplica a cualquier otro 
+clasificador. Por lo tanto, si promediamos sobre todas las distribuciones de probabilidad posibles en \(X\), 
+todos los clasificadores \(f_n\) alcanzarán el mismo error de prueba: cada vez que existe una 
+distribución en la que el clasificador obtiene un buen rendimiento, existe una distribución 
+(digamos) opuesta sobre el conjunto de prueba en la que el clasificador obtiene un mal rendimiento.
+En particular, en promedio sobre todas las distribuciones de probabilidad, ningún 
+clasificador puede ser mejor que un clasificador aleatorio en el conjunto de prueba.\newline
+
+\begin{thm}[No Free Lunch]
+Sea \(\varepsilon > 0\). Para cualquier entero \(n\) y cualquier 
+regla de clasificación \(f_n\), existe una distribución \(P(X, Y)\) con riesgo bayesiano 
+\(\mathcal{R}(f_{Bayes}) = 0\) tal que:
+
+\[
+\mathbb{E}[\ell(X,Y,f_n)] \geq \frac{1}{2} - \varepsilon.\newline
+\]
+\end{thm}
+
+\begin{proof}
+
+Construiremos una familia de distribuciones conjuntas para el par de variables aleatorias \((X, Y)\) y mostraremos que para al menos un 
+elemento de esta familia, cualquier clasificador \(f_n\) -construido en base a $n$ puntos en $X$-, presenta un rendimiento deficiente.\newline
+
+Consideremos un espacio de entrada 
+discreto \(X\) que se distribuye uniformemente sobre el conjunto finito \(\{1, 2, \dots, K\}\), 
+según la función distribución de probabilidad discreta:
+
+\[
+P(X = i) = \begin{cases} 
+\frac{1}{K}, & \text{si } i \in \{1, 2, \dots, K\}, \\ 
+0, & \text{en otro caso}.
+\end{cases}
+\]
+
+
+Construida la distribución de \(X\), definamos la distribución conjunta \(P(X,Y)\). Como \(X\) es finita,
+es posible parametrizar la distribución conjunta con un solo valor
+\(b \in [0,1)\). Luego, cada distribución posible de $(X,Y)$ puede es representada por un único valor \(b\).
+Tomando la expansión binaria de $b$, tenemos:
+
+\[
+b = 0.b_0 b_1 b_2 \dots.
+\]
+
+Definimos entonces la etiqueta \(Y\) como función de \(X\):
+
+\[
+Y = b_X,
+\]
+
+donde \(b_X\) coincide con el \(X\)-ésimo dígito binario de \(b\). Utilizar la expansión binaria de $b$ facilita la interpretación
+de la parametrización, dado que cada dígito $i$-ésimo es exactamente la etiqueta correspondiente a la muestra $i$-ésima.
+Por ejemplo, si \(K=3\) y estamos en el caso donde  \(f_{Bayes}(X_1)=0\),  \(f_{Bayes}(X_2)=1\) y \(f_{Bayes}(X_3)=1\), 
+la distribucíon conjunta estaría representada por $b=0,011$.\newline
+
+
+Dado que \(Y\) es una función de \(X\), existe una regla de decisión perfecta y el clasificador de Bayes alcanza una pérdida cero:
+
+\[
+\ell(X,Y,f_{Bayes}) = 0.
+\]
+
+Consideramos a $f_n$ un clasificador sobre $X$ construido a partir de las primeras $n$ muestras. Escribimos entonces
+\[
+f_n(X) = f_n(X, Z_n),
+\]
+para explicitar que $f_n$ es función también de la muestra de entrenamiento $Z_n$. Luego, definimos el riesgo sobre \(b\)
+como el riesgo de $f_n$ para esa distribución asociado a la pérdida-0-1:
+
+
+\begin{equation*}
+    \begin{aligned}
+        \mathcal{R}_n(b) &= \mathbb{E}[\ell((X,Y)(b),f_n(X))]\\ 
+        &= \sum_{i=1}^{K} 1 \cdot P(f_n(X_i, Z_n) \neq b_{i}) + \sum_{i=1}^{K} 0 \cdot P(f_n(X_i, Z_n) = b_{i})\\
+        &= \sum_{i=1}^{K} P(f_n(X_i, Z_n) \neq b_{i}) \\
+        &= P(f_n(X, Z_n) \neq Y).
+    \end{aligned}
+\end{equation*}
+
+
+Ahora introducimos una variable aleatoria \(B\), distribuida uniformemente en \([0,1)\) e independiente de \(X\) y 
+de los datos de entrenamiento \(Z_n\). Su expansión binaria es: \(B = 0,B_1B_2B_3\dots\), que es una sucesión 
+de variables aleatorias independientes en \(\{0,1\}\) con probabilidad $\frac{1}{2}$. Evidentemente, el rol de $B$
+es generar una distribución conjunta sobre $X$ e $Y$ de manera aleatoria. También podemos generar de manera aleatoria
+una distribución para $Y$, que podemos llamar $Y=B_X$, usando la misma convención que antes donde, de nuevo,
+$B_X$ es el dígito que corresponde al punto $X$ en la expansión binaria de $B$. Notemos que $X$ puede no pertenecer
+al conjunto de entrenamiento $Z_n$. \newline
+Podemos expresar el riesgo de este nuevo parámetro como:
+
+
+\[
+\mathcal{R}_n(B) = P(f_n(X, Z_n) \neq B_X).\newline
+\]
+
+y dado que $B$ representa a cualquiera de las distribuciones parametrizadas por $b$, es cierto que
+
+\begin{equation}
+    \sup_{b\in[0,1)} \mathcal{R}_n(b) \geq \mathcal{R}_n(B). \label{eq:cota_parametro_b_distribuciones}
+\end{equation}
+
+
+
+Notemos que \(B_X\) es una variable de Bernoulli(\(1/2\)) independiente de \(f_n(X, Z_n)\) cuando 
+\(X\) no pertenece al conjunto de entrenamiento. De aquí se obtiene:
+
+\[
+P(f_n(X, Z_n) \neq B_X \mid X, Z_n) = \frac{1}{2}, \quad \text{si } X \notin \{X_1, \dots, X_n\}.
+\]
+
+Esto se debe a que el clasificador no tiene información sobre la etiqueta de \(X\) si \(X\) no está en el conjunto de entrenamiento,
+como es el caso y, dado que $B_X$ se genera aleatoriamente, la probabilidad de que $f_n$ acierte es de $1/2$. \newline
+
+Esto nos sirve para
+dar la siguiente expresión del riesgo de $B$:\newline
+\begin{equation*}
+    \begin{aligned}
+        \mathcal{R}_n(B) &= P(f_n(X, Z_n) \neq B_X)\\
+        &= P(f_n(X, Z_n) \neq B_X \mid X \notin \{X_1, \dots, X_n\}) \cdot P(X \notin \{X_1, \dots, X_n\})\\
+        &  \qquad + P(f_n(X, Z_n) \neq B_X \mid X \in \{X_1, \dots, X_n\}) \cdot P(X \in \{X_1, \dots, X_n\})\\
+        &\geq P(f_n(X, Z_n) \neq B_X \mid X \notin \{X_1, \dots, X_n\}) \cdot P(X \notin \{X_1, \dots, X_n\})\\
+        & = \frac{1}{2} \cdot P(X \notin \{X_1, \dots, X_n\})
+    \end{aligned}
+\end{equation*}
+
+Donde simplemente separamos los eventos en donde el punto $X$ sobre el que analizamos al clasificador está o no está
+en el conjunto de entrenamiento, y desechamos el caso afirmativo. Luego
+
+\[
+\mathcal{R}_n(B) = P(f_n(X, Z_n) \neq B_X) \geq \frac{1}{2} \cdot P(X \notin \{X_1, \dots, X_n\})
+\]
+
+Por otro lado, como las muestras son tomadas de forma iid:
+\[
+    P(X \notin \{X_1, \dots, X_n\}) = P(X\neq X_1, X\neq X_2, \dots, X\neq X_n) = P(X\neq X_1)^n = \left(1-\frac{1}{K}\right)^n
+\]
+
+Luego
+
+\[
+\mathcal{R}_n(B) \geq \frac{1}{2} \cdot \left(1-\frac{1}{K}\right)^n
+\]
+
+Considerando la cota \ref{eq:cota_parametro_b_distribuciones}, sabemos que existe una distribución
+conjunta $(X,Y)(b)$ tal que 
+
+\[
+\mathcal{R}_n(b) \; =\; \mathbb{E}[\ell((X,Y)(b),f_n(X))] \; \geq \;  \frac{1}{2} \cdot \left(1-\frac{1}{K}\right)^n \xrightarrow[K \to \infty]{} \frac{1}{2}
+\]
+
+
+\end{proof}
+
+El Teorema No Free Lunch establece que, aunque existen reglas de clasificación que son universalmente 
+consistentes, es decir, que asintóticamente proporcionan el rendimiento óptimo para cualquier 
+distribución, su desempeño en muestras finitas siempre será muy malo -cercano al de clasificar utilizando el lanzamiento de una moneda- para algunas 
+distribuciones. \newline
+
+Esto significa que ningún clasificador puede garantizar que logremos un error aceptable 
+para todas las distribuciones, aún teniendo una cantidad de muestras enorme (pero finita). 
+Sin embargo, dado que la distribución adversa depende de \(n\), 
+el Teorema no nos permite concluir que existe una única distribución para la cual la 
+probabilidad de error sea mayor que \(\ell(f_{Bayes}) + 1/4\) para todo \(n\). Tal afirmación 
+iría en contradicción la propia existencia de reglas universalmente consistentes.
 
 
 
