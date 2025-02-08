@@ -1010,7 +1010,7 @@ esta muestra en la práctica; es solo una herramienta matemática para realizar 
 Dfinimos el riesgo empírico con respecto a esta muestra como \(\mathcal{R}'_{\text{emp}}(f)\). 
 Con la ayuda de esta muestra fantasma, podemos demostrar el siguiente resultado:\newline
 
-\begin{thm}[Lema de simetrización]
+\begin{lem}[de simetrización] \label{lema de simetrizacion}
 
 Sea $m\epsilon^2 \geq 2$. Sea $\mathcal{F}$ el espacio de funciones definido por un algoritmo de aprendizaje. Sean
 $(X_i,Y_i)_{i=1,\dots, n}$, $(X_i',Y_i')_{i=1,\dots, n}$ muestras aleatorias iid. Dada $f \in\mathcal{F}$,
@@ -1021,7 +1021,7 @@ $\mathcal{R}'_{emp}(f)$ el riesgo sobre la segunda. Entonces, para cualquier $\e
 P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| > 
 \epsilon \right) \leq 2P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}_{\text{emp}}(f) - \mathcal{R}'_{\text{emp}}(f)| > \frac{\epsilon}{2}\right).
 \]\newline
-\end{thm}
+\end{lem}
 
 Esta desigualdad, nos permite acotar el comportamiento 
 de la diferencia \(\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)\) mediante la diferencia entre riesgos empíricos \(\mathcal{R}_{\text{emp}}(f)\) y 
@@ -1273,7 +1273,7 @@ máximo de una muestra que puede ser fragmentada por \(\mathcal{F}\). Formalment
 \begin{dfn}
 La dimensión VC de una clase de funciones \(\mathcal{F}\) es el tamaño máximo de una muestra que puede ser fragmentada por \(\mathcal{F}\), es decir:
 \[
-\text{VC}(\mathcal{F}) = \max \{n \in \mathbb{N} \mid \mathcal{N}(\mathcal{F}, n) = 2^n\}.
+\text{VC}(\mathcal{F}) = \max \{n \in \mathbb{N} \mid \mathcal{N}(\mathcal{F}, n) = 2^n\}. 
 \]
 Si no existe tal máximo, definimos \(\text{VC}(\mathcal{F}) = \infty\).\newline
 \end{dfn}
@@ -1283,7 +1283,7 @@ elegante y proporciona una forma práctica de analizar la capacidad de \(\mathca
 es finita, podemos garantizar la consistencia de la minimización del riesgo empírico. Además, una clase de funciones 
 con dimensión VC más baja tiende a tener una mejor capacidad de generalización.\newline
 
-\begin{lem}
+\begin{lem}\label{def:cota combinatoria de dimensión VC}
     Sea $\mathcal{F}$ una clase de funciones con dimensión VC finita. Entonces
     \[
     \mathcal{N}(\mathcal{F}, n) \leq \sum_{i=0}^{\text{VC}(\mathcal{F})} \binom{n}{i} , \qquad \forall n \in \mathbb{N}.
@@ -1471,6 +1471,7 @@ Vapnik y Chernovenkis. Ahora nos proponemos alcanzar la rigurosidad necesaria pa
 previamente. Para ello, introduciremos una nueva notación y seguiremos [8], el célebre artículo de 1971 - escrito tres años antes en su 
 idioma original - por los dos colosos rusos.\newline
 
+\subsection{Definiciones preliminares}
 
 Sea \( X \) un conjunto de eventos sobre el cual se ha definido una medida de probabilidad \( P_X \). Sea \( \mathcal{S} \) una colección de eventos 
 aleatorios, es decir, subconjuntos del espacio \( X \) que son medibles con respecto 
@@ -1617,7 +1618,7 @@ de vectores \( \varphi \). A cada vector \( X_0 \in E_n \) le corresponde una pa
 del espacio \( E_n \) en dos subespacios: \(\langle X_k, \varphi_2 \rangle \geq 1\) y \(\langle X_k, \varphi_2 \rangle < 1\). 
 Recíprocamente, cada vector \(\varphi\) determina un evento $A$ en el sistema \(\mathcal{S}\).\newline
 
-Consideremos \( r \) vectores \( X_1, \dots, X_r \). Estos generan una partición del espacio \( \mathbb{E}_n \) 
+Tomemos \( r \) vectores \( X_1, \dots, X_r \). Estos generan una partición del espacio \( \mathbb{E}_n \) 
 en un número de componentes tales que los vectores \( \varphi \) dentro de cada componente determinan eventos 
 \( A \in \mathcal{S} \) que inducen el mismo subconjunto en la muestra \( X_1, \dots, X_r \).\newline
 
@@ -1641,13 +1642,14 @@ Podemos definir a la función de crecimiento lineal en términos recursivos.
 \]
 Esto a su vez nos permite dar la definición combinatoria de la funcion de crecimiento lineal:
 
-\[
+\begin{equation}
 \Phi(n, r) =
 \begin{cases}
-\sum\limits_{k=0}^{n} \binom{n}{k}, & \text{si } r > n, \\
+\sum\limits_{k=0}^{n} \binom{r}{n}, & \text{si } r > n, \\
 2^r, & \text{si } r \leq n.
 \end{cases}
-\]
+\label{def: combinatoria función crecimiento lineal}
+\end{equation}
 \end{obs}
 
 Por último, observamos que
@@ -1662,10 +1664,12 @@ Para \( n > 0 \) y \( r \geq 0 \), se cumple que:
 Y tomaremos \( \binom{n}{k} = 0 \) en el caso que \( n < k \).\newline
 \end{obs}
 
+\subsection{Propiedades de la función de crecimiento}
 
 Una propiedad que nos interesa del coeficiente de fragmentación (y por extensión, de la dimensión VC) es que podamos asegurarnos
 de que, de ser posible, sean polinómicas. De esa manera la desigualdad (\ref{eq: cota convergencia coeficiente fragmentacion})
 es absorvida por la exponencial y nos aseguramos la convergencia en probabilidad. \newline
+
 Ahora probaremos que la función de crecimiento $m^{\mathcal{S}}(r)$ 
 es idénticamente igual a \( 2^r \) o está acotada superiormente por \( r^n + 1 \),  
 donde \( n \) es una constante que corresponde al valor de \( r \) para el cual la igualdad  
@@ -1730,14 +1734,47 @@ Ya hemos dicho que \( m^{\mathcal{S}}(r) \leq 2^r \). Supongamos que \( m^{\math
     
 \end{proof}
 
-Sea una muestra de tamaño \( 2l \) tomada como \( X_{2l} = \{ X_1, \dots, X_l, X_{l+1}, \dots, X_{2l} \} \), 
-y supongamos que las frecuencias relativas del evento \( A \in \mathcal{S} \) han sido calculadas en la primera 
-semimuestra \( \{ X_1, \dots, X_l \} \) y en la segunda semimuestra \( \{ X_{l+1}, \dots, X_{2l} \} \). 
 
-Denotemos las respectivas frecuencias por \( \nu_1 \) y \( \nu_2 \), y consideremos la diferencia entre estas cantidades:
+Detengámonos un momento en considerar que significan estos resultados en tanto hemos pensado los espacios funcionales
+de clasificadores en la sección anterior. Ya hemos dicho que el coeficiente de fragmentación de un espacio para un tamaño
+de muestra dada es una instancia de la función de crecimiento. Es decir
 
 \[
-\rho(l) = |\nu_1 - \nu_2|.
+\mathcal{N}(\mathcal{F}, r) = m^{\mathcal{S}}(r)
+\]
+
+Por otro lado, si $n$ es el primer valor donde la igualdad $m^{\mathcal{S}}(r)=2^r$ se viola, la dimensión VC de un espacio $\mathcal{F}$ 
+por definición es $n-1$, es decir el mayor tamaño de muestra que puede ser fragmentado por $\mathcal{F}$.\newline
+
+Considerando la definición combinatoria de la función de crecimiento lineal (\ref{def: combinatoria función crecimiento lineal}),
+hemos demostrado el Lema (\ref{def:cota combinatoria de dimensión VC}). Lo enunciamos de forma general en el siguiente corolario.
+
+\begin{cor}
+    En las condiciones del teorema anterior, si $n\in\mathbb{N}$ es el mínimo valor del tamaño muestral $r$ tal que    
+    \[
+        m^{\mathcal{S}}(r) < 2^r
+    \]
+    entonces
+    \[
+        m^{\mathcal{S}}(r) \leq \sum\limits_{k=0}^{n} \binom{r}{k}. 
+    \]
+\end{cor}
+
+\bigskip
+
+\subsection{El Lema de simetrización y su aplicación en la Teoría VC}
+
+Enfoquémonos ahora en probar el lema de simetrización (\ref{lema de simetrizacion}). Tomemos dos muestra de tamaño $l$ y
+unifiquemolas en una sola muestra de tamaño \( 2l \),
+\( Z_{2l} = \{ X_1, \dots, X_l, X_{l+1}, \dots, X_{2l} \} \). Supongamos que las frecuencias relativas del evento \( A \in \mathcal{S} \) 
+han sido calculadas en la primera semimuestra \( \{ X_1, \dots, X_l \} \) y en la segunda semimuestra \( \{ X_{l+1}, \dots, X_{2l} \} \)
+por separado.\newline
+
+Para cualquier evento $A\in\mathcal{S}$, denotemos las respectivas frecuencias por \( \nu_A^{(1)}\) y \( \nu_A^{(2)} \), 
+y consideremos la diferencia entre estas cantidades:
+
+\[
+\rho(l) = |\nu_A^{(1)} - \nu_A^{(2)}|.
 \]
 
 Nos interesa la máxima diferencia entre estas cantidades sobre todos los eventos en la clase \( \mathcal{S} \),
@@ -1752,22 +1789,181 @@ Observemos que
 \sup_{A \in \mathcal{S}} \rho_A(l) = \max_{A \in \mathcal{S}} \rho_A(l),
 \]
 
-ya que, para un \( l \) fijo, \( \rho_A(l) \) solo toma un número finito de valores. A lo largo de lo siguiente, supondremos que \( \rho(l) \) es una función medible.
+ya que, para un \( l \) fijo, \( \rho_A(l) \) solo toma un número finito de valores. Expiquemos esto.
+Al fijar dos muestras de tamaño $l$, tenemos a lo sumo $2l$ elementos distintos del espacio $X$. Tomemos un
+subconjunto $A\subset X$ tal que $A\in\mathcal{S}$. Para cada muestra $Z_l$, definimos la frecuencia muestral
+como 
 
-En esta subsección, mostraremos que si \( \rho(l) \to 0 \) cuando \( l \to \infty \), entonces también \( r(l) \to 0 \), 
-y que las estimaciones de \( \rho(l) \) conducen a estimaciones para \( r(l) \).
+\[
+\nu(A,Z_l) = \frac{n(A,Z_l)}{l} = \frac{|\{ X_i \in Z_l \mid X_i \in A \}|}{l}.
+\]
+
+Si bien los conjuntos $A$ son potencialmente infinitos, podemos separarlos en un número finito de grupos. Basicamente,
+aquellos que contienen un elemento de la muestra $Z_l$, aquellos que contienen dos y así hasta aquellos que contienen
+los $l$ elementos de la muestra. Es decir, hay $l$ frecuencias posibles para cada muestra (que ya está fija), aún
+tomando infinitos $A\in\mathcal{S}$. Por lo tanto, sus diferencias $\rho_A(l)$ también han de serlo.\newline
+
+
+
+Mostraremos que si \( \rho(l) \to 0 \) cuando \( l \to \infty \), entonces también \( \pi^{(l)} \to 0 \), 
+y que las estimaciones de \( \rho(l) \) conducen a estimaciones para \( \pi^{(l)} \). Donde, $\pi$ es la diferencia
+la diferencia entre la frecuencia muestral $\nu(A,Z_l)$ y la probabilidad del evento $A$ definida en (\ref{def: funcion pi}).
+De ahora en más, supondremos que \( \rho(l) \) es una función medible.\newline
 
 Es conveniente introducir la siguiente notación:
 
 \[
-Q = \{ \rho(l) > \varepsilon \}, \quad C = \{ r(l) > \varepsilon \}.
+Q = \left\{ \pi^{(l)} > \varepsilon \right\}, \quad C = \left\{ \rho(l) \geq \frac{1}{2}\varepsilon \right\}.
 \]
 
-\textbf{Lema 2.} Para \( l \geq 2 / \varepsilon^2 \),
+El siguiente es exactamente el Lema de simetrización que hemos presentado con anterioridad.\newline
+
+\begin{lem} [de simetrización]
+    Sea \( l \geq 2 / \varepsilon^2 \), entonces
+
+    \[
+    P(C) \geq \frac{1}{2} P(Q).
+    \]
+\end{lem}
+
+
+Y lo utilizamos para probar el siguiente teorema.\newline
+
+\begin{thm}
+    La probabilidad de que la frecuencia relativa de al menos un evento $A$ en la clase \( \mathcal{S} \) difiera de su probabilidad en una 
+    muestra de tamaño \( l \) por más de \( \varepsilon \), para \( l \geq 2 / \varepsilon^2 \), satisface la desigualdad  
+
+    \[
+    P\left(\pi^{(l)} > \varepsilon\right) \leq 4 \; m^{\mathcal{S}}(2l) \; e^{-\varepsilon^2 l/8}.
+    \]  
+\end{thm}
+
+.\newline
+
+\begin{cor}
+Una condición suficiente para que las frecuencias relativas de los eventos en la clase \( \mathcal{S} \) converjan uniformemente sobre \( \mathcal{S} \) (en probabilidad) a sus correspondientes probabilidades es que exista un \( n \) finito tal que  
 
 \[
-P(C) \leq \frac{1}{2} P(Q).
+m^{\mathcal{S}}(l) \leq l^n + 1, \quad \text{para todo } l.
 \]
+\end{cor}
+
+.\newline
+
+\begin{thm}
+    Si \( m^{\mathcal{S}}(l) \leq l^n + 1 \), entonces  
+
+    \[
+    P(\pi^{(l)} \to 0) = 1.
+    \]
+    
+\end{thm} 
+
+\begin{proof}
+
+Dado que  
+
+\[
+P(\pi^{(l)} > \varepsilon) \leq 4 m^{\mathcal{S}}(2l)  e^{-\varepsilon^2 l/8},
+\]
+
+para \( l \geq 2 / \varepsilon^2 =L \), la serie  
+
+\[
+\sum_{l=1}^{\infty} P(\pi^{(l)} > \varepsilon) \leq \sum_{l=1}^{L} P(\pi^{(l)} > \varepsilon) + 4 \sum_{l=L+1}^{\infty} [(2l)^n + 1] e^{-\varepsilon^2 l/8}
+\]
+
+es convergente para cualquier \( \varepsilon \).  
+
+Por el lema, esto implica que  
+
+\[
+P(\pi^{(l)} \to 0) = 1.
+\]
+\end{proof}
+
+\subsection{Condiciones necesarias y suficientes para la convergencia}
+
+Observemos primero que la definición del índice implica inmediatamente que  
+
+\begin{equation*}
+\Delta^{\mathcal{S}}(X_1, \dots, X_{k}, X_{k+1}, \dots,X_l) \leq \Delta^{\mathcal{S}}(X_1, \dots, X_k) \Delta^{\mathcal{S}}(X_{k+1}, \dots, X_l).
+\end{equation*}
+
+De aquí se sigue que  
+
+\begin{equation*}
+\log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_{k}, X_{k+1}, \dots,X_l) \leq \log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_k) + \log_2 \Delta^{\mathcal{S}}(X_{k+1}, \dots, X_l).
+\end{equation*}
+
+En lo que sigue, se asumirá que el índice \( \Delta^{\mathcal{S}}(X_1, \dots, X_k) \), visto como una función de 
+\( X_l = \{X_1, \dots, X_l\} \), es medible con respecto a la medida \( P \).\newline
+
+\begin{dfn}
+    Sea  
+    \[
+    F^{\mathcal{S}}(z) = P\left(\log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_l) < z \right).
+    \]
+\end{dfn}
+    
+\begin{dfn}
+    La entropía del sistema de eventos \( \mathcal{S} \) en muestras de tamaño \( l \) se define como  
+    \[
+    H^{\mathcal{S}}(l) = \mathbb{E} \left[ \log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_l) \right].
+    \]
+    
+\end{dfn}
+
+Dada la monotonía de la esperanza, la última desigualdad implica que  
+
+\[
+H^{\mathcal{S}}(l_1 + l_2) \leq H^{\mathcal{S}}(l_1) + H^{\mathcal{S}}(l_2).
+\]
+
+Los siguientes lemas nos ayudarán más adelante.\newline
+
+\begin{lem}
+    La sucesión \( \frac{H^{\mathcal{S}}(l)}{l} \) tiene un límite \( c \), con \( 0 \leq c \leq 1 \), cuando \( l \to \infty \).
+\end{lem}
+    
+Ahora mostraremos que, para valores grandes de \( l \), la distribución de la variable aleatoria  
+
+\[
+\xi^{(l)} = \frac{1}{l} \log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_l)
+\]
+
+se concentra cerca de \( c \).
+    
+\begin{lem}
+    \[
+    \lim_{l \to \infty} P(|\xi^{(l)} - c| > \varepsilon) = 0, \quad \text{para } \varepsilon > 0.
+    \]
+\end{lem}
+
+\begin{thm}
+    Una condición necesaria y suficiente para que las frecuencias relativas converjan (en probabilidad) a 
+    las probabilidades de manera uniforme sobre la clase de eventos \( \mathcal{S} \) es que  
+    
+    \begin{equation}
+    \lim_{l \to \infty} \frac{H^{\mathcal{S}}(l)}{l} = 0. \label{condicion nec y suf}
+    \end{equation}
+\end{thm}
+    
+    Observemos que, por el Lema 4, la condición \((\ref{condicion nec y suf})\) es equivalente a la siguiente afirmación:  
+    
+\begin{equation}
+    \lim_{l \to \infty} P\left( \frac{1}{l}\log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_l) > \delta  \right) = 0, 
+    \quad \text{para todo } \delta > 0.
+\end{equation}
+    
+    
+
+
+
+
+
+
+
 
 
 

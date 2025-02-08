@@ -40,6 +40,7 @@
 \newlabel{eq:med_unif_riesgo_riesgo_emp}{{4}{24}{Cotas de generalización y medidas de capacidad}{equation.7.4}{}}
 \newlabel{eq: chernoff acotada por m}{{5}{25}{Cotas de generalización y medidas de capacidad}{equation.7.5}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Simetrización}{25}{subsection.7.1}\protected@file@percent }
+\newlabel{lema de simetrizacion}{{7.1.1}{25}{de simetrización}{lem.7.1.1}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {7.2} El coeficiente de fragmentación}{26}{subsection.7.2}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Fragmentación de muestras en $\mathbb  {R}^2$ de tres y cuatro puntos.}}{28}{figure.caption.5}\protected@file@percent }
 \newlabel{fragmentacion perceptron}{{5}{28}{Fragmentación de muestras en $\mathbb {R}^2$ de tres y cuatro puntos}{figure.caption.5}{}}
@@ -48,6 +49,7 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {7.4}Cotas de generalización}{30}{subsection.7.4}\protected@file@percent }
 \newlabel{eq: cota generalizacion}{{7}{30}{Cotas de generalización}{equation.7.7}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {7.5}La dimensión VC}{31}{subsection.7.5}\protected@file@percent }
+\newlabel{def:cota combinatoria de dimensión VC}{{7.5.1}{32}{}{lem.7.5.1}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {7.6}Complejidad de Rademacher}{33}{subsection.7.6}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {7.7}Cotas con grandes márgenes de separación}{34}{subsection.7.7}\protected@file@percent }
 \newlabel{def:margen}{{7.7.1}{35}{}{dfn.7.7.1}{}}
@@ -55,13 +57,19 @@
 \newlabel{fig:Clasificación con margen}{{6}{35}{Margen de un clasificador lineal: las cruces representan puntos de entrenamiento con etiqueta \(+1\), mientras que los círculos representan puntos de entrenamiento con etiqueta \(-1\). La línea recta es el clasificador lineal \(f_n\), y la línea discontinua muestra el margen. La anchura \(\rho \) del margen está representada por la flecha}{figure.caption.6}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {7.8}Conclusiones acerca de las cotas de generalización}{36}{subsection.7.8}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {8}Formalización de la teoría VC}{36}{section.8}\protected@file@percent }
-\newlabel{def: funcion pi}{{8}{37}{Formalización de la teoría VC}{equation.8.8}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {9}Consistencia de Bayes y error de aproximación}{42}{section.9}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Espacios funcionales anidados}{42}{subsection.9.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Regularización}{44}{subsection.9.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {10}Los teoremas de la chancha y los veinte}{46}{section.10}\protected@file@percent }
-\newlabel{eq:cota_parametro_b_distribuciones}{{9}{50}{Los teoremas de la chancha y los veinte}{equation.10.9}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Tomando en consideración todas las distribuciones posibles -eje X-, el clasificador 1 es en general mejor que el clasificador 2, y este último es muchísimo mejor para un subconjunto de distribuciones. Podemos pensar que 1 es un clasificador general y 2 está construído para un tipo de problemas específico. El teorema de la chancha y los veinte nos dice que el área debajo de ambas curvas debe ser igual, es decir que en promedio ambos clasificadores tienen el mismo error.}}{51}{figure.caption.7}\protected@file@percent }
-\newlabel{fig:no_free_lunch_theorem}{{7}{51}{Tomando en consideración todas las distribuciones posibles -eje X-, el clasificador 1 es en general mejor que el clasificador 2, y este último es muchísimo mejor para un subconjunto de distribuciones. Podemos pensar que 1 es un clasificador general y 2 está construído para un tipo de problemas específico. El teorema de la chancha y los veinte nos dice que el área debajo de ambas curvas debe ser igual, es decir que en promedio ambos clasificadores tienen el mismo error}{figure.caption.7}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {11}Bibliografía}{53}{section.11}\protected@file@percent }
-\gdef \@abspage@last{53}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Definiciones preliminares}{37}{subsection.8.1}\protected@file@percent }
+\newlabel{def: funcion pi}{{8}{37}{Definiciones preliminares}{equation.8.8}{}}
+\newlabel{def: combinatoria función crecimiento lineal}{{9}{39}{}{equation.8.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Propiedades de la función de crecimiento}{40}{subsection.8.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}El Lema de simetrización y su aplicación en la Teoría VC}{42}{subsection.8.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4}Condiciones necesarias y suficientes para la convergencia}{44}{subsection.8.4}\protected@file@percent }
+\newlabel{condicion nec y suf}{{10}{44}{}{equation.8.10}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Consistencia de Bayes y error de aproximación}{45}{section.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Espacios funcionales anidados}{45}{subsection.9.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Regularización}{47}{subsection.9.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {10}Los teoremas de la chancha y los veinte}{49}{section.10}\protected@file@percent }
+\newlabel{eq:cota_parametro_b_distribuciones}{{12}{53}{Los teoremas de la chancha y los veinte}{equation.10.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Tomando en consideración todas las distribuciones posibles -eje X-, el clasificador 1 es en general mejor que el clasificador 2, y este último es muchísimo mejor para un subconjunto de distribuciones. Podemos pensar que 1 es un clasificador general y 2 está construído para un tipo de problemas específico. El teorema de la chancha y los veinte nos dice que el área debajo de ambas curvas debe ser igual, es decir que en promedio ambos clasificadores tienen el mismo error.}}{55}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:no_free_lunch_theorem}{{7}{55}{Tomando en consideración todas las distribuciones posibles -eje X-, el clasificador 1 es en general mejor que el clasificador 2, y este último es muchísimo mejor para un subconjunto de distribuciones. Podemos pensar que 1 es un clasificador general y 2 está construído para un tipo de problemas específico. El teorema de la chancha y los veinte nos dice que el área debajo de ambas curvas debe ser igual, es decir que en promedio ambos clasificadores tienen el mismo error}{figure.caption.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {11}Bibliografía}{56}{section.11}\protected@file@percent }
+\gdef \@abspage@last{56}

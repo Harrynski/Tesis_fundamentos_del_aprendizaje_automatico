@@ -2,3 +2,6 @@ Traducciones:
     - Error de estimacion y aproximación
     - Aprendizaje estadístico / Automatico
     
+
+Dudas:
+Lema 7.5.1. quitar una parte y cambiar n por n-1 para que quede perfectamente demostrado.
