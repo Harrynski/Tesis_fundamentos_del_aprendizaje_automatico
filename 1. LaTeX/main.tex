@@ -528,7 +528,7 @@ entrenamiento más cercanos a \(X\). Luego, el clasificador \(k\)-NN se define c
     \[
 f_n(X) = 
 \begin{cases} 
-+1 & \text{si } \sum_{X_i \in \text{kNN}(X)} Y_i > 0, \\ 
++1 & \text{si } \underset{{X_i \in \text{kNN}(X)}}{\sum}Y_i > 0, \\ 
 -1 & \text{en otro caso}.
 \end{cases}
 \]
@@ -1464,6 +1464,315 @@ utilizado para criticar este enfoque en la teoría del aprendizaje estadístico,
 naturales no tienden a seleccionar la peor función dentro de una clase.\newline
 
 
+\section{Formalización de la teoría VC}
+
+En la sección previa, hemos intentado proveer una descripción liviana y en el orden de lo intuitivo de la teoría brindada por 
+Vapnik y Chernovenkis. Ahora nos proponemos alcanzar la rigurosidad necesaria para demostrar los teoremas que hemos presentado 
+previamente. Para ello, introduciremos una nueva notación y seguiremos [8], el célebre artículo de 1971 - escrito tres años antes en su 
+idioma original - por los dos colosos rusos.\newline
+
+
+Sea \( X \) un conjunto de eventos sobre el cual se ha definido una medida de probabilidad \( P_X \). Sea \( \mathcal{S} \) una colección de eventos 
+aleatorios, es decir, subconjuntos del espacio \( X \) que son medibles con respecto 
+a la medida \( P_X \). \newline
+
+Denotemos por \( X^{(l)} \) el espacio de muestras de tamaño \( l \) en \( X \). 
+Sobre el espacio \( X^{(l)} \), definimos una medida de probabilidad \( P \) tal que
+
+\[
+P(Y_1\times Y_2 \times\dots\times Y_l) = P_X(Y_1) P_X(Y_2) \dots P_X(Y_l),
+\]
+
+donde los \( Y_i \) son subconjuntos medibles de \( X \).\newline
+
+\begin{dfn}
+Cada muestra \( \{X_1, \dots, X_l\} \) y cada evento \( A \in \mathcal{S} \) determinan 
+una \textbf{frecuencia relativa} para \( A \), la cual es igual al cociente entre 
+el número \( n_A \) de elementos de la muestra que pertenecen a \( A \) y el tamaño 
+total de la muestra:
+
+\[
+\nu_A(\{X_1,\dots X_l\}) = \frac{n_A}{l}.
+\]
+
+\end{dfn}
+
+Observemos que la frecuencia relativa no es más que una probabilidad empírica, y en lo siguiente, representará al riesgo
+empírico. Un conocido resultado de la relación entre esta probabilidad muestral y la probabilidad real en el espacio
+es el Teorema de Bernoulli, el cual enunciamos sin demostración:
+
+\begin{thm}[de Bernoulli]
+Sea \( A \in \mathcal{S} \) un evento aleatorio, $P(A)$ la probabilidad del evento $A$ y $\nu_A(\{X_1,\dots X_l\})$ su frecuencia relativa para una muestra de
+tamaño $l$. Entonces, para cualquier $\varepsilon > 0$,
+\[
+    \lim_{l\to\infty} P_X\left(| P(A)-\nu_A(\{X_1,\dots X_l\})| \geq \varepsilon\right) = 0.
+\]
+\end{thm}
+
+Es decir, la frecuencia relativa converge en probabilidad a la probabilidad del evento $A$.\newline
+
+Nos interesará el supremo de esta diferencia sobre todos los posibles eventos en $\mathcal{S}$:
+\begin{equation}
+    \pi^{(l)} = \sup_{A\in\mathcal{S}} |P(A)-\nu_A(\{X_1,\dots X_l\})|. \label{def: funcion pi}
+\end{equation}
+
+Y notemos que analizando el comportamiento de la medida de dicho supremo al crecer el tamaño muestral, 
+estaremos en condiciones de hacer afimarciones acerca de la ecuación (\ref{eq:med_unif_riesgo_riesgo_emp}),
+que es una instancia particular de esta.\newline
+
+\begin{obs}
+La frecuencia relativa es una función puntual en el espacio \( X^{(l)} \). Es decir
+\[ \nu(A, X^{(l)}): X^{(l)} \rightarrow \mathbb{R}
+\]
+Supondremos que esta función es medible con respecto a la medida en \( X^{(l)} \), 
+es decir, que \( \nu(A, X^{(l)}) \) es una variable aleatoria.
+\end{obs} 
+
+Y si la variable \( \nu(A, X^{(l)}) \) converge en probabilidad a cero a medida que 
+el tamaño de la muestra crece indefinidamente, diremos que la frecuencia relativa 
+de los eventos \( A \in \mathcal{S} \) tiende (en probabilidad) a la probabilidad 
+de estos eventos de manera uniforme sobre la clase \( \mathcal{S} \).\newline
+
+Los teoremas siguientes están dedicados a obtener estimaciones para la probabilidad 
+de los eventos \( \{ \nu(A, X^{(l)}) > \varepsilon \} \) y a clarificar las condiciones 
+bajo las cuales, para cualquier \( \varepsilon \),
+
+\[
+\lim_{l \to \infty} P\left(\pi^{(l)} > \varepsilon\right) = 0.
+\]
+
+
+
+\begin{dfn}
+Sea \( Z_l = \{X_1, \dots, X_r\} \) una muestra finita de elementos en \( X \). 
+Cada conjunto \( A \) en \( \mathcal{S} \) determina en esta muestra un subconjunto 
+\[ 
+    Z_n^A = \{X_i \in Z_n \mid X_i \in A\}, 
+\]
+que consiste en aquellos términos de la 
+muestra \( X \) que pertenecen a \( A \). Diremos que el conjunto \( A \) \textbf{induce} 
+el subconjunto \( Z_l^A  \) en la muestra \( Z_l \).
+\end{dfn}
+
+
+\begin{dfn}
+Denotamos el conjunto de todos los subconjuntos diferentes inducidos por los 
+conjuntos de \( \mathcal{S} \) en la muestra \( X \) como \( \mathcal{S}(X_1, \dots, X_r) \) 
+o \( \mathcal{S}(Z_r) \).
+\end{dfn}
+
+\begin{dfn}
+El número de subconjuntos distintos de la muestra \( X \) 
+inducidos por los conjuntos en \( \mathcal{S} \) será denominado el \textbf{índice 
+del sistema \( \mathcal{S} \)} con respecto a la muestra \( (X_1, \dots, X_r) \) 
+y será denotado por \(\Delta^{\mathcal{S}}(X_1, \dots, X_r) \).
+\end{dfn}
+
+Reparemos en que si consideramos los subconjuntos de $\mathcal{S}$ como los posibles conjuntos en
+los cuales los clasificadores binarios de un espacio funcional $\mathcal{F}$ pueden etiquetar a los
+elementos de $X$, entonces $\Delta^{\mathcal{S}}(Z_r)$ es el cardinal del conjunto de fragmentación $\mathcal{F}_{Z_r}$.
+La siguiente observación es también una generalización
+de lo que hemos dicho en tanto a la cardinalidad del conjunto de fragmentación.\newline
+
+
+\begin{obs} El índice del sistema puede ser a lo sumo $2$ elevada a la cantidad de elementos en la muestra. Es decir
+\[
+    \Delta^{\mathcal{S}}(X_1, \dots, X_r) \leq 2^r
+\]
+\end{obs}
+
+Por último, generalizamos la noción de coeficiente de fragmentación en la \textit{función de crecimiento},
+tomando el máximo sobre todos los índices posibles.\newline
+
+\begin{dfn}
+    Llamaremos \textbf{función de crecimiento} de orden $r$ al índice máximo de un sistema sobre todas las muestras
+    posibles de tamaño $r$. 
+    \[
+    m^{\mathcal{S}}(r) = \max_{\{X_1,\dots,X_r\}}\Delta^{\mathcal{S}}(X_1,\dots,X_r)
+    \]
+\end{dfn}
+
+
+\textbf{Ejemplo 1}: Sea \( X \) una línea recta y sea \( \mathcal{S} \) el conjunto 
+de todos los rayos de la forma \( X \leq a \). En este caso, la función de crecimiento es  
+\[
+m^{\mathcal{S}}(r) = r + 1.
+\]
+
+\textbf{Ejemplo 2}: Sea \( X \) el segmento \([0,1]\). El conjunto \( \mathcal{S} \) 
+consiste en todos los conjuntos abiertos. En este caso,  
+\[
+m^{\mathcal{S}}(r) = 2.\newline
+\]
+
+\textbf{Ejemplo 3}: Sea \( X = E_n \), el espacio euclidiano de dimensión \( n \). 
+El conjunto \( \mathcal{S} \) de eventos consiste en todos los semiespacios de la forma  
+\[
+\langle X_0, \varphi \rangle \geq 1,
+\]  
+donde \( \varphi \) es un vector fijo. Evaluemos la función de crecimiento \( m^{\mathcal{S}}(r) \).
+
+Consideremos, junto con el espacio \( E_n \) de vectores \( X_0 \), el espacio \( E_n \) 
+de vectores \( \varphi \). A cada vector \( X_0 \in E_n \) le corresponde una partición 
+del espacio \( E_n \) en dos subespacios: \(\langle X_k, \varphi_2 \rangle \geq 1\) y \(\langle X_k, \varphi_2 \rangle < 1\). 
+Recíprocamente, cada vector \(\varphi\) determina un evento $A$ en el sistema \(\mathcal{S}\).\newline
+
+Consideremos \( r \) vectores \( X_1, \dots, X_r \). Estos generan una partición del espacio \( \mathbb{E}_n \) 
+en un número de componentes tales que los vectores \( \varphi \) dentro de cada componente determinan eventos 
+\( A \in \mathcal{S} \) que inducen el mismo subconjunto en la muestra \( X_1, \dots, X_r \).\newline
+
+\begin{dfn}
+    Sea \( \Phi(n, r) \) el número máximo de componentes en los que es posible particionar el espacio \( n \)-dimensional 
+mediante \( r \) hiperplanos. Llamaremos a esta función \textbf{función de crecimiento lineal} del sistema.
+\end{dfn}
+
+
+Para el ejemplo 3, por definición:
+\[
+    m^{\mathcal{S}}(r) = \Phi(n, r).
+\]
+Es decir, la función de crecimiento lineal es igual a la función de crecimiento cuando solo consideramos partición
+del espacio por medio de hiperplanos.
+
+\begin{obs}
+Podemos definir a la función de crecimiento lineal en términos recursivos. 
+\[
+    \Phi(n, r) = \Phi(n, r - 1) + \Phi(n - 1, r - 1),\quad \Phi(0, r) = 1, \quad \Phi(n, 0) = 1.
+\]
+Esto a su vez nos permite dar la definición combinatoria de la funcion de crecimiento lineal:
+
+\[
+\Phi(n, r) =
+\begin{cases}
+\sum\limits_{k=0}^{n} \binom{n}{k}, & \text{si } r > n, \\
+2^r, & \text{si } r \leq n.
+\end{cases}
+\]
+\end{obs}
+
+Por último, observamos que
+
+\begin{obs}   
+Para \( n > 0 \) y \( r \geq 0 \), se cumple que:
+
+\[
+\Phi(n, r) \leq r^n + 1.
+\]
+
+Y tomaremos \( \binom{n}{k} = 0 \) en el caso que \( n < k \).\newline
+\end{obs}
+
+
+Una propiedad que nos interesa del coeficiente de fragmentación (y por extensión, de la dimensión VC) es que podamos asegurarnos
+de que, de ser posible, sean polinómicas. De esa manera la desigualdad (\ref{eq: cota convergencia coeficiente fragmentacion})
+es absorvida por la exponencial y nos aseguramos la convergencia en probabilidad. \newline
+Ahora probaremos que la función de crecimiento $m^{\mathcal{S}}(r)$ 
+es idénticamente igual a \( 2^r \) o está acotada superiormente por \( r^n + 1 \),  
+donde \( n \) es una constante que corresponde al valor de \( r \) para el cual la igualdad  
+\[
+m^{\mathcal{S}}(r) = 2^r
+\]
+se viola por primera vez. Para demostrar este hecho, necesitamos el siguiente lema.\newline
+
+\begin{lem}
+Si para alguna muestra de tamaño \( X_1, \dots, X_i \) y algún número \( n \), con \( 1 \leq n \leq i \),  
+se cumple que  
+\[
+\Delta^{\mathcal{S}}(X_1, \dots, X_i) \geq \Phi(n, i),
+\]  
+entonces existe un subconjunto \( X_1, \dots, X_n \) de esta muestra tal que  
+\[
+\Delta^{\mathcal{S}}(X_1, \dots, X_n) = 2^n.
+\]  
+
+Donde la función \( \Phi(n, i) \) está definida de forma recursiva.  
+\end{lem}
+
+Una demostración de este lema puede hallarse en [8].\newline
+
+Ahora si, enunciamos y demostramos el resultado.\newline
+
+\begin{thm}
+    La función de crecimiento \( m^{\mathcal{S}}(r) \) es idénticamente igual a \( 2^r \) o está acotada superiormente por la función potencia  
+    \[
+    r^n + 1,
+    \]
+    donde \( n \) es una constante positiva que corresponde al valor de \( r \) para el cual la igualdad  
+    \[
+    m^{\mathcal{S}}(r) = 2^r
+    \]
+    se viola por primera vez.    
+\end{thm}
+
+\begin{proof}
+Ya hemos dicho que \( m^{\mathcal{S}}(r) \leq 2^r \). Supongamos que \( m^{\mathcal{S}}(r) \) no es 
+ igual a \( 2^r \) y que \( n \) es el primer valor de \( r \) para el cual \( m^{\mathcal{S}}(r) \neq 2^r \). 
+    Entonces, para cualquier muestra de tamaño \( r > n \),
+    
+    \[
+    \Delta^{\mathcal{S}}(X_1, \dots, X_r) < \Phi(n, r).
+    \]
+    
+    De lo contrario, en base a la afirmación del lema, se podría encontrar una sub muestra  
+    \( Z_n^A = \{X_i \in Z_n \mid X_i \in A\} \) tal que  
+    
+    \[
+    \Delta^{\mathcal{S}}\left(Z_n^A\right) = 2^n.
+    \]
+    
+  Pero esto contradice la suposición inicial de que \( m^{\mathcal{S}}(n) < 2^n \).  
+    Así, \( m^{\mathcal{S}}(r) \) es o bien idénticamente igual a \( 2^r \), o bien está acotada superiormente 
+    por \( \Phi(n, r) \). A su vez, para \( r > 0 \), se cumple que \( \Phi(n, r) \leq r^n + 1 \) por la observación
+    anterior. Sigue que 
+    \[
+        m^{\mathcal{S}}(r)   \leq r^n + 1.\newline
+    \]
+    
+\end{proof}
+
+Sea una muestra de tamaño \( 2l \) tomada como \( X_{2l} = \{ X_1, \dots, X_l, X_{l+1}, \dots, X_{2l} \} \), 
+y supongamos que las frecuencias relativas del evento \( A \in \mathcal{S} \) han sido calculadas en la primera 
+semimuestra \( \{ X_1, \dots, X_l \} \) y en la segunda semimuestra \( \{ X_{l+1}, \dots, X_{2l} \} \). 
+
+Denotemos las respectivas frecuencias por \( \nu_1 \) y \( \nu_2 \), y consideremos la diferencia entre estas cantidades:
+
+\[
+\rho(l) = |\nu_1 - \nu_2|.
+\]
+
+Nos interesa la máxima diferencia entre estas cantidades sobre todos los eventos en la clase \( \mathcal{S} \),
+
+\[
+\rho(l) = \sup_{A \in \mathcal{S}} \rho_A(l).
+\]
+
+Observemos que 
+
+\[
+\sup_{A \in \mathcal{S}} \rho_A(l) = \max_{A \in \mathcal{S}} \rho_A(l),
+\]
+
+ya que, para un \( l \) fijo, \( \rho_A(l) \) solo toma un número finito de valores. A lo largo de lo siguiente, supondremos que \( \rho(l) \) es una función medible.
+
+En esta subsección, mostraremos que si \( \rho(l) \to 0 \) cuando \( l \to \infty \), entonces también \( r(l) \to 0 \), 
+y que las estimaciones de \( \rho(l) \) conducen a estimaciones para \( r(l) \).
+
+Es conveniente introducir la siguiente notación:
+
+\[
+Q = \{ \rho(l) > \varepsilon \}, \quad C = \{ r(l) > \varepsilon \}.
+\]
+
+\textbf{Lema 2.} Para \( l \geq 2 / \varepsilon^2 \),
+
+\[
+P(C) \leq \frac{1}{2} P(Q).
+\]
+
+
+
+
+
 \section{Consistencia de Bayes y error de aproximación}
 
 Hasta ahora, hemos reparado tan solo en el enfoque estándar para acotar el error de estimación 
@@ -1668,7 +1977,7 @@ conjunto de manera arbitrariamente precisa mediante un polinomio. Por lo tanto, 
 \(\mathcal{F}_n\) como los espacios de polinomios de grado a lo sumo \(d_n\), donde \(d_n\) crece lentamente 
 con \(n\). Esto es suficiente para garantizar la convergencia del error de aproximación.\newline
 
-\section{No Free Lunch}
+\section{Los teoremas de la chancha y los veinte}
 
 Hemos presentado, además de parte de la historia de la disciplina, algunos resultados positivos en la teoría del aprendizaje estadístico. 
 Formalizamos el problema de aprendizaje, hemos definido el objetivo del aprendizaje -minimizar el 
@@ -1689,8 +1998,8 @@ en promedio sobre todas las distribuciones?\newline
 La razón por la cual consideramos afirmaciones ``en promedio sobre todas las distribuciones'' radica 
 en que no queremos hacer ninguna suposición sobre la distribución subyacente. Por lo tanto, parece 
 natural estudiar el comportamiento de los clasificadores en cualquier posible distribución. Veamos entonces
-que, no solamente no existe un clasificador universalmente bueno, sino que, \textbf{en promedio sobre todas las distribuciones
-posibles, todos los clasificadores son equivalentes}.\newline
+que, no solamente no existe un clasificador universalmente bueno, sino que, en promedio sobre todas las distribuciones
+posibles, todos los clasificadores son equivalentes.\newline
 
 Para tener alguna intuición al respecto, supongamos que nuestro espacio de entrada \(X\) solo consiste en un conjunto finito de puntos, es decir, 
 \(X = \{x_1, \dots, x_m\}\) para algún número grande \(m\). Ahora consideremos todas las formas 
@@ -1720,7 +2029,31 @@ distribución en la que el clasificador obtiene un buen rendimiento, existe una 
 En particular, en promedio sobre todas las distribuciones de probabilidad, ningún 
 clasificador puede ser mejor que un clasificador aleatorio en el conjunto de prueba.\newline
 
-\begin{thm}[No Free Lunch]
+Si bien este resultado pareciera atacar las mismas bases de la teoría del aprendizaje estadítico que nos hemos esmerado en 
+construir, en realidad es algo bastante esperable cuando reparamos en el hecho de que estamos planteando
+medir la capacidad de un clasificador cualquiera sobre \textit{todas} las distribuciones posibles. Como a priori
+no imponemos condiciones de ningún tipo sobre la distribución de probilidad, dado un clasificador cualquiera construido
+en base a $n$ puntos, siempre podríamos hallar una distribución -al menos teórica- sobre la que dicho clasificador no tenga
+manera de generalizar los aprendido. Por ejemplo, se puede construir una distribución de probabilidad sobre las etiquetas simplemente 
+lanzando una moneda y, para cada punto de datos, decidir su etiqueta verdadera según el resultado del 
+lanzamiento aleatorio. \newline
+
+Parece plausible que, en un escenario así, no sirva de nada conocer las etiquetas de los puntos de 
+entrenamiento. La única manera de aprender es excluir tales casos artificiales. Necesitamos asegurarnos 
+de que existe algún mecanismo inherente por el cual podamos usar las etiquetas de entrenamiento para 
+generalizar exitosamente a las etiquetas de prueba. Formalmente, esto significa que debemos restringir 
+el espacio de distribuciones de probabilidad bajo consideración. Es decir, no podemos partir sin asumir
+nada acerca de la distribución.\\
+
+En inglés, se utiliza la expresión \textit{no free lunch} para hacer referencia
+a situaciones donde es necesario hacer compromisos y ceder, y de ahí deriva el nombre de los varios teoremas
+que formalizan la problemática de esta sección. En un intento de hacernos propio el tema, los llamaremos 
+telúricamente, \textit{los teoremas de la chancha y los veinte}. 
+A continuación, enunciamos y probamos uno de los teoremas mencionados, resultado de Devroye en 1982, que encuadra la
+situación desde la perspectiva de la convergencia del riesgo.\newline
+
+
+\begin{thm}[de la chancha y los veinte]
 Sea \(\varepsilon > 0\). Para cualquier entero \(n\) y cualquier 
 regla de clasificación \(f_n\), existe una distribución \(P(X, Y)\) con riesgo bayesiano 
 \(\mathcal{R}(f_{Bayes}) = 0\) tal que:
@@ -1864,7 +2197,7 @@ conjunta $(X,Y)(b)$ tal que
 
 \end{proof}
 
-El Teorema No Free Lunch establece que, aunque existen reglas de clasificación que son universalmente 
+Este teorema establece que, aunque existen reglas de clasificación que son universalmente 
 consistentes, es decir, que asintóticamente proporcionan el rendimiento óptimo para cualquier 
 distribución, su desempeño en muestras finitas siempre será muy malo -cercano al de clasificar utilizando el lanzamiento de una moneda- para algunas 
 distribuciones. \newline
@@ -1873,10 +2206,45 @@ Esto significa que ningún clasificador puede garantizar que logremos un error a
 para todas las distribuciones, aún teniendo una cantidad de muestras enorme (pero finita). 
 Sin embargo, dado que la distribución adversa depende de \(n\), 
 el Teorema no nos permite concluir que existe una única distribución para la cual la 
-probabilidad de error sea mayor que \(\ell(f_{Bayes}) + 1/4\) para todo \(n\). Tal afirmación 
-iría en contradicción la propia existencia de reglas universalmente consistentes.
+probabilidad de error sea mayor que, por ejemplo, \(\ell(f_{Bayes}) + 1/4\) para todo \(n\). Tal afirmación 
+iría en contradicción la propia existencia de reglas universalmente consistentes. \newline
 
 
+Las restricciones sobre la distribución de probabilidad pueden adoptar diversas formas. Podríamos suponer que la distribución 
+subyacente tiene una función de densidad que \textit{se comporta bien}. O
+que existe una función de distancia en el espacio de entrada y que las etiquetas dependen de alguna manera 
+continua de la distancia, es decir, que los puntos cercanos tienden a tener etiquetas similares. Si 
+hacemos tales suposiciones, es posible construir clasificadores que las exploten (por ejemplo, el clasificador 
+\(k\)-NN para aprovechar la estructura de distancia). Desde ya que el teorema sigue siendo válido, lo que significa que habrá conjuntos de datos 
+para los cuales este clasificador fallará estrepitosamente. Sin embargo, estos serán conjuntos de datos 
+provenientes de distribuciones donde las suposiciones han sido gravemente violadas. Y en tales casos, tiene 
+sentido que un clasificador que se basa en esas suposiciones no tenga ninguna posibilidad de éxito.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Images/7.png}
+    \caption{Tomando en consideración todas las distribuciones posibles -eje X-, el clasificador 1
+    es en general mejor que el clasificador 2, y este último es muchísimo mejor para un subconjunto
+    de distribuciones. Podemos pensar que 1 es un clasificador general y 2 está construído para un tipo
+    de problemas específico. El teorema de la chancha y los veinte nos dice que el área debajo de ambas
+    curvas debe ser igual, es decir que en promedio ambos clasificadores tienen el mismo error.}
+    \label{fig:no_free_lunch_theorem}
+\end{figure}
+
+Un problema que suele surgir en el contexto del teorema de la chancha y los veinte es cómo se relaciona con los 
+teoremas de consistencia demostrados anteriormente. Por ejemplo, vimos que el clasificador 
+de los \(k\)-vecinos más cercanos es universalmente consistente, es decir, es consistente para cualquier 
+distribución subyacente \(P\). La solución a esta aparente paradoja radica en el hecho de que las afirmaciones de consistencia solo tratan 
+el caso límite cuando \(n \to \infty\). En el ejemplo del espacio de datos finito mencionado anteriormente, 
+notemos que, tan pronto como el tamaño de la muestra es lo suficientemente grande como para haber muestreado 
+esencialmente cada zona del espacio al menos una vez, un clasificador que memoriza los datos de entrenamiento 
+ya no cometerá más errores. Afirmaciones similares (aunque algo más complicadas) también son válidas en casos 
+de espacios de datos infinitos. Así, los teoremas de la chanca y los veinte hacen afirmaciones sobre un tamaño de muestra finito \(n\), mientras que 
+la consistencia considera el límite cuando \(n \to \infty\).\newline
+
+Otra manera de expresar esto es la siguiente: si las etiquetas de los puntos se asignan de manera 
+completamente aleatoria, entonces las etiquetas de los puntos de prueba serán completamente independientes 
+de las etiquetas de los puntos de entrenamiento. En tal escenario, el aprendizaje es imposible.\newline
 
 \bigbreak
 \pagebreak
@@ -1895,6 +2263,8 @@ iría en contradicción la propia existencia de reglas universalmente consistent
 [6] \textit{Statistical Inference} - Casella, Berger . \\
 
 [7] \textit{Pattern Recognition and Machine Learning} - C. Bishop (2006). \\
+
+[8] \textit{On the uniform convergence of relative frequencies of events to their probabilities} - V. N. VAPNIK and A. YA. CHERVONENKIS (1971)
 
 
 
