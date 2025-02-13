@@ -5,3 +5,8 @@ Traducciones:
 
 Dudas:
 Lema 7.5.1. quitar una parte y cambiar n por n-1 para que quede perfectamente demostrado.
+
+
+Requermientos previos:
+ley de los grandes numeros
+desigualdad de Chebyshev

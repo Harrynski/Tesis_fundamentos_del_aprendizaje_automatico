@@ -7,6 +7,7 @@
 \usepackage{amsfonts}
 \usepackage{hyperref}
 \usepackage{mathrsfs}
+
 \usepackage[font=footnotesize,labelfont=bf,labelsep=colon]{caption} % Personalización de captions
 \DeclareMathOperator*{\argmin}{arg\,min}
 % Define the unnumbered theorem
@@ -488,9 +489,9 @@ ese punto. Para definir esto de manera más formal, denotamos por \(\text{NN}(X)
 de \(X\) entre todos los puntos de entrenamiento, es decir:
 
 \[
-\text{NN}(X) = \arg\min \{X' \in \{X_1, \dots, X_n\} \mid d(X, X') \leq d(X, X''), 
+\text{NN}(X) = \arg\min \{X' \in \{X_1, \dots, X_n\} \mid d(X, X') \leq d(X, Z_2^{), }
 \]
-para todo \( X'' \in \{X_1, \dots, X_n\}\}\). \newline
+para todo \( Z_2^{ \i}n \{X_1, \dots, X_n\}\}\). \newline
 
 Luego, podemos definir el clasificador \(f_n\) basado en la muestra de \(n\) puntos como:
 
@@ -1770,26 +1771,26 @@ unifiquemolas en una sola muestra de tamaño \( 2l \),
 han sido calculadas en la primera semimuestra \( \{ X_1, \dots, X_l \} \) y en la segunda semimuestra \( \{ X_{l+1}, \dots, X_{2l} \} \)
 por separado.\newline
 
-Para cualquier evento $A\in\mathcal{S}$, denotemos las respectivas frecuencias por \( \nu_A^{(1)}\) y \( \nu_A^{(2)} \), 
+Para cualquier evento $A\in\mathcal{S}$, denotemos las respectivas frecuencias por \( \nu_A^{1}\) y \( \nu_A^{2} \), 
 y consideremos la diferencia entre estas cantidades:
 
 \[
-\rho(l) = |\nu_A^{(1)} - \nu_A^{(2)}|.
+\rho^{(l)}_A = |\nu_A^{1} - \nu_A^{2}|.
 \]
 
 Nos interesa la máxima diferencia entre estas cantidades sobre todos los eventos en la clase \( \mathcal{S} \),
 
 \[
-\rho(l) = \sup_{A \in \mathcal{S}} \rho_A(l).
+\rho^{(l)} = \sup_{A \in \mathcal{S}} \rho_A(l).
 \]
 
 Observemos que 
 
 \[
-\sup_{A \in \mathcal{S}} \rho_A(l) = \max_{A \in \mathcal{S}} \rho_A(l),
+\sup_{A \in \mathcal{S}} \rho_A^{(l)} = \max_{A \in \mathcal{S}} \rho_A^{(l)},
 \]
 
-ya que, para un \( l \) fijo, \( \rho_A(l) \) solo toma un número finito de valores. Expiquemos esto.
+ya que, para un \( l \) fijo, \( \rho_A^{(l)} \) solo toma un número finito de valores. Expiquemos esto.
 Al fijar dos muestras de tamaño $l$, tenemos a lo sumo $2l$ elementos distintos del espacio $X$. Tomemos un
 subconjunto $A\subset X$ tal que $A\in\mathcal{S}$. Para cada muestra $Z_l$, definimos la frecuencia muestral
 como 
@@ -1801,19 +1802,19 @@ como
 Si bien los conjuntos $A$ son potencialmente infinitos, podemos separarlos en un número finito de grupos. Basicamente,
 aquellos que contienen un elemento de la muestra $Z_l$, aquellos que contienen dos y así hasta aquellos que contienen
 los $l$ elementos de la muestra. Es decir, hay $l$ frecuencias posibles para cada muestra (que ya está fija), aún
-tomando infinitos $A\in\mathcal{S}$. Por lo tanto, sus diferencias $\rho_A(l)$ también han de serlo.\newline
+tomando infinitos $A\in\mathcal{S}$. Por lo tanto, sus diferencias $\rho_A^{(l)}$ también han de serlo.\newline
 
 
 
-Mostraremos que si \( \rho(l) \to 0 \) cuando \( l \to \infty \), entonces también \( \pi^{(l)} \to 0 \), 
-y que las estimaciones de \( \rho(l) \) conducen a estimaciones para \( \pi^{(l)} \). Donde, $\pi$ es la diferencia
+Mostraremos que si \( \rho^{(l)} \to 0 \) cuando \( l \to \infty \), entonces también \( \pi^{(l)} \to 0 \), 
+y que las estimaciones de \( \rho^{(l)}\) conducen a estimaciones para \( \pi^{(l)} \). Donde, $\pi$ es la diferencia
 la diferencia entre la frecuencia muestral $\nu(A,Z_l)$ y la probabilidad del evento $A$ definida en (\ref{def: funcion pi}).
-De ahora en más, supondremos que \( \rho(l) \) es una función medible.\newline
+De ahora en más, supondremos que \( \rho^{(l)} \) es una función medible.\newline
 
 Es conveniente introducir la siguiente notación:
 
 \[
-Q = \left\{ \pi^{(l)} > \varepsilon \right\}, \quad C = \left\{ \rho(l) \geq \frac{1}{2}\varepsilon \right\}.
+Q = \left\{ \pi^{(l)} > \varepsilon \right\}, \quad C = \left\{ \rho^{(l)} \geq \frac{1}{2}\varepsilon \right\}.
 \]
 
 El siguiente es exactamente el Lema de simetrización que hemos presentado con anterioridad.\newline
@@ -1825,6 +1826,195 @@ El siguiente es exactamente el Lema de simetrización que hemos presentado con a
     P(C) \geq \frac{1}{2} P(Q).
     \]
 \end{lem}
+\begin{proof}
+Por definición
+\begin{equation*}
+P(C) = P\left(\rho^{(l)}-\frac{\varepsilon}{2}\geq 0\right) = \int_{Z^{(2l)}} \left( 1 \cdot \chi_{\{\rho^{(l)}-\frac{\varepsilon}{2}\geq 0\}} + 
+0 \cdot \chi_{\{\rho^{(l)}-\frac{\varepsilon}{2}< 0\}} \right) dP
+\end{equation*}
+
+Donde integramos sobre la muestra de tamaño $2l$ de tal manera que
+\begin{equation}
+    Z^{(2l)} = Z_1^{(l)}\times Z_2^{(l)} = \{X_1,\dots,X_l\} \times \{X_{l+1},\dots,X_{2l}\} \label{def Z2l prod interno}
+\end{equation}
+
+
+Definamos la función indicadora: 
+\[
+\theta(z)=\begin{cases}
+    1 \text{ si } z\geq 0 \\
+    0 \text{ si } z< 0
+\end{cases}  
+\]
+
+con la cual reescribimos la probabilidad de $C$ como
+\begin{equation}
+P(C) = \int_{Z^{(2l)}} \left( \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right)\right) dP
+\end{equation}
+
+Descomponiendo como en (\ref{def Z2l prod interno}) al espacio muestral, podemos escribir:
+
+\[
+P(C) = \int_{Z_1^{(l)}\times Z_2^{(l)}} \left( \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right)\right) dP
+\]
+Y, tomando $P=P_1\times P_2$, por el teorema de Fubini separamos los signos de integración
+
+\[
+P(C) = \int_{Z_1^{(l)}} \left( \int_{ Z_2^{(l)}}  \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right) dP_2\right) dP_1
+\]
+
+Ahora, consideremos el subevento $Q$ sobre el espacio muestral $Z_1^{(l)}$, es decir aquellas muestras de $l$
+elementos en las cuales se verifica la definición de $Q$ que hemos dado
+\[
+Q = \left\{ \pi^{(l)} > \varepsilon \right\} = \left\{\hat{Z}^{(l)}\in Z^{(l)}:\; 
+\sup_{A\in\mathcal{S}}\left|P_A - \nu_A\left(\hat{Z}^{(l)}\right)\right| > \varepsilon \right\},
+\]
+
+y restringimos la primer integral a este evento
+\begin{equation}
+P(C) \geq \int_{Q} \left( \int_{ Z_2^{(l)}}  \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right) dP_2\right) dP_1. \label{desigualdad P(C)}
+\end{equation}
+
+Por definición, para cada muestra $\hat{Z}^{(l)}$ en $Q$ debe existir algún evento $A_0\in\mathcal{S}$ tal que $|P_{A_0}-\nu_{A_0}\left(\hat{Z}^{(l)}\right)|>\varepsilon$.
+Para dicho evento, se cumple
+
+\[
+\begin{aligned}
+    \varepsilon < \left|P_{A_0}-\nu_{A_0}^{(1)}\right| &= \left|\nu_{A_0}^{(1)}-P_{A_0}\right|\\
+    & = \left|\nu_{A_0}^{(1)}-\nu_{A_0}^{(2)}+\nu_{A_0}^{(2)}-P_{A_0}\right| \\
+    & \leq \left|\nu_{A_0}^{(1)}-\nu_{A_0}^{(2)}\right|+\left|\nu_{A_0}^{(2)}-P_{A_0}\right|,
+\end{aligned}
+\]
+y así
+\[
+    \varepsilon - \left|\nu_{A_0}^{(2)}-P_{A_0}\right| < \left|\nu_{A_0}^{(1)}-\nu_{A_0}^{(2)}\right|.
+\]\newline
+Por lo tanto, la desigualdad
+\[
+\rho_{A_0}^{(l)} = |\nu^{(1)}_{A_0}-\nu^{(2)}_{A_0}| \geq \frac{\varepsilon}{2},
+\]
+
+se verifica si 
+
+\[
+|\nu^{(2)}_{A_0}-P_{A_0}|\geq \frac{\varepsilon}{2}.
+\]
+
+Retomando la desigualdad (\ref{desigualdad P(C)}), reparemos un momento en la integral del interior. Dada la monotonía de $\theta$ y quedándonos
+con tan solo un evento $A_0\in\mathcal{S}$, podemos escribir
+
+\[
+\begin{aligned}
+\int_{ Z_2^{(l)}} \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right) dP_2 \;&\geq\; \int_{ Z_2^{(l)}}  \theta\left(\rho^{(l)}_{A_0}-\frac{\varepsilon}{2}\right) dP_2 \\
+& = \; \int_{ Z_2^{(l)}}  \theta\left(\frac{\varepsilon}{2} - |\nu^{(2)}_{A_0}-P_{A_0}|\right) dP_2
+\end{aligned}
+\]
+
+En donde en la última desigualdad aplicamos lo recién explicado. Ahora notemos que 
+\[
+    \int_{ Z_2^{(l)}}  \theta\left(\frac{\varepsilon}{2} - |\nu^{(2)}_{A_0}-P_{A_0}|\right) dP_2 \;=\; 1 - P\left(|\nu^{(2)}_{A_0}-P_{A_0}|>\frac{\varepsilon}{2}\right),
+\]
+
+dada la propia definición de $\theta$, que vale $0$ sólo cuando se da la desigualdad dentro de la probilidad de la derecha. Ahora procedemos a acotar dicha probabilidad.\newline
+
+Ahora, utilizaremos la desigualdad de Chebyshev 
+\[
+P\left\{|X- \mathbb{E}\left(X \right)| \geq k \cdot \sqrt{\text{Var}(X)} \right\} \leq \frac{1}{k^2}
+\]
+
+Tomando la variable aleatoria $X=\nu_{A_0}^{(2)}$ y 
+\[
+k= \frac{\varepsilon}{2\cdot\sqrt{\text{Var}\left(\nu_{A_0}^{(2)}\right)}}   ,
+\]
+
+escribimos
+
+\begin{equation}
+P\left(|\nu_{A_0}^{(2)} - \mathbb{E}\left(\nu_{A_0}^{(2)} \right)| \geq \frac{\varepsilon}{2}\right) 
+\;\leq\; \frac{4}{\epsilon^2}\cdot \text{Var}\left(\nu_{A_0}^{(2)}\right). \label{Chebyshev aplicada a frecuencia relativa}
+\end{equation}
+
+Analicemos esta última desigualdad, factor a factor.\newline
+
+Podemos escribir la frencuencia relativa del evento $A_0$ sobre la muestra $Z^{(l)}_2=\{X_1,\dots,X_l\}$ como la suma de variables aleatorias
+binomiales $\tilde{X}_i$ con $i=1,2,\dots,l$ tales que
+
+\[
+    \tilde{X}_i = \begin{cases} 1 \text{ si } X\in A_0\\
+        0 \text{ si } X\notin A_0
+\end{cases}
+\]
+
+donde
+
+\[
+    \nu_{A_0}^{(2)} = \frac{1}{l}\sum_{i=1}^l \tilde{X}_i.
+\]
+
+Es decir, la frecuencia relativa es una combinación lineal de variables binomiales, cada una con probabilidad $P_{A_0}$ (que no es ni mas ni
+menos que la probabilidad de que cada muestra esté dentro del evento $A_0$).\newline
+
+Previamente, llamamos $n_{A_0}^{(2)}$ a esta suma, y utilizándola podemos escribir la esperanza de la frecuencia relativa como:
+
+\[
+\begin{aligned}
+    \mathbb{E}\left(\nu_{A_0}^{(2)} \right) &= \mathbb{E}\left(\frac{n_{A_0}^{(2)}}{l} \right) =  \frac{1}{l} \cdot \mathbb{E}\left( \#\left\{X_i\in Z_2^{(l)}\mid X_i\in A_0\right\}\right)\\
+    &= \frac{1}{l} \cdot l \cdot P_{A_0} = P_{A_0}
+\end{aligned}
+\]
+
+Que es lo esperable, dado que las muestras en promedio deberian tender a las probabilidades.\newline
+
+Ahora, centrémonos en la varianza de la desigualdad (\ref{Chebyshev aplicada a frecuencia relativa}). Primero,
+recordemos que la varianza de toda variable aleatoria binomial tiene forma
+
+\[
+    \text{Var}(X) = P(X)(1-P(X)).
+\]
+
+Esto nos permite escribir la varianza de la frecuencia muestral $\nu_{A_0}$ en términos de la probabilidad del evento $A_0$:
+
+\[
+\begin{aligned}
+    \text{Var}\left(\nu_{A_0}^{(2)}\right) &=\text{Var}\left(\frac{1}{l}\sum_{i=1}^l \tilde{X}_i\right)
+    = \frac{1}{l}\sum_{i=1}^l \text{Var}\left(\tilde{X}_i\right)\\
+    &= \frac{1}{l}\sum_{i=1}^l \left[P(\tilde{X}_i)(1-P(\tilde{X}_i))\right]\\
+    &=\frac{1}{l} \cdot l\cdot P(\tilde{X}_i)(1-P(\tilde{X}_i)) \\
+    &=P(\tilde{X}_i)(1-P(\tilde{X}_i))
+\end{aligned}
+\]
+
+HASTA ACA!!!!
+
+
+\[
+P\left( \left| \nu^{(2)}_{A_0} - P_{A_0} \right| > \frac{\varepsilon}{2} \right) 
+\leq \frac{4(1 - P_{A_0}) P_{A_0}}{\varepsilon^2 l} < \frac{1}{\varepsilon^2 l}.
+\]\newline
+
+Por lo tanto, para \( l \geq 2 / \varepsilon^2 \),
+
+\[
+\int_{Z_2^{(l)}} \theta \left( \frac{\varepsilon}{2} - \left| \nu^{(2)}_{A_0} - P_{A_0} \right| \right) dP_2 > \frac{1}{2}.
+\]
+
+De esto se sigue inmediatamente que, para \( l \geq 2 / \varepsilon^2 \),
+
+\[
+P(C) \geq \int_{Q} \left( \frac{1}{2} \right) dP_1  =
+ \frac{1}{2} P(Q).
+\]
+
+Y el lema queda demostrado.\
+
+
+
+\end{proof}
+
+
+
+
+
 
 
 Y lo utilizamos para probar el siguiente teorema.\newline
