@@ -1151,7 +1151,7 @@ fragmentación. Escribimos:\newline
 P\left(\sup_{f \in \mathcal{F}} |R(f) - R_{\text{emp}}(f)| > \epsilon\right) &\leq 
 2P\left(\sup_{f \in \mathcal{F}} |R_{\text{emp}}(f) - R'_{\text{emp}}(f)| > \frac{\epsilon}{2}\right).\\
 & = 2P\left(\sup_{f \in \mathcal{F}_{Z_{2n}}} |R_{\text{emp}}(f) - R'_{\text{emp}}(f)| > \frac{\epsilon}{2}\right).\\
-& \leq  \mathcal{N}(\mathcal{F}, n)\cdot \exp\left(\frac{-n\epsilon^2}{4}\right).
+& \leq 2  \mathcal{N}(\mathcal{F}, n)\cdot \exp\left(\frac{-n\epsilon^2}{4}\right).
 \end{aligned}
 \]
 
@@ -1911,9 +1911,10 @@ con tan solo un evento $A_0\in\mathcal{S}$, podemos escribir
 \]
 
 En donde en la última desigualdad aplicamos lo recién explicado. Ahora notemos que 
-\[
+\begin{equation}\label{eq: theta como probabilidad}
     \int_{ Z_2^{(l)}}  \theta\left(\frac{\varepsilon}{2} - |\nu^{(2)}_{A_0}-P_{A_0}|\right) dP_2 \;=\; 1 - P\left(|\nu^{(2)}_{A_0}-P_{A_0}|>\frac{\varepsilon}{2}\right),
-\]
+\end{equation}
+
 
 dada la propia definición de $\theta$, que vale $0$ sólo cuando se da la desigualdad dentro de la probilidad de la derecha. Ahora procedemos a acotar dicha probabilidad.\newline
 
@@ -1937,7 +1938,7 @@ P\left(|\nu_{A_0}^{(2)} - \mathbb{E}\left(\nu_{A_0}^{(2)} \right)| \geq \frac{\v
 Analicemos esta última desigualdad, factor a factor.\newline
 
 Podemos escribir la frencuencia relativa del evento $A_0$ sobre la muestra $Z^{(l)}_2=\{X_1,\dots,X_l\}$ como la suma de variables aleatorias
-binomiales $\tilde{X}_i$ con $i=1,2,\dots,l$ tales que
+Bernoulli $\tilde{X}_i$ con $i=1,2,\dots,l$ tales que
 
 \[
     \tilde{X}_i = \begin{cases} 1 \text{ si } X\in A_0\\
@@ -1951,7 +1952,7 @@ donde
     \nu_{A_0}^{(2)} = \frac{1}{l}\sum_{i=1}^l \tilde{X}_i.
 \]
 
-Es decir, la frecuencia relativa es una combinación lineal de variables binomiales, cada una con probabilidad $P_{A_0}$ (que no es ni mas ni
+Es decir, la frecuencia relativa es una combinación lineal de variables Bernoulli, cada una con probabilidad $P_{A_0}$ (que no es ni mas ni
 menos que la probabilidad de que cada muestra esté dentro del evento $A_0$).\newline
 
 Previamente, llamamos $n_{A_0}^{(2)}$ a esta suma, y utilizándola podemos escribir la esperanza de la frecuencia relativa como:
@@ -1966,10 +1967,10 @@ Previamente, llamamos $n_{A_0}^{(2)}$ a esta suma, y utilizándola podemos escri
 Que es lo esperable, dado que las muestras en promedio deberian tender a las probabilidades.\newline
 
 Ahora, centrémonos en la varianza de la desigualdad (\ref{Chebyshev aplicada a frecuencia relativa}). Primero,
-recordemos que la varianza de toda variable aleatoria binomial tiene forma
+recordemos que la varianza de toda variable aleatoria Bernoulli tiene forma
 
 \[
-    \text{Var}(X) = P(X)(1-P(X)).
+     \text{Var}(X) = p(1-p), \qquad X \sim \text{Bernoulli } (p=P(X))
 \]
 
 Esto nos permite escribir la varianza de la frecuencia muestral $\nu_{A_0}$ en términos de la probabilidad del evento $A_0$:
@@ -1980,17 +1981,31 @@ Esto nos permite escribir la varianza de la frecuencia muestral $\nu_{A_0}$ en t
     = \frac{1}{l}\sum_{i=1}^l \text{Var}\left(\tilde{X}_i\right)\\
     &= \frac{1}{l}\sum_{i=1}^l \left[P(\tilde{X}_i)(1-P(\tilde{X}_i))\right]\\
     &=\frac{1}{l} \cdot l\cdot P(\tilde{X}_i)(1-P(\tilde{X}_i)) \\
-    &=P(\tilde{X}_i)(1-P(\tilde{X}_i))
 \end{aligned}
 \]
 
-HASTA ACA!!!!
+Ahora, como $P(\tilde{X}_i) = P_{A_0}$, tenemos que 
+\[
+    \text{Var}\left(\nu_{A_0}^{(2)}\right) = P_{A_0}(1-P_{A_0}).
+\]
 
+Por lo tanto, podemos reescribir (\ref{Chebyshev aplicada a frecuencia relativa}) como:
 
 \[
 P\left( \left| \nu^{(2)}_{A_0} - P_{A_0} \right| > \frac{\varepsilon}{2} \right) 
-\leq \frac{4(1 - P_{A_0}) P_{A_0}}{\varepsilon^2 l} < \frac{1}{\varepsilon^2 l}.
+\leq \frac{4(1 - P_{A_0}) P_{A_0}}{\varepsilon^2 l}.
 \]\newline
+
+Dado que $P_{A_0}$ es una probabilidad, $\frac{4(1 - P_{A_0}) P_{A_0}}{\varepsilon^2 l} < 1$, luego
+
+\[
+P\left( \left| \nu^{(2)}_{A_0} - P_{A_0} \right| > \frac{\varepsilon}{2} \right) < \frac{1}{\varepsilon^2 l}.
+\]\newline
+
+Retomando (\ref{eq: theta como probabilidad}), tenemos 
+\[
+    \int_{ Z_2^{(l)}}  \theta\left(\frac{\varepsilon}{2} - |\nu^{(2)}_{A_0}-P_{A_0}|\right) dP_2 \;\geq\; 1 - \frac{1}{\varepsilon^2 l}.
+    \]
 
 Por lo tanto, para \( l \geq 2 / \varepsilon^2 \),
 
@@ -2564,7 +2579,11 @@ en el conjunto de entrenamiento, y desechamos el caso afirmativo. Luego
 
 Por otro lado, como las muestras son tomadas de forma iid:
 \[
-    P(X \notin \{X_1, \dots, X_n\}) = P(X\neq X_1, X\neq X_2, \dots, X\neq X_n) = P(X\neq X_1)^n = \left(1-\frac{1}{K}\right)^n
+\begin{aligned}
+    P(X \notin \{X_1, \dots, X_n\}) &= P(X\neq X_1, X\neq X_2, \dots, X\neq X_n) \\
+   &= P(X\neq X_1)^n \\
+   &= \left(1-\frac{1}{K}\right)^n
+\end{aligned}
 \]
 
 Luego
