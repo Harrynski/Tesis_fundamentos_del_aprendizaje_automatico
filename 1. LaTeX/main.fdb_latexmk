@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1739470954.76928 "/Users/niconash/Desktop/Tesis/1. LaTeX/main.tex" "main.pdf" "main" 1739470955.96363 0
-  "/Users/niconash/Desktop/Tesis/1. LaTeX/main.tex" 1739470954.51962 156888 bc6df5b8c741a5935f9f0ad025b14d18 ""
+["pdflatex"] 1741298212.88943 "/Users/niconash/Desktop/Tesis/1. LaTeX/main.tex" "main.pdf" "main" 1741298214.14226 0
+  "/Users/niconash/Desktop/Tesis/1. LaTeX/main.tex" 1741298212.60212 163649 66bb093437064301ccdff8133580d8c4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -86,10 +86,10 @@
   "/usr/local/texlive/2024/texmf-dist/tex/latex/amsmath/amstext.sty" 1686341992 2444 0d0c1ee65478277e8015d65b86983da2 ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/atveryend/atveryend.sty" 1576191570 19336 ce7ae9438967282886b3b036cfad1e4d ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/auxhook/auxhook.sty" 1576625391 3935 57aa3c3e203a5c2effb4d2bd2efbc323 ""
-  "/usr/local/texlive/2024/texmf-dist/tex/latex/base/article.cls" 1705352648 20144 147463a6a579f4597269ef9565205cfe ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/base/atbegshi-ltx.sty" 1705352648 3045 273c666a54e60b9f730964f431a56c1b ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/base/atveryend-ltx.sty" 1705352648 2462 6bc53756156dbd71c1ad550d30a3b93f ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/base/inputenc.sty" 1705352648 5048 425739d70251273bf93e3d51f3c40048 ""
+  "/usr/local/texlive/2024/texmf-dist/tex/latex/base/report.cls" 1705352648 23203 f5d913095ece2233436f0e628619cd37 ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/base/size10.clo" 1705352648 8448 dbc0dbf4156c0bb9ba01a1c685d3bad0 ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/caption/caption.sty" 1696191071 56128 c2ccf1a29d78c33bc553880402e4fb9a ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/caption/caption3.sty" 1696191071 72619 ee90b6612147680fd73c3b1406a74245 ""
@@ -127,12 +127,14 @@
   "Images/5.png" 1738179045.626 40616 b2064d55b870b8ab3b143797458ca2b2 ""
   "Images/6.png" 1738511219.96877 24998 ad775861cd3a131192bdec4478a1c453 ""
   "Images/7.png" 1738956320.17983 15788 866961957a4febf62533481d8dd9213a ""
-  "main.aux" 1739470955.82213 12886 cb9924c8beb5b437f6717c2a0568babb "pdflatex"
-  "main.out" 1739470955.82951 7182 6e2af800a761d11ad747b791f9f114e4 "pdflatex"
-  "main.tex" 1739470954.51962 156888 bc6df5b8c741a5935f9f0ad025b14d18 ""
+  "main.aux" 1741298213.99201 13615 cc206c6ae7ec3d7394bffa3bbdbb2f88 "pdflatex"
+  "main.out" 1741298214.00126 7515 31125a861d5df00e8b0d86c01696bad3 "pdflatex"
+  "main.tex" 1741298212.60212 163649 66bb093437064301ccdff8133580d8c4 ""
+  "main.toc" 1741298214.0066 3357 136ee3e17c6b249157a2b10466618994 "pdflatex"
   (generated)
   "main.aux"
   "main.log"
   "main.out"
   "main.pdf"
+  "main.toc"
   (rewritten before read)

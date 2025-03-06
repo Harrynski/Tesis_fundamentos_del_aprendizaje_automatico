@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass{report}
 \usepackage{graphicx}
 \usepackage[spanish]{babel}
 \usepackage[utf8]{inputenc} % Ensures proper handling of special characters
@@ -22,11 +22,12 @@
 \begin{document}
 
 
-\title{Teoría del Aprendizaje Estadístico}
+\title{Introducción a la Teoría del Aprendizaje Estadístico}
 \author{Nicolas Silva Nash \\ Departamento de Matemática \\ Universidad Nacional del Comahue}
 %\date{\today}
 \maketitle
-
+\tableofcontents
+\chapter{Un acercamiento amistoso a la Teoría del Aprendizaje Estadístico}
 \section{Introducción}
 La Teoría del Aprendizaje Estadístico proporciona la base teórica para muchos de los algoritmos de aprendizaje automático actuales y,
 sin lugar a dudas, es una de las ramas más bellamente desarrolladas de la inteligencia artificial en general. Nació con el perceptrón de Rossenblat
@@ -119,7 +120,7 @@ Resaltamos este teorema porque jugó un papel fundamental en la creación de la 
 principio de minimización de errores en el conjunto de datos de entrenamiento con la capacidad de generalización
 de los algoritmos de clasificación y su causa.
 
-\section{Hacia la formalización}
+\section{Conceptos básicos del aprendizaje}
 
 Volviendo al caso de clasificación binaria en aprendizaje supervisado, partimos de ejemplos (datos de entrenamiento) 
 en un espacio de entrada $X$ con alguna de las dos posibles etiquetas del espacio $Y=\{-1,+1\}$. Aquí, \textit{aprender}
@@ -1055,7 +1056,7 @@ original y la muestra fantasma juntas. Por lo tanto, podemos reemplazar el supre
 supremo sobre una clase finita de funciones con como máximo \(2^{n}\) funciones.\newline
 
 
-\subsection{ El coeficiente de fragmentación}
+\subsection{El coeficiente de fragmentación}
 
 Con la intención de analizar más a fondo la capacidad de una clase de funciones 
 \(\mathcal{F}\), intentaremos acotar la medida (\ref{eq:med_unif_riesgo_riesgo_emp}).
@@ -1465,9 +1466,9 @@ utilizado para criticar este enfoque en la teoría del aprendizaje estadístico,
 naturales no tienden a seleccionar la peor función dentro de una clase.\newline
 
 
-\section{Formalización de la teoría VC}
+\chapter{La Teoría VC}
 
-En la sección previa, hemos intentado proveer una descripción liviana y en el orden de lo intuitivo de la teoría brindada por 
+En el capítulo previo, hemos intentado proveer una descripción liviana y en el orden de lo intuitivo de la teoría brindada por 
 Vapnik y Chernovenkis. Ahora nos proponemos alcanzar la rigurosidad necesaria para demostrar los teoremas que hemos presentado 
 previamente. Para ello, introduciremos una nueva notación y seguiremos [8], el célebre artículo de 1971 - escrito tres años antes en su 
 idioma original - por los dos colosos rusos.\newline
@@ -1481,9 +1482,9 @@ a la medida \( P_X \). \newline
 Denotemos por \( X^{(l)} \) el espacio de muestras de tamaño \( l \) en \( X \). 
 Sobre el espacio \( X^{(l)} \), definimos una medida de probabilidad \( P \) tal que
 
-\[
+\begin{equation}\label{def: probabilidad en espacio muestral}
 P(Y_1\times Y_2 \times\dots\times Y_l) = P_X(Y_1) P_X(Y_2) \dots P_X(Y_l),
-\]
+\end{equation}
 
 donde los \( Y_i \) son subconjuntos medibles de \( X \).\newline
 
@@ -1502,7 +1503,7 @@ total de la muestra:
 Observemos que la frecuencia relativa no es más que una probabilidad empírica, y en lo siguiente, representará al riesgo
 empírico. Un conocido resultado de la relación entre esta probabilidad muestral y la probabilidad real en el espacio
 es el Teorema de Bernoulli, el cual enunciamos sin demostración:
-
+\bigskip
 \begin{thm}[de Bernoulli]
 Sea \( A \in \mathcal{S} \) un evento aleatorio, $P(A)$ la probabilidad del evento $A$ y $\nu_A(\{X_1,\dots X_l\})$ su frecuencia relativa para una muestra de
 tamaño $l$. Entonces, para cualquier $\varepsilon > 0$,
@@ -1511,29 +1512,29 @@ tamaño $l$. Entonces, para cualquier $\varepsilon > 0$,
 \]
 \end{thm}
 
-Es decir, la frecuencia relativa converge en probabilidad a la probabilidad del evento $A$.\newline
+Es decir, la frecuencia relativa (o probabilidad empírica) converge en probabilidad a la probabilidad real del evento $A$.\newline
 
 Nos interesará el supremo de esta diferencia sobre todos los posibles eventos en $\mathcal{S}$:
 \begin{equation}
     \pi^{(l)} = \sup_{A\in\mathcal{S}} |P(A)-\nu_A(\{X_1,\dots X_l\})|. \label{def: funcion pi}
 \end{equation}
 
-Y notemos que analizando el comportamiento de la medida de dicho supremo al crecer el tamaño muestral, 
-estaremos en condiciones de hacer afimarciones acerca de la ecuación (\ref{eq:med_unif_riesgo_riesgo_emp}),
+Notemos que analizando el comportamiento de la medida de dicho supremo al crecer el tamaño muestral, 
+estaremos en condiciones de hacer afirmaciones acerca de la ecuación (\ref{eq:med_unif_riesgo_riesgo_emp}),
 que es una instancia particular de esta.\newline
 
 \begin{obs}
 La frecuencia relativa es una función puntual en el espacio \( X^{(l)} \). Es decir
 \[ \nu(A, X^{(l)}): X^{(l)} \rightarrow \mathbb{R}
 \]
-Supondremos que esta función es medible con respecto a la medida en \( X^{(l)} \), 
+Además, supondremos que esta función es medible con respecto a la medida en \( X^{(l)} \), 
 es decir, que \( \nu(A, X^{(l)}) \) es una variable aleatoria.
 \end{obs} 
 
 Y si la variable \( \nu(A, X^{(l)}) \) converge en probabilidad a cero a medida que 
 el tamaño de la muestra crece indefinidamente, diremos que la frecuencia relativa 
 de los eventos \( A \in \mathcal{S} \) tiende (en probabilidad) a la probabilidad 
-de estos eventos de manera uniforme sobre la clase \( \mathcal{S} \).\newline
+de estos eventos de manera \textit{uniforme} sobre la clase \( \mathcal{S} \).\newline
 
 Los teoremas siguientes están dedicados a obtener estimaciones para la probabilidad 
 de los eventos \( \{ \nu(A, X^{(l)}) > \varepsilon \} \) y a clarificar las condiciones 
@@ -1542,32 +1543,39 @@ bajo las cuales, para cualquier \( \varepsilon \),
 \[
 \lim_{l \to \infty} P\left(\pi^{(l)} > \varepsilon\right) = 0.
 \]
-
+\bigskip
 
 
 \begin{dfn}
 Sea \( Z_l = \{X_1, \dots, X_r\} \) una muestra finita de elementos en \( X \). 
 Cada conjunto \( A \) en \( \mathcal{S} \) determina en esta muestra un subconjunto 
 \[ 
-    Z_n^A = \{X_i \in Z_n \mid X_i \in A\}, 
+    Z_l^A = Z_l \cap A = \{X_i \in Z_l \mid X_i \in A\}, 
 \]
-que consiste en aquellos términos de la 
-muestra \( X \) que pertenecen a \( A \). Diremos que el conjunto \( A \) \textbf{induce} 
+que consiste en aquellos elementos de la 
+muestra \( Z_l \) que pertenecen a \( A \). Diremos que el conjunto \( A \) \textbf{induce} 
 el subconjunto \( Z_l^A  \) en la muestra \( Z_l \).
 \end{dfn}
-
+\bigskip
 
 \begin{dfn}
 Denotamos el conjunto de todos los subconjuntos diferentes inducidos por los 
-conjuntos de \( \mathcal{S} \) en la muestra \( X \) como \( \mathcal{S}(X_1, \dots, X_r) \) 
-o \( \mathcal{S}(Z_r) \).
+conjuntos de \( \mathcal{S} \) en la muestra \( Z_r = \{X_1, \dots, X_r\} \) como \( \mathcal{S}(X_1, \dots, X_r) \) 
+o \( \mathcal{S}(Z_r) \). Es decir
+\[
+    \mathcal{S}(Z_r) =  \left\{Z_r^A \mid A \in \mathcal{S}\right\}.
+\]
 \end{dfn}
+\bigskip
 
 \begin{dfn}
-El número de subconjuntos distintos de la muestra \( X \) 
+El número de subconjuntos distintos de la muestra \( Z_r = \{X_1, \dots, X_r\} \) 
 inducidos por los conjuntos en \( \mathcal{S} \) será denominado el \textbf{índice 
-del sistema \( \mathcal{S} \)} con respecto a la muestra \( (X_1, \dots, X_r) \) 
-y será denotado por \(\Delta^{\mathcal{S}}(X_1, \dots, X_r) \).
+del sistema \( \mathcal{S} \)} con respecto a la muestra \( Z_r \) 
+y será denotado por $\Delta^{\mathcal{S}}(Z_r)$. Es decir
+\[
+\Delta^{\mathcal{S}}(X_1, \dots, X_r) = \#\left(\mathcal{S}(X_1, \dots, X_r)\right).
+\]
 \end{dfn}
 
 Reparemos en que si consideramos los subconjuntos de $\mathcal{S}$ como los posibles conjuntos en
@@ -1588,12 +1596,12 @@ tomando el máximo sobre todos los índices posibles.\newline
 
 \begin{dfn}
     Llamaremos \textbf{función de crecimiento} de orden $r$ al índice máximo de un sistema sobre todas las muestras
-    posibles de tamaño $r$. 
+    posibles de tamaño $r$ sobre un espacio $X$. 
     \[
     m^{\mathcal{S}}(r) = \max_{\{X_1,\dots,X_r\}}\Delta^{\mathcal{S}}(X_1,\dots,X_r)
     \]
 \end{dfn}
-
+\bigskip
 
 \textbf{Ejemplo 1}: Sea \( X \) una línea recta y sea \( \mathcal{S} \) el conjunto 
 de todos los rayos de la forma \( X \leq a \). En este caso, la función de crecimiento es  
@@ -1612,16 +1620,17 @@ El conjunto \( \mathcal{S} \) de eventos consiste en todos los semiespacios de l
 \[
 \langle X_0, \varphi \rangle \geq 1,
 \]  
-donde \( \varphi \) es un vector fijo. Evaluemos la función de crecimiento \( m^{\mathcal{S}}(r) \).
+donde \( \varphi \) es un vector fijo y las llaves representan el producto interno en el espacio.
+ Evaluemos la función de crecimiento \( m^{\mathcal{S}}(r) \).\newline
 
 Consideremos, junto con el espacio \( E_n \) de vectores \( X_0 \), el espacio \( E_n \) 
 de vectores \( \varphi \). A cada vector \( X_0 \in E_n \) le corresponde una partición 
 del espacio \( E_n \) en dos subespacios: \(\langle X_k, \varphi_2 \rangle \geq 1\) y \(\langle X_k, \varphi_2 \rangle < 1\). 
 Recíprocamente, cada vector \(\varphi\) determina un evento $A$ en el sistema \(\mathcal{S}\).\newline
 
-Tomemos \( r \) vectores \( X_1, \dots, X_r \). Estos generan una partición del espacio \( \mathbb{E}_n \) 
+Tomemos \( r \) vectores \( X_1, \dots, X_r \). Estos generan una partición del espacio \( E_n \) 
 en un número de componentes tales que los vectores \( \varphi \) dentro de cada componente determinan eventos 
-\( A \in \mathcal{S} \) que inducen el mismo subconjunto en la muestra \( X_1, \dots, X_r \).\newline
+\( A \in \mathcal{S} \) que inducen el mismo subconjunto en la muestra \( \{X_1, \dots, X_r \}\).\newline
 
 \begin{dfn}
     Sea \( \Phi(n, r) \) el número máximo de componentes en los que es posible particionar el espacio \( n \)-dimensional 
@@ -1665,14 +1674,14 @@ Para \( n > 0 \) y \( r \geq 0 \), se cumple que:
 Y tomaremos \( \binom{n}{k} = 0 \) en el caso que \( n < k \).\newline
 \end{obs}
 
-\subsection{Propiedades de la función de crecimiento}
+\subsection{La función de crecimiento}
 
 Una propiedad que nos interesa del coeficiente de fragmentación (y por extensión, de la dimensión VC) es que podamos asegurarnos
 de que, de ser posible, sean polinómicas. De esa manera la desigualdad (\ref{eq: cota convergencia coeficiente fragmentacion})
 es absorvida por la exponencial y nos aseguramos la convergencia en probabilidad. \newline
 
 Ahora probaremos que la función de crecimiento $m^{\mathcal{S}}(r)$ 
-es idénticamente igual a \( 2^r \) o está acotada superiormente por \( r^n + 1 \),  
+es idénticamente igual a \( 2^r \) o está acotada superiormente por \( r^n + 1 \) (es decir, es a lo sumo polinómica),  
 donde \( n \) es una constante que corresponde al valor de \( r \) para el cual la igualdad  
 \[
 m^{\mathcal{S}}(r) = 2^r
@@ -1697,7 +1706,7 @@ Una demostración de este lema puede hallarse en [8].\newline
 
 Ahora si, enunciamos y demostramos el resultado.\newline
 
-\begin{thm}
+\begin{thm} \label{teo: cota polinomica de la función de crecimiento}
     La función de crecimiento \( m^{\mathcal{S}}(r) \) es idénticamente igual a \( 2^r \) o está acotada superiormente por la función potencia  
     \[
     r^n + 1,
@@ -1763,10 +1772,10 @@ hemos demostrado el Lema (\ref{def:cota combinatoria de dimensión VC}). Lo enun
 
 \bigskip
 
-\subsection{El Lema de simetrización y su aplicación en la Teoría VC}
+\subsection{El Lema de simetrización}
 
 Enfoquémonos ahora en probar el lema de simetrización (\ref{lema de simetrizacion}). Tomemos dos muestra de tamaño $l$ y
-unifiquemolas en una sola muestra de tamaño \( 2l \),
+unifiquémolas en una sola muestra de tamaño \( 2l \),
 \( Z_{2l} = \{ X_1, \dots, X_l, X_{l+1}, \dots, X_{2l} \} \). Supongamos que las frecuencias relativas del evento \( A \in \mathcal{S} \) 
 han sido calculadas en la primera semimuestra \( \{ X_1, \dots, X_l \} \) y en la segunda semimuestra \( \{ X_{l+1}, \dots, X_{2l} \} \)
 por separado.\newline
@@ -1790,13 +1799,13 @@ Observemos que
 \sup_{A \in \mathcal{S}} \rho_A^{(l)} = \max_{A \in \mathcal{S}} \rho_A^{(l)},
 \]
 
-ya que, para un \( l \) fijo, \( \rho_A^{(l)} \) solo toma un número finito de valores. Expiquemos esto.
+ya que, para un \( l \) fijo, \( \rho_A^{(l)} \) solo toma un número finito de valores. Expliquemos esto.
 Al fijar dos muestras de tamaño $l$, tenemos a lo sumo $2l$ elementos distintos del espacio $X$. Tomemos un
 subconjunto $A\subset X$ tal que $A\in\mathcal{S}$. Para cada muestra $Z_l$, definimos la frecuencia muestral
 como 
 
 \[
-\nu(A,Z_l) = \frac{n(A,Z_l)}{l} = \frac{|\{ X_i \in Z_l \mid X_i \in A \}|}{l}.
+\nu(A,Z_l) = \frac{n(A,Z_l)}{l} = \frac{\#(\{ X_i \in Z_l \mid X_i \in A \})}{l}.
 \]
 
 Si bien los conjuntos $A$ son potencialmente infinitos, podemos separarlos en un número finito de grupos. Basicamente,
@@ -1807,8 +1816,8 @@ tomando infinitos $A\in\mathcal{S}$. Por lo tanto, sus diferencias $\rho_A^{(l)}
 
 
 Mostraremos que si \( \rho^{(l)} \to 0 \) cuando \( l \to \infty \), entonces también \( \pi^{(l)} \to 0 \), 
-y que las estimaciones de \( \rho^{(l)}\) conducen a estimaciones para \( \pi^{(l)} \). Donde, $\pi$ es la diferencia
-la diferencia entre la frecuencia muestral $\nu(A,Z_l)$ y la probabilidad del evento $A$ definida en (\ref{def: funcion pi}).
+y que las estimaciones de \( \rho^{(l)}\) conducen a estimaciones para \( \pi^{(l)} \). Recordemos que $\pi$ es la diferencia
+entre la frecuencia muestral $\nu(A,Z_l)$ y la probabilidad del evento $A$ definida en (\ref{def: funcion pi}).
 De ahora en más, supondremos que \( \rho^{(l)} \) es una función medible.\newline
 
 Es conveniente introducir la siguiente notación:
@@ -1833,7 +1842,7 @@ P(C) = P\left(\rho^{(l)}-\frac{\varepsilon}{2}\geq 0\right) = \int_{Z^{(2l)}} \l
 0 \cdot \chi_{\{\rho^{(l)}-\frac{\varepsilon}{2}< 0\}} \right) dP
 \end{equation*}
 
-Donde integramos sobre la muestra de tamaño $2l$ de tal manera que
+Donde integramos sobre el espacio muestral de tamaño $2l$ de tal manera que
 \begin{equation}
     Z^{(2l)} = Z_1^{(l)}\times Z_2^{(l)} = \{X_1,\dots,X_l\} \times \{X_{l+1},\dots,X_{2l}\} \label{def Z2l prod interno}
 \end{equation}
@@ -1900,8 +1909,9 @@ se verifica si
 |\nu^{(2)}_{A_0}-P_{A_0}|\geq \frac{\varepsilon}{2}.
 \]
 
-Retomando la desigualdad (\ref{desigualdad P(C)}), reparemos un momento en la integral del interior. Dada la monotonía de $\theta$ y quedándonos
-con tan solo un evento $A_0\in\mathcal{S}$, podemos escribir
+Retomando la desigualdad (\ref{desigualdad P(C)}), reparemos un momento en la integral interior. 
+Dada la monotonía de $\theta$ y quedándonos
+con tan solo un evento $A_0\in\mathcal{S}$, en vez de tomar el supremo sobre todos los eventos, podemos escribir
 
 \[
 \begin{aligned}
@@ -1910,7 +1920,8 @@ con tan solo un evento $A_0\in\mathcal{S}$, podemos escribir
 \end{aligned}
 \]
 
-En donde en la última desigualdad aplicamos lo recién explicado. Ahora notemos que 
+En donde en la última igualdad aplicamos lo recién explicado. Ahora notemos que 
+
 \begin{equation}\label{eq: theta como probabilidad}
     \int_{ Z_2^{(l)}}  \theta\left(\frac{\varepsilon}{2} - |\nu^{(2)}_{A_0}-P_{A_0}|\right) dP_2 \;=\; 1 - P\left(|\nu^{(2)}_{A_0}-P_{A_0}|>\frac{\varepsilon}{2}\right),
 \end{equation}
@@ -1918,12 +1929,12 @@ En donde en la última desigualdad aplicamos lo recién explicado. Ahora notemos
 
 dada la propia definición de $\theta$, que vale $0$ sólo cuando se da la desigualdad dentro de la probilidad de la derecha. Ahora procedemos a acotar dicha probabilidad.\newline
 
-Ahora, utilizaremos la desigualdad de Chebyshev 
+Haciendo uso de la desigualdad de Chebyshev: 
 \[
 P\left\{|X- \mathbb{E}\left(X \right)| \geq k \cdot \sqrt{\text{Var}(X)} \right\} \leq \frac{1}{k^2}
 \]
 
-Tomando la variable aleatoria $X=\nu_{A_0}^{(2)}$ y 
+para la variable aleatoria $X=\nu_{A_0}^{(2)}$ y el valor
 \[
 k= \frac{\varepsilon}{2\cdot\sqrt{\text{Var}\left(\nu_{A_0}^{(2)}\right)}}   ,
 \]
@@ -1934,10 +1945,11 @@ escribimos
 P\left(|\nu_{A_0}^{(2)} - \mathbb{E}\left(\nu_{A_0}^{(2)} \right)| \geq \frac{\varepsilon}{2}\right) 
 \;\leq\; \frac{4}{\epsilon^2}\cdot \text{Var}\left(\nu_{A_0}^{(2)}\right). \label{Chebyshev aplicada a frecuencia relativa}
 \end{equation}
+\bigskip
 
 Analicemos esta última desigualdad, factor a factor.\newline
 
-Podemos escribir la frencuencia relativa del evento $A_0$ sobre la muestra $Z^{(l)}_2=\{X_1,\dots,X_l\}$ como la suma de variables aleatorias
+Podemos escribir la frecuencia relativa del evento $A_0$ sobre una muestra $Z_l''$ en el espacio muestral $Z^{(l)}_2=\{X_1,\dots,X_l\}$ como la suma de variables aleatorias
 Bernoulli $\tilde{X}_i$ con $i=1,2,\dots,l$ tales que
 
 \[
@@ -1959,7 +1971,7 @@ Previamente, llamamos $n_{A_0}^{(2)}$ a esta suma, y utilizándola podemos escri
 
 \[
 \begin{aligned}
-    \mathbb{E}\left(\nu_{A_0}^{(2)} \right) &= \mathbb{E}\left(\frac{n_{A_0}^{(2)}}{l} \right) =  \frac{1}{l} \cdot \mathbb{E}\left( \#\left\{X_i\in Z_2^{(l)}\mid X_i\in A_0\right\}\right)\\
+    \mathbb{E}\left(\nu_{A_0}^{(2)} \right) &= \mathbb{E}\left(\frac{n_{A_0}^{(2)}}{l} \right) =  \frac{1}{l} \cdot \mathbb{E}\left( \#\left\{X_i\in Z_l''\mid X_i\in A_0\right\}\right)\\
     &= \frac{1}{l} \cdot l \cdot P_{A_0} = P_{A_0}
 \end{aligned}
 \]
@@ -1970,8 +1982,9 @@ Ahora, centrémonos en la varianza de la desigualdad (\ref{Chebyshev aplicada a 
 recordemos que la varianza de toda variable aleatoria Bernoulli tiene forma
 
 \[
-     \text{Var}(X) = p(1-p), \qquad X \sim \text{Bernoulli } (p=P(X))
+     \text{Var}(X) = p(1-p), \qquad X \sim \text{Bernoulli } (p=P(X)).
 \]
+\bigskip
 
 Esto nos permite escribir la varianza de la frecuencia muestral $\nu_{A_0}$ en términos de la probabilidad del evento $A_0$:
 
@@ -1996,10 +2009,15 @@ P\left( \left| \nu^{(2)}_{A_0} - P_{A_0} \right| > \frac{\varepsilon}{2} \right)
 \leq \frac{4(1 - P_{A_0}) P_{A_0}}{\varepsilon^2 l}.
 \]\newline
 
-Dado que $P_{A_0}$ es una probabilidad, $\frac{4(1 - P_{A_0}) P_{A_0}}{\varepsilon^2 l} < 1$, luego
+Dado que $P_{A_0}$ es una probabilidad, y que la función $f(x)=x(1-x)$ tiene un máximo en $x=\frac{1}{2}$, tenemos que
+$(1 - P_{A_0}) P_{A_0} \leq \frac{1}{4}$. Por lo tanto,
+\[4(1 - P_{A_0}) P_{A_0} \leq 1, 
+\]
+
+luego
 
 \[
-P\left( \left| \nu^{(2)}_{A_0} - P_{A_0} \right| > \frac{\varepsilon}{2} \right) < \frac{1}{\varepsilon^2 l}.
+P\left( \left| \nu^{(2)}_{A_0} - P_{A_0} \right| > \frac{\varepsilon}{2} \right) \leq \frac{1}{\varepsilon^2 l}.
 \]\newline
 
 Retomando (\ref{eq: theta como probabilidad}), tenemos 
@@ -2010,7 +2028,7 @@ Retomando (\ref{eq: theta como probabilidad}), tenemos
 Por lo tanto, para \( l \geq 2 / \varepsilon^2 \),
 
 \[
-\int_{Z_2^{(l)}} \theta \left( \frac{\varepsilon}{2} - \left| \nu^{(2)}_{A_0} - P_{A_0} \right| \right) dP_2 > \frac{1}{2}.
+\int_{Z_2^{(l)}} \theta \left( \frac{\varepsilon}{2} - \left| \nu^{(2)}_{A_0} - P_{A_0} \right| \right) dP_2 \geq \frac{1}{2}.
 \]
 
 De esto se sigue inmediatamente que, para \( l \geq 2 / \varepsilon^2 \),
@@ -2032,7 +2050,7 @@ Y el lema queda demostrado.\
 
 
 
-Y lo utilizamos para probar el siguiente teorema.\newline
+Utilizamos el Lema de Simetrización para probar el siguiente teorema.\newline
 
 \begin{thm}
     La probabilidad de que la frecuencia relativa de al menos un evento $A$ en la clase \( \mathcal{S} \) difiera de su probabilidad en una 
@@ -2043,7 +2061,138 @@ Y lo utilizamos para probar el siguiente teorema.\newline
     \]  
 \end{thm}
 
-.\newline
+\begin{proof}
+ 
+En virtud del Lema de Simetrización, basta con estimar  
+    
+\[
+P\left( \rho^{(l)} \geq \frac{\varepsilon}{2} \right) = \int_{Z^{(2l)}} \theta \left( \rho^{(l)} - \frac{\varepsilon}{2} \right) dP.
+\]
+
+donde \( \rho^{(l)} \) se considera como una función de la muestra  
+
+\[
+Z^{(2l)} = (X_1, \dots, X_l, X_{l+1}, \dots, X_{2l}).
+\]
+
+Consideremos la aplicación del espacio \( Z^{(2l)} \) sobre sí mismo, resultante de alguna permutación \( T_i \) de los elementos de la muestra \( Z^{(2l)} \). Dada la simetría 
+de la definición (\ref{def: probabilidad en espacio muestral}) de la medida \( P \) en \( Z^{(2l)} \), se cumple la siguiente relación para cualquier función integrable \( f \)
+sobre cualquier muestra $Z_{2l}$:
+
+\[
+\int_{Z^{(2l)}} f(Z_{2l}) \, dP = \int_{Z^{(2l)}} f(T_i Z_{2l}) \, dP.
+\]
+
+Por lo tanto,
+
+\begin{equation}\label{eq:probabilidad integral con permutaciones}
+P\left( \rho^{(l)} \geq \frac{\varepsilon}{2} \right) = \int_{Z^{(2l)}} \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2}  \right) dP.
+\end{equation}
+
+donde simplemente promnediamos sobre las \((2l)!\) permutaciones posibles.\newline
+
+Observemos además que
+
+\[
+\theta \left( \rho^{(l)} - \frac{\varepsilon}{2} \right) = \theta \left( \sup_{A \in \mathcal{S}} \left| \nu^{(1)}_A - \nu^{(2)}_A \right| -
+ \frac{\varepsilon}{2} \right) = \sup_{A \in \mathcal{S}} \theta \left( \left| \nu^{(1)}_A - \nu^{(2)}_A \right| - \frac{\varepsilon}{2} \right).
+\]
+
+Claramente, si dos conjuntos \( A_1 \) y \( A_2 \) inducen la misma submuestra en una muestra 
+
+\[
+Z_{2l} = (X_1, \dots, X_l, X_{l+1}, \dots, X_{2l}),
+\]
+
+entonces
+
+\[
+\nu^{(1)}_{A_1}(T_i Z_{2l}) = \nu^{(1)}_{A_2}(T_i Z_{2l}), \qquad \nu^{(2)}_{A_1}(T_i Z_{2l}) = \nu^{(2)}_{A_2}(T_i Z_{2l}).
+\]
+
+Es decir, tienen idéntica frecuencia muestral relativa, para ambas muestras $(1)$ y $(2)$. Por lo tanto, las diferencias entre cada una de estas frecuencias también serán idénticas
+
+\[
+\rho^{(l)}_{A_1}(T_i Z_{2l}) = \rho^{(l)}_{A_2}(T_i Z_{2l}),
+\]
+
+para cualquier permutación \( T_i \). Esto implica que si elegimos el subsistema \( \mathcal{S}' \subseteq \mathcal{S} \)
+ que consiste en todos los conjuntos \( A \) que inducen submuestras esencialmente diferentes en la muestra \( Z_{2l} \),
+el valor del siguiente supremo no cambiará al tomarlo sobre la restricción $S'$:
+
+\[
+\sup_{A \in \mathcal{S}} \theta \left( \rho^{(l)}_A(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) = 
+\sup_{A \in \mathcal{S}'} \theta \left( \rho^{(l)}_A(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) 
+\]
+
+A su vez, podemos acotar la expresión por la suma sobre un numero finito de eventos, los que nos permite escribir
+
+\[
+\sup_{A \in \mathcal{S}} \theta \left( \rho^{(l)}_A(T_i Z_{2l}) - \frac{\varepsilon}{2} \right)
+\leq \sum_{A \in \mathcal{S}'} \theta \left( \rho^{(l)}_A(T_i Z_{2l}) - \frac{\varepsilon}{2} \right).
+\]
+
+Notemos que este es exactamente el mismo argumento que utilizamos en el capítulo anterior para acotar la medida de probabilidad del supremo de la diferencia
+entre el riesgo y el riesgo empírico, tomado sobre todos los clasificadores en un espacio funcional, utilizando solo una cantidad finita de clasificadores en el espacio.
+Recordemos que llamamos indíce del sistema al cardinal del conjunto $S'$, al que notamos como $ \Delta^{\mathcal{S'}}(X_1, \dots, X_{2l})$.\newline
+
+Ahora, podemos acotar la integral en (\ref{eq:probabilidad integral con permutaciones}) escribiendo
+\[
+\frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left(  \rho^{(l)}(T_i Z^{2l}) - \frac{\varepsilon}{2}  \right) 
+= \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \sup_{A \in \mathcal{S}} \theta \left(  \rho^{(l)}_A(T_i Z^{2l}) - \frac{\varepsilon}{2}  \right)
+\]
+
+\[
+\leq \sum_{A \in \mathcal{S}'} \left[ \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left(  \rho^{(l)}_A(T_i Z^{2l}) - \frac{\varepsilon}{2}  \right) \right].
+\]
+
+La expresión entre corchetes denota el cociente del número de permutaciones para una muestra fija 
+para las cuales \( |\nu^{(1)}_A - \nu^{(2)}_A| \leq \frac{1}{2} \varepsilon \) y el número total de posibles permutaciones, $(2l)!$. Esta expresión
+es exactamente igual a:
+
+\[
+\Gamma = \sum_{k : |2\frac{k}{l} - \frac{n_A}{l}| \geq \frac{\varepsilon}{2}} \frac{\binom{n_A}{k} \binom{2l - n_A}{l - k}}{\binom{2l}{l}}.
+\]
+
+donde \( n_A \) es el número de elementos en la muestra \( \{X_1, \dots, X_{2l}\} \) que pertenecen a \( A \), como ya hemos dicho. \newline 
+
+Esta expresión satisface la estimación 
+
+\[
+\Gamma \leq 2 e^{-\varepsilon^2 l / 8},
+\]
+
+que se obtiene mediante un cálculo sencillo pero largo, por lo que omitimos la demostración, como los autores de [8] hacen. \newline
+
+Por lo tanto,
+\begin{equation*}
+\begin{aligned}
+\frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left(  \rho^{(l)}(T_i Z^{2l}) - \frac{\varepsilon}{2} \right) 
+&\leq \sum_{A \in \mathcal{S}'} 2 e^{-\varepsilon^2 l / 8} \\
+&= 2 \Delta^{\mathcal{S}}(X_1, \dots, X_{2l}) e^{-\varepsilon^2 l / 8}\\
+&\leq 2 m^S(2l) e^{-\varepsilon^2 l / 8}.
+\end{aligned}
+\end{equation*}
+
+Aplicando el Lema de Simetrización, tenemos
+
+\[
+P\left(\pi^{(l)}>\varepsilon\right) \leq 2 \cdot 2 m^S(2l) e^{-\varepsilon^2 l / 8}.
+\]
+
+Por último, notemos que 
+\[
+m^S(2l)<(2l)^n + 1
+\]
+
+por la cota dada en el Teorema (\ref{teo: cota polinomica de la función de crecimiento}), lo que nos da
+\[
+\lim_{l\to\infty} P\left(\pi^{(l)}>\varepsilon\right) \leq 4 \lim_{l\to\infty} ((2l)^n+1) e^{-\varepsilon^2 l / 8} = 0.
+\]
+
+\end{proof}
+
+El siguiente corolario es inmediato.\newline
 
 \begin{cor}
 Una condición suficiente para que las frecuencias relativas de los eventos en la clase \( \mathcal{S} \) converjan uniformemente sobre \( \mathcal{S} \) (en probabilidad) a sus correspondientes probabilidades es que exista un \( n \) finito tal que  
@@ -2053,7 +2202,12 @@ m^{\mathcal{S}}(l) \leq l^n + 1, \quad \text{para todo } l.
 \]
 \end{cor}
 
-.\newline
+\bigskip
+Hemos dado condiciones suficientes para que las frecuencias relativas (nuestras probabilidades empíricas) converjan uniformemente a las 
+probabilidades reales de los eventos en la clase \( \mathcal{S} \). En la siguiente sección veremos que estas condiciones nos aseguran, además, 
+convergencia uniforme de forma casi segura.\newline
+
+\subsection{Condiciones de convergencia uniforme casi segura}
 
 \begin{thm}
     Si \( m^{\mathcal{S}}(l) \leq l^n + 1 \), entonces  
@@ -2087,7 +2241,6 @@ P(\pi^{(l)} \to 0) = 1.
 \]
 \end{proof}
 
-\subsection{Condiciones necesarias y suficientes para la convergencia}
 
 Observemos primero que la definición del índice implica inmediatamente que  
 
@@ -2173,7 +2326,7 @@ se concentra cerca de \( c \).
 
 
 
-
+\chapter{Otros conceptos del Aprendizaje}
 \section{Consistencia de Bayes y error de aproximación}
 
 Hasta ahora, hemos reparado tan solo en el enfoque estándar para acotar el error de estimación 
@@ -2653,7 +2806,7 @@ de las etiquetas de los puntos de entrenamiento. En tal escenario, el aprendizaj
 
 \bigbreak
 \pagebreak
-\section{Bibliografía}
+\chapter*{Bibliografía}
 
 [1] \textit{Statistical Learning Theory: Models, Concepts and Results} - von Luxburg, B. Schölkopf (2008). \\
 
