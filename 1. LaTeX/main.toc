@@ -28,8 +28,8 @@
 \contentsline {subsection}{\numberline {2.0.2}La función de crecimiento}{43}{subsection.2.0.2}%
 \contentsline {subsection}{\numberline {2.0.3}El Lema de simetrización}{44}{subsection.2.0.3}%
 \contentsline {subsection}{\numberline {2.0.4}Condiciones de convergencia uniforme casi segura}{52}{subsection.2.0.4}%
-\contentsline {chapter}{\numberline {3}Otros conceptos del Aprendizaje}{55}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Consistencia de Bayes y error de aproximación}{55}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Espacios funcionales anidados}{56}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Regularización}{57}{subsection.3.1.2}%
-\contentsline {section}{\numberline {3.2}Los teoremas de la chancha y los veinte}{59}{section.3.2}%
+\contentsline {chapter}{\numberline {3}Otros conceptos del Aprendizaje}{58}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Consistencia de Bayes y error de aproximación}{58}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Espacios funcionales anidados}{59}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Regularización}{60}{subsection.3.1.2}%
+\contentsline {section}{\numberline {3.2}Los teoremas de la chancha y los veinte}{62}{section.3.2}%

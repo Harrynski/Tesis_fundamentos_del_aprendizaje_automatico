@@ -2241,62 +2241,241 @@ P(\pi^{(l)} \to 0) = 1.
 \]
 \end{proof}
 
+\begin{obs}\label{obs:desigualdad triangular indice de un sistema}
+    La definición del índice implica inmediatamente que  
 
-Observemos primero que la definición del índice implica inmediatamente que  
+    \begin{equation*}
+    \Delta^{\mathcal{S}}(X_1, \dots, X_{k}, X_{k+1}, \dots,X_l) \leq \Delta^{\mathcal{S}}(X_1, \dots, X_k) \Delta^{\mathcal{S}}(X_{k+1}, \dots, X_l).
+    \end{equation*}
+    De aquí se sigue que  
+    \begin{equation*}
+    \log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_{k}, X_{k+1}, \dots,X_l) \leq \log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_k) + \log_2 \Delta^{\mathcal{S}}(X_{k+1}, \dots, X_l).
+    \end{equation*}\newline
+\end{obs}
 
-\begin{equation*}
-\Delta^{\mathcal{S}}(X_1, \dots, X_{k}, X_{k+1}, \dots,X_l) \leq \Delta^{\mathcal{S}}(X_1, \dots, X_k) \Delta^{\mathcal{S}}(X_{k+1}, \dots, X_l).
-\end{equation*}
-
-De aquí se sigue que  
-
-\begin{equation*}
-\log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_{k}, X_{k+1}, \dots,X_l) \leq \log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_k) + \log_2 \Delta^{\mathcal{S}}(X_{k+1}, \dots, X_l).
-\end{equation*}
 
 En lo que sigue, se asumirá que el índice \( \Delta^{\mathcal{S}}(X_1, \dots, X_k) \), visto como una función de 
 \( X_l = \{X_1, \dots, X_l\} \), es medible con respecto a la medida \( P \).\newline
 
 \begin{dfn}
-    Sea  
+    Sean  
     \[
     F^{\mathcal{S}}(z) = P\left(\log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_l) < z \right).
     \]
-\end{dfn}
-    
-\begin{dfn}
-    La entropía del sistema de eventos \( \mathcal{S} \) en muestras de tamaño \( l \) se define como  
+     
     \[
     H^{\mathcal{S}}(l) = \mathbb{E} \left[ \log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_l) \right].
-    \]
-    
+    \]\newline
+
+    Llamamos \textbf{entropía del sistema} de eventos \( \mathcal{S} \) en muestras de tamaño \( l \) a  $H^{\mathcal{S}}(l)$.\newline
+
 \end{dfn}
 
-Dada la monotonía de la esperanza, la última desigualdad implica que  
+\begin{obs}
+    Dada la monotonía de la esperanza, la observación (\ref{obs:desigualdad triangular indice de un sistema}) implica que  
+    
+    \[
+        H^{\mathcal{S}}(l_1 + l_2) \leq H^{\mathcal{S}}(l_1) + H^{\mathcal{S}}(l_2).
+    \]\newline
+\end{obs}
 
-\[
-H^{\mathcal{S}}(l_1 + l_2) \leq H^{\mathcal{S}}(l_1) + H^{\mathcal{S}}(l_2).
-\]
+Los siguientes lemas nos ayudarán para probar el último de los resultados de este capítulo.\newline
 
-Los siguientes lemas nos ayudarán más adelante.\newline
-
-\begin{lem}
+\begin{lem}\label{lema 3}
     La sucesión \( \frac{H^{\mathcal{S}}(l)}{l} \) tiene un límite \( c \), con \( 0 \leq c \leq 1 \), cuando \( l \to \infty \).
 \end{lem}
     
-Ahora mostraremos que, para valores grandes de \( l \), la distribución de la variable aleatoria  
+Una demostración de este Lema puede hallarse en [9]. Ahora mostraremos que, para valores grandes de \( l \),
+la distribución de la variable aleatoria  
 
 \[
 \xi^{(l)} = \frac{1}{l} \log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_l)
 \]
 
-se concentra cerca de \( c \).
-    
+se concentra cerca de \( c \). Para esto, usaremos el siguiente resultado.
 \begin{lem}
+    Sea $\{\xi_i\}_{i\in\mathbb{N}}$. Si para cualquier \( \varepsilon > 0 \),
+
+    \[
+    \sum_{i}^{\infty} P(|\xi_i - C| > \varepsilon) < \infty,
+    \]
+    
+    entonces,
+    
+    \[
+    P(\xi_i \to C) = 1.
+    \]
+\end{lem}
+\bigskip
+\begin{lem} Sea la variable aleatoria
+    \[
+        \xi^{(l)} = \frac{1}{l} \log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_l).
+    \]
+
+    Entonces
+    
     \[
     \lim_{l \to \infty} P(|\xi^{(l)} - c| > \varepsilon) = 0, \quad \text{para } \varepsilon > 0.
     \]
 \end{lem}
+\bigskip
+\begin{proof}
+    Denotemos 
+    \[ P(l, \varepsilon) = P(|\xi^{(l)} - c| > \varepsilon) , \] 
+    \[ P^+(l, \varepsilon) = P(\xi^{(l)} - c > \varepsilon) , \] 
+    \[ P^-(l, \varepsilon) = P(c - \xi^{(l)} > \varepsilon) . \]
+
+    En consecuencia,
+    
+    \[
+    P(l, \varepsilon) = P^+(l, \varepsilon) + P^-(l, \varepsilon).
+    \]
+    
+    El Lema (\ref{lema 3}) implica la existencia de un \( l_0 \) tal que
+    
+    \begin{equation}\label{desigualdad 14}
+    \left| \frac{H^{\mathcal{S}}(l_0)}{l_0} - c \right| < \frac{\varepsilon}{4}.
+    \end{equation}
+    
+    Primero estimamos \( P^+(l, \frac{\varepsilon}{2}) \) con \( l = nl_0 \) (siendo \( n \) un entero).
+    A partir de (\ref{obs:desigualdad triangular indice de un sistema}) se sigue que
+    
+    \[
+    \log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_{nl_0}) \leq \sum_{i=0}^{n-1} \log_2 \Delta^{\mathcal{S}}(X_{il_0+1}, \dots, X_{(i+1)l_0}).
+    \]
+    
+    De esto obtenemos
+    
+    \begin{equation}\label{desigualdad 15}
+    P^+\left(nl_0, \frac{\varepsilon}{2}\right) \leq P \left( \frac{1}{nl_0} \sum_{i=0}^{n-1} \log_2 \Delta^{\mathcal{S}}(X_{il_0+1}, \dots, X_{(i+1)l_0}) - c > \frac{\varepsilon}{2} \right).
+    \end{equation}
+    
+    Definimos
+    
+    \[
+    y = \frac{1}{nl_0} \sum_{i=0}^{n-1} \log_2 \Delta^{\mathcal{S}}(X_{il_0+1}, \dots, X_{(i+1)l_0})
+    \]
+    y observamos que
+    \[
+    \sum_{i=0}^{n-1} \log_2 \Delta^{\mathcal{S}}(X_{il_0+1}, \dots, X_{(i+1)l_0}).
+    \]
+    es una suma de variables aleatorias independientes e idénticamente distribuidas, cada una de ellas con esperanza \( H^{\mathcal{S}}(l_0) \)
+    y una cierta varianza $V$. De esto, sigue que
+    \[
+    \mathbb{E}(y) = \frac{H^{\mathcal{S}}(l_0)}{l_0} ; \qquad \text{Var}(y) = \frac{V}{n_0^2}.
+    \]\newline
+
+    Usando la desigualdad (\ref{desigualdad 14}), escribimos 
+    \[
+    P\left( y - c > \frac{\varepsilon}{2} \right) 
+    \leq P\left( y - \frac{H^{\mathcal{S}}(l_0)}{l_0} > \frac{\varepsilon}{4} \right),
+    \]
+    dado que
+    \[
+        P\left( y - c > \frac{\varepsilon}{2} \right) = P\left(\left\{\omega: y(\omega) - c > \frac{\varepsilon}{2} \right\}\right)
+    \]
+    y es claro que
+    \[
+        \left\{\omega: y(\omega) - \left(\frac{H^{\mathcal{S}}(l_0)}{l_0} -\frac{\varepsilon}{4}\right)
+        > \frac{\varepsilon}{2} \right\} \subseteq   \left\{\omega: y(\omega) - c > \frac{\varepsilon}{2} \right\}.
+    \]
+    Podemos escribir entonces
+    \[
+        P\left( y - c > \frac{\varepsilon}{2} \right) 
+        \leq P\left( y - \mathbb{E}(y) > \frac{\varepsilon}{4} \right).
+    \]
+    Ahora, utilizando la constante \( k = \frac{\varepsilon}{4\text{Var}^{1/2}(y)} \) en la desigualdad de Chebyshev, obtenemos que
+
+    \[P\left( |y - \mathbb{E}(y)| > \frac{\varepsilon}{4} \right) \leq \frac{4^2}{\varepsilon^2}\text{Var(y)} =  \frac{16}{\varepsilon^2}\frac{V}{n l_0^2}.\]
+    Esto, con la ayuda de (\ref{desigualdad 15}), conduce a
+
+    \[
+    P^+\left(n l_0, \frac{\varepsilon}{2} \right) 
+    \leq \frac{16V}{n \varepsilon^2 l_0^2},
+    \]
+    lo que nos da
+    \begin{equation}\label{limite de P+}
+        \lim_{n \to \infty} P^+\left(n l_0, \frac{\varepsilon}{2} \right) = 0.
+    \end{equation}
+\bigskip
+
+    Ahora demostraremos que
+
+    \[
+    \lim_{l \to \infty} P^+(l, \varepsilon) = 0.
+    \]
+    Para un \( l > l_0 \) arbitrario, sea \( n \) tal que \( n l_0 < l < (n+1)l_0 \). Tenemos
+
+    \[
+    \frac{1}{n l_0} \log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_{(n+1)l_0}) > \frac{1}{l} \log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_l).
+    \]
+    Esto es exactamente
+    
+    \[
+    P\left( \frac{n+1}{n l_0} \xi^{(n+1)l_0} > c + \varepsilon \right) > P^+(l, \varepsilon).
+    \]
+    Pero, para \( n \) suficientemente grande,
+    
+    \[
+    P\left( \frac{n+1}{n} \xi^{(n+1)l_0} > c + \varepsilon \right) 
+    \leq P\left( \xi^{(n+1)l_0} > c + \frac{\varepsilon}{2} \right) 
+    = P^+\left( (n+1)l_0, \frac{\varepsilon}{2} \right).
+    \]
+    Esta última expresion tiende a cero cuando $n$ tiende a infinito por (\ref{limite de P+}).Por lo tanto,
+    \begin{equation}\label{eq 16}
+    \lim_{l \to \infty} P^+(l, \varepsilon) = 0.
+    \end{equation}
+    \bigskip
+
+    A continuación, probaremos que \( \lim_{l \to \infty} P^-(l, \varepsilon) = 0\).\newline
+    
+    A partir de las propiedades de la esperanza y el hecho de que \( \mathbb{E} (\xi^{(l)}) = \frac{H^{\mathcal{S}}(l)}{l} \), se sigue que
+
+    \begin{equation}\label{eq 17}
+    \int_{0}^{H^{\mathcal{S}}(l)/l} \left| \frac{H^{\mathcal{S}}(l)}{l} - \xi \right| dF_{\xi} =
+    \int_{H^{\mathcal{S}}(l)/l}^{1} \left| \xi - \frac{H^{\mathcal{S}}(l)}{l} \right| dF_{\xi}.
+    \end{equation}
+    Denotando el lado izquierdo de (\ref{eq 17}) como \( R_1 \) y el lado derecho como \( R_2 \), 
+    los estimamos suponiendo que \( l \) es lo suficientemente grande como para que 
+    \[
+    \left| \frac{H^{\mathcal{S}}(l)}{l} - c \right| < \frac{\varepsilon}{2}
+    \]
+    y obtenemos primero
+    
+    \begin{equation}\label{eq 18}
+    R_1 \geq \frac{\varepsilon}{2} \int_{0}^{c - \varepsilon} dF_{\xi} = \frac{\varepsilon}{2} P^-(l, \varepsilon).
+    \end{equation}
+    Sea \( \delta \) un número positivo. Entonces,
+
+    \begin{equation}\label{eq 19}
+        \begin{aligned}
+            R_2 & \leq \left| \int_{H^{\mathcal{S}}(l)/l}^{c + \delta} \left( \xi - \frac{H^{\mathcal{S}}(l)}{l} \right) dF_{\xi} \right|
+            + \int_{c + \delta}^{1} \left( \xi - \frac{H^{\mathcal{S}}(l)}{l} \right) dF_{\xi}.\\
+            & \leq \left| c + \delta - \frac{H^{\mathcal{S}}(l)}{l} \right| + P^+(l, \delta).
+        \end{aligned}
+    \end{equation}
+    Combinando las estimaciones (\ref{eq 18}) y (\ref{eq 19}), obtenemos
+
+    \begin{equation}
+    P^-(l, \varepsilon) \leq \frac{2}{\varepsilon} \left[ \left| c + \delta - \frac{H^{\mathcal{S}}(l)}{l} \right| + P^+(l, \delta) \right].
+    \end{equation}
+    Esto, en conjunción con el Lema (\ref{lema 3}) y (\ref{eq 16}), implica que
+
+    \begin{equation*}
+    \lim_{l \to \infty} P^-(l, \varepsilon) \leq \frac{2\delta}{\varepsilon}.
+    \end{equation*}
+    Y como \( \delta \) es arbitrario, se sigue que
+
+    \begin{equation}\label{eq 20}
+    \lim_{l \to \infty} P^-(l, \varepsilon) = 0.
+    \end{equation}
+    Finalmente, de acuerdo con (\ref{eq 16}) y (\ref{eq 20}),
+
+    \begin{equation*}
+    \lim_{l \to \infty} P(l, \varepsilon) = 0.
+    \end{equation*}
+    El lema queda demostrado.
+\end{proof}
 
 \begin{thm}
     Una condición necesaria y suficiente para que las frecuencias relativas converjan (en probabilidad) a 
@@ -2307,7 +2486,7 @@ se concentra cerca de \( c \).
     \end{equation}
 \end{thm}
     
-    Observemos que, por el Lema 4, la condición \((\ref{condicion nec y suf})\) es equivalente a la siguiente afirmación:  
+    Observemos que, por el Lema 4, la condición (\ref{condicion nec y suf}) es equivalente a la siguiente afirmación:  
     
 \begin{equation}
     \lim_{l \to \infty} P\left( \frac{1}{l}\log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_l) > \delta  \right) = 0, 
@@ -2824,6 +3003,8 @@ de las etiquetas de los puntos de entrenamiento. En tal escenario, el aprendizaj
 
 [8] \textit{On the uniform convergence of relative frequencies of events to their probabilities} - V. N. VAPNIK and A. YA. CHERVONENKIS (1971)
 
+[9] A. YA. KHINCHIN, Onbasic theorems ofinformation theory, Uspekhi Mat. Nauk,XI, (1956),
+pp. 17-75. (In Russian.)
 
 
 
