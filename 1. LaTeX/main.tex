@@ -33,34 +33,33 @@ La Teoría del Aprendizaje Estadístico proporciona la base teórica para muchos
 sin lugar a dudas, es una de las ramas más bellamente desarrolladas de la inteligencia artificial en general. Nació con el perceptrón de Rossenblat
 y la escuela matemática de la Unión Soviética en la década de 1960, y ganó amplia popularidad en la década de 1990 tras el desarrollo de las llamadas 
 Máquinas de Vectores de Soporte (\textit{SVM}, por sus siglas en inglés), que se han convertido en una herramienta estándar para el reconocimiento de 
-patrones en muchas disciplinas, que van desde la visión por computadora hasta la biología computacional.
+patrones en muchas disciplinas, que van desde la visión por computadora hasta la biología computacional.\newline
 
 Proporcionar la base para nuevos algoritmos de aprendizaje no ha sido la única motivación para desarrollar la Teoría del Aprendizaje 
 Estadístico. También ha sido una gesta de caracter filosófico, en el intento de responder a la pregunta de qué nos permite extraer conclusiones válidas 
-a partir de datos empíricos.  
+a partir de datos empíricos.  \newline
 
-\section{El aprendizaje}
 
 En este contexto, el \textit{aprendizaje} es el proceso a través del cual pueden inferirse reglas generales a partir de ejemplos. Nos interesa 
 entender como una máquina -una computadora- puede resolver ciertos problemas sin conocer las reglas de antemano, solo a partir de ejemplos y a través
 de un \textit{algoritmo de aprendizaje}. El objetivo es que la máquina pueda no solo aprender a reconocer las reglas que rigen a los ejemplos dados,
-si no que también pueden generalizar dichas reglas para ejemplos que le serán presentados con posterioridad.
+si no que también pueden generalizar dichas reglas para ejemplos que le serán presentados con posterioridad.\newline
 
 Llamamos a esta disciplina \textit{aprendizaje automático} (en inglés, \textit{Machine Learning}, literalmente ``aprendizaje de máquinas'') y reconocemos
 sus raíces en otras disciplinas: Estadística Matemática, Ciencias de la Computación e Inteligencia Artificial. Si bien el aprendizaje suele ser una
 parte fundamental de la mayoría de los esfuerzos en materia de Inteligencia Artificial, el objetivo del Machine Learning es más acotado que el de su 
 rama madre: En vez de intentar definir, explicar o generar comportamiento inteligente o \textit{inteligencia}, aquí nos interesa solamente descubrir los mecanismos
 a través de los cuales las computadoras pueden resolver algunas tareas acotadas y bien definidas, y que en general escapan a soluciones que pueden
-ser especificadas con una cantidad finita de código de programación (reglas determinísticas).
+ser especificadas con una cantidad finita de código de programación (reglas determinísticas).\newline
 
-Con fines ilustrativos, nos centraremos primero en el más conocido de los problemas del Machine Learning, el de clasificación. Consideremos dos espacios
+A fin de simplificar la teoría, nos centraremos  en el más conocido de los problemas del Machine Learning, el de clasificación. Consideremos dos espacios
 de variables: \(X\), llamado \textit{espacio de entrada}, e \(Y\), el  \textit{espacio de etiquetas}. En un problema de clasificación, deseamos poder etiquetar
 correctamente elementos de \(X\) con los valores de \(Y\). Por ejemplo, podríamos querer clasificar un conjunto de datos, en alguna representación fija, de distintos 
 objetos en una cantidad de etiquetas como: silla, cama, microondas, perro, gato. Si esta representación es en imágenes de \(N\times M\) pixeles en blanco y negro (realmente, 
 matrices de orden \(N\times M\) con coeficientes reales en el interavalo \([0,1]\) que representan la intensidad de cada pixel, del negro al blanco), el espacio \(X\) es 
 el conjunto de dichas matrices y el espacio \(Y\) las categorías distintas que corresponden a lo que las imágenes muestran. Con el fin de aprender, a un algoritmo se le 
 muestran ejemplos de imágenes y sus respectivas etiquetas \((X_1,Y_1)\), \((X_2,Y_2)\), \dots, \((X_n,Y_n)\), a partir de los cuales este debe encontrar una función
-\(f: X\rightarrow Y\), que comete la menor cantidad de errores posibles. A esta función \(f\) la llamamos \textit{clasificador}.
+\(f: X\rightarrow Y\), que comete la menor cantidad de errores posibles. A esta función \(f\) la llamamos \textit{clasificador}.\newline
 
 \section{La historia del aprendizaje automático}
 
@@ -68,7 +67,7 @@ El primer modelo de aprendizaje automático, según Vapnik en [2], fue sugerido 
 constituye el comienzo del análisis matemático del aprendizaje. Conceptualmente, la idea del perceptrón no era nueva, estando presente en la litetura de Neurofisiología durante
 varios años. Rosenblatt, sin embargo, se aventuró en describir el modelo como un programa para computadoras y demostró con simples experimentos que dicho modelo era generalizable.
 El perceptrón fue construído como una solución a un problema particular dentro del aprendizaje automático, el reconocimiento de patrones. En el caso más sencillo, este problema
-consiste en hallar una regla para separar datos en dos categorías distintas a partir de ejemplos.
+consiste en hallar una regla para separar datos en dos categorías distintas a partir de ejemplos.\newline
 
 Para construir la regla de separación, el perceptrón sigue el modelo más sencillo de neurona, propuesto previamente por McCulloch y Pitts, de acuerdo al cual una neurona recibe
 \(n\) valores (o \textit{inputs}) en la forma de un vector \(x = (x^1,\dots, x^n) \in X \subset \mathbb{R}^n \) y genera una etiqueta (\textit{output}) 
@@ -88,11 +87,9 @@ El vector \(w\) y el escalar \(b\) determinan la posición del hiperplano y sus 
 separa el espacio de entrada en en dos regiones lineales a trozos y no necesariamente conexas. En 1960 no era claro como elegir todos los parametros \((w_1,\dots,w_k)\) y
 \((b_1,\dots, b_k)\) de todas las neuronas, por lo que se fijaban los valores de las primeras \(k-1\) y se intentaba encontrar los valores deseables para la última
 de ellas. Geométricamente, se transformaba el espacio de entrada $X$ en un nuevo espacio $Z$ (eligiendo coeficientes apropiados para las primeras $k-1$ neuronas) y luego
-se utilizaban los datos de entrenamiento para construir un hiperplano que separe el plano $Z$.
-Tomando prestados de la fisiología los conceptos de aprendizaje con estímulos de premios y castigos, Rosenblat propuso un simple algoritmo para hallar estos 
-coeficientes de manera iterativa, el cual describiremos a continuación.\newline
+se utilizaban los datos de entrenamiento para construir un hiperplano que separe el plano $Z$. Tomando prestados de la fisiología los conceptos de aprendizaje con estímulos de premios y castigos, Rosenblat propuso un simple algoritmo para hallar estos 
+coeficientes de manera iterativa.\newline
 
-DESCRIBIR perceptrón.\newline
 
 En 1962 Novikoff demostró el primer teorema relacionado al perceptrón. Podemos decir que este teorema inció propiamente la teoría del aprendizaje.
 
@@ -248,7 +245,6 @@ conocido, es decir tal que el riesgo empírico del clasificador es bajo. Nos int
 de entrada $X$, no solo en los datos de entrenamiento. Decimos que un clasificador \textit{generaliza} bien si la diferencia entre su riesgo
 y su riesgo empírico es baja.\newline
 
-DEFINICIÓN Generalización\newline
 
 Por supuesto que una buena generalización no asegura que el riesgo, ni el riesgo empírico, sean bajos, si no que dichas cantidades son cercanas.
 Pero lo que nos interesa es que el riesgo empírico sea un buen estimativo del riesgo del clasificador, y esto es lo que nos permitirá
@@ -1189,16 +1185,15 @@ concluir que la minimización del riesgo empírico
 usando el espacio de todas las funciones clasificadoras posibles sea inconsistente, dado que la cota de convergencia uniforme anterior
 es solo una condicion suficiente. Pero si podemos dar el siguiente resultado para definir una condición necesaria y suficiente para
 la consistencia de la minimización del riesgo empírico.
-\begin{thm}
+\begin{thm}\label{thm: consistencia ssi}
     La minimización del riesgo empírico es consistente con respecto a un espacio de funciones $\mathcal{F}$ si y solo si
     \[
     \frac{\log\left(\mathcal{N}(\mathcal{F}, n)\right)}{n} \rightarrow 0 \qquad \text{cuando } n \to \infty.
     \]
     
 \end{thm}
-\begin{proof}
-    cf Mendelson 2003. Para teoremas relacionados, ver Vapnik y Chernovenkis 1971,1981, section 12.4, Devroye et al 1996.\\
-\end{proof}
+
+Demostraremos este teorema, de manera más general, en el siguiente capitulo.
 
 \begin{cor}
     Si $\mathcal{N}(\mathcal{F}, n)$ es polinómica, entonces la minimización del riesgo empírico es consistente con respecto a $\mathcal{F}$.\\
@@ -1688,7 +1683,7 @@ m^{\mathcal{S}}(r) = 2^r
 \]
 se viola por primera vez. Para demostrar este hecho, necesitamos el siguiente lema.\newline
 
-\begin{lem}
+\begin{lem}\label{Lema 1}
 Si para alguna muestra de tamaño \( X_1, \dots, X_i \) y algún número \( n \), con \( 1 \leq n \leq i \),  
 se cumple que  
 \[
@@ -2138,12 +2133,12 @@ Recordemos que llamamos indíce del sistema al cardinal del conjunto $S'$, al qu
 
 Ahora, podemos acotar la integral en (\ref{eq:probabilidad integral con permutaciones}) escribiendo
 \[
-\frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left(  \rho^{(l)}(T_i Z^{2l}) - \frac{\varepsilon}{2}  \right) 
-= \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \sup_{A \in \mathcal{S}} \theta \left(  \rho^{(l)}_A(T_i Z^{2l}) - \frac{\varepsilon}{2}  \right)
+\frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left(  \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2}  \right) 
+= \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \sup_{A \in \mathcal{S}} \theta \left(  \rho^{(l)}_A(T_i Z_{2l}) - \frac{\varepsilon}{2}  \right)
 \]
 
 \[
-\leq \sum_{A \in \mathcal{S}'} \left[ \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left(  \rho^{(l)}_A(T_i Z^{2l}) - \frac{\varepsilon}{2}  \right) \right].
+\leq \sum_{A \in \mathcal{S}'} \left[ \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left(  \rho^{(l)}_A(T_i Z_{2l}) - \frac{\varepsilon}{2}  \right) \right].
 \]
 
 La expresión entre corchetes denota el cociente del número de permutaciones para una muestra fija 
@@ -2167,7 +2162,7 @@ que se obtiene mediante un cálculo sencillo pero largo, por lo que omitimos la 
 Por lo tanto,
 \begin{equation*}
 \begin{aligned}
-\frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left(  \rho^{(l)}(T_i Z^{2l}) - \frac{\varepsilon}{2} \right) 
+\frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left(  \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) 
 &\leq \sum_{A \in \mathcal{S}'} 2 e^{-\varepsilon^2 l / 8} \\
 &= 2 \Delta^{\mathcal{S}}(X_1, \dots, X_{2l}) e^{-\varepsilon^2 l / 8}\\
 &\leq 2 m^S(2l) e^{-\varepsilon^2 l / 8}.
@@ -2307,7 +2302,8 @@ se concentra cerca de \( c \). Para esto, usaremos el siguiente resultado.
     \]
 \end{lem}
 \bigskip
-\begin{lem} Sea la variable aleatoria
+\begin{lem} \label{lema 4}
+    Sea la variable aleatoria
     \[
         \xi^{(l)} = \frac{1}{l} \log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_l).
     \]
@@ -2445,6 +2441,8 @@ se concentra cerca de \( c \). Para esto, usaremos el siguiente resultado.
     \begin{equation}\label{eq 18}
     R_1 \geq \frac{\varepsilon}{2} \int_{0}^{c - \varepsilon} dF_{\xi} = \frac{\varepsilon}{2} P^-(l, \varepsilon).
     \end{equation}
+    \bigskip
+
     Sea \( \delta \) un número positivo. Entonces,
 
     \begin{equation}\label{eq 19}
@@ -2476,6 +2474,12 @@ se concentra cerca de \( c \). Para esto, usaremos el siguiente resultado.
     \end{equation*}
     El lema queda demostrado.
 \end{proof}
+\bigskip
+
+El siguiente resultado es una generalización del teorema (\ref{thm: consistencia ssi}), y establece una condición necesaria y suficiente para la 
+convergencia uniforme casi segura de las frecuencias relativas a las probabilidades reales de los eventos en la clase \( \mathcal{S} \), lo que 
+se traduce en la tan buscada consistencia de una clase de funciones asociada a un proceso de aprendizaje. \newline
+
 
 \begin{thm}
     Una condición necesaria y suficiente para que las frecuencias relativas converjan (en probabilidad) a 
@@ -2486,13 +2490,313 @@ se concentra cerca de \( c \). Para esto, usaremos el siguiente resultado.
     \end{equation}
 \end{thm}
     
-    Observemos que, por el Lema 4, la condición (\ref{condicion nec y suf}) es equivalente a la siguiente afirmación:  
+    Observemos que, por el Lema (\ref{lema 4}), la condición (\ref{condicion nec y suf}) es equivalente a la siguiente afirmación:  
     
 \begin{equation}
     \lim_{l \to \infty} P\left( \frac{1}{l}\log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_l) > \delta  \right) = 0, 
     \quad \text{para todo } \delta > 0.
 \end{equation}
-    
+\begin{proof}
+
+
+\textbf{Suficiencia.} 
+
+Supongamos que
+
+\[
+\lim_{l \to \infty} \frac{H^{\mathcal{S}}(l)}{l} = 0.
+\]
+
+Recordemos que, por el Lema de Simetrización, \( 2P(C) \geq \frac{1}{2} P(Q) \). Estimemos la probabilidad del evento \( C \).\newline
+
+Como mostramos previamente,
+
+\[
+P(C) \leq \frac{1}{(2l)!} \int_{Z^{(2l)}} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) dP.
+\]
+
+Sea \( \delta = \varepsilon^2 / 16 \) y dividamos la región de integración en dos partes: 
+\( Z_1^{(2l)} = \{ \log_2 \Delta^{\mathcal{S}}(Z_{2l}) \leq 2\delta \} \) y 
+\( Z_2^{(2l)} = Z^{(2l)} - Z_1^{(2l)} \). Entonces,
+
+\[
+P(C) = \int_{Z_1^{(2l)}} \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) dP
+\]
+
+\[
++ \int_{Z_2^{(2l)}} \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) dP.
+\]
+
+Dado que el integrando no excede la unidad, tenemos que
+
+\[
+P(C) \leq \int_{Z_1^{(2l)}} \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) dP + P^+(2l, \delta).
+\]
+
+Se demostró que
+
+\[
+\frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) \leq 2 \Delta^{\mathcal{S}}(X_1, \dots, X_{2l}) e^{-\varepsilon^2 l / 8}.
+\]
+
+Usando el hecho de que \( \Delta^{\mathcal{S}}(X_1, \dots, X_{2l}) \leq 2^{2\delta l} \) en la región de integración y el valor que hemos
+fijado de $\delta$, obtenemos
+
+\[
+P(C) \leq 2 \cdot 2^{2\delta l} e^{-\varepsilon^2 l / 8} + P^+(2l, \delta) = 2\left(\frac{2}{e}\right)^{\varepsilon^2 l / 8} + P^+(2l, \delta).
+\]
+
+Pero, por el Lema (\ref{lema 4}), sabemos que
+\[ 
+\lim_{l \to \infty} P^+(2l, \delta) = 0 .
+\]
+
+Por lo tanto, se sigue que \( \lim_{l \to \infty} P(C) = 0 \) y, en consecuencia, \( \lim_{l \to \infty} P(Q) = 0 \). Esto prueba la suficiencia.\newline
+
+\textbf{Necesidad.}\newline
+\( 1^\circ \). Supongamos como antes que
+
+\begin{equation}\label{eq 23}
+\lim_{l \to \infty} \frac{H^{\mathcal{S}}(l)}{l} = c > 0
+\end{equation}
+y procedamos por el contrarrecíproco. Para demostrar la necesidad, debemos mostrar que existe un \( \varepsilon > 0 \) tal que
+
+\begin{equation*}
+\lim_{l \to \infty} P(Q) = \lim_{l \to \infty} P \left\{ \sup_{A \in \mathcal{S}} \left| \nu_A^{(l)} - P_A \right| > \varepsilon \right\} \neq 0.
+\end{equation*}
+Es suficiente estimar la probabilidad del evento
+
+\begin{equation*}
+C' = \left\{ \sup_{A \in \mathcal{S}} \left| \nu_A^{(1)} - \nu_A^{(2)} \right| > 2\varepsilon \right\}.
+\end{equation*}
+En efecto, mostraremos que a partir de una estimación inferior para la probabilidad del evento \( C' \) se obtendrá una estimación inferior para \( P(Q) \). Supongamos que \( X_1, \dots, X_{2l} \) es una muestra dada y que el evento \( Q \) no ocurre en ambas semimuestras, es decir,
+
+\begin{equation*}
+\sup_{A \in \mathcal{S}} \left| \nu_A^{(1)} - P_A \right| \leq \varepsilon, \quad \sup_{A \in \mathcal{S}} \left| \nu_A^{(2)} - P_A \right| \leq \varepsilon.
+\end{equation*}
+Entonces, automáticamente
+
+\begin{equation*}
+\sup_{A \in \mathcal{S}} \left| \nu_A^{(1)} - \nu_A^{(2)} \right| \leq 2\varepsilon.
+\end{equation*}
+A partir de la independencia de las semimuestras, obtenemos
+
+\begin{equation*}
+1 - P(C') \geq (1 - P(Q))^2, 
+\end{equation*}
+es decir, 
+\[
+P(C') \leq 2P(Q) - P^2(Q).
+\]
+Una versión más débil de esta desigualdad nos da
+
+\begin{equation*}
+P(Q) \geq \frac{1}{2} P(C').
+\end{equation*}
+
+\bigskip
+\( 2^\circ \). Observemos ahora que, en virtud del lema (\ref{Lema 1}), se puede encontrar una submuestra \( X_{i_1}, \dots, X_{i_n} \) de \( Z_{2l} \) tal que \( \mathcal{S} \) induce en ella todos los subsistemas posibles, proporcionando
+
+\begin{equation}\label{eq 24}
+\Delta^{\mathcal{S}}(X_1, \dots, X_l) \geq \Phi(n, l).
+\end{equation}
+Asignamos algún \( q \), \( 0 < q < \frac{1}{4} \), y estimamos la probabilidad de que (\ref{eq 24}) se mantenga para \( n = [ ql ] \). No es difícil ver que, para \( q < \frac{1}{4} \) y \( n = [ ql ] \),
+
+\begin{equation*}
+\Phi(n, l) = \sum_{i=0}^{n} \binom{l}{i} < 2 \binom{l}{n} < 2 \frac{l^{[ ql ]}}{[ ql ] !}.
+\end{equation*}
+En lo que sigue, asumiremos que \( l \geq 1/q \). Así, \( [ ql ] \geq \frac{1}{2} ql \). Aplicando la fórmula de Stirling, obtenemos la estimación
+
+\begin{equation*}
+\Phi(n, l) < 2 \left( \frac{2e}{q} \right)^{ql}.
+\end{equation*}
+Ahora, para la probabilidad de que (\ref{eq 24}) se mantenga, obtenemos la estimación
+
+\begin{align*}
+P \left( \Delta^{\mathcal{S}}(X_1, \dots, X_l) \geq \Phi(n, l) \right) 
+&\geq P \left( \Delta^{\mathcal{S}}(X_l) > \left( \frac{2e}{q} \right)^{ql} \right) \\
+&= P \left( \frac{\log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_l)}{l} > q \log_2 \frac{2e}{q} + \frac{1}{l} \right).
+\end{align*}
+Dado que \( \lim_{l \to \infty} \frac{H^{\mathcal{S}}(l)}{l} = c \), podemos elegir un \( q \) suficientemente pequeño tal que
+
+\begin{equation}\label{eq 25}
+q \log_2 \frac{2e}{q} < c.
+\end{equation}
+Si suponemos que (\ref{eq 25}) se satisface, podemos aplicar el Lema (\ref{lema 4}) para obtener
+
+\begin{equation}\label{eq 26}
+\lim_{l \to \infty} P \left( \Delta^{\mathcal{S}}(X_1, \dots, X_l) > \Phi(n, l) \right) = 1.
+\end{equation}
+
+\( 3^\circ \). Para completar la demostración de la necesidad, solo debemos estimar
+
+\begin{equation*}
+P(C') = \int_{Z^{(2l)}} \theta \left( \sup_{A \in \mathcal{S}} | \nu_A^{(1)} - \nu_A^{(2)} | - 2\varepsilon \right) dP
+= \int_{Z^{(2l)}} \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)} (T_i Z_{2l}) - 2\varepsilon \right) dP
+\end{equation*}
+
+para \( \varepsilon > 0 \).\newline
+
+Escogemos un \( q \) que satisfaga (\ref{eq 25}) y sea \( B \) el conjunto de aquellas muestras para las cuales 
+\( \Delta^{\mathcal{S}}(X_1, \dots, X_{2l}) \geq \Phi([ 2ql ], 2l) \). Entonces,
+
+\begin{equation*}
+P(C') \geq \int_B \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)} (T_i Z_{2l}) - 2\varepsilon \right) dP
+= \int_B Z \, dP.
+\end{equation*}
+Examinemos ahora el integrando \( Z \) asumiendo que \( Z_{2l} \in B \).\newline
+
+Observemos que todas las permutaciones \( T_i \) pueden clasificarse en grupos \( R_i \),
+correspondientes a la misma partición en la primera y segunda semimuestra.
+El valor de \( \rho^{(l)} (T_i Z_{2l}) \) no cambia dentro del marco de un grupo.
+El número de permutaciones en todos los grupos es el mismo e igual a \( (l!)^2 \).
+El número de grupos es \( \binom{2l}{l} \). Así, 
+
+\[
+Z = \frac{1}{\binom{2l}{l}} \sum_{i=1}^{\binom{2l}{l}} \theta ( \rho^{(l)} (R_i Z_{2l}) - 2\varepsilon ).
+\]
+
+Por el Lema (\ref{Lema 1}), considerando que \( Z_{2l} \) satisface (\ref{eq 24}), podemos extraer una submuestra \( y \)
+en esta muestra de tamaño \( n \) tal que \( \mathcal{S} \) induce todos los posibles subsistemas en ella.
+La partición \( R_i \) está completamente determinada si la partición \( N_k \) de la submuestra \( y \)
+y la partición \( M_j \) de la submuestra \( Z_{2l} - y \) están dadas.\newline
+
+Sea \( R_i = N_k M_j \). Definimos \( r(k) \) como el número de elementos en la submuestra \( y \) que pertenecen,
+bajo la partición \( N_k \), a la primera semimuestra y \( s(j) \) como el número de elementos en la submuestra
+\( Z_{2l} - y \) que pertenecen, bajo la partición \( M_j \), a la primera semimuestra.
+Claramente, \( r(k) + s(j) = l \) para \( k \) y \( j \) correspondientes a la misma partición \( R_i \).
+Tenemos entonces:
+
+\[
+Z = \frac{1}{\binom{2l}{l}} \sum_k \sum_j \theta ( \rho^{(l)} (N_k M_j Z_{2l}) - 2\varepsilon ),
+\]
+
+donde \( \sum_j^* \) denota la sumatoria solo sobre aquellos \( j \) para los cuales 
+\[
+S(j) = l - r(k).
+\]
+Así,
+
+\[
+Z = \frac{1}{\binom{2l}{l}} \sum_{r=0}^{l} \left( \sum_k^* \sum_j^* \theta ( \rho^{(l)} (N_k M_j Z_{2l}) - 2\varepsilon ) \right),
+\]
+
+donde \( \sum_k^* \) es la sumatoria sobre solo aquellos \( k \) para los cuales \( r(k) = r \).
+Para cada \( N_k \), podemos especificar un conjunto \( A(k) \in \mathcal{S} \) tal que \( A(k) \) incluya exactamente
+los elementos de la submuestra \( y \) que pertenecen bajo la partición \( N_k \) a la primera semimuestra.\newline
+
+Ahora, introducimos la siguiente notación. Diremos que $t(k)$ es el numero de elementos en la semi muestra $Z_{2l} - y$ que
+además pertenecen a $A(k)$. También diremos que  \( u(k,j) \) es el número de elementos en \( Z_{2l} - y \) en \( A(k) \)
+que pertenecen a la primera semimuestra bajo la partición \( M_j \).\newline
+
+Tenemos entonces que \( \nu_{A(k)}^{(1)} = (r + u)/l \) y \( \nu_{A(k)}^{(2)} = (t - u)/l \).
+Así, 
+
+\[
+\rho^{(l)}_{A(k)} = |\nu_{A(k)}^{(1)} - \nu_{A(k)}^{(2)}| = l^{-1} | 2u + r - t |.
+\]
+Además, usando que 
+\[ 
+\sup_{A \in \mathcal{S}} \rho_A \geq \rho_{A(k)},
+\] 
+al reemplazar el supremo por $\rho_{A(k)}$, obtenemos que
+
+\[
+Z \geq \frac{1}{\binom{2l}{l}} \sum_{r=0}^{l} \sum_k^* \sum_j^* \theta ( l^{-1} (2u(k,j) + r - t) - 2\varepsilon ).
+\]
+Observemos que el número de particiones \( M_j \) que satisfacen la condición \( S(j) = l - r \) para un \( r \) fijo es
+\( \binom{2l - [2q l]}{l - r} \), y el número de particiones \( M_j \) que, además, corresponden a la misma \( u \) para un \( r \) fijo
+y \( A(k) \) es:
+
+\[
+\binom{t(k)}{u} \binom{2l - [2q l] - t(k)}{l - r - u}.
+\]
+Usando estas relaciones, obtenemos
+
+\[
+Z \geq \frac{1}{\binom{2l}{l}} \sum_{r=0}^{l} \binom{2l - [2q l]}{l - r} \sum_k^* \sum_u^* \frac{\binom{t(k)}{u} \binom{2l - [2q l] - t(k)}{l - r - u}}{\binom{2l - [2q l]}{l - r}},
+\]
+donde \( \sum_u^* \) es la sumatoria solo sobre aquellos \( u \) para los cuales \( l^{-1} |2u + r + t(k)| > 2\varepsilon \).
+La expresión en la última suma no es más que la probabilidad de extraer \( u \) bolas negras de una urna que contiene
+\( 2l - [2q l] \) bolas, de las cuales \( t \) son negras, suponiendo que \( l - r \) bolas en total son extraídas sin reemplazo.
+Además, como se muestra en [10], se verifica: 
+
+\[
+\mathbb{E}(u) = \frac{(l - r)}{2l - [2q l]} t; \quad \text{Var}(u) \leq l.
+\]
+Aplicando la desigualdad de Chebyshev, obtenemos
+
+\[
+P \left( \left| \frac{M(u) - u}{l} \right| \leq \varepsilon \right) \geq 1 - \frac{1}{l \varepsilon^2},
+\]
+o 
+
+\[
+\sum_u^* \frac{\binom{u}{l} \binom{2l - [2q l] - t}{l - r - u}}{\binom{2l - [2q l]}{l - r}} \geq 1 - \frac{1}{\varepsilon^2 l},
+\]
+donde la sumatoria es sobre todos los \( u \) que satisfacen
+
+\begin{equation}\label{eq 27}
+    \left| u - \frac{(l - r) t}{2l - [2q l]} \right| \leq \varepsilon l.
+\end{equation}
+Por verificación directa es fácil mostrar que, para \( 7 \varepsilon \leq r/l \leq q + \varepsilon \) y \( l > 1/\varepsilon \),
+la desigualdad (\ref{eq 27}) implica que \( |2u + r - t| > 2 \varepsilon l \) para todo \( t, \ 0 \leq t \leq 2l - [2q l] \).
+Así, bajo estas condiciones,
+
+\[
+\sum_u^* \frac{\binom{u}{l} \binom{2l - [2q l] - t}{l - r - u}}{\binom{2l - [2q l]}{l - r}} \geq 1 - \frac{1}{\varepsilon^2 l}.
+\]\newline
+
+Volviendo a la estimación de \( Z \), obtenemos para \( l > 1/\varepsilon \):
+
+\[
+Z \geq \frac{1}{\binom{2l}{l}} \sum_{7 \varepsilon \leq r/l \leq q + \varepsilon} \binom{2l - [2q l]}{l - r} \sum_k^* \left( 1 - \frac{1}{\varepsilon^2 l} \right),
+\]
+
+\[
+= \frac{\left( 1 - \frac{1}{\varepsilon^2 l} \right)}{\binom{2l}{l}} \sum_{7 \varepsilon \leq r/l \leq q + \varepsilon} \binom{2l - [2q l]}{l - r} \binom{[2q l]}{r}.
+\]
+Observamos que
+
+\[
+\lim_{l \to \infty} \frac{1}{\binom{2l}{l}} \sum_{7 \varepsilon \leq r/l \leq q + \varepsilon} \binom{2l - [2q l]}{l - r} \binom{[2q l]}{r} = 1.
+\]
+(Véase, por ejemplo, la estimación de \( \Gamma \) en la demostración del lema previo) si 
+
+\begin{equation}\label{eq 28}
+0 < \varepsilon < \frac{q}{7}.
+\end{equation}
+Finalmente, asumiendo que (\ref{eq 28}) se cumple, tenemos para \( l > 1/\varepsilon \):
+
+\[
+P(C') = \int_B Z \, dP \geq \left( 1 - \frac{1}{\varepsilon^2 l} \right) \frac{\binom{2l - [2q l]}{l - r} \binom{[2q l]}{r}}{\binom{2l}{l}} P(B).
+\]
+y 
+
+\[
+\lim_{l \to \infty} P(C') \geq \lim_{l \to \infty} P(B) = \lim_{l \to \infty} P(\Delta^{\mathcal{S}}(X_1, \dots, X_{2l}) > \Phi([2q l]/2)).
+\]
+Mostramos en \( 2^\circ \) que este último límite tiene el valor 1. Por lo tanto, se sigue que 
+
+\[
+\lim_{l \to \infty} P(C') = 1.
+\]
+De acuerdo con \( 1^\circ \), esto significa que 
+
+\begin{equation}\label{eq 29}
+\lim_{l \to \infty} P\left( \sup_{A \in \mathcal{S}} \left| \nu_A^{(1)} - P_A \right| > \varepsilon \right) = 1,
+\end{equation}
+siempre que se cumplan las condiciones:
+
+\[
+\varepsilon < \frac{q}{7} \quad \text{y} \quad q \log_2 \frac{2e}{q} < c.
+\]\newline
+
+Así, es posible elegir un \( \varepsilon \) positivo de modo que (\ref{eq 29}) se cumpla. Es decir,
+la condicion (\ref{eq 23}) implica la no convergencia de las frecuencias relativas a las probabilidades de manera uniforme,
+por lo que la necesidad queda finalmente demostrada por el contrarrecíproco. El teorema queda demostrado.
+
+\end{proof}
     
 
 
@@ -2987,24 +3291,27 @@ de las etiquetas de los puntos de entrenamiento. En tal escenario, el aprendizaj
 \pagebreak
 \chapter*{Bibliografía}
 
-[1] \textit{Statistical Learning Theory: Models, Concepts and Results} - von Luxburg, B. Schölkopf (2008). \\
+[1] von Luxburg, B. Schölkopf - \textit{Statistical Learning Theory: Models, Concepts and Results} (2008). \\
 
-[2] \textit{The Nature of Statistical Learning Theory} - Vladimir Vapnik (1995). \\
+[2] Vladimir Vapnik - \textit{The Nature of Statistical Learning Theory} (1995). \\
 
-[3] \textit{Statistical Learning Theory} - Vladimir Vapnik (1998). \\
+[3] Vladimir Vapnik  - \textit{Statistical Learning Theory} (1998). \\
 
-[4] \textit{A Probabilistic Theory of Pattern Recognition} - Luc Devroye, László Györfi, Gábor Lugosi (1996). \\
+[4] Luc Devroye, László Györfi, Gábor Lugosi - \textit{A Probabilistic Theory of Pattern Recognition} (1996). \\
 
-[5] \textit{Learning with Kernels} - B. Schölkopf, A. Smola (1996). \\
+[5] B. Schölkopf, A. Smola - \textit{Learning with Kernels} (1996). \\
 
-[6] \textit{Statistical Inference} - Casella, Berger . \\
+[6] G. Casella, R. Berger \textit{Statistical Inference, Second Edition} (2002). \\
 
-[7] \textit{Pattern Recognition and Machine Learning} - C. Bishop (2006). \\
+[7] C. Bishop - \textit{Pattern Recognition and Machine Learning} (2006). \\
 
-[8] \textit{On the uniform convergence of relative frequencies of events to their probabilities} - V. N. VAPNIK and A. YA. CHERVONENKIS (1971)
+[8] V. N. Vapnik, A. YA. Chervonenkis - \textit{On the uniform convergence of relative frequencies of events to their probabilities} (1971)\\
 
-[9] A. YA. KHINCHIN, Onbasic theorems ofinformation theory, Uspekhi Mat. Nauk,XI, (1956),
-pp. 17-75. (In Russian.)
+[9] A. YA. Khinchin -  \textit{On basic theorems of information theory} (1956), pp. 17-75.\\
+
+[10] W. Feller - \textit{Introduction to Probability Theory and its Applications, Vol. 1}  (1957).\\
+
+[11] Abu-Mostafa et al - \textit{Learning From Data} (2012)
 
 
 
