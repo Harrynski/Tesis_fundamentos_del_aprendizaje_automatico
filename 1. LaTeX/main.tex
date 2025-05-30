@@ -160,7 +160,7 @@ e idénticamente distribuída-. Notemos lo siguiente:
     caso donde se viola esta suposición es en aquellos problemas en donde la distribución de probabilidad de los datos de entrenamiento no
     coincide con el de los datos posteriores, llamado \textit{covariate shift}, por ejemplo en un sistema de \textit{scoring} de usuarios
     de una empresa que crece súbitamente y que suma a personas que no se corresponden a los perfiles que existían originalmente en su base
-    de datos (e.g. se admite que inmigrantes no bancarizados y sobre los que no hay datos previos accedan a préstamos).
+    de datos (e.g. se admite que inmigrantes no bancarizados, y sobre los que no hay datos previos, accedan a préstamos).
     \item \textit{La distribución P es desconocida al momento de aprender}. Si conociéramos de antemano la probabilidad condicional $P$,
     el problema del aprendizaje sería trivial pues podríamos siempre determinar el mejor clasificador posible (aunque no sea perfecto,
     dada la naturaleza aleatoria de las etiquetas). Solo tenemos acceso a $P$ de manera indirecta, a través de las muestras. Intuitivamente,
@@ -187,15 +187,20 @@ En problemas de regresión, la función de pérdida más conocida es el \textit{
 \ell(X,Y,f(X)):= (Y-f(X))^2
 \]
 Por convención, una pérdida igual a $0$ implica una clasificación perfecta y valores mayores implican peor clasificación. Es decir,
-el aprendizaje suele implicar un desafío de optimización en dónde deseamos hallar el mínimo de la función de perdida.
+el aprendizaje suele implicar un desafío de optimización en dónde deseamos hallar el mínimo de la función de perdida.\newline
 
 Mientras que la función de pérdida mide el error del clasificador en un punto individual $x\in X$, llamamos \textit{riesgo}, $\mathcal{R}$, 
-del clasificador a la pérdida esperada sobre todos los datos generados por la distribución de probabilidad $P$. Es decir
+del clasificador a la pérdida esperada sobre todos los datos generados por la distribución de probabilidad $P$. Es decir \newline
+
 \[
-\mathcal{R}(f) := \mathbb{E}\left( \ell(X,Y,f(X)) \right)
-\]
+\mathcal{R}(f) := \mathbb{E}_{P}\left( \ell(X,Y,f(X)) \right).
+\]\newline
+
+En general, no escribiremos el subíndice de la esperanza, dado que siempre será con respecto a la distribución de probabilidad $P=P(X,Y)$ que genera los datos.
 Desde luego que otra función $g$ es un mejor clasificador que $f$ para un problema dado si su riesgo es más bajo, es decir si $\mathcal{R}(g)
-< \mathcal{R}(f)$, por lo que el mejor clasificador de todos es aquel con el riesgo más bajo.
+< \mathcal{R}(f)$, por lo que el mejor clasificador de todos es aquel con el riesgo más bajo.\newline
+
+\subsection{Espacios de funciones y el clasificador de Bayes}
 
 Algo que no hemos considerado aún es si los clasificadores $f$ tienen alguna característica especial. Para formalizarlo, tomaremos funciones de un
 espacio de funciones $\mathcal{F}$ que aplican $X$ en $Y$. En un principio, parecería aceptable tomar el espacio de todas las funciones posibles, o 
@@ -217,27 +222,38 @@ Bayesiano estaría en lo correcto.
 
 En la práctica no es posible computar directamente el clasificador Bayesiano dado que, como dijimos, la distribución de probabilidad
 conjunta $P$ es desconocida. Sin embargo, este clasificador es una herramienta teórica que nos permite formular el problema
-estandar de la clasificación binaria, el cual es:
+estandar de la clasificación binaria, el cual es:\newline
 
-\textit{Dado un conjunto de datos de entrenamiento $ \{ (X_1,Y_1),\dots,(X_n, Y_m)\}$ obtenidos iid de una distribución $P$, y dada una
-función de pérdida $\ell$, deseamos construir una funión clasificadora $f:X\rightarrow Y$ cuyo riesgo $\mathcal{R}(f)$ sea lo
-más cercano posible al riesgo de $f_{\text{Bayes}}$.}
+\begin{dfn}
+Dado un conjunto de datos de entrenamiento 
+$$ \{ (X_1,Y_1), \dots ,(X_n, Y_m)\}$$ 
+obtenidos iid de una distribución $P$, y dada una función de pérdida $\ell$, deseamos construir una función clasificadora 
+$f:X\rightarrow Y$ cuyo riesgo $\mathcal{R}(f)$ sea lo más cercano posible al riesgo de $f_{\text{Bayes}}$. Llamamos a este problema
+\textbf{clasificación binaria}.
+\end{dfn}
 
 Notemos que no solo es imposible computar el error del clasificador Bayesiano, sino también el propio riesgo de cualquier clasificador
 $f$. Es decir, dado un problema definido (minimizar el riesgo del clasificador), con una solución ideal que podemos escribir (el propio
-clasificador Bayesiano), no tenemos manera de computar ninguna cosa de utilidad. Aquí es donde la teoría de aprendizaje estadístico
-nos permite llegar a resultados y obtener garantías de la utilidad de esas soluciones.
+clasificador Bayesiano), no tenemos manera de computar ninguna cosa de utilidad. Esta deficiencia es la que justifica la existencia de 
+ la teoría de aprendizaje estadístico.\newline
+
 
 \subsection{Generalización}
 
-Dado que no conocemos la distribución de probabilidad $P(X,Y)$, no podemos calcular la esperanza de la pérdida de un clasificador cualquiera
-$f$, es decir su riesgo. Lo que si podemos hacer, dado un conjunto de entrenamiento, es ``contar'' (o medir, en general, para problemas
+Tomemos cualquier clasificador binario $f$. Dado que no conocemos la distribución de probabilidad $P(X,Y)$ sobre los datos, no podemos calcular 
+la esperanza de la pérdida de $f$, es decir su riesgo. Lo que si podemos hacer, dado un conjunto de entrenamiento, es ``contar'' (o medir, en general, para problemas
 que no son de clasificación binaria) el número de errores del clasificador sobre los datos de entrenamiento. A esta cantidad le daremos
-el nombre de \textit{riesgo empírico} y lo veremos presente en la literatura también como \textit{error de entrenamiento}. Lo definimos
-como
-\[
-R_{emp}(f) := \frac{1}{n} \sum_{i=1}^n \ell(X_i,Y_i,f(X_i))
-\]
+el nombre de \textit{riesgo empírico} y la veremos presente en la literatura también como \textit{error de entrenamiento}. La definimos a continuación.\newline
+
+\begin{dfn} \label{dfn:riesgo_empirico}
+    Sea $(X_i,Y_i)_{i=1}^n$ un conjunto de datos de entrenamiento, donde cada $(X_i,Y_i)$ es tomado iid de una distribución de probabilidad $P(X,Y)$. Sea
+    $\ell$ una función de pérdida. Sea $f_n$ un clasificador binario construido a partir de ejemplos, luego
+    de ser presentado con los primeros $n$ datos de entrenamiento.
+    Entonces el \textbf{riesgo empírico} del clasificador $f$ es la pérdida promedio sobre los datos de entrenamiento, es decir
+    \[
+    R_{emp}(f) := \frac{1}{n} \sum_{i=1}^n \ell(X_i,Y_i,f(X_i))
+    \]
+\end{dfn}
 
 Por ejemplo, de la función de pérdida llamada error cuadrático se deriva el riesgo empírico \textit{error cuadrático medio}, que es ampliamente
 utilizado en la práctica. Usualmente, un algoritmo de aprendizaje aceptable es capaz de producir un clasificador $f$ que performa aceptablemente bien en un conjunto de datos
@@ -245,10 +261,40 @@ conocido, es decir tal que el riesgo empírico del clasificador es bajo. Nos int
 de entrada $X$, no solo en los datos de entrenamiento. Decimos que un clasificador \textit{generaliza} bien si la diferencia entre su riesgo
 y su riesgo empírico es baja.\newline
 
-
 Por supuesto que una buena generalización no asegura que el riesgo, ni el riesgo empírico, sean bajos, si no que dichas cantidades son cercanas.
 Pero lo que nos interesa es que el riesgo empírico sea un buen estimativo del riesgo del clasificador, y esto es lo que nos permitirá
 hacer afirmaciones acerca del error del clasificador en la práctica.
+
+\subsection{Algortimos de aprendizaje}
+
+En la definición de riesgo empírico (\ref{dfn:riesgo_empirico}) consideramos una función clasificadora $f_n$ construida a partir
+de ejemplos, a la que se le alimenta con los primeros $n$ datos de entrenamiento. Lo que no hemos indicado es cómo se lleva a cabo dicha construcción. 
+Vapnik llama en [2] \textit{regla de decisión } a todo procedimiento matemático que, dado un conjunto de datos de entrenamiento, selecciona una función 
+$f$ de un espacio funcional $\mathcal{F}$, con el objetivo de aproximar lo mejor posible el clasificador de Bayes. Nosotros le daremos el nombre de
+\textit{algoritmo de aprendizaje}. Podemos definirlo más abstractamente de la siguiente manera:
+
+\begin{dfn}
+Llamamos \textbf{algoritmo de aprendizaje} a todo procedimiento matemático que, dado un conjunto
+de datos de entrenamiento $(X_i,Y_i)$, devuelve una función clasificadora $f$ sobre el espacio de entrada $X$ y el espacio de etiquetas $Y$ del que
+provienen los datos.
+\end{dfn}
+
+En la práctica, dado un conjunto de datos que provienen de una cieta población, históricamente partimos de una familia de funciones que
+consideramos como potenciales clasificadores e intentamos encontrar la mejor de ellas, o al menos una que sea lo suficientemente buena. Es decir,
+primero definimos el espacio funcional $\mathcal{F}$, por ejemplo definido como una familia de funciones paramétricas (es decir, funciones que comparten
+una forma general y que son definidas por el valor de ciertos paramétros dentro de esa forma). Luego, para encontrar la mejor de 
+las funciones allí, construímos un algoritmo que, al presentarle datos, corrige los parámetros de manera que el riesgo empírico del clasificador 
+disminuya. Debe estar, por tanto, implícito en el algoritmo algún mecanismo para recorrer el espacio de parámetros de manera que el riesgo empírico,
+que es el único que podemos medir, disminuya. A medida que presentamos más ejemplos, el procedimiento se repite, disminuyendo en cada paso el riesgo
+empírico. \newline
+
+Nos gustaría entonces que, al construir este clasificador a base de ejemplos, obtengamos una función que pueda clasificar correctamente
+ejemplos nuevos. Es decir, que se equivoque cada vez menos a medida que le damos más datos. Esto no es otra cosa que disminuir el riesgo real 
+del clasificador, el cual no podemos medir. El valor de la teoría del aprendizaje estadístico es que nos permite, bajo ciertas condiciones,
+hacer afirmaciones del riesgo real a partir de lo que podemos medir del riesgo empírico.\newline
+
+EJEMPLO DE CLASIFICADOR LINEAL CON PARAMETROS
+
 
 \subsection{Consistencia}
 Intuitivamente, parece razonable pedirle a un algoritmo de aprendizaje que, al ser presentado con más y más ejemplos, converja a una
@@ -3280,7 +3326,7 @@ el caso límite cuando \(n \to \infty\). En el ejemplo del espacio de datos fini
 notemos que, tan pronto como el tamaño de la muestra es lo suficientemente grande como para haber muestreado 
 esencialmente cada zona del espacio al menos una vez, un clasificador que memoriza los datos de entrenamiento 
 ya no cometerá más errores. Afirmaciones similares (aunque algo más complicadas) también son válidas en casos 
-de espacios de datos infinitos. Así, los teoremas de la chanca y los veinte hacen afirmaciones sobre un tamaño de muestra finito \(n\), mientras que 
+de espacios de datos infinitos. Así, los teoremas de la chancha y los veinte hacen afirmaciones sobre un tamaño de muestra finito \(n\), mientras que 
 la consistencia considera el límite cuando \(n \to \infty\).\newline
 
 Otra manera de expresar esto es la siguiente: si las etiquetas de los puntos se asignan de manera 
