@@ -53,11 +53,11 @@ a través de los cuales las computadoras pueden resolver algunas tareas acotadas
 ser especificadas con una cantidad finita de código de programación (reglas determinísticas).\newline
 
 A fin de simplificar la teoría, nos centraremos  en el más conocido de los problemas del Machine Learning, el de clasificación. Consideremos dos espacios
-de variables: \(X\), llamado \textit{espacio de entrada}, e \(Y\), el  \textit{espacio de etiquetas}. En un problema de clasificación, deseamos poder etiquetar
-correctamente elementos de \(X\) con los valores de \(Y\). Por ejemplo, podríamos querer clasificar un conjunto de datos, en alguna representación fija, de distintos 
+de variables: \(\mathcal{X}\), llamado \textit{espacio de entrada}, e \(\mathcal{Y}\), el  \textit{espacio de etiquetas}. En un problema de clasificación, deseamos poder etiquetar 
+correctamente elementos de \(\mathcal{X}\) con los valores de \(\mathcal{Y}\). Por ejemplo, podríamos querer clasificar un conjunto de datos, en alguna representación fija, de distintos 
 objetos en una cantidad de etiquetas como: silla, cama, microondas, perro, gato. Si esta representación es en imágenes de \(N\times M\) pixeles en blanco y negro (realmente, 
-matrices de orden \(N\times M\) con coeficientes reales en el interavalo \([0,1]\) que representan la intensidad de cada pixel, del negro al blanco), el espacio \(X\) es 
-el conjunto de dichas matrices y el espacio \(Y\) las categorías distintas que corresponden a lo que las imágenes muestran. Con el fin de aprender, a un algoritmo se le 
+matrices de orden \(N\times M\) con coeficientes reales en el interavalo \([0,1]\) que representan la intensidad de cada pixel, del negro al blanco), el espacio \(\mathcal{X}\) es 
+el conjunto de dichas matrices y el espacio \(\mathcal{Y}\) las categorías distintas que corresponden a lo que las imágenes muestran. Con el fin de aprender, a un algoritmo se le 
 muestran ejemplos de imágenes y sus respectivas etiquetas \((X_1,Y_1)\), \((X_2,Y_2)\), \dots, \((X_n,Y_n)\), a partir de los cuales este debe encontrar una función
 \(f: X\rightarrow Y\), que comete la menor cantidad de errores posibles. A esta función \(f\) la llamamos \textit{clasificador}.\newline
 
@@ -77,7 +77,7 @@ y = sgn\{(w\cdot x)-b\}
 \]
 
 con \(\cdot\) el producto interno de vectores en \(\mathbb{R}^n\), \(b\) un valor de límite y un vector \(w\) que se genera en el proceso de aprendizaje. Geométricamente, una 
-neurona divide el espacio \(X\) en dos regiones: en una la etiqueta \(y\) vale \(+1\) y en la otra \(-1\). Las dos regiones son separadas por el hiperplano:\newline
+neurona divide el espacio \(\mathcal{X}\) en dos regiones: en una la etiqueta \(y\) vale \(+1\) y en la otra \(-1\). Las dos regiones son separadas por el hiperplano:\newline
 
 \[
 (w\cdot x) - b = 0 \newline
@@ -279,9 +279,9 @@ de datos de entrenamiento $(X_i,Y_i)$, devuelve una función clasificadora $f$ s
 provienen los datos.
 \end{dfn}
 
-En la práctica, dado un conjunto de datos que provienen de una cieta población, históricamente partimos de una familia de funciones que
+En la práctica, dado un conjunto de datos que provienen de una cierta población, históricamente partimos de una familia de funciones que
 consideramos como potenciales clasificadores e intentamos encontrar la mejor de ellas, o al menos una que sea lo suficientemente buena. Es decir,
-primero definimos el espacio funcional $\mathcal{F}$, por ejemplo definido como una familia de funciones paramétricas (es decir, funciones que comparten
+primero definimos el espacio funcional $\mathcal{F}$, por ejemplo como una familia de funciones paramétricas (es decir, funciones que comparten
 una forma general y que son definidas por el valor de ciertos paramétros dentro de esa forma). Luego, para encontrar la mejor de 
 las funciones allí, construímos un algoritmo que, al presentarle datos, corrige los parámetros de manera que el riesgo empírico del clasificador 
 disminuya. Debe estar, por tanto, implícito en el algoritmo algún mecanismo para recorrer el espacio de parámetros de manera que el riesgo empírico,
@@ -293,8 +293,6 @@ ejemplos nuevos. Es decir, que se equivoque cada vez menos a medida que le damos
 del clasificador, el cual no podemos medir. El valor de la teoría del aprendizaje estadístico es que nos permite, bajo ciertas condiciones,
 hacer afirmaciones del riesgo real a partir de lo que podemos medir del riesgo empírico.\newline
 
-EJEMPLO DE CLASIFICADOR LINEAL CON PARAMETROS
-
 
 \subsection{Consistencia}
 Intuitivamente, parece razonable pedirle a un algoritmo de aprendizaje que, al ser presentado con más y más ejemplos, converja a una
@@ -302,7 +300,7 @@ solución óptima. En Estadística, la noción de \textit{consistencia} se relac
 sucede en el límite de una cantidad infinita de muestras y, a diferencia de la generalización, que es acerca de una función en particular,
 es una propiedad de un conjunto de funciones. Para ilustrar este concepto, denotemos como $f_n$ al clasificador construido por un algoritmo
 de aprendizaje luego de ser presentado con $n$ puntos de entrenamiento. Por el momento no repararemos en cómo el algoritmo construye esta
-función, pero podemos estar seguro que la elige de un cierto espacio funcional $\mathcal{F}$. Más adelante veremos que dicho espacio puede
+función, pero podemos estar seguros de que la elige de un cierto espacio funcional $\mathcal{F}$. Más adelante veremos que dicho espacio puede
 estar explícitamente dado, como en el caso de la regresión lineal, o no, y existir implícitamente en el mecanismo del propio algoritmo,
 como es el caso de las redes neuronales. Más allá de si $\mathcal{F}$ es explícito o no, el algoritmo debe elegir a la mejor función
 en dicho espacio basándose en los puntos de entrenamiento. Por otro lado, sabemos precisamente cuál es en teoría el mejor clasificador 
@@ -312,9 +310,10 @@ un solo mínimo global para la función de riesgo). Definimos a este clasificado
 f_{\mathcal{F}} = \argmin _{f\in{\mathcal{F}}} \mathcal{R}(f)
 \]
 Considerando que el clasificador bayesiano introducido en la sección anterior es el mejor clasificador posible, podríamos denotarlo,
-siguiendo la misma convención, como $f_{\mathcal{F}_{all}}$. Desde luego que el espacio $\mathcal{F}$ que elegimos 
-puede no contenerlo, por lo que $\mathcal{R}(f_{\text{Bayes}}) < \mathcal{R}(f_{\mathcal{F}})$. Con estas ideas, podemos definir
-los distintos de convergencia que trataremos al considerar el concepto de consistencia.
+siguiendo la misma convención, como $f_{\mathcal{F}_{all}}$, si $\mathcal{F}_{all}$ es el espacio de todos los clasificadores. Desde luego 
+que el espacio $\mathcal{F}$ que elegimos 
+puede no contenerlo, por lo que $\mathcal{R}(f_{\text{Bayes}}) \leq \mathcal{R}(f_{\mathcal{F}})$. 
+Ahora, definimos los distintos de convergencia que trataremos al considerar el concepto de consistencia.
 
 \begin{dfn}
     Sea $(X_i,Y_i)_{i\in\mathbb{N}}$ una sucesión infinita de puntos de entrenamiento que han sido tomados iid de una distribución $P$.
@@ -362,7 +361,8 @@ enunciar resultados.\newline
 
 Observamos que la consistencia como está aquí enunciada suele llamarse \textit{consistencia débil}. Existe una noción más fuerte, la de
 \textit{consistencia fuerte}, que pide que el riesgo empírico de $f_n$ converja al riesgo del mejor clasificador en $\mathcal{F}$, no solo
-en probabilidad, si no con probabilidad $1$, lo que también llamamos \textit{convergencia casi segura}. En la práctica, la consistencia fuerte es una propiedad muy fuerte y no es comúnmente
+en probabilidad, si no con probabilidad $1$, lo que también llamamos \textit{convergencia casi segura}. En la práctica, la consistencia fuerte es
+ una propiedad demasiado restrictiva y no es comúnmente
 alcanzada por los algoritmos de aprendizaje.\newline
 
 Notemos que en estas definiciones no se hace mención del riesgo empírico $\mathcal{R}_{\text{emp}}(f_n)$, si no del riesgo real $\mathcal{R}(f_n)$, lo que
@@ -378,7 +378,7 @@ de la teoría del aprendizaje estadístico, y es lo que nos permitirá hacer afi
 
 Consideremos un ejemplo de regresión. Se nos da un conjunto de observaciones empíricas 
 \((x_1, y_1), \dots, (x_m, y_m) \in X \times Y\), donde, simplemente, tomamos \(X = Y = \mathbb{R}\). 
-Por ejemplo, los datos podrían haberse recopilado en un experimento físico donde \(X\) representa el peso 
+Por ejemplo, los datos podrían haberse recopilado en un experimento físico donde \(\mathcal{X}\) representa el peso 
 de un objeto e \(Y\) la fuerza necesaria para arrastrar este objeto sobre una superficie rugosa.\newline
 
 La Figura ~\ref{fig:Sobreajuste y subajuste} muestra una representación gráfica de dicho conjunto de datos (indicados por los puntos redondos), 
@@ -436,7 +436,8 @@ ya señaló de manera intuitiva el problema de la complejidad del modelo: ¿cuá
 ¿Es bueno que un modelo sea simple? ¿Qué tan simple? 
 Ya hemos mencionado anteriormente que el objetivo de la clasificación es lograr un riesgo tan bueno 
 como el del clasificador de Bayes. ¿Podríamos simplemente elegir \(\mathcal{F}\) como el espacio \(\mathcal{F}_{\text{all}}\) 
-de todas las funciones, definir el clasificador \(f_n := \arg\min_{f \in \mathcal{F}_{\text{all}}} \left(\mathcal{R}_{\text{emp}}(f)\right)\), 
+de todas las funciones, definir el clasificador 
+$$f_n := \arg\min_{f \in \mathcal{F}_{\text{all}}} \left(\mathcal{R}_{\text{emp}}(f)\right),$$ 
 y obtener consistencia? Desafortunadamente, la respuesta es no. Luego veremos que, 
 si optimizamos sobre clases de funciones \(\mathcal{F}\) demasiado grandes, y en particular si hacemos \(\mathcal{F}\) tan 
 grande que contenga todos los clasificadores de Bayes para todas las distribuciones de probabilidad \(P\), 
@@ -520,7 +521,7 @@ debe existir alguna forma de relacionar las etiquetas de los puntos de entrenami
 puntos de prueba, y esto siempre implica suposiciones previas sobre las relaciones entre los puntos 
 de entrada. La relación más simple es una distancia entre puntos, pero existen otras formas de medir 
 la similitud, como los \textit{kernels}, que forman la base de algunos de los algoritmos 
-de aprendizaje más populares (Schölkopf y Smola, 2002).\newline
+de aprendizaje más populares (ver [5]).\newline
 
 Supongamos entonces que existe una función de distancia en el espacio de entrada, es decir, una función 
 \(d : X \times X \to \mathbb{R}\), que asigna un valor de distancia \(d(X, X')\) a cada par de puntos 
@@ -532,9 +533,9 @@ ese punto. Para definir esto de manera más formal, denotamos por \(\text{NN}(X)
 de \(X\) entre todos los puntos de entrenamiento, es decir:
 
 \[
-\text{NN}(X) = \arg\min \{X' \in \{X_1, \dots, X_n\} \mid d(X, X') \leq d(X, Z_2^{), }
+\text{NN}(X) = \arg\min \{X' \in \{X_1, \dots, X_n\} \mid d(X, X') \leq d(X, Z)\}, 
 \]
-para todo \( Z_2^{ \i}n \{X_1, \dots, X_n\}\}\). \newline
+para todo \( Z \in \{X_1, \dots, X_n\} \). \newline
 
 Luego, podemos definir el clasificador \(f_n\) basado en la muestra de \(n\) puntos como:
 
@@ -548,9 +549,9 @@ entrenamiento más cercanos, con $k>1$ en este caso, y tomando el promedio de to
 
 
 \begin{dfn}
-    Dados un espacio métrico \(X\) junto a una función de distancia \(d : X \times X \to \mathbb{R}\), 
+    Dados un espacio métrico \(\mathcal{X}\) junto a una función de distancia \(d : X \times X \to \mathbb{R}\), 
     un conjunto de puntos de entrenamiento con sus etiquetas \((X_1, Y_1), \dots, (X_n, Y_n)\) y un entero \(k \geq 1\), 
-    definimos los \textbf{\(k\)-vecinos más cercanos} de un punto \(X\) como el conjunto de los \(k\) puntos 
+    definimos los \textbf{\(k\)-vecinos más cercanos} de un punto \(X \in \mathcal{X} \) como el conjunto de los \(k\) puntos 
     de entrenamiento más cercanos a \(X\), es decir:
 
     \[
@@ -642,7 +643,7 @@ Por otro lado el riesgo Bayesiano es $0.1$. Por lo tanto, el clasificador $1$NN 
 \end{proof}
 
 Consideremos por un momento el clasificador de los 100 vecinos 
-más cercanos, $100$NN. En este caso, el clasificador cometería muchos menos errores que su primo de un vecino: 
+más cercanos, $100-$NN. En este caso, el clasificador cometería muchos menos errores que su primo de un vecino: 
 es muy poco probable tener una vecindad de 100 puntos donde la mayoría de los votos sean \(Y = -1\). 
 Así, el clasificador de 100 vecinos más cercanos, aunque sigue sin ser consistente, comete un error 
 menor que el clasificador 1NN.\newline
@@ -672,7 +673,7 @@ y, por lo tanto, mayores serán los segmentos donde las funciones deben ser cons
 para valores muy grandes de \(k\), la clase de funciones \(\mathcal{F}_k\) es relativamente pequeña (las funciones no 
 pueden oscilar mucho). En el caso extremo de \(k = n\), la vecindad de los \(k\)-vecinos simplemente incluye 
 todos los puntos de entrenamiento, por lo que el clasificador \(k\)-NN no puede cambiar su signo en absoluto; 
-debe ser constante en todo el espacio de entrada \(X\). En este caso, la clase de funciones \(\mathcal{F}_k\) contiene solo 
+debe ser constante en todo el espacio de entrada \(\mathcal{X}\). En este caso, la clase de funciones \(\mathcal{F}_k\) contiene solo 
 dos elementos: la función que es constantemente \(+1\) y la función que es constantemente \(-1\).\newline
 
 Por otro lado, si \(k\) es pequeño, entonces \(\mathcal{F}_k\) se vuelve bastante grande (las funciones pueden cambiar sus 
@@ -695,7 +696,7 @@ los datos de prueba):
 \mathcal{R}(f) = \mathbb{E}(\ell(X, Y, f(X))),
 \]
 
-donde \(f\) es una función que mapea el espacio de entrada \(X\) al espacio de etiquetas \(Y\), y \(\ell\) 
+donde \(f\) es una función que mapea el espacio de entrada \(\mathcal{X}\) al espacio de etiquetas \(\mathcal{Y}\), y \(\ell\) 
 es la función de pérdida.\newline
 
 La dificultad de esta tarea radica en el hecho de que estamos intentando minimizar una cantidad que no 
@@ -724,7 +725,7 @@ Este enfoque se denomina \textbf{principio de inducción de minimización del ri
 ERM (\textit{Empirical Risk Minimization}). La motivación para este principio está dada por la ley de los 
 grandes números, como explicaremos a continuación.
 
-\subsection{La ley de los grandes números}
+\subsection{Aplicando la ley de los grandes números}
 
 Recordemos que, en su forma más simple, la ley de los grandes números
 establece que, bajo condiciones suaves, la media de variables aleatorias \(\xi_i\) que han sido extraídas 
@@ -756,10 +757,10 @@ Una desigualdad famosa, atribuida a Chernoff (1952) y luego generalizada por Hoe
 tan bien la media empírica aproxima el valor esperado. Específicamente, si las variables aleatorias \(\xi_i\) 
 toman valores solo en el intervalo \([0, 1]\), entonces:
 
-\begin{equation}
+\begin{equation}\label{eq:Chernoff-Hoeffding}
 P\left( \left| \frac{1}{n} \sum_{i=1}^n \xi_i - \mathbb{E}(\xi) \right| \geq \epsilon \right) \leq 
 2 \exp(-2n\epsilon^2). 
-\end{equation}
+\end{equation}\newline
 
 Este teorema establece que la probabilidad de que la media de la muestra se desvíe más de \(\epsilon\) del 
 valor esperado de la distribución está acotada por una cantidad muy pequeña, específicamente \(2 \exp(-2n\epsilon^2)\). 
@@ -783,7 +784,7 @@ grande; simplemente dice que, para una función fija \(f\), esto es muy poco pro
 generación aleatoria de los puntos de entrenamiento. Podría ocurrir que, en algunos casos desafortunados, nuestros 
 datos de entrenamiento sean tan engañosos que sea imposible construir un buen clasificador a partir de ellos. Sin 
 embargo, a medida que el tamaño de la muestra aumenta, tales casos desafortunados se vuelven muy raros. En este 
-sentido, cualquier garantía de consistencia solo puede ser de la forma: el riesgo empírico está cerca del riesgo 
+sentido, cualquier garantía de consistencia solo puede ser de caracter probabilístico: el riesgo empírico está cerca del riesgo 
 verdadero, con alta probabilidad.\newline
 
 A primera vista, parece que la cota de Chernoff (\ref{eq:Chernoff}) es suficiente para probar la consistencia de la minimización 
@@ -797,7 +798,7 @@ poder tratar funciones que dependen de los datos.\newline
 \subsection{Inconsistencia en la minimización del riesgo empírico} \label{Inconsistencia en la minimización del riesgo empírico}
 
 Supongamos que nuestro espacio de datos subyacente es \(X = [0,1]\). Elegimos la distribución uniforme sobre 
-\(X\) como la distribución de probabilidad y definimos la etiqueta \(Y\) para un punto de entrada \(X\) de 
+\(\mathcal{X}\) como la distribución de probabilidad y definimos la etiqueta \(Y\) para un punto de entrada \(X\) de 
 manera determinista como sigue:
 
 \[
@@ -847,7 +848,7 @@ alguna manera de rescatar el principio de ERM? Afortunadamente, la respuesta es 
 que debemos prestar atención es la clase de funciones \(\mathcal{F}\) de la cual extraemos nuestro clasificador. Si 
 permitimos que nuestra clase de funciones contenga funciones que simplemente memorizan los datos de 
 entrenamiento, entonces el principio de ERM no puede funcionar. En particular, si elegimos el minimizador 
-del riesgo empírico del espacio \(F_{\text{all}}\) de todas las funciones entre \(X\) e \(Y\), entonces los 
+del riesgo empírico del espacio \(F_{\text{all}}\) de todas las funciones entre \(\mathcal{X}\) e \(\mathcal{Y}\), entonces los 
 valores de \(f_n\) en los puntos de entrenamiento \(X_1, \dots, X_n\) no necesariamente contienen ninguna 
 información sobre los valores en otros puntos. Por lo tanto, a menos que impongamos restricciones en el 
 espacio de funciones del cual elegimos nuestra estimación \(f\), no podemos esperar aprender nada.\newline
@@ -857,7 +858,7 @@ espacio de funciones del cual elegimos nuestra estimación \(f\), no podemos esp
 
 Resulta que las condiciones necesarias para que la minimización del riesgo empírico sea consistente 
 implican restringir el conjunto de funciones admisibles. La idea principal de la teoría de Vapnik-Chervonenkis 
-(VC) es que la consistencia de la minimización del riesgo empírico está determinada por el comportamiento 
+(VC), en la cual profundizaremos en el segundo capítulo, es que la consistencia de la minimización del riesgo empírico está determinada por el comportamiento 
 en el peor caso sobre todas las funciones \(f \in \mathcal{F}\) que la máquina de aprendizaje podría elegir. Veremos que, 
 en lugar de la ley estándar de los grandes números introducida anteriormente, este caso extremo corresponde 
 a una versión de la ley de los grandes números que es uniforme sobre todas las funciones en \(\mathcal{F}\).
@@ -873,16 +874,16 @@ a una versión de la ley de los grandes números que es uniforme sobre todas las
     Sin embargo, esto no implica que, en el límite de tamaños de muestra infinitos, el minimizador del riesgo 
     empírico, \(f_n\), lleve a un valor del riesgo tan bueno como el del mejor \(f_F\) en la clase de funciones. 
     Para que esto sea cierto, requerimos la convergencia uniforme de \(\mathcal{R}_{\text{emp}}(f)\) a \(\mathcal{R}(f)\) sobre todas 
-    las funciones en \(F\). (Adaptado de Schölkopf y Smola, 2002).}
+    las funciones en \(F\). (Grafico adaptado de [5].}
     \label{riesgo vs riesgo empirico}
     \end{figure}
     
-La Figura \ref{riesgo vs riesgo empirico} presenta una representación simplificada de la ley uniforme de los grandes números y la cuestión 
+La Figura \ref{riesgo vs riesgo empirico} nos muestra una representación simplificada de la ley uniforme de los grandes números y la cuestión 
 de la consistencia. Tanto el riesgo empírico como el riesgo verdadero se grafican como funciones de \(f\). 
 Para simplificar, hemos resumido todas las funciones posibles \(f\) en un solo eje del gráfico. La minimización 
 del riesgo empírico consiste en elegir la función \(f\) que minimiza \(\mathcal{R}_{\text{emp}}\). Es consistente si el 
 mínimo de \(\mathcal{R}_{\text{emp}}\) converge al de \(R\) a medida que el tamaño de la muestra aumenta. Una forma de 
-garantizar la convergencia del mínimo para todas las funciones en \(\mathcal{F}\) es la \textbf{convergencia uniforme} sobre 
+garantizar la convergencia del mínimo para todas las funciones en \(\mathcal{F}\) es la convergencia uniforme sobre 
 \(\mathcal{F}\): requerimos que para todas las funciones \(f \in \mathcal{F}\), la diferencia entre \(\mathcal{R}(f)\) y \(\mathcal{R}_{\text{emp}}(f)\) 
 se vuelva pequeña simultáneamente. Es decir, requerimos que exista un valor grande de \(n\) tal que, para un 
 tamaño de muestra al menos \(n\):
@@ -3054,7 +3055,7 @@ Esto significa que, para demostrar que el error de aproximación de un espacio f
 es menor que \(\delta\), solo necesitamos saber que cada función en \(\mathcal{F}_{\text{all}}\) puede 
 ser aproximada hasta \(\delta\) en la norma \(L_1\) por funciones de \(\mathcal{F}\).\newline
 
-Resultados de este tipo son abundantes en la literatura matemática. Por ejemplo, si \(X\) es un subconjunto 
+Resultados de este tipo son abundantes en la literatura matemática. Por ejemplo, si \(\mathcal{X}\) es un subconjunto 
 acotado de los números reales, es bien sabido que se puede aproximar cualquier función medible sobre este 
 conjunto de manera arbitrariamente precisa mediante un polinomio. Por lo tanto, podríamos elegir los espacios 
 \(\mathcal{F}_n\) como los espacios de polinomios de grado a lo sumo \(d_n\), donde \(d_n\) crece lentamente 
@@ -3084,16 +3085,16 @@ natural estudiar el comportamiento de los clasificadores en cualquier posible di
 que, no solamente no existe un clasificador universalmente bueno, sino que, en promedio sobre todas las distribuciones
 posibles, todos los clasificadores son equivalentes.\newline
 
-Para tener alguna intuición al respecto, supongamos que nuestro espacio de entrada \(X\) solo consiste en un conjunto finito de puntos, es decir, 
+Para tener alguna intuición al respecto, supongamos que nuestro espacio de entrada \(\mathcal{X}\) solo consiste en un conjunto finito de puntos, es decir, 
 \(X = \{x_1, \dots, x_m\}\) para algún número grande \(m\). Ahora consideremos todas las formas 
 posibles de asignar etiquetas a esos puntos de datos, es decir, consideremos todas las distribuciones 
-de probabilidad posibles sobre \(X\). \newline
+de probabilidad posibles sobre \(\mathcal{X}\). \newline
 
 Dado un pequeño subconjunto de puntos de entrenamiento \((X_i, Y_i)_{i=1,\dots,n}\), con $n<m$, utilizamos 
 alguna regla de clasificación para construir un clasificador a partir de esos puntos. Es decir, fijamos un clasificador $f$
-construido con $n$ puntos etiquetados del espacio finito \(X\).\newline
+construido con $n$ puntos etiquetados del espacio finito \(\mathcal{X}\).\newline
 
-Ahora, consideremos todos los puntos de \(X\) que no han sido usados como 
+Ahora, consideremos todos los puntos de \(\mathcal{X}\) que no han sido usados como 
 puntos de entrenamiento y sus etiquetas. Solemos llamar conjunto de prueba (\textit{test set}) a este conjunto.
 Por un lado, existe una asignación de etiquetas posible \(P_1\) sobre el conjunto de prueba (los datos que el clasificador
 no conoce) en la que el 
@@ -3103,9 +3104,9 @@ etiquetas \(P_2\) en la que el clasificador comete el mayor error posible: basta
 que asigna a los datos de prueba etiquetas de forma inversa a la del clasificador. \newline
 
 De la misma manera, podemos ver que, esencialmente, para cualquier error \(R\) dado, podemos 
-construir una distribución de probabilidad sobre \(X\) tal que el error del clasificador \(f_n\) en el 
+construir una distribución de probabilidad sobre \(\mathcal{X}\) tal que el error del clasificador \(f_n\) en el 
 conjunto de prueba sea exactamente \(R\). El mismo razonamiento se aplica a cualquier otro 
-clasificador. Por lo tanto, si promediamos sobre todas las distribuciones de probabilidad posibles en \(X\), 
+clasificador. Por lo tanto, si promediamos sobre todas las distribuciones de probabilidad posibles en \(\mathcal{X}\), 
 todos los clasificadores \(f_n\) alcanzarán el mismo error de prueba: cada vez que existe una 
 distribución en la que el clasificador obtiene un buen rendimiento, existe una distribución 
 (digamos) opuesta sobre el conjunto de prueba en la que el clasificador obtiene un mal rendimiento.
@@ -3152,7 +3153,7 @@ Construiremos una familia de distribuciones conjuntas para el par de variables a
 elemento de esta familia, cualquier clasificador \(f_n\) -construido en base a $n$ puntos en $X$-, presenta un rendimiento deficiente.\newline
 
 Consideremos un espacio de entrada 
-discreto \(X\) que se distribuye uniformemente sobre el conjunto finito \(\{1, 2, \dots, K\}\), 
+discreto \(\mathcal{X}\) que se distribuye uniformemente sobre el conjunto finito \(\{1, 2, \dots, K\}\), 
 según la función distribución de probabilidad discreta:
 
 \[
@@ -3163,7 +3164,7 @@ P(X = i) = \begin{cases}
 \]
 
 
-Construida la distribución de \(X\), definamos la distribución conjunta \(P(X,Y)\). Como \(X\) es finita,
+Construida la distribución de \(\mathcal{X}\), definamos la distribución conjunta \(P(X,Y)\). Como \(\mathcal{X}\) es finita,
 es posible parametrizar la distribución conjunta con un solo valor
 \(b \in [0,1)\). Luego, cada distribución posible de $(X,Y)$ puede es representada por un único valor \(b\).
 Tomando la expansión binaria de $b$, tenemos:

@@ -10,9 +10,9 @@
 \contentsline {subsection}{\numberline {1.3.5}Consistencia}{11}{subsection.1.3.5}%
 \contentsline {subsection}{\numberline {1.3.6}Sobreajuste y subajuste}{13}{subsection.1.3.6}%
 \contentsline {subsection}{\numberline {1.3.7}Los dilemas sesgo-varianza y estimación-aproximación}{15}{subsection.1.3.7}%
-\contentsline {section}{\numberline {1.4}El clasificador de los $k$ vecinos más cercanos}{17}{section.1.4}%
+\contentsline {section}{\numberline {1.4}El clasificador de los $k$ vecinos más cercanos}{16}{section.1.4}%
 \contentsline {section}{\numberline {1.5}Minimización del riesgo empírico}{21}{section.1.5}%
-\contentsline {subsection}{\numberline {1.5.1}La ley de los grandes números}{21}{subsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.5.1}Aplicando la ley de los grandes números}{21}{subsection.1.5.1}%
 \contentsline {subsection}{\numberline {1.5.2}Inconsistencia en la minimización del riesgo empírico}{23}{subsection.1.5.2}%
 \contentsline {subsection}{\numberline {1.5.3}Convergencia uniforme}{24}{subsection.1.5.3}%
 \contentsline {section}{\numberline {1.6}Cotas de generalización y medidas de capacidad}{28}{section.1.6}%
