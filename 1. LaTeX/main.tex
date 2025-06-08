@@ -275,7 +275,7 @@ $f$ de un espacio funcional $\mathcal{F}$, con el objetivo de aproximar lo mejor
 
 \begin{dfn}
 Llamamos \textbf{algoritmo de aprendizaje} a todo procedimiento matemático que, dado un conjunto
-de datos de entrenamiento $(X_i,Y_i)$, devuelve una función clasificadora $f$ sobre el espacio de entrada $X$ y el espacio de etiquetas $Y$ del que
+de datos de entrenamiento $(X_i,Y_i)$, devuelve una función clasificadora $f$ sobre el espacio de entrada $\mathcal{X}$ y el espacio de etiquetas $\mathcal{Y}$ del que
 provienen los datos.
 \end{dfn}
 
@@ -317,7 +317,7 @@ Ahora, definimos los distintos de convergencia que trataremos al considerar el c
 
 \begin{dfn}
     Sea $(X_i,Y_i)_{i\in\mathbb{N}}$ una sucesión infinita de puntos de entrenamiento que han sido tomados iid de una distribución $P$.
-    Sea $\ell$ una función de pérdida. Por cada $n\in \mathbb{N}$, sea $f_n$ un clasificador construído por algún algoritmo de aprendizaje
+    Sea $\ell$ una función de pérdida. Por cada $n\in \mathbb{N}$, sea $f_n$ un clasificador construido por algún algoritmo de aprendizaje
     usando los primeros $n$ puntos de entrenamiento. Sea $\mathcal{F}$ el espacio funcional de todos los posibles clasificadores según
     el mecanismo de construcción del algoritmo. Entonces
     \begin{enumerate}
@@ -361,9 +361,7 @@ enunciar resultados.\newline
 
 Observamos que la consistencia como está aquí enunciada suele llamarse \textit{consistencia débil}. Existe una noción más fuerte, la de
 \textit{consistencia fuerte}, que pide que el riesgo empírico de $f_n$ converja al riesgo del mejor clasificador en $\mathcal{F}$, no solo
-en probabilidad, si no con probabilidad $1$, lo que también llamamos \textit{convergencia casi segura}. En la práctica, la consistencia fuerte es
- una propiedad demasiado restrictiva y no es comúnmente
-alcanzada por los algoritmos de aprendizaje.\newline
+en probabilidad, si no con probabilidad $1$, lo que también llamamos \textit{convergencia casi segura}.\newline
 
 Notemos que en estas definiciones no se hace mención del riesgo empírico $\mathcal{R}_{\text{emp}}(f_n)$, si no del riesgo real $\mathcal{R}(f_n)$, lo que
 se debe a que la única medida de calidad de un clasificador es su riesgo real y es sobre el cual deseamos obtener resultados. El problema, claro,
@@ -373,13 +371,24 @@ converge al riesgo real, es decir donde  $\mathcal{R}_{\text{emp}}(f_n) \rightar
 de la teoría del aprendizaje estadístico, y es lo que nos permitirá hacer afirmaciones acerca de la calidad de los clasificadores en la práctica.\newline
 
 
-\subsection{Sobreajuste y subajuste}
+\subsection{Dilemas del aprendizaje}
+
+Habiendo presentado los conceptos básicos del aprendizaje, podemos fijar nuestra atención en las contradicciones que surgen
+al aprender. Mencionaremos dos dicotomías relacionadas entre sí: los dilemas de Sesgo-Varianza y de Estimación-Aproximación,
+y veremos dos conceptos antagónicos que surgen de estos: el sobreajuste y el subajuste.\newline
 
 
 Consideremos un ejemplo de regresión. Se nos da un conjunto de observaciones empíricas 
-\((x_1, y_1), \dots, (x_m, y_m) \in X \times Y\), donde, simplemente, tomamos \(X = Y = \mathbb{R}\). 
+\((x_1, y_1), \dots, (x_m, y_m) \in \mathcal{X} \times \mathcal{Y}\), donde, simplemente, tomamos \(\mathcal{X} = \mathcal{Y} = \mathbb{R}\). 
 Por ejemplo, los datos podrían haberse recopilado en un experimento físico donde \(\mathcal{X}\) representa el peso 
-de un objeto e \(Y\) la fuerza necesaria para arrastrar este objeto sobre una superficie rugosa.\newline
+de un objeto e \(\mathcal{Y}\) la fuerza necesaria para arrastrar este objeto sobre una superficie rugosa.\newline
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Images/1.png}
+    \caption{(Gráfica tomada de [1]) Dos posibles modelos de regresión, uno lineal y otro no, para un conjunto de datos dado.}
+    \label{fig:Sobreajuste y subajuste}
+\end{figure}
 
 La Figura ~\ref{fig:Sobreajuste y subajuste} muestra una representación gráfica de dicho conjunto de datos (indicados por los puntos redondos), 
 junto con dos posibles dependencias funcionales que podrían explicar los datos. 
@@ -387,13 +396,8 @@ La línea discontinua, \(f_{\text{no lineal}}\), representa un modelo bastante c
 los datos de entrenamiento, es decir, tiene un error de entrenamiento igual a 0. Por otro lado, 
 la línea recta, \(f_{\text{lineal}}\), no “explica” completamente los datos de entrenamiento, 
 ya que hay algunos errores residuales, lo que genera un error de entrenamiento pequeño pero positivo 
-(por ejemplo, medido mediante la función de pérdida cuadrática).
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=0.5\textwidth]{Images/1.png}
-    \caption{Dos posibles modelos de regresión, uno lineal y otro no, para un conjunto de datos dado.}
-    \label{fig:Sobreajuste y subajuste}
-\end{figure}
+(por ejemplo, medido mediante la función de pérdida cuadrática).\newline
+
 
 ¿Pero qué sucede con los riesgos verdaderos \(R(f_{\text{no lineal}})\) y \(R(f_{\text{lineal}})\)? 
 El problema es que no podemos calcular estos riesgos a partir de los datos de entrenamiento. 
@@ -408,32 +412,78 @@ Este ejemplo resalta una decisión importante que debemos tomar: ¿preferimos aj
 con una función relativamente compleja, lo que conduce a un error de entrenamiento muy pequeño, o preferimos 
 ajustarlos con una función simple a costa de un error de entrenamiento ligeramente mayor? En el ejemplo 
 anterior, un físico que mida estos puntos de datos podría argumentar que no puede ser coincidencia que las mediciones 
-estén casi alineadas y preferiría atribuir los residuos a errores de medición en lugar de a un modelo erróneo. Pero, 
-¿es posible caracterizar en qué sentido la línea recta es más simple y por qué esto debería implicar que está, de 
-alguna manera, más cerca de la verdadera dependencia subyacente? Es decir, nos interesa saber cuál es el 
-aumento en el error de entrenamiento que deberíamos estar dispuestos a tolerar para ajustar un modelo más simple.\newline
+estén casi alineadas y preferiría atribuir los residuos a errores de medición en lugar de a un modelo erróneo. Nos interesa
+entonces caracterizar en qué sentido la línea recta es más simple y por qué esto debería implicar que está, de 
+alguna manera, más cerca de la verdadera dependencia subyacente. Es decir, nos interesa saber cuál es el 
+aumento en el error de entrenamiento que deberíamos estar dispuestos a tolerar para ajustar un modelo más simple. 
+En la terminología del aprendizaje 
+estádistico aplicado, decimos que el modelo complejo muestra \textit{sobreajuste} (overfitting), 
+mientras que el modelo lineal simple es más proclive a sufrir de \textit{subajuste} (underfitting).\newline
 
 De una forma u otra, esta cuestión ha ocupado durante mucho tiempo las mentes de los investigadores que estudian 
-el problema del aprendizaje. En la estadística clásica, se ha estudiado como el dilema \textit{sesgo-varianza} 
-(\textit{bias-variance tradeoff}). Si ajustamos un modelo lineal para cada conjunto de datos que encontramos, 
+el problema del aprendizaje. En Estadística clásica, se ha estudiado como el dilema \textit{sesgo-varianza} 
+(más conocido por su nombre en inglés, \textit{bias-variance tradeoff}). Si ajustamos un modelo lineal para cada conjunto de datos que encontramos, 
 podríamos pensar que toda dependencia funcional es lineal. Pero no sería por la naturaleza de los procesos que
 generan los datos, sino un sesgo impuesto por nosotros. Por otro lado, 
 si tomamos un polinomio de grado suficientemente alto para cualquier muestra, siempre podríamos ajustar 
 perfectamente los datos, pero el modelo exacto que obtendríamos estaría sujeto a grandes fluctuaciones, dependiendo 
-de qué tan precisas fueran nuestras mediciones en primer lugar. Esto implicaría que el modelo sufra de una gran varianza.\newline
+de qué tan precisas fueran nuestras mediciones en primer lugar, dado que el grado y la forma del polinomio estarían más
+bien determinados por el error propio de los procesos que por la función generadora en sí. Esto implicaría que el modelo 
+posea una gran varianza, dado que cada posible función clasificadora creada podría alejarse mucho de otras posibles funciones 
+cuando los datos de entrenamiento usados cambien.\newline
 
-Una dicotomía relacionada es la existente entre el error de estimación y el error de aproximación. Si usamos una clase 
-pequeña de funciones, incluso la mejor solución posible aproximará pobremente la dependencia real, mientras 
-que una clase grande de funciones llevará a un error de estimación estadística alto. En la terminología del aprendizaje 
-estádistico aplicado, el modelo complejo muestra \textbf{sobreajuste} (overfitting), 
-mientras que el modelo lineal simple es más proclive a sufrir de \textbf{subajuste} (underfitting).\newline
+Observemos que el dilema sesgo-varianza está estrechamente unido a la cuestión del sub y sobreajuste de un modelo. En efecto,
+cuando aplicamos un sesgo fuerte al aprendizaje, determinando un espacio funcional pequeño, restringimos la flexibilidad de las
+funciones clasificadoras que son posibles y reducimos el riesgo de sobreajuste del modelo. Por ejemplo, dado un conjunto
+de datos en $\mathbb{R}^2$ a partir del cual deseamos inferir el valor de otros puntos (un problema de regresión), es común
+pensar en que puede existir una relación lineal entre las variables, por lo que podríamos restringir el espacio funcional
+de clasificadores a uno lineal parametrizado por dos parámetros $\alpha, \beta$ que reprentan la pendiente y la ordenada
+al origen de la recta $R: y(x) = \alpha x + \beta$. En este caso, el problema de aprendizaje es encontrar la recta que reduce
+el error (usualmente, el error cuadrático medio) sobre los puntos de entrenamiento. En este caso, imponemos un sesgo
+sobre el modelo que reduce la varianza del mismo, ya que al generar distintos conjuntos de entrenamiento sobre los cuales
+entrenar el modelo, los distintos clasificadores resultantes no serían tan distintos entre sí (serían todas rectas con parametros,
+esperablemente, parecidos).\newline
 
-\subsection{Los dilemas sesgo-varianza y estimación-aproximación}
+
+Dirijamos ahora nuestra atención al dilema restante, entre dos conceptos que llamamos \textit{estimación} y \textit{aproximación}, 
+los cuales procedemos a describir. 
+
+En estadística, llamamos \textit{estimador} a un valor, obtenible experimentalmente, que nos da indicios
+de algún otro valor que no podemos obtener fácilmente (o al que es imposible acceder). Por ejemplo, es logísticamente impensable
+medir a cada uno de los habitantes de un país, pero es posible estimar la altura promedio de estos a partir de muestras que tomamos
+de su población. En este caso, la media muestral es un estimador de la media poblacional. 
+
+Por otro lado, al modelizar un fenómeno de cualquier índole, hacemos uso de aproximaciones conceptuales para
+hacer predicciones y obtener información valiosa. En el ejemplo anterior, podría suceder que la relación bidimensional que estamos
+regresionando es una entre el consumo energético de un país y su PBI per cápita. Dicha relación difícilmente sea verdaderamente lineal,
+pero una aproximación del estilo puede llevarnos a una conclusión general: No hay países pobres que consuman poca energía, o bien,
+el desarrollo económico implica un aumento en el gasto energético. Esta conclusión es útil aunque no este construida sobre una descripción
+perfecta del evento estudiado, si no sobre una aproximación.
+
+Ahora bien, traslademos esto a lo que nos interesa estudiar aquí. En el contexto del Machine Learning, llamamos \textit{error de aproximación}
+al error insalvable que surje de modelizar un fenómeno con una descripción imperfecta del mismo. Dado que no conocemos la distribución
+de probabilidad conjunta de nuestras variables $X$ e $Y$, no podemos saber nunca cuál es realmente la naturaleza del proceso que las involucra,
+si no solo aproximarla. Más formalmente, al definir un problema de aprendizaje fijando un espacio funcional de clasificadores, 
+el error de aproximación es la diferencia que existe entre el mejor clasificador en dicho espacio -ya elegido- y el mejor clasificador posible,
+$f_{\text{Bayes}}$.
+
+Por otro lado, llamamos \textit{error de estimación} a la diferencia que existe entre el mejor clasificador, $f_{\mathcal{F}}$ de un espacio dado y el clasificador
+que hemos construido a partir de ejemplos. Como estamos estudiando una teoría asintótica (esto es, que hace aseveraciones con límites, los cuales usualmente
+son limites en el infinito), no esperamos encontrar siquiera a $f_{\mathcal{F}}$, si no simplemente estimarlo. Como la estimación depende de las muestras,
+este error puede variar dependiendo de qué datos de entrenamiento tengamos. En el ejemplo de la altura de un país, podríamos obtener una muestra de chicos inusualmente
+altos (quiza un equipo de basket, aunque no estaríamos ante una \textit{buena} muestra, dado que no sería iid) que nos brinde una estimación mentirosa. \newline
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Images/2.png}
+    \caption{Error de estimación y de aproximación.}
+    \label{fig:error de estimación y aproximación}
+\end{figure}
 
 
 El ejemplo ilustrado en la Figura ~\ref{fig:Sobreajuste y subajuste}
-ya señaló de manera intuitiva el problema de la complejidad del modelo: ¿cuándo un modelo es “más simple” que otro? 
-¿Es bueno que un modelo sea simple? ¿Qué tan simple? 
+ya señaló de manera intuitiva el problema de la complejidad del modelo: nos interesa poder entender cuando un modelo es más simple que otro,
+por qué es mejor un modelo más simple.
 Ya hemos mencionado anteriormente que el objetivo de la clasificación es lograr un riesgo tan bueno 
 como el del clasificador de Bayes. ¿Podríamos simplemente elegir \(\mathcal{F}\) como el espacio \(\mathcal{F}_{\text{all}}\) 
 de todas las funciones, definir el clasificador 
@@ -453,8 +503,8 @@ Es importante notar que podemos descomponer esta cantidad de la siguiente manera
 \underbrace{\mathcal{R}(f_\mathcal{F}) - \mathcal{R}(f_{\text{Bayes}})}_{\text{error de aproximación}} 
 \]
 
-Los dos términos en el lado derecho tienen nombres particulares: el primero se denomina 
-\textbf{error de estimación} y el segundo \textbf{error de aproximación}. En la Figura 
+Es decir, podemos descomponer la diferencia que determina el concepto de consistencia en dos términos que corresponden a cada uno de los errores que
+hemos discutido antes. En la Figura 
 \ref{fig:error de estimación y aproximación} 
 tenemos una ilustración. El primer término aborda la 
 incertidumbre introducida por el proceso de muestreo aleatorio. Dado un conjunto de datos 
@@ -467,29 +517,6 @@ funciones en \(F_{\text{all}}\) y de allí proviene el nombre error de aproximac
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.5\textwidth]{Images/2.png}
-    \caption{Error de estimación y de aproximación.}
-    \label{fig:error de estimación y aproximación}
-\end{figure}
-
-
-En estadística, el error de estimación también se llama \textbf{varianza}, y el error de aproximación 
-se llama \textbf{sesgo} de un estimador. Originalmente, estos términos se acuñaron para la situación 
-especial de regresión con función de pérdida cuadrática, pero ahora se usan en contextos más generales, 
-como el que se describe aquí. Su significado intuitivo es el mismo: el primer término mide la 
-variación del riesgo de la función \(f_n\) estimada en la muestra, mientras que el segundo mide el 
-sesgo introducido en el modelo al elegir una clase de funciones demasiado pequeña.\newline
-
-En este punto, ya podemos señalar que el espacio \(\mathcal{F}\) es el medio para equilibrar el compromiso 
-entre el error de estimación y el error de aproximación. Podemos hacernos una idea gráfica viendo la Figura
-. Si elegimos un espacio \(\mathcal{F}\) muy grande, el 
-término de aproximación será pequeño (el clasificador de Bayes podría incluso estar contenido en 
-\(\mathcal{F}\) o ser aproximado de manera cercana por algún elemento en \(\mathcal{F}\)). Sin embargo, el error de 
-estimación será bastante grande en este caso: el espacio \(\mathcal{F}\) contendrá funciones complejas que 
-conducirán al \textbf{sobreajuste} (overfitting). El efecto opuesto ocurrirá si la clase de funciones 
-\(\mathcal{F}\) es muy pequeña.
-\begin{figure}[ht!]
-    \centering
     \includegraphics[width=0.5\textwidth]{Images/3.png}
     \caption{Compromiso entre error de estimación y de aproximación. Si el espacio funcional $\mathcal{F}$ que define
     el algoritmo de aprendizaje es pequeño, es decir es poco complejo, el error de estimación es bajo, pero el de aproximación
@@ -497,6 +524,17 @@ conducirán al \textbf{sobreajuste} (overfitting). El efecto opuesto ocurrirá s
     es alto y el de aproximación bajo, y tendemos al sobreajuste. El error ideal es usualmente obtenido con una complejidad moderada.}
     \label{fig:Compromiso entre error de estimación y de aproximación.}
 \end{figure}
+
+
+
+Podemos señalar que el espacio \(\mathcal{F}\) es el medio para equilibrar el compromiso 
+entre el error de estimación y el error de aproximación. Si elegimos un espacio \(\mathcal{F}\) muy grande, el 
+término de aproximación será pequeño (el clasificador de Bayes podría incluso estar contenido en 
+\(\mathcal{F}\) o ser aproximado de manera cercana por algún elemento en \(\mathcal{F}\)). Sin embargo, el error de 
+estimación será bastante grande en este caso: el espacio \(\mathcal{F}\) contendrá funciones complejas que 
+conducirán al \textbf{sobreajuste} (overfitting). El efecto opuesto ocurrirá si la clase de funciones 
+\(\mathcal{F}\) es muy pequeña.\newline
+
 
 En lo que sigue, trataremos el error de estimación y el error de aproximación por separado. Veremos 
 que tienen comportamientos bastante diferentes y que se necesitan métodos distintos para controlar 
