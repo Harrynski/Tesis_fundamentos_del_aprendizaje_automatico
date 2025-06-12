@@ -22,11 +22,175 @@
 \begin{document}
 
 
-\title{Introducción a la Teoría del Aprendizaje Estadístico}
+\title{Fundamentos Matemáticos \\ del Aprendizaje Automático}
 \author{Nicolas Silva Nash \\ Departamento de Matemática \\ Universidad Nacional del Comahue}
 %\date{\today}
 \maketitle
 \tableofcontents
+\chapter{Resultados Preliminares}
+
+\begin{dfn}
+    Llamamos \textit{espacio muestral} a un conjunto $\Omega$ de posibles resultados de un experimento aleatorio.
+\end{dfn}
+\begin{dfn}
+Una familia de subconjuntos de un espacio muestral $S=\{A: A\subseteq\Omega\}$,  se llama una $\sigma$-\emph{álgebra}, si satisface las siguientes tres propiedades:
+
+\begin{enumerate}
+    \item \( \Omega \in S \).
+    \item Si \( A \in S \), entonces \( A^c \in S \) (cerradura bajo complemento).
+    \item Si \( A_1, A_2, \ldots \in S \), entonces \( \bigcup_{i=1}^\infty A_i \in S \) (cerradura bajo uniones numerables).
+\end{enumerate}
+\end{dfn}
+
+%A los alcances de la primer capítulo, donde nos limitaremos a una descripción intuitiva de la Teoría del Aprendizaje Estadístico, la siguiente
+%definición de probabilidad será suficiente. Luego la definiremos de manera más formal, haciendo uso de resultados conocidos de Teoría de la Medida. 
+
+\begin{dfn}
+Dado un espacio muestral \( \Omega \) y una $\sigma$-álgebra asociada \( S \), 
+una \emph{función de probabilidad} es una función \( P \colon S \to [0,1] \) que satisface:
+
+\begin{enumerate}
+    \item \( P(A) \geq 0 \) para todo \( A \in S \).
+    \item \( P(S) = 1 \).
+    \item Si \( A_1, A_2, \dots \in S \) son disjuntos por pares, entonces
+    \[
+        P\left( \bigcup_{i=1}^{\infty} A_i \right) = \sum_{i=1}^{\infty} P(A_i).
+    \]
+\end{enumerate}
+\end{dfn}
+
+\begin{obs}
+    Toda función de probabilidad es una medida sobre el espacio $\Omega$, por lo que $(\Omega, S, P)$ conforman un espacio de medida.
+\end{obs}
+
+\begin{obs}
+    Bajo las condiciones descritas, decimos que $(\Omega, S, P)$ es un \emph{espacio de probabilidad}. Es posible también definir
+    a un espacio de probabilidad como un espacio de medida, tal que la medida de todo el espacio es $1$.
+\end{obs}
+
+\begin{dfn}
+Diremos que una sucesión de conjuntos $\{A_i\}_{i\in\mathbb{N}}$ \emph{crece} al conjunto $A$, y notamos
+$$
+\{A_i\}_{i\in\mathbb{N}}\nearrow A
+$$
+si
+\begin{enumerate}
+    \item $A_1 \subseteq A_2 \subseteq A_3 \subseteq \dots$
+    \item $A_i \rightarrow A$ cuando $i\rightarrow \infty$
+\end{enumerate}
+\end{dfn}
+
+\begin{dfn}
+Análogamente, diremos que una sucesión de conjuntos $\{A_i\}_{i\in\mathbb{N}}$ \emph{decrece} al conjunto $A$, y notamos
+$$
+\{A_i\}_{i\in\mathbb{N}}\searrow A
+$$
+si
+\begin{enumerate}
+    \item $\ldots \subseteq A_3 \subseteq A_2 \subseteq A_1 $
+    \item $A_i \rightarrow A$ cuando $i\rightarrow \infty$
+\end{enumerate}
+\end{dfn}
+
+\begin{thm}
+Sea \( P \) una función de probabilidad, $A$, $B$ subconjuntos de \(S\), y $\{A_i\}_{i\in\mathbb{N}}$ una familia de conjuntos en $S$. 
+Entonces se cumple que:
+
+\begin{enumerate}
+    \item \( P(\emptyset) = 0 \), donde \( \emptyset \) es el conjunto vacío.
+    \item \( P(A) \leq 1 \).
+    \item \( P(A^c) = 1 - P(A) \).
+    \item \( P(B \cap A^c) = P(B) - P(A \cap B) \);
+    \item \( P(A \cup B) = P(A) + P(B) - P(A \cap B) \);
+    \item Si \( A \subseteq B \), entonces \( P(A) \leq P(B) \).
+    \item $P\left(\bigcup_{n\in\mathbb{N}}A_n\right) \leq \sum_{n\in\mathbb{N}}P(A_n)$.
+    \item Si $\{A_i\}_{i\in\mathbb{N}}\nearrow A$, entonces $P(A_i)\rightarrow P(A)$ cuando $n\rightarrow \infty$.
+    \item Si $\{A_i\}_{i\in\mathbb{N}}\searrow A$, entonces $P(A_i)\rightarrow P(A)$ cuando $n\rightarrow \infty$.
+\end{enumerate}
+\end{thm}
+
+\begin{dfn}
+Sean $A, B\in S$, sucesos. Diremos que $A$ y $B$ son \emph{independientes} entre sí si:
+$$
+P(A\cap B) = P(A)P(B)
+$$
+\end{dfn}
+
+\begin{dfn}
+Sean $\{A_1, \ldots, A_n\}\in S$, una familia finita de sucesos. Diremos que son \emph{mutuamente independientes} entre sí si:
+$$
+P\left(\bigcap_{i=1}^n A_i \right) = \prod_{i=1}^{n} P(A_i)
+$$
+\end{dfn}
+
+\begin{dfn}
+Sean $\{A_i\}_{i\in\mathbb{N}}\in S$, una familia infinita numerable de sucesos. En este caso, diremos que los eventos son mutuamente
+independientes entre sí si cualquier sucolección finita de la familia lo es.
+\end{dfn}
+
+\begin{dfn}
+Llamamos \emph{variable aleatoria} a toda función $X$ que asocia a cada evento de un espacio muestral $\Omega$ un valor real:
+\begin{equation*}
+\begin{split}
+    X: \Omega & \rightarrow \mathbb{R} \\
+    \omega & \rightarrow x.
+\end{split}
+\end{equation*}
+\end{dfn}
+
+\begin{dfn}
+    Sea $(\Omega, S)$ un espacio muestral y $(\mathbb{R}, \mathbb{B})$ el espacio de los números reales asociados a la $\sigma$-álgebra de Borel. Una 
+    variable aleatoria es una aplicación:
+    \begin{equation*}
+        X: \Omega \rightarrow \mathbb{R} \qquad \text{ tal que: }  \qquad \forall B \in \mathbb{B}: X^{-1}(B) \in S.
+    \end{equation*}
+
+\end{dfn}
+
+\begin{obs}
+Una variable aleatoria verifica que toda pre-imagen de un boreliano está en la $\sigma$-álgebra $S$ del conjunto muestral $\Omega$. Esto es,
+como la probabilidad es una medida sobre el espacio $\Omega$, toda variable aleatoria es una función medible entre los espacios dados.
+\end{obs}
+
+\begin{lem}
+    La familia $\sigma(X)=\{X^{-1}(B): B\in\mathbb{B}\}$ es una $\sigma$-álgebra tal que $\sigma(X)\subseteq S$. Dada 
+    una variable aleatoria $X$, la llamamos $\sigma$-álgebra \emph{inducida} por la variable aleatoria X.
+\end{lem}
+
+\begin{lem} $X$ induce en $(\mathbb{R}, \mathbb{B})$ una medida de probabilidad $P_X$, según:
+    $$
+    P_X(A) = P(X^{-1}(A)), \qquad A\in\mathbb{B}.
+    $$
+    Luego:
+    \begin{enumerate}
+        \item $P_X$ es una medida de probabilidad en $(\mathbb{R}, \mathbb{B})$.
+        \item $(\mathbb{R}, \mathbb{B}, P_X)$ es un espacio de probabilidad.
+    \end{enumerate}
+\end{lem}
+
+\begin{dfn}
+Sea $X$ una variable aleatoria. Definimos su \emph{función de distribución} como:
+$$
+    F_X(x) := P_X\left( (-\infty, x] \right).
+$$
+\end{dfn}
+
+\begin{obs} Haremos el siguiente abuso de notación:
+    \begin{equation*}
+        \begin{split}
+            F_X(x) &= P_X\left( (-\infty, x] \right)\\
+            & = P\left( \{\omega \in \Omega \;|\; X(\omega) \leq x\} \right)\\
+            & = P(X\leq x)
+        \end{split}
+    \end{equation*}
+\end{obs}
+
+\begin{obs} 
+\begin{equation*}
+    P(X>x) = 1 - P(X\leq x)
+\end{equation*}
+\end{obs}
+
 \chapter{Un acercamiento amistoso a la Teoría del Aprendizaje Estadístico}
 \section{Introducción}
 La Teoría del Aprendizaje Estadístico proporciona la base teórica para muchos de los algoritmos de aprendizaje automático actuales y,

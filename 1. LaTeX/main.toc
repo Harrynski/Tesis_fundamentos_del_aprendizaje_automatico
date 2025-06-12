@@ -1,35 +1,36 @@
 \babel@toc {spanish}{}\relax 
-\contentsline {chapter}{\numberline {1}Un acercamiento amistoso a la Teoría del Aprendizaje Estadístico}{3}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Introducción}{3}{section.1.1}%
-\contentsline {section}{\numberline {1.2}La historia del aprendizaje automático}{4}{section.1.2}%
-\contentsline {section}{\numberline {1.3}Conceptos básicos del aprendizaje}{6}{section.1.3}%
-\contentsline {subsection}{\numberline {1.3.1}Pérdida y Riesgo}{7}{subsection.1.3.1}%
-\contentsline {subsection}{\numberline {1.3.2}Espacios de funciones y el clasificador de Bayes}{8}{subsection.1.3.2}%
-\contentsline {subsection}{\numberline {1.3.3}Generalización}{9}{subsection.1.3.3}%
-\contentsline {subsection}{\numberline {1.3.4}Algortimos de aprendizaje}{10}{subsection.1.3.4}%
-\contentsline {subsection}{\numberline {1.3.5}Consistencia}{11}{subsection.1.3.5}%
-\contentsline {subsection}{\numberline {1.3.6}Dilemas del aprendizaje}{13}{subsection.1.3.6}%
-\contentsline {section}{\numberline {1.4}El clasificador de los $k$ vecinos más cercanos}{18}{section.1.4}%
-\contentsline {section}{\numberline {1.5}Minimización del riesgo empírico}{22}{section.1.5}%
-\contentsline {subsection}{\numberline {1.5.1}Aplicando la ley de los grandes números}{22}{subsection.1.5.1}%
-\contentsline {subsection}{\numberline {1.5.2}Inconsistencia en la minimización del riesgo empírico}{24}{subsection.1.5.2}%
-\contentsline {subsection}{\numberline {1.5.3}Convergencia uniforme}{25}{subsection.1.5.3}%
-\contentsline {section}{\numberline {1.6}Cotas de generalización y medidas de capacidad}{29}{section.1.6}%
-\contentsline {subsection}{\numberline {1.6.1}Simetrización}{30}{subsection.1.6.1}%
-\contentsline {subsection}{\numberline {1.6.2}El coeficiente de fragmentación}{31}{subsection.1.6.2}%
-\contentsline {subsection}{\numberline {1.6.3}Cotas de convergencia uniforme}{33}{subsection.1.6.3}%
-\contentsline {subsection}{\numberline {1.6.4}Cotas de generalización}{35}{subsection.1.6.4}%
-\contentsline {subsection}{\numberline {1.6.5}La dimensión VC}{36}{subsection.1.6.5}%
-\contentsline {subsection}{\numberline {1.6.6}Complejidad de Rademacher}{38}{subsection.1.6.6}%
-\contentsline {subsection}{\numberline {1.6.7}Cotas con grandes márgenes de separación}{39}{subsection.1.6.7}%
-\contentsline {subsection}{\numberline {1.6.8}Conclusiones acerca de las cotas de generalización}{41}{subsection.1.6.8}%
-\contentsline {chapter}{\numberline {2}La Teoría VC}{42}{chapter.2}%
-\contentsline {subsection}{\numberline {2.0.1}Definiciones preliminares}{42}{subsection.2.0.1}%
-\contentsline {subsection}{\numberline {2.0.2}La función de crecimiento}{46}{subsection.2.0.2}%
-\contentsline {subsection}{\numberline {2.0.3}El Lema de simetrización}{47}{subsection.2.0.3}%
-\contentsline {subsection}{\numberline {2.0.4}Condiciones de convergencia uniforme casi segura}{55}{subsection.2.0.4}%
-\contentsline {chapter}{\numberline {3}Otros conceptos del Aprendizaje}{67}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Consistencia de Bayes y error de aproximación}{67}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Espacios funcionales anidados}{68}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Regularización}{69}{subsection.3.1.2}%
-\contentsline {section}{\numberline {3.2}Los teoremas de la chancha y los veinte}{71}{section.3.2}%
+\contentsline {chapter}{\numberline {1}Resultados Preliminares}{3}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Un acercamiento amistoso a la Teoría del Aprendizaje Estadístico}{6}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Introducción}{6}{section.2.1}%
+\contentsline {section}{\numberline {2.2}La historia del aprendizaje automático}{7}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Conceptos básicos del aprendizaje}{9}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Pérdida y Riesgo}{10}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Espacios de funciones y el clasificador de Bayes}{11}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Generalización}{12}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}Algortimos de aprendizaje}{13}{subsection.2.3.4}%
+\contentsline {subsection}{\numberline {2.3.5}Consistencia}{14}{subsection.2.3.5}%
+\contentsline {subsection}{\numberline {2.3.6}Dilemas del aprendizaje}{16}{subsection.2.3.6}%
+\contentsline {section}{\numberline {2.4}El clasificador de los $k$ vecinos más cercanos}{21}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Minimización del riesgo empírico}{25}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Aplicando la ley de los grandes números}{25}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Inconsistencia en la minimización del riesgo empírico}{27}{subsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.5.3}Convergencia uniforme}{28}{subsection.2.5.3}%
+\contentsline {section}{\numberline {2.6}Cotas de generalización y medidas de capacidad}{32}{section.2.6}%
+\contentsline {subsection}{\numberline {2.6.1}Simetrización}{33}{subsection.2.6.1}%
+\contentsline {subsection}{\numberline {2.6.2}El coeficiente de fragmentación}{34}{subsection.2.6.2}%
+\contentsline {subsection}{\numberline {2.6.3}Cotas de convergencia uniforme}{36}{subsection.2.6.3}%
+\contentsline {subsection}{\numberline {2.6.4}Cotas de generalización}{38}{subsection.2.6.4}%
+\contentsline {subsection}{\numberline {2.6.5}La dimensión VC}{39}{subsection.2.6.5}%
+\contentsline {subsection}{\numberline {2.6.6}Complejidad de Rademacher}{41}{subsection.2.6.6}%
+\contentsline {subsection}{\numberline {2.6.7}Cotas con grandes márgenes de separación}{42}{subsection.2.6.7}%
+\contentsline {subsection}{\numberline {2.6.8}Conclusiones acerca de las cotas de generalización}{44}{subsection.2.6.8}%
+\contentsline {chapter}{\numberline {3}La Teoría VC}{45}{chapter.3}%
+\contentsline {subsection}{\numberline {3.0.1}Definiciones preliminares}{45}{subsection.3.0.1}%
+\contentsline {subsection}{\numberline {3.0.2}La función de crecimiento}{49}{subsection.3.0.2}%
+\contentsline {subsection}{\numberline {3.0.3}El Lema de simetrización}{50}{subsection.3.0.3}%
+\contentsline {subsection}{\numberline {3.0.4}Condiciones de convergencia uniforme casi segura}{58}{subsection.3.0.4}%
+\contentsline {chapter}{\numberline {4}Otros conceptos del Aprendizaje}{70}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Consistencia de Bayes y error de aproximación}{70}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Espacios funcionales anidados}{71}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Regularización}{72}{subsection.4.1.2}%
+\contentsline {section}{\numberline {4.2}Los teoremas de la chancha y los veinte}{74}{section.4.2}%
