@@ -11,11 +11,11 @@
 \usepackage[font=footnotesize,labelfont=bf,labelsep=colon]{caption} % Personalización de captions
 \DeclareMathOperator*{\argmin}{arg\,min}
 % Define the unnumbered theorem
-\newtheorem{thm}{Teorema}[subsection]
-\newtheorem{lem}{Lema}[subsection]
+\newtheorem{thm}{Teorema}[section]
+\newtheorem{lem}{Lema}[section]
 \newtheorem{cor}{Corolario}[thm]
-\newtheorem{dfn}{Definición}[subsection]
-\newtheorem{obs}{Observación}[subsection]
+\newtheorem{dfn}{Definición}[section]
+\newtheorem{obs}{Observación}[section]
 
 %\newtheorem*{def}{Definicion}
 
@@ -28,6 +28,7 @@
 \maketitle
 \tableofcontents
 \chapter{Resultados Preliminares}
+
 
 \begin{dfn}
     Llamamos \textit{espacio muestral} a un conjunto $\Omega$ de posibles resultados de un experimento aleatorio.
@@ -128,6 +129,8 @@ Sean $\{A_i\}_{i\in\mathbb{N}}\in S$, una familia infinita numerable de sucesos.
 independientes entre sí si cualquier sucolección finita de la familia lo es.
 \end{dfn}
 
+\section{Variables Aleatorias}
+
 \begin{dfn}
 Llamamos \emph{variable aleatoria} a toda función $X$ que asocia a cada evento de un espacio muestral $\Omega$ un valor real:
 \begin{equation*}
@@ -190,6 +193,211 @@ $$
     P(X>x) = 1 - P(X\leq x)
 \end{equation*}
 \end{obs}
+
+\begin{obs} 
+\begin{equation*}
+    P(a<X\leq b) =  P\left( \{\omega \in \Omega \;|\; a< X(\omega) \leq b\} \right) = F_X(b)-F_X(a)
+\end{equation*}
+\end{obs}
+
+% REVISAR cual de las 3:
+\begin{thm}
+Sea $X$ una variable aleatoria con distribución $F_X:\mathbb{R}\rightarrow[0,1]$. Entonces:
+\begin{enumerate}
+\item $F_X(x)\geq 0, \quad \forall x \in \mathbb{R} \qquad$ ($F_X$ es no negativa).
+\item $ x_1 \geq x_2 \Rightarrow F_X(x_1)\geq F_X(x_2), \quad \forall x \in \mathbb{R} \qquad$ ($F_X$ es monótona creciente).
+\item $\lim_{x\rightarrow c^+}F_X(x) = F_X(c), \quad \forall c \in \mathbb{R}$ ($F_X$ es continua por derecha).
+\item $\lim_{x\rightarrow +\infty}F_X(x) = 1 $.
+\item $\lim_{x\rightarrow -\infty}F_X(x) = 0 $.
+\end{enumerate}
+\end{thm}
+
+\begin{thm}
+Sea \( X \) una variable aleatoria con función de distribución \( F_X:\mathbb{R}\rightarrow[0,1] \). Entonces:
+\[
+\begin{array}{ll}
+\text{(i)} & F_X(x)\geq 0, \quad \forall x \in \mathbb{R} \hspace{1cm} \text{($F_X$ es no negativa)} \\
+\text{(ii)} & x_1 \geq x_2 \Rightarrow F_X(x_1)\geq F_X(x_2), \quad \forall x_1,x_2 \in \mathbb{R} \hspace{1cm} \text{($F_X$ es monótona creciente)} \\
+\text{(iii)} & \lim_{x\rightarrow c^+}F_X(x) = F_X(c), \quad \forall c \in \mathbb{R} \hspace{1cm} \text{($F_X$ es continua por la derecha)} \\
+\text{(iv)} & \lim_{x\rightarrow +\infty}F_X(x) = 1 \hspace{1cm} \text{(límite en \( +\infty \))} \\
+\text{(v)} & \lim_{x\rightarrow -\infty}F_X(x) = 0 \hspace{1cm} \text{(límite en \( -\infty \))} \\
+\end{array}
+\]
+\end{thm}
+
+\begin{thm}
+Sea \( X \) una variable aleatoria con función de distribución \( F_X:\mathbb{R}\rightarrow[0,1] \). Entonces:
+\[
+\begin{array}{rl@{\quad}l}
+\text{1.} & F_X(x)\geq 0, & \text{\small ($F_X$ es no negativa)} \\
+\text{2.} & x_1 \geq x_2 \Rightarrow F_X(x_1)\geq F_X(x_2), & \text{\small ($F_X$ es monótona creciente)} \\
+\text{3.} & \lim_{x\rightarrow c^+}F_X(x) = F_X(c), & \text{\small ($F_X$ es continua por la derecha)} \\
+\text{4.} & \lim_{x\rightarrow +\infty}F_X(x) = 1, & \text{\small (límite en \( +\infty \))} \\
+\text{5.} & \lim_{x\rightarrow -\infty}F_X(x) = 0, & \text{\small (límite en \( -\infty \))} \\
+\end{array}
+\]
+\end{thm}
+
+\begin{dfn}
+Sea $F:\mathbb{R}\rightarrow[0,1]$ una función. Decimos que $F$ es una \emph{función de distribución de probabilidad} si:
+\begin{enumerate}
+\item $F$ es no negativa.
+\item $F$ es monótona creciente.
+\item $F$ es continua por derecha.
+\item $F(x)\rightarrow 1$ cuando $x\rightarrow +\infty$.
+\item $F(x)\rightarrow 0$ cuando $x\rightarrow -\infty$.
+\end{enumerate}
+\end{dfn}
+
+\begin{obs}
+    Cuando una variable aleatoria $X$ tiene función de distribución $F$ con parámetros $\alpha_1,\ldots,\alpha_n$, decimos que $X$ \emph{se distribuye} según $F$  y notamos
+    $X\sim F(\alpha_1,\ldots,\alpha_n)$.
+\end{obs}
+
+\begin{thm}
+    Sean $X_1,\ldots, X_n$ variables aleatorias. Sean  $\alpha_1,\ldots, \alpha_n \in \mathbb{R}$. 
+    Entonces, la aplicación $Z= \alpha_1 X_1 + \ldots + \alpha_n X_n$ es una variable aleatoria.
+\end{thm}
+
+\subsection{Variables Aleatorias Discretas}
+
+\begin{dfn}
+Una \emph{variable aleatoria discreta} es aquella para la que existe un conjunto numerable $D\subset \mathbb{R}$ sobre la cual
+la variable toma valores exclusivamente. Es decir, $X$ es discreta si:
+\begin{equation*}
+    \exists D\subset\mathbb{R}, \; \#(D)\leq \aleph_0 : \qquad P_X(D)=1.
+\end{equation*}
+\end{dfn}
+
+\begin{obs}
+    En el caso de la definción anterior, sea $x\in \mathbb{R}-D$. Entonces:
+    \begin{equation*}
+    P_X(x) = P(X^{-1}(x))=P\left( \{\omega \in \Omega | X(\omega)=x \} \right) = 0.
+    \end{equation*}
+    Y llamamos a $D$ el \emph{soporte} de la probabilidad $P_X$.
+\end{obs}
+
+\begin{dfn}
+    Definimos la función de probabilidad de una variable aleatoria discreta $X$ como:
+    \begin{equation*}
+        f_X(x)=\begin{cases}
+            P(X=x) = P\left( \{\omega \in \Omega | X(w)=x \} \right), &\text{ si } x\in D.\\
+            0, &\text{ si } x\notin D.\\
+        \end{cases}
+    \end{equation*}
+\end{dfn}
+
+\begin{lem}
+    Sea $f_X$ la función de probabilidad asociada a una variable aleatoria discreta $X$. Entonces:
+    \begin{enumerate}
+        \item $f_X$ es no negativa.
+        \item $\displaystyle\sum_{x_i\in D} f_X(x_i) = 1.$
+    \end{enumerate}
+\end{lem}
+
+% REVISAR:
+%\begin{obs}
+%    \begin{equation*}
+%        \begin{split}
+%            f_X(x) &= P(X=x) = P\left( \{\omega \in \Omega | X(w)=x \} \right)\\
+%            &= P\left( \{\omega \in \Omega : \; \left(X(w)\leq x \right) \wedge \left(X(w)\geq x \right)  \;\} \right) \\
+%            &= P\left( \{\omega \in \Omega : \; \left(X(w)\leq x \right)  \;\} \cap   \{\omega \in \Omega :\;\left(X(w)\geq x \right)  \;\} \right) \\
+%            &= P(X\leq x \wedge X\geq x)\\
+%            &= P(X\leq x) + P(X\geq x)
+%        \end{split}
+%    \end{equation*}
+%\end{obs}
+
+\begin{dfn}
+    Sea $X:\Omega \rightarrow \{0,1\}$ una variable aleatoria que mapea un espacio muestral $\Omega$ a dos posibles resultados, que solemos llamar
+    \emph{éxito}, para el $1$, y \emph{fracaso}, para el $0$. Sea $A=\{\omega \in\Omega: X(\omega)=1\}$. Sea $p=P(A)$. Sea su función de cuantía $f_X$ tal que:
+    \begin{equation*}
+        \begin{split}
+            &f_X(1) = P(X=1) = p\\
+            &f_X(0) = P(X=0) = 1-p
+        \end{split}
+    \end{equation*}
+    
+    Decimos entonces que $X$ es una variable aleatoria de tipo Bernoulli con probabilidad de éxito $p$ y notamos $X\sim B(p)$.
+\end{dfn}
+
+\begin{dfn}
+    Sean $X_1,\ldots, X_n\sim B(p)$, $n$ variables aleatorias tipo Bernoulli independientes entre sí. Definimos la nueva variable aleatoria:
+    \begin{equation*}
+        X:\Omega \rightarrow \{0,1,\ldots, n\}, \qquad X=\sum_{i=1}^n X_i
+    \end{equation*}
+    que mide la cantidad de éxitos en esos $n$ intentos.
+    Decimos entonces que $X$ es una variable aleatoria de tipo Binomial con probabilidad de éxito $p$ y $n$ intentos, y notamos $X\sim Bi(n,p)$.
+\end{dfn}
+
+\begin{obs}
+    Una variable aleatoria binomial $X\sim Bi(n,p)$ tiene función de probabilidad
+    \begin{equation*}
+        f_X(x) = {n\choose x} p^x(1-p)^{1-x}
+    \end{equation*}
+
+    y función de distribución de probabilidad:
+    \begin{equation*}
+        F_X(x) = F_X(x; n,p) = P(X\leq x) = \sum_{i=0}^{\lfloor x \rfloor}  {n\choose i} p^i(1-p)^{1-i}
+    \end{equation*}
+\end{obs}
+
+\subsection{Variables Aleatorias Continuas}
+
+\begin{dfn}
+    Sea $X$ una variable aleatoria. Decimos que es una \emph{variable aleatoria continua} si existe una función $f:\mathbb{R}\rightarrow\mathbb{R}$ tal que
+    \begin{enumerate}
+        \item $f$ es no negativa.
+        \item $f$ es integrable.
+        \item $\int_{\mathbb{R}}f = 1$
+        \item $P(a<X\leq b) = \int_{b}^{a} f(x)dx = F_X(b)-F_X(a)$.
+    \end{enumerate}
+\end{dfn}
+
+% REVISAR SI HACE FALTA INCLUIR:
+\begin{obs}
+    \begin{enumerate}
+        Considerando una variable aleatoria cualquiera $X$:
+        \item La existencia de $f$ está asegurada cuando la medida de probabilidad $P_X=P(X^{-1})$ es absolutamente continua con respecto a la medida de Lebesgue,
+        por el teorema de Radón-Nikodyn.
+        \item $F_X(x) = \int_{-\infty}^x f(t)dt$ es absolutamente continua.
+    \end{enumerate}
+\end{obs}
+
+\subsection{Transformaciones de Variables Aleatorias}
+
+\begin{lem}
+    Sea $X:\Omega\rightarrow \mathbb{R}$ una variable aleatoria y $g:\mathbb{R}\rightarrow\mathbb{R}$ una función medible en $(\mathbb{R},\mathbb{B})$.
+    Entonces $Y = g\circ X$ es una variable aleatoria.
+\end{lem}
+
+\begin{obs}
+    Basta que $g$ sea medible para que $Y$ sea variable aleatoria. Considerando la transformación:
+    \begin{equation*}
+        \Omega \xrightarrow{X} \mathbb{R} \xrightarrow{g} \mathbb{R},
+    \end{equation*}
+    podemos notar que, para cualquier boreliano $B\in\mathbb{B}$, $g^{-1}(B)$ será un boreliano si $g$ es medible.
+    Luego, el boreliano $B_1 = g^{-1}(B)$ tiene por preimagen de $X$ un medible en $\Omega$, y así $Y$ verifica la definición de variable aleatoria.
+    En efecto:
+    \begin{equation*}
+        Y^{-1}(B) = X^{-1}(g^{-1}(B)) = X^{-1}(B_1) = A
+    \end{equation*}
+    con $A\in S$.
+\end{obs}
+
+\begin{thm}
+    Sea $X$ una variable aleatoria continua con soporte en $D\subset\mathbb{R}$, es decir $P(D)=1$. Sea $g$ monótona, diferenciable con derivada no nula en 
+    todo punto. Entonces, $Y=g(X)$ es una variable aleatoria continua con función de densidad dara por:
+    \begin{equation*}
+        f_Y(y)=\begin{cases}
+            f_X(g^{-1}(y)) \cdot |(g^{-1})'(y)|, &\text{ si } y\in g(D)\\
+            0, & \text{ si } y\notin g(D)
+        \end{cases}
+    \end{equation*}
+\end{thm}
+
+
+
 
 \chapter{Un acercamiento amistoso a la Teoría del Aprendizaje Estadístico}
 \section{Introducción}
