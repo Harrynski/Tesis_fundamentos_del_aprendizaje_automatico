@@ -13,9 +13,11 @@
 % Define the unnumbered theorem
 \newtheorem{thm}{Teorema}[section]
 \newtheorem{lem}{Lema}[section]
+\newtheorem{prop}{Proposición}[section]
 \newtheorem{cor}{Corolario}[thm]
 \newtheorem{dfn}{Definición}[section]
 \newtheorem{obs}{Observación}[section]
+\newtheorem{ej}{Ejemplo}[section]
 
 %\newtheorem*{def}{Definicion}
 
@@ -28,7 +30,7 @@
 \maketitle
 \tableofcontents
 \chapter{Resultados Preliminares}
-
+\section{Espacios de Probabilidad}
 
 \begin{dfn}
     Llamamos \textit{espacio muestral} a un conjunto $\Omega$ de posibles resultados de un experimento aleatorio.
@@ -43,6 +45,96 @@ Una familia de subconjuntos de un espacio muestral $S=\{A: A\subseteq\Omega\}$, 
 \end{enumerate}
 \end{dfn}
 
+\begin{dfn}
+Sea \( \mu \) una función definida sobre una \(\sigma\)-álgebra \( S \). Diremos que \( \mu \) es una \textit{medida} sobre \( S \) si se cumple:
+
+\begin{enumerate}
+  \item \( 0 \leq \mu(E) \leq +\infty \), para todo \( E \in S \),
+  \item \( \mu\left( \displaystyle\bigcup_k E_k \right) = \displaystyle\sum_k \mu(E_k) \) para toda familia numerable \( \{E_k\} \) de conjuntos disjuntos en \( S \).
+\end{enumerate}
+\end{dfn}
+
+\begin{dfn}
+Sea
+
+\[
+I = \left\{ x \in \mathbb{R}^n : a_j \leq x_j \leq b_j, \quad j = 1, \dots, n \right\},
+\]
+un conjunto de intervalos cerrados \( n \)-dimensionales. Definimos su \emph{volumen} como
+
+\[
+v(I) = \prod_{j=1}^{n} (b_j - a_j).
+\]
+\end{dfn}
+
+\begin{dfn}
+Sea \( E \subseteq \mathbb{R}^n \). Se cubre \( E \) mediante una colección numerable \( \mathcal{S} = \{ I_k \} \) 
+de intervalos \( n \)-dimensionales cerrados. Sea:
+
+\[
+\sigma(\mathcal{S}) = \sum_{k} v(I_k).
+\]
+Entonces, definimos la \textit{medida exterior de Lebesgue} del conjunto \( E  \) como:
+
+\begin{equation*}
+|E|_e = \inf \sigma(\mathcal{S}),
+\end{equation*}
+donde el ínfimo lo tomamos sobre todos los cubrimientos $S$ de $E$.
+\end{dfn}
+
+\begin{prop}
+    Sea \( E \subseteq \mathbb{R}^n \), entonces:
+    \begin{equation*}
+        0 \leq \mid E \mid_e \leq +\infty.
+    \end{equation*}
+\end{prop}
+
+\begin{prop}
+    Sea $I$ un intervalo en $R^n$. Entonces, $\mid I \mid_e = v(I)$.
+\end{prop}
+
+
+\begin{dfn}
+Un subconjunto \( E \subseteq \mathbb{R}^n \) se dice \textit{medible de Lebesgue} (o simplemente \textit{medible}) si, dado \( \varepsilon > 0 \), 
+existe un conjunto abierto \( G \subseteq \mathbb{R}^n \) tal que
+
+\[
+E \subseteq G \quad \text{y} \quad |G \setminus E|_e < \varepsilon,
+\]
+
+donde \( | \cdot |_e \) denota la medida exterior de Lebesgue.
+\end{dfn}
+
+\begin{dfn}
+Si \( E \subseteq \mathbb{R}^n \) es un conjunto medible de Lebesgue, entonces su \textit{medida exterior} coincide con su \textit{medida de Lebesgue}, 
+que denotamos simplemente por \( \mathscr{L}(E) \). Es decir,
+\[
+\mathscr{L}(E)  = |E|_e, \quad \text{si } E \text{ es medible}.
+\]
+\end{dfn}
+
+\begin{thm}
+La colección de subconjuntos medibles de Lebesgue de \( \mathbb{R}^n \) forma una \( \sigma \)-álgebra.
+\end{thm}
+
+
+\begin{ej}[Espacio de medida de Lebesgue]
+Si \( \mathscr{L}\) es la medida de Lebesgue y \( \Sigma \) es la \(\sigma\)-álgebra de conjuntos medibles de Lebesgue sobre \( \mathbb{R}^n \), 
+entonces el triplete \( (\mathbb{R}^n, \Sigma, \mathscr{L}) \) constituye un \textit{espacio de medida}.
+\end{ej}
+
+\begin{ej}[Espacio de medida discreto]
+Sea \( \mathcal{S} = \{x_k\} \) un conjunto numerable, y sea \( \{a_k\} \) una sucesión de números no negativos. 
+Definimos \( \sigma \) como la familia de todos los subconjuntos de \( \mathcal{S} \), y la medida \( \delta \) por:
+
+\[
+\delta(E) = \sum_{X_k \in E} a_k.
+\]
+
+Entonces, \( (\mathcal{S}, \sigma, \delta) \) es un espacio de medida al que llamamos \emph{discreto}.
+\end{ej}
+
+
 %A los alcances de la primer capítulo, donde nos limitaremos a una descripción intuitiva de la Teoría del Aprendizaje Estadístico, la siguiente
 %definición de probabilidad será suficiente. Luego la definiremos de manera más formal, haciendo uso de resultados conocidos de Teoría de la Medida. 
 
@@ -52,7 +144,7 @@ una \emph{función de probabilidad} es una función \( P \colon S \to [0,1] \) q
 
 \begin{enumerate}
     \item \( P(A) \geq 0 \) para todo \( A \in S \).
-    \item \( P(S) = 1 \).
+    \item \( P(\Omega) = 1 \).
     \item Si \( A_1, A_2, \dots \in S \) son disjuntos por pares, entonces
     \[
         P\left( \bigcup_{i=1}^{\infty} A_i \right) = \sum_{i=1}^{\infty} P(A_i).
@@ -60,9 +152,9 @@ una \emph{función de probabilidad} es una función \( P \colon S \to [0,1] \) q
 \end{enumerate}
 \end{dfn}
 
-\begin{obs}
+\begin{lem}
     Toda función de probabilidad es una medida sobre el espacio $\Omega$, por lo que $(\Omega, S, P)$ conforman un espacio de medida.
-\end{obs}
+\end{lem}
 
 \begin{obs}
     Bajo las condiciones descritas, decimos que $(\Omega, S, P)$ es un \emph{espacio de probabilidad}. Es posible también definir
@@ -111,11 +203,29 @@ Entonces se cumple que:
 \end{thm}
 
 \begin{dfn}
+Sea \( (\Omega, S, P) \) un espacio de probabilidad y sean \( A \) y \( B \) dos sucesos, con \( P(B) > 0 \). 
+Se define la probabilidad de \( A \) condicionada a \( B \) mediante la expresión,
+\[
+P(A \mid B) = \frac{P(A \cap B)}{P(B)}.
+\]
+\end{dfn}
+
+\begin{dfn}
 Sean $A, B\in S$, sucesos. Diremos que $A$ y $B$ son \emph{independientes} entre sí si:
 $$
 P(A\cap B) = P(A)P(B)
 $$
 \end{dfn}
+
+\begin{obs}
+    Notemos que si los sucesos $A$ y $B$ son independientes entre sí, entonces:
+    \[
+    \begin{split}
+        P(A \mid B) =  \frac{P(A \cap B)}{P(B)} =\frac{P(A)P(B)}{P(B)} = P(A),\\
+        P(B \mid A) =  \frac{P(B \cap A)}{P(A)} =\frac{P(B)P(A)}{P(A)} = P(B).
+    \end{split}
+    \]
+\end{obs}
 
 \begin{dfn}
 Sean $\{A_1, \ldots, A_n\}\in S$, una familia finita de sucesos. Diremos que son \emph{mutuamente independientes} entre sí si:
@@ -132,44 +242,51 @@ independientes entre sí si cualquier sucolección finita de la familia lo es.
 \section{Variables Aleatorias}
 
 \begin{dfn}
-Llamamos \emph{variable aleatoria} a toda función $X$ que asocia a cada evento de un espacio muestral $\Omega$ un valor real:
-\begin{equation*}
-\begin{split}
-    X: \Omega & \rightarrow \mathbb{R} \\
-    \omega & \rightarrow x.
-\end{split}
-\end{equation*}
+    Llamamos $\sigma$-álgebra de Borel, $\mathcal{B}$, a la menor de todas las $\sigma$-álgebras en $\mathbb{R}$ que contienen a todos los intervalos
+    de números reales. Llamamos \emph{borelianos} a los elementos de $\mathcal{B}$. 
 \end{dfn}
 
+\begin{thm}
+    Todo boreliano es medible de Lebesgue.
+\end{thm}
+
+\begin{cor}
+    $(\mathbb{R}, \mathcal{B}, \mathscr{L})$ es un espacio de medida.
+\end{cor}
+
 \begin{dfn}
-    Sea $(\Omega, S)$ un espacio muestral y $(\mathbb{R}, \mathbb{B})$ el espacio de los números reales asociados a la $\sigma$-álgebra de Borel. Una 
+    Sea $(\Omega, S)$ un espacio muestral y $(\mathbb{R}, \mathcal{B})$ el espacio de los números reales asociados a la $\sigma$-álgebra de Borel. Una 
     variable aleatoria es una aplicación:
     \begin{equation*}
-        X: \Omega \rightarrow \mathbb{R} \qquad \text{ tal que: }  \qquad \forall B \in \mathbb{B}: X^{-1}(B) \in S.
+        \begin{split}
+        X: \Omega & \rightarrow \mathbb{R} \qquad \text{ tal que: }  \qquad \forall B \in \mathcal{B}: X^{-1}(B) \in S.\\
+            \omega & \rightarrow x
+\end{split}
     \end{equation*}
 
 \end{dfn}
 
-\begin{obs}
-Una variable aleatoria verifica que toda pre-imagen de un boreliano está en la $\sigma$-álgebra $S$ del conjunto muestral $\Omega$. Esto es,
-como la probabilidad es una medida sobre el espacio $\Omega$, toda variable aleatoria es una función medible entre los espacios dados.
-\end{obs}
-
 \begin{lem}
-    La familia $\sigma(X)=\{X^{-1}(B): B\in\mathbb{B}\}$ es una $\sigma$-álgebra tal que $\sigma(X)\subseteq S$. Dada 
+    La familia $\sigma(X)=\{X^{-1}(B): B\in\mathcal{B}\}$ es una $\sigma$-álgebra tal que $\sigma(X)\subseteq S$. Dada 
     una variable aleatoria $X$, la llamamos $\sigma$-álgebra \emph{inducida} por la variable aleatoria X.
 \end{lem}
 
-\begin{lem} $X$ induce en $(\mathbb{R}, \mathbb{B})$ una medida de probabilidad $P_X$, según:
+\begin{lem} $X$ induce en $(\mathbb{R}, \mathcal{B})$ una medida de probabilidad $P_X$, según:
     $$
-    P_X(A) = P(X^{-1}(A)), \qquad A\in\mathbb{B}.
+    P_X(A) = P(X^{-1}(A)), \qquad A\in\mathcal{B}.
     $$
     Luego:
     \begin{enumerate}
-        \item $P_X$ es una medida de probabilidad en $(\mathbb{R}, \mathbb{B})$.
-        \item $(\mathbb{R}, \mathbb{B}, P_X)$ es un espacio de probabilidad.
+        \item $P_X$ es una medida de probabilidad en $(\mathbb{R}, \mathcal{B})$.
+        \item $(\mathbb{R}, \mathcal{B}, P_X)$ es un espacio de probabilidad.
     \end{enumerate}
 \end{lem}
+
+\begin{obs}
+Una variable aleatoria verifica que toda pre-imagen de un boreliano está en la $\sigma$-álgebra $S$ del conjunto muestral $\Omega$. 
+En el ámbito más general de Teoría de la Medida, decimos que esta es una función \emph{medible} entre los espacios de medida
+$(\mathbb{R}, \mathcal{B}, P)$ y $(\mathbb{R}, \mathcal{B}, P_X)$. Es decir toda variable aleatoria es una función medible entre espacios de probabilidad.
+\end{obs}
 
 \begin{dfn}
 Sea $X$ una variable aleatoria. Definimos su \emph{función de distribución} como:
@@ -212,31 +329,32 @@ Sea $X$ una variable aleatoria con distribución $F_X:\mathbb{R}\rightarrow[0,1]
 \end{enumerate}
 \end{thm}
 
-\begin{thm}
-Sea \( X \) una variable aleatoria con función de distribución \( F_X:\mathbb{R}\rightarrow[0,1] \). Entonces:
-\[
-\begin{array}{ll}
-\text{(i)} & F_X(x)\geq 0, \quad \forall x \in \mathbb{R} \hspace{1cm} \text{($F_X$ es no negativa)} \\
-\text{(ii)} & x_1 \geq x_2 \Rightarrow F_X(x_1)\geq F_X(x_2), \quad \forall x_1,x_2 \in \mathbb{R} \hspace{1cm} \text{($F_X$ es monótona creciente)} \\
-\text{(iii)} & \lim_{x\rightarrow c^+}F_X(x) = F_X(c), \quad \forall c \in \mathbb{R} \hspace{1cm} \text{($F_X$ es continua por la derecha)} \\
-\text{(iv)} & \lim_{x\rightarrow +\infty}F_X(x) = 1 \hspace{1cm} \text{(límite en \( +\infty \))} \\
-\text{(v)} & \lim_{x\rightarrow -\infty}F_X(x) = 0 \hspace{1cm} \text{(límite en \( -\infty \))} \\
-\end{array}
-\]
-\end{thm}
 
-\begin{thm}
-Sea \( X \) una variable aleatoria con función de distribución \( F_X:\mathbb{R}\rightarrow[0,1] \). Entonces:
-\[
-\begin{array}{rl@{\quad}l}
-\text{1.} & F_X(x)\geq 0, & \text{\small ($F_X$ es no negativa)} \\
-\text{2.} & x_1 \geq x_2 \Rightarrow F_X(x_1)\geq F_X(x_2), & \text{\small ($F_X$ es monótona creciente)} \\
-\text{3.} & \lim_{x\rightarrow c^+}F_X(x) = F_X(c), & \text{\small ($F_X$ es continua por la derecha)} \\
-\text{4.} & \lim_{x\rightarrow +\infty}F_X(x) = 1, & \text{\small (límite en \( +\infty \))} \\
-\text{5.} & \lim_{x\rightarrow -\infty}F_X(x) = 0, & \text{\small (límite en \( -\infty \))} \\
-\end{array}
-\]
-\end{thm}
+%\begin{thm}
+%Sea \( X \) una variable aleatoria con función de distribución \( F_X:\mathbb{R}\rightarrow[0,1] \). Entonces:
+%\[
+%\begin{array}{ll}
+%\text{(i)} & F_X(x)\geq 0, \quad \forall x \in \mathbb{R} \hspace{1cm} \text{($F_X$ es no negativa)} \\
+%\text{(ii)} & x_1 \geq x_2 \Rightarrow F_X(x_1)\geq F_X(x_2), \quad \forall x_1,x_2 \in \mathbb{R} \hspace{1cm} \text{($F_X$ es monótona creciente)} \\
+%\text{(iii)} & \lim_{x\rightarrow c^+}F_X(x) = F_X(c), \quad \forall c \in \mathbb{R} \hspace{1cm} \text{($F_X$ es continua por la derecha)} \\
+%\text{(iv)} & \lim_{x\rightarrow +\infty}F_X(x) = 1 \hspace{1cm} \text{(límite en \( +\infty \))} \\
+%\text{(v)} & \lim_{x\rightarrow -\infty}F_X(x) = 0 \hspace{1cm} \text{(límite en \( -\infty \))} \\
+%\end{array}
+%\]
+%\end{thm}
+%
+%\begin{thm}
+%Sea \( X \) una variable aleatoria con función de distribución \( F_X:\mathbb{R}\rightarrow[0,1] \). Entonces:
+%\[
+%\begin{array}{rl@{\quad}l}
+%\text{1.} & F_X(x)\geq 0, & \text{\small ($F_X$ es no negativa)} \\
+%\text{2.} & x_1 \geq x_2 \Rightarrow F_X(x_1)\geq F_X(x_2), & \text{\small ($F_X$ es monótona creciente)} \\
+%\text{3.} & \lim_{x\rightarrow c^+}F_X(x) = F_X(c), & \text{\small ($F_X$ es continua por la derecha)} \\
+%\text{4.} & \lim_{x\rightarrow +\infty}F_X(x) = 1, & \text{\small (límite en \( +\infty \))} \\
+%\text{5.} & \lim_{x\rightarrow -\infty}F_X(x) = 0, & \text{\small (límite en \( -\infty \))} \\
+%\end{array}
+%\]
+%\end{thm}
 
 \begin{dfn}
 Sea $F:\mathbb{R}\rightarrow[0,1]$ una función. Decimos que $F$ es una \emph{función de distribución de probabilidad} si:
@@ -308,7 +426,7 @@ la variable toma valores exclusivamente. Es decir, $X$ es discreta si:
 %    \end{equation*}
 %\end{obs}
 
-\begin{dfn}
+\begin{ej}[Variable Aleatoria Bernoulli]
     Sea $X:\Omega \rightarrow \{0,1\}$ una variable aleatoria que mapea un espacio muestral $\Omega$ a dos posibles resultados, que solemos llamar
     \emph{éxito}, para el $1$, y \emph{fracaso}, para el $0$. Sea $A=\{\omega \in\Omega: X(\omega)=1\}$. Sea $p=P(A)$. Sea su función de cuantía $f_X$ tal que:
     \begin{equation*}
@@ -319,16 +437,16 @@ la variable toma valores exclusivamente. Es decir, $X$ es discreta si:
     \end{equation*}
     
     Decimos entonces que $X$ es una variable aleatoria de tipo Bernoulli con probabilidad de éxito $p$ y notamos $X\sim B(p)$.
-\end{dfn}
+\end{ej}
 
-\begin{dfn}
+\begin{ej}[Variable Aleatoria Binomial]
     Sean $X_1,\ldots, X_n\sim B(p)$, $n$ variables aleatorias tipo Bernoulli independientes entre sí. Definimos la nueva variable aleatoria:
     \begin{equation*}
         X:\Omega \rightarrow \{0,1,\ldots, n\}, \qquad X=\sum_{i=1}^n X_i
     \end{equation*}
     que mide la cantidad de éxitos en esos $n$ intentos.
     Decimos entonces que $X$ es una variable aleatoria de tipo Binomial con probabilidad de éxito $p$ y $n$ intentos, y notamos $X\sim Bi(n,p)$.
-\end{dfn}
+\end{ej}
 
 \begin{obs}
     Una variable aleatoria binomial $X\sim Bi(n,p)$ tiene función de probabilidad
@@ -354,20 +472,66 @@ la variable toma valores exclusivamente. Es decir, $X$ es discreta si:
     \end{enumerate}
 \end{dfn}
 
+\begin{dfn}
+Decimos que \( F_X \) es absolutamente continua si para cada \( \varepsilon \) existe un \( \delta \) tal que para cualquier familia finita de intervalos disjuntos, 
+\( [a_i, b_i] \), \( i = 1, \dots, k \)
+
+\[
+\sum_{i=1}^{k} \left| F_X(b_i) - F_X(a_i) \right| < \varepsilon \qquad \text{si} \qquad \sum_{i=1}^{k} (b_i - a_i) < \delta.
+\]
+    
+\end{dfn}
+
 % REVISAR SI HACE FALTA INCLUIR:
 \begin{obs}
+    Considerando una variable aleatoria cualquiera $X$:
     \begin{enumerate}
-        Considerando una variable aleatoria cualquiera $X$:
         \item La existencia de $f$ está asegurada cuando la medida de probabilidad $P_X=P(X^{-1})$ es absolutamente continua con respecto a la medida de Lebesgue,
         por el teorema de Radón-Nikodyn.
         \item $F_X(x) = \int_{-\infty}^x f(t)dt$ es absolutamente continua.
     \end{enumerate}
 \end{obs}
 
+\begin{ej}[Variable Aleatoria Uniforme]
+Diremos que una variable aleatoria \( X \) tiene una \emph{distribución uniforme en el intervalo} \([a,b]\), denotado por \( X \sim \mathcal{U}(a,b) \), 
+si su función de densidad de probabilidad es
+
+\[
+f_X(x) = \begin{cases}
+\frac{1}{b - a}, & \text{si } x \in [a,b], \\
+0, & \text{en el resto.}
+\end{cases}
+\]
+
+La función de distribución acumulada correspondiente es
+
+\[
+F_X(x) = \begin{cases}
+0, & \text{si } x \le a, \\
+\frac{x - a}{b - a}, & \text{si } a < x \le b, \\
+1, & \text{si } x > b.
+\end{cases}
+\]
+\end{ej}
+
+\begin{ej}[Variable Aleatoria Normal]\label{def distribucion normal}
+Diremos que una variable aleatoria \( X \) tiene una \textit{distribución normal de parámetros} \( \mu \) y \( \sigma^2 \), y escribimos 
+\( X \sim \mathcal{N}(\mu, \sigma^2) \), si su función de densidad de probabilidad es
+
+\[
+f_X(x) = \frac{1}{\sigma \sqrt{2\pi}} \, e^{ -\frac{(x - \mu)^2}{2\sigma^2} }, \quad -\infty < x < +\infty.
+\]
+\end{ej}
+
+\begin{thm}
+La función definida en (\ref{def distribucion normal}) es una función de densidad de probabilidad.
+\end{thm}
+
+
 \subsection{Transformaciones de Variables Aleatorias}
 
 \begin{lem}
-    Sea $X:\Omega\rightarrow \mathbb{R}$ una variable aleatoria y $g:\mathbb{R}\rightarrow\mathbb{R}$ una función medible en $(\mathbb{R},\mathbb{B})$.
+    Sea $X:\Omega\rightarrow \mathbb{R}$ una variable aleatoria y $g:\mathbb{R}\rightarrow\mathbb{R}$ una función medible en $(\mathbb{R},\mathcal{B})$.
     Entonces $Y = g\circ X$ es una variable aleatoria.
 \end{lem}
 
@@ -376,7 +540,7 @@ la variable toma valores exclusivamente. Es decir, $X$ es discreta si:
     \begin{equation*}
         \Omega \xrightarrow{X} \mathbb{R} \xrightarrow{g} \mathbb{R},
     \end{equation*}
-    podemos notar que, para cualquier boreliano $B\in\mathbb{B}$, $g^{-1}(B)$ será un boreliano si $g$ es medible.
+    podemos notar que, para cualquier boreliano $B\in\mathcal{B}$, $g^{-1}(B)$ será un boreliano si $g$ es medible.
     Luego, el boreliano $B_1 = g^{-1}(B)$ tiene por preimagen de $X$ un medible en $\Omega$, y así $Y$ verifica la definición de variable aleatoria.
     En efecto:
     \begin{equation*}
@@ -395,6 +559,191 @@ la variable toma valores exclusivamente. Es decir, $X$ es discreta si:
         \end{cases}
     \end{equation*}
 \end{thm}
+
+\section{Vectores Aleatorios}
+
+\begin{dfn}
+Un \emph{vector aleatorio} \( X = (X_1, X_2, \dots, X_k) \) es una aplicación desde un espacio de probabilidad \( (\Omega, S, P) \) 
+hacia el espacio medible \( (\mathbb{R}^k, \beta^k) \), tal que
+
+\[
+X^{-1}(B) \in S, \quad \forall B \in \beta^k,
+\]
+
+donde \( \beta^k \) denota la \(\sigma\)-álgebra de Borel de \( \mathbb{R}^k \).
+\end{dfn}
+
+\begin{dfn}
+Dado un vector aleatorio \( X \) definido sobre un espacio de probabilidad \( (\Omega, S, P) \) 
+con valores en el espacio medible \( (\mathbb{R}^k, \beta^k) \), se define la \emph{probabilidad inducida} 
+a partir de \( P \) mediante \( X \) como la medida de probabilidad \( P_X \) dada por:
+
+\begin{equation}
+P_X(B) = P(X^{-1}(B)), \quad \forall B \in \beta^k. \tag{3.1}
+\end{equation}
+\end{dfn}
+
+
+Es inmediato comprobar que \( P_X \) verifica los tres axiomas que definen una medida de probabilidad. Por tanto, 
+la terna \( (\mathbb{R}^k, \beta^k, P_X) \) es un espacio de probabilidad, cuyas propiedades son inducidas 
+por la estructura de \( (\Omega, \mathcal{A}, P) \) a través del vector aleatorio \( X \).
+
+\begin{obs}
+    Llamaremos \emph{distribución} del vector \( X \) a \( P_X \).
+\end{obs}
+
+\begin{dfn}
+Dado un vector aleatorio \( X = (X_1, X_2, \dots, X_k) \), definimos su \textit{función de distribución conjunta}
+ (o \textit{función de distribución asociada} a la distribución \( P_X \)) en un punto \( x = (x_1, \dots, x_k) \in \mathbb{R}^k \) mediante:
+
+\begin{equation*}
+F_X(x) = F_X(x_1, \dots, x_k) = P_X(S_x) = P(X \in S_x) = P\left( \bigcap_{i=1}^{k} \{ X_i \leq x_i \} \right),
+\end{equation*}
+
+donde el conjunto \( S_x \) está definido como
+\[
+S_x = \prod_{i=1}^{k} (-\infty, x_i].
+\]
+\end{dfn}
+
+\begin{prop}
+Sea \( X = (X_1, \dots, X_k) \). Entonces, \( X \) es un vector aleatorio si y solo si cada una de sus componentes \( X_i \) es una variable aleatoria.
+\end{prop}
+
+\subsection{Vectores Aleatorios Discretos}
+
+\begin{dfn}
+Sea $X$ un vector aleatorio. Si el soporte $D\in\mathbb{R}$ de $X$ es numerable, decimos que $X$ es un \emph{vector aleatorio discreto}.    
+\end{dfn}
+
+\begin{dfn}
+Se define la \textit{función de cuantía} o \textit{función de probabilidad conjunta} de un vector aleatorio discreto 
+\( X = (X_1, \dots, X_k) \) en un punto \( x = (x_1, \dots, x_k) \in \mathbb{R}^k \) como
+
+\[
+f_X(x_1, \dots, x_k) = 
+\begin{cases}
+P(X_i = x_i, \ i = 1, \dots, k), & \text{si } x = (x_1, \dots, x_k) \in D, \\
+0, & \text{si } x = (x_1, \dots, x_k) \notin D, 
+\end{cases}
+\]
+
+Donde \( D \subseteq \mathbb{R}^k \) es el soporte de \( X \).
+\end{dfn}
+
+\begin{prop}
+Una función de probabilidad conjunta \( f_X \colon D \to [0,1] \), con $D$ numerable, verifica que:
+
+\begin{itemize}
+    \item \( f_X(x) \geq 0 \) para todo \( x \in D \),
+    \item \( \displaystyle\sum_{x \in D} f_X(x) = 1 \).
+\end{itemize}
+\end{prop}
+
+\begin{obs}
+    Si el vector aleatorio $X$ es discreto también lo serán cada una de sus componentes.
+\end{obs}
+
+\begin{dfn}
+    Sea $X$ un vector aleatorio discreto. Sea $D_i$ el soporte de la $i$-ésima componente de $X$. Definimos la función de cuantía marginal de la componente
+    $X_i$ como
+    \begin{equation*}
+        f_{X_i}(x_i) = \sum_{x_j\in D_j, j\neq i} f_X(x_1,\ldots,x_k).
+    \end{equation*}
+\end{dfn}
+
+\subsection{Vectores Aleatorios Continuos}
+\begin{dfn}
+    Sea $X$ un vector aleatorio. Si existe $f:\mathbb{R}^k\rightarrow\mathbb{R}$, una aplicación no negativa e integrable, cuya integral vale $1$, y tal que:
+\[
+\begin{split}
+    P_X((a, b]) = P\left( X \in (a, b] \right) &= P\left( a_i < X_i \leq b_i, \ i = 1, \dots, k \right) \\
+    &= \int_{a_k}^{b_k} \cdots \int_{a_1}^{b_1} f_X(x_1, \dots, x_k) \, dx_1 \cdots dx_k,
+\end{split}
+\]
+
+para todo $a,b\in\mathbb{R}^k$, con $a_i\leq b_i$; entonces decimos que $X$ es un \emph{vector aleatorio continuo}. 
+\end{dfn}
+
+\begin{dfn}
+Una función \( f_X(x_1, \dots, x_k) \) es una \textit{función de densidad de probabilidad conjunta} si se verifica:
+
+\begin{enumerate}
+    \item \( f_X(x) \geq 0 \) para todo \( x \in \mathbb{R}^k \),
+    \item \( P(X \in \mathbb{R}^k) = 1 \), lo cual implica que
+    \[
+    \int_{-\infty}^{+\infty} \cdots \int_{-\infty}^{+\infty} f_X(x_1, \dots, x_k) \, dx_1 \cdots dx_k = 1.
+    \]
+\end{enumerate}
+\end{dfn}
+
+
+\begin{dfn}
+   Establecemos la siguiente relación entre la función de distribución conjunta y la densidad: 
+\begin{equation*}
+F_X(x_1, \dots, x_k) = P_X(S_x) = \int_{-\infty}^{x_k} \cdots \int_{-\infty}^{x_1} f(t_1, \dots, t_k) \, dt_1 \cdots dt_k,
+\end{equation*}
+
+donde \( S_x = \prod_{i=1}^{k} (-\infty, x_i] \). 
+\end{dfn}
+
+\begin{obs}
+Si \( x \in \mathbb{R}^k \) es un punto de continuidad de \( f_X \), entonces se cumple:
+
+\begin{equation*}
+f_X(x_1, \dots, x_k) = \frac{\partial^k F_X(x_1, \dots, x_k)}{\partial x_1 \cdots \partial x_k}.
+\end{equation*} 
+\end{obs}
+
+
+\begin{dfn}
+Sea $X$ un vector aleatorio continuo y $X_i$ alguna de sus componentes. La \emph{distribucón marginal} de la componente es:
+\begin{equation*}
+    \begin{split}
+        F_{X_i}(x_i) & = \lim_{x_j \to +\infty, \, j \neq i} F_X(x_1, \dots, x_k)\\ 
+        &= \int_{-\infty}^{+\infty} \cdots \int_{-\infty}^{x_i} \cdots \int_{-\infty}^{+\infty} 
+        f(t_1, \dots, t_i, \dots, t_k) \, dt_1 \cdots dt_i \cdots dt_k.
+    \end{split}
+\end{equation*}
+
+Llamamos \emph{densidad marginal} de \( X_i \) a la derivada de \( F_{X_i} \). Dadas las propiedades de la densidad conjunta,
+podemos también definirla como:
+
+\begin{equation*}
+f_{X_i}(x_i) = \int_{\mathbb{R}^{k-1}} f(t_1, \dots, x_i, \dots, t_k) \, dt_1 \cdots dt_{i-1} \, dt_{i+1} \cdots dt_k.
+\end{equation*}
+\end{dfn}
+
+\section{Momentos de una variable aleatoria}
+\begin{dfn}
+Sea $X$ una variable aleatoria discreta no negativa. Definimos la \emph{Esperanza} de $X$ como
+\begin{equation*}
+\mathbb{E}(X) = \sum_{i\in D} x_i \cdot P(X=x_i),
+\end{equation*}
+y diremos que existe si dicha suma es finita.    
+\end{dfn}
+\begin{dfn}
+Sea $X$ una variable aleatoria discreta. Escribimos
+\begin{equation*}
+    X=X^+ - X^- = \max\{X,0\} - (-\min\{X,0\}).
+\end{equation*}
+Si existen $\mathbb{E}(X^+)$ y $\mathbb{E}(X^-)$, entonces existe $\mathbb{E}(X)$. Mas aún:
+\begin{equation*}
+    \mathbb{E}(X) = \mathbb{E}(X^+) - \mathbb{E}(X^-) = \mathbb{E}(X) = \sum_{i\in D} x_i \cdot P(X=x_i).
+\end{equation*}
+\end{dfn}
+
+\begin{prop}
+$\mathbb{E}(X)$ existe sí y sólo sí $|\mathbb{E}(X)|$ existe.
+\end{prop}
+
+\begin{ej}
+    Esperanzas de algunas variables aleatorias discretas:
+    \begin{enumerate}
+        \item Bernoulli: si $X\sim B(p)$ entonces $\mathbb{E}(X)=p$.
+        \item Binomial: si $X\sim Bi(n,p)$ entonces $\mathbb{E}(X)=np$.   
+    \end{enumerate}
+\end{ej}
 
 
 
@@ -1773,150 +2122,6 @@ capacidad no tienen en cuenta propiedades particulares de la distribución en cu
 sentido, estos conceptos de capacidad a menudo conducen a cotas bastante amplias, pero es lo que desde
 un comienzo nos interesaba.\newline
 
-\subsection{Complejidad de Rademacher}
-Un concepto diferente para medir la capacidad de un espacio funcional es la \textbf{complejidad de Rademacher}. 
-En comparación con el coeficiente de fragmentación y la dimensión VC, esta sí depende de la distribución de 
-probabilidad subyacente y, por lo general, conduce a cotas mucho más ajustadas que ambas.\newline
-
-La complejidad de Rademacher se define de la siguiente manera.\newline
-
-\begin{dfn}
-Sean \(\sigma_1, \sigma_2, \dots\) variables aleatorias independientes que toman los valores \(+1\) y \(-1\) 
-con probabilidad \(0.5\). Definimos la complejidad de Rademacher \(\mathscr{R}(\mathcal{F})\) de un espacio funcional 
-\(\mathcal{F}\) como:
-
-\[
-    \mathscr{R}(\mathcal{F}) := \mathbb{E} \sup_{f \in \mathcal{F}} \frac{1}{n} \sum_{i=1}^{n} \sigma_i f(X_i).
-\]
-\end{dfn}
-
-Cada una de estas variables aleatorias se denominan \textit{variables de Rademacher}. 
-Por ejemplo, pueden interpretarse como los resultados de lanzar repetidamente una moneda no cargada. 
-
-Consideremos primero los valores \(\sigma_i\) como fijos e interpretémoslos como etiquetas asignadas a los puntos \(X_i\). Como tanto 
-\(\sigma_i\) como \(f(X_i)\) solo toman los valores \(+1\) o \(-1\), el producto \(\sigma_i f(X_i)\) toma el 
-valor \(+1\) si \(\sigma_i = f(X_i)\), y \(-1\) si \(\sigma_i \neq f(X_i)\). \newline
-
-Como consecuencia, la suma en el lado derecho de la ecuación será grande si las etiquetas \(f(X_i)\) 
-coinciden con las etiquetas \(\sigma_i\) en muchos puntos de datos. Esto significa que la función \(f\) 
-se ajusta bien a las etiquetas \(\sigma_i\): si las etiquetas \(\sigma_i\) fueran en general correctas, 
-\(f\) tendría un error de entrenamiento (o riesgo empírico) pequeño. Luego
-
-\[
-\sup_{f \in \mathcal{F}} \sum_{i=1}^{n} \sigma_i f(X_i)
-\]
-
-es grande si existe una función en \(\mathcal{F}\) que se ajusta bien a la secuencia dada de etiquetas \(\sigma_i\). \newline
-
-Ahora recordemos que las etiquetas \(\sigma_i\) son variables aleatorias. Podemos considerarlas 
-como etiquetas aleatorias asignadas a los puntos de datos \(X_i\). Como tomamos la esperanza sobre ambos, los 
-puntos de datos y las etiquetas aleatorias, la complejidad de Rademacher será alta si el espacio funcional 
-\(\mathcal{F}\) es capaz de ajustarse bien a etiquetas aleatorias. Esta intuición tiene sentido: un espacio 
-funcional debe ser bastante grande para poder ajustarse a todo tipo de etiquetas aleatorias en todo tipo de 
-conjuntos de datos. En este sentido, la complejidad de Rademacher mide qué tan complejo es el espacio 
-funcional: cuanto mayor sea \(\mathscr{R}(\mathcal{F})\), mayor será la complejidad de \(\mathcal{F}\).\newline
-
-Desde un punto de vista matemático, la complejidad de Rademacher es conveniente para trabajar. Se pueden 
-demostrar cotas de generalización de la siguiente forma:
-\begin{thm}
-    Sea $\mathcal{F}$ un espacio funcional y $Z_n$ una muestra de tamaño $n$. Entonces, para cualquier $\delta > 0$,
-\[
-\mathcal{R}(f) \leq \mathcal{R}_{\text{emp}}(f) + 2\mathscr{R}(\mathcal{F}) + \sqrt{\frac{\log(1/\delta)}{2n}}.
-\]
-con probabilidad al menos \(1 - \delta\).\\
-\end{thm}
-
-La complejidad de Rademacher tienen algunas ventajas sobre los conceptos clásicos de capacidad, como la 
-dimensión VC. En particular, las cotas obtenidas mediante complejidades de Rademacher tienden a ser mucho más 
-precisas que las obtenidas mediante herramientas clásicas. Las técnicas de demostración son diferentes de las 
-explicadas anteriormente, pero no entraremos en detalles aquí. Para literatura sobre cotas basadas en la 
-complejidad de Rademacher, véase, por ejemplo, Mendelson (2003), Bousquet et al. (2003) o Boucheron et al. 
-(2005) y las referencias allí citadas.
-
-\subsection{Cotas con grandes márgenes de separación}
-
-Finalmente, queremos introducir otro tipo de medida de capacidad de clases de funciones que es 
-más especializada que las cantidades combinatorias generales presentadas anteriormente. Consideremos 
-el caso particular en el que el espacio de datos consiste en puntos en el espacio bidimensional 
-\(\mathbb{R}^2\) y donde queremos separar las clases mediante una línea recta. 
-
-\begin{dfn}
-    Dado un conjunto de puntos de entrenamiento y un clasificador \(f_n\) que puede separarlos perfectamente, definimos 
-    el \textbf{margen} del clasificador \(f_n\) como la menor distancia de cualquier punto de entrenamiento 
-    a la línea separadora definida por \(f_n\).  \label{def:margen} 
-\end{dfn}
-
-Esta definición está ilustrada en la Figura (\ref{fig:Clasificación con margen}). 
-De manera análoga, se puede definir un margen para clasificadores lineales en un espacio de dimensión arbitraria \(d\).
-
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=0.5\textwidth]{Images/6.png}
-    \caption{Margen de un clasificador lineal: las cruces representan puntos de entrenamiento con 
-    etiqueta \(+1\), mientras que los círculos representan puntos de entrenamiento con etiqueta \(-1\). 
-    La línea recta es el clasificador lineal \(f_n\), y la línea discontinua muestra el margen. La 
-    anchura \(\rho\) del margen está representada por la flecha.}
-    \label{fig:Clasificación con margen}
-\end{figure}
-
-Se puede demostrar que la dimensión VC de la clase \(\mathcal{F}_\rho\) de funciones lineales con 
-margen al menos \(\rho\) puede ser acotada esencialmente por la razón entre el radio \(R\) de la 
-esfera más pequeña que encierra los puntos de datos y el margen \(\rho\), es decir,
-
-\[
-\text{VC}(\mathcal{F}_\rho) \leq \min \left\{d, \frac{4R^2}{\rho^2} \right\} +1.
-\]
-
-(cf. Teorema 5.1 en Vapnik, 1995). Es decir, cuanto mayor sea el margen \(\rho\) de las funciones 
-en la clase \(\mathcal{F}_\rho\), menor será su dimensión VC. De esta manera, se puede usar el 
-margen de los clasificadores como un concepto de capacidad. Uno de los clasificadores más conocidos, 
-la \textbf{máquina de soporte vectorial} (SVM, \textit{Support Vector Machine}), se basa en este 
-resultado. Para un tratamiento más completo, véase Schölkopf y Smola (2002).\newline
-
-Un ejemplo de cota de generalización que involucra el gran margen es el siguiente (para una 
-declaración más precisa, véase el Teorema 7.3 en Schölkopf y Smola, 2002):\newline
-
-\begin{thm}[Cotas de grandes márgenes]
-
-Supongamos que el espacio de datos está contenido dentro de una esfera de radio \(R\) en 
-\(\mathbb{R}^d\). Consideremos el conjunto \(\mathcal{F}_\rho\) de clasificadores lineales con 
-margen al menos \(\rho\). Supongamos que se nos dan \(n\) ejemplos de entrenamiento. Denotemos 
-por \(\nu(f)\) la fracción de ejemplos de entrenamiento con margen menor que \(\rho\) o que han 
-sido clasificados erróneamente por algún clasificador \(f \in \mathcal{F}_\rho\). Entonces, con 
-probabilidad al menos \(1 - \delta\), el error verdadero de cualquier \(f \in \mathcal{F}_\rho\) 
-puede ser acotado por:
-
-\[
-\mathcal{R}(f) \leq \nu(f) + \sqrt{\frac{c}{n} \left( \frac{R^2}{\rho^2} \log(n)^2 + \log(1/\delta) \right)} .
-\]
-\end{thm}
-
-\subsection{Conclusiones acerca de las cotas de generalización}
-
-Hasta ahora, hemos introducido algunos conceptos de capacidad para clases de funciones: el 
-coeficiente de fragmentación, la dimensión VC y la complejidad de Rademacher. En la literatura, 
-existen muchos otros conceptos de capacidad, y presentarlos todos está fuera del alcance de esta 
-visión general. Sin embargo, queremos destacar la forma general que suelen adoptar la mayoría 
-de las cotas de generalización.\newline
-
-Usualmente, estas cotas están compuestas por tres términos diferentes y tienen la siguiente forma: 
-con probabilidad al menos \(1 - \delta\),
-
-\[
-\mathcal{R}(f) \leq R_{\text{emp}}(f) + \text{capacidad}(\mathcal{F}) + \text{confianza}(\delta).
-\]
-
-Es decir, se puede acotar el riesgo verdadero de un clasificador por su riesgo empírico, un término 
-de capacidad que, en el caso más simple, solo depende de la clase de funciones subyacente 
-\(\mathcal{F}\), y un término de confianza que depende de la probabilidad con la que se desea que 
-la cota se cumpla.\newline
-
-Nótese que, por su naturaleza, todas las cotas de esta forma son cotas en el peor caso: dado que 
-la cota se cumple para todas las funciones en la clase \(\mathcal{F}\), el comportamiento de la cota 
-está determinado por el peor clasificador dentro del espacio funcional. Este punto suele ser 
-utilizado para criticar este enfoque en la teoría del aprendizaje estadístico, ya que los clasificadores 
-naturales no tienden a seleccionar la peor función dentro de una clase.\newline
-
 
 \chapter{La Teoría VC}
 
@@ -3259,14 +3464,154 @@ por lo que la necesidad queda finalmente demostrada por el contrarrecíproco. El
 
 
 
-
-
-
-
-
-
-
 \chapter{Otros conceptos del Aprendizaje}
+
+\section{Más medidas de capacidad de un espacio de clasificadores}
+\subsection{Complejidad de Rademacher}
+Un concepto diferente para medir la capacidad de un espacio funcional es la \textbf{complejidad de Rademacher}. 
+En comparación con el coeficiente de fragmentación y la dimensión VC, esta sí depende de la distribución de 
+probabilidad subyacente y, por lo general, conduce a cotas mucho más ajustadas que ambas.\newline
+
+La complejidad de Rademacher se define de la siguiente manera.\newline
+
+\begin{dfn}
+Sean \(\sigma_1, \sigma_2, \dots\) variables aleatorias independientes que toman los valores \(+1\) y \(-1\) 
+con probabilidad \(0.5\). Definimos la complejidad de Rademacher \(\mathscr{R}(\mathcal{F})\) de un espacio funcional 
+\(\mathcal{F}\) como:
+
+\[
+    \mathscr{R}(\mathcal{F}) := \mathbb{E} \sup_{f \in \mathcal{F}} \frac{1}{n} \sum_{i=1}^{n} \sigma_i f(X_i).
+\]
+\end{dfn}
+
+Cada una de estas variables aleatorias se denominan \textit{variables de Rademacher}. 
+Por ejemplo, pueden interpretarse como los resultados de lanzar repetidamente una moneda no cargada. 
+
+Consideremos primero los valores \(\sigma_i\) como fijos e interpretémoslos como etiquetas asignadas a los puntos \(X_i\). Como tanto 
+\(\sigma_i\) como \(f(X_i)\) solo toman los valores \(+1\) o \(-1\), el producto \(\sigma_i f(X_i)\) toma el 
+valor \(+1\) si \(\sigma_i = f(X_i)\), y \(-1\) si \(\sigma_i \neq f(X_i)\). \newline
+
+Como consecuencia, la suma en el lado derecho de la ecuación será grande si las etiquetas \(f(X_i)\) 
+coinciden con las etiquetas \(\sigma_i\) en muchos puntos de datos. Esto significa que la función \(f\) 
+se ajusta bien a las etiquetas \(\sigma_i\): si las etiquetas \(\sigma_i\) fueran en general correctas, 
+\(f\) tendría un error de entrenamiento (o riesgo empírico) pequeño. Luego
+
+\[
+\sup_{f \in \mathcal{F}} \sum_{i=1}^{n} \sigma_i f(X_i)
+\]
+
+es grande si existe una función en \(\mathcal{F}\) que se ajusta bien a la secuencia dada de etiquetas \(\sigma_i\). \newline
+
+Ahora recordemos que las etiquetas \(\sigma_i\) son variables aleatorias. Podemos considerarlas 
+como etiquetas aleatorias asignadas a los puntos de datos \(X_i\). Como tomamos la esperanza sobre ambos, los 
+puntos de datos y las etiquetas aleatorias, la complejidad de Rademacher será alta si el espacio funcional 
+\(\mathcal{F}\) es capaz de ajustarse bien a etiquetas aleatorias. Esta intuición tiene sentido: un espacio 
+funcional debe ser bastante grande para poder ajustarse a todo tipo de etiquetas aleatorias en todo tipo de 
+conjuntos de datos. En este sentido, la complejidad de Rademacher mide qué tan complejo es el espacio 
+funcional: cuanto mayor sea \(\mathscr{R}(\mathcal{F})\), mayor será la complejidad de \(\mathcal{F}\).\newline
+
+Desde un punto de vista matemático, la complejidad de Rademacher es conveniente para trabajar. Se pueden 
+demostrar cotas de generalización de la siguiente forma:
+\begin{thm}
+    Sea $\mathcal{F}$ un espacio funcional y $Z_n$ una muestra de tamaño $n$. Entonces, para cualquier $\delta > 0$,
+\[
+\mathcal{R}(f) \leq \mathcal{R}_{\text{emp}}(f) + 2\mathscr{R}(\mathcal{F}) + \sqrt{\frac{\log(1/\delta)}{2n}}.
+\]
+con probabilidad al menos \(1 - \delta\).\\
+\end{thm}
+
+La complejidad de Rademacher tienen algunas ventajas sobre los conceptos clásicos de capacidad, como la 
+dimensión VC. En particular, las cotas obtenidas mediante complejidades de Rademacher tienden a ser mucho más 
+precisas que las obtenidas mediante herramientas clásicas. Las técnicas de demostración son diferentes de las 
+explicadas anteriormente, pero no entraremos en detalles aquí. Para literatura sobre cotas basadas en la 
+complejidad de Rademacher, véase, por ejemplo, Mendelson (2003), Bousquet et al. (2003) o Boucheron et al. 
+(2005) y las referencias allí citadas.
+
+\subsection{Cotas con grandes márgenes de separación}
+
+Finalmente, queremos introducir otro tipo de medida de capacidad de clases de funciones que es 
+más especializada que las cantidades combinatorias generales presentadas anteriormente. Consideremos 
+el caso particular en el que el espacio de datos consiste en puntos en el espacio bidimensional 
+\(\mathbb{R}^2\) y donde queremos separar las clases mediante una línea recta. 
+
+\begin{dfn}
+    Dado un conjunto de puntos de entrenamiento y un clasificador \(f_n\) que puede separarlos perfectamente, definimos 
+    el \textbf{margen} del clasificador \(f_n\) como la menor distancia de cualquier punto de entrenamiento 
+    a la línea separadora definida por \(f_n\).  \label{def:margen} 
+\end{dfn}
+
+Esta definición está ilustrada en la Figura (\ref{fig:Clasificación con margen}). 
+De manera análoga, se puede definir un margen para clasificadores lineales en un espacio de dimensión arbitraria \(d\).
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Images/6.png}
+    \caption{Margen de un clasificador lineal: las cruces representan puntos de entrenamiento con 
+    etiqueta \(+1\), mientras que los círculos representan puntos de entrenamiento con etiqueta \(-1\). 
+    La línea recta es el clasificador lineal \(f_n\), y la línea discontinua muestra el margen. La 
+    anchura \(\rho\) del margen está representada por la flecha.}
+    \label{fig:Clasificación con margen}
+\end{figure}
+
+Se puede demostrar que la dimensión VC de la clase \(\mathcal{F}_\rho\) de funciones lineales con 
+margen al menos \(\rho\) puede ser acotada esencialmente por la razón entre el radio \(R\) de la 
+esfera más pequeña que encierra los puntos de datos y el margen \(\rho\), es decir,
+
+\[
+\text{VC}(\mathcal{F}_\rho) \leq \min \left\{d, \frac{4R^2}{\rho^2} \right\} +1.
+\]
+
+(cf. Teorema 5.1 en Vapnik, 1995). Es decir, cuanto mayor sea el margen \(\rho\) de las funciones 
+en la clase \(\mathcal{F}_\rho\), menor será su dimensión VC. De esta manera, se puede usar el 
+margen de los clasificadores como un concepto de capacidad. Uno de los clasificadores más conocidos, 
+la \textbf{máquina de soporte vectorial} (SVM, \textit{Support Vector Machine}), se basa en este 
+resultado. Para un tratamiento más completo, véase Schölkopf y Smola (2002).\newline
+
+Un ejemplo de cota de generalización que involucra el gran margen es el siguiente (para una 
+declaración más precisa, véase el Teorema 7.3 en Schölkopf y Smola, 2002):\newline
+
+\begin{thm}[Cotas de grandes márgenes]
+
+Supongamos que el espacio de datos está contenido dentro de una esfera de radio \(R\) en 
+\(\mathbb{R}^d\). Consideremos el conjunto \(\mathcal{F}_\rho\) de clasificadores lineales con 
+margen al menos \(\rho\). Supongamos que se nos dan \(n\) ejemplos de entrenamiento. Denotemos 
+por \(\nu(f)\) la fracción de ejemplos de entrenamiento con margen menor que \(\rho\) o que han 
+sido clasificados erróneamente por algún clasificador \(f \in \mathcal{F}_\rho\). Entonces, con 
+probabilidad al menos \(1 - \delta\), el error verdadero de cualquier \(f \in \mathcal{F}_\rho\) 
+puede ser acotado por:
+
+\[
+\mathcal{R}(f) \leq \nu(f) + \sqrt{\frac{c}{n} \left( \frac{R^2}{\rho^2} \log(n)^2 + \log(1/\delta) \right)} .
+\]
+\end{thm}
+
+\subsection{Conclusiones acerca de las cotas de generalización}
+
+Hasta ahora, hemos introducido algunos conceptos de capacidad para clases de funciones: el 
+coeficiente de fragmentación, la dimensión VC y la complejidad de Rademacher. En la literatura, 
+existen muchos otros conceptos de capacidad, y presentarlos todos está fuera del alcance de esta 
+visión general. Sin embargo, queremos destacar la forma general que suelen adoptar la mayoría 
+de las cotas de generalización.\newline
+
+Usualmente, estas cotas están compuestas por tres términos diferentes y tienen la siguiente forma: 
+con probabilidad al menos \(1 - \delta\),
+
+\[
+\mathcal{R}(f) \leq R_{\text{emp}}(f) + \text{capacidad}(\mathcal{F}) + \text{confianza}(\delta).
+\]
+
+Es decir, se puede acotar el riesgo verdadero de un clasificador por su riesgo empírico, un término 
+de capacidad que, en el caso más simple, solo depende de la clase de funciones subyacente 
+\(\mathcal{F}\), y un término de confianza que depende de la probabilidad con la que se desea que 
+la cota se cumpla.\newline
+
+Nótese que, por su naturaleza, todas las cotas de esta forma son cotas en el peor caso: dado que 
+la cota se cumple para todas las funciones en la clase \(\mathcal{F}\), el comportamiento de la cota 
+está determinado por el peor clasificador dentro del espacio funcional. Este punto suele ser 
+utilizado para criticar este enfoque en la teoría del aprendizaje estadístico, ya que los clasificadores 
+naturales no tienden a seleccionar la peor función dentro de una clase.\newline
+
+
 \section{Consistencia de Bayes y error de aproximación}
 
 Hasta ahora, hemos reparado tan solo en el enfoque estándar para acotar el error de estimación 
@@ -3744,8 +4089,8 @@ Otra manera de expresar esto es la siguiente: si las etiquetas de los puntos se 
 completamente aleatoria, entonces las etiquetas de los puntos de prueba serán completamente independientes 
 de las etiquetas de los puntos de entrenamiento. En tal escenario, el aprendizaje es imposible.\newline
 
-\bigbreak
-\pagebreak
+
+
 \chapter*{Bibliografía}
 
 [1] von Luxburg, B. Schölkopf - \textit{Statistical Learning Theory: Models, Concepts and Results} (2008). \\
