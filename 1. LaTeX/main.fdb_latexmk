@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1750093478.44461 "/Users/niconash/Repositories/Tesis/1. LaTeX/main.tex" "main.pdf" "main" 1750093479.89247 0
-  "/Users/niconash/Repositories/Tesis/1. LaTeX/main.tex" 1750093477.84097 219063 3010832f3eaebcfcb74829c13c7b5a05 ""
+["pdflatex"] 1750211864.64808 "/Users/niconash/Repositories/Tesis/1. LaTeX/main.tex" "main.pdf" "main" 1750211866.02062 0
+  "/Users/niconash/Repositories/Tesis/1. LaTeX/main.tex" 1750211862.87298 232260 f14f60650324d013e6bbbf9032ff5149 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -12,6 +12,9 @@
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm" 1246382020 940 228d6584342e91276bf566bcf9716b83 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1136768653 1328 c834bbb027764024c09d3d2bf908b5f0 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm" 1136768653 1324 c910af8c371558dc20f2d7822f66fe64 ""
+  "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmbx5.tfm" 1136768653 1332 f817c21a1ba54560425663374f1b651a ""
+  "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmbx6.tfm" 1136768653 1344 8a0be4fe4d376203000810ad4dc81558 ""
+  "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmbx7.tfm" 1136768653 1336 3125ccb448c1a09074e3aa4a9832f130 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmbx8.tfm" 1136768653 1332 1fde11373e221473104d6cc5993f046e ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmbxti10.tfm" 1136768653 1532 9162035f4e7176612125649e348e2195 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmex10.tfm" 1136768653 992 662f679a0b3d2d53c1b94050fdaa3f50 ""
@@ -127,10 +130,10 @@
   "Images/5.png" 1738179045.626 40616 b2064d55b870b8ab3b143797458ca2b2 ""
   "Images/6.png" 1738511219.96877 24998 ad775861cd3a131192bdec4478a1c453 ""
   "Images/7.png" 1738956320.17983 15788 866961957a4febf62533481d8dd9213a ""
-  "main.aux" 1750093479.73585 17268 b02b79953120c70105283c69fbfb01e4 "pdflatex"
-  "main.out" 1750093479.74369 10002 1f9069bd924d62c051f2d2ac7deef21a "pdflatex"
-  "main.tex" 1750093477.84097 219063 3010832f3eaebcfcb74829c13c7b5a05 ""
-  "main.toc" 1750093479.74812 4437 2588deb2279a70aa3566b093e8f880c2 "pdflatex"
+  "main.aux" 1750211865.87584 19806 53e164812998ca7b9fa23b5e3418123a "pdflatex"
+  "main.out" 1750211865.87887 11701 1e79deacd7a441c31c26ec0c3d4e8dba "pdflatex"
+  "main.tex" 1750211862.87298 232260 f14f60650324d013e6bbbf9032ff5149 ""
+  "main.toc" 1750211865.88381 5247 08b3d4d9023cb81e940200b137826676 "pdflatex"
   (generated)
   "main.aux"
   "main.log"

@@ -30,7 +30,7 @@
 \maketitle
 \tableofcontents
 \chapter{Resultados Preliminares}
-\section{Espacios de Probabilidad}
+\section{Medida}
 
 \begin{dfn}
     Llamamos \textit{espacio muestral} a un conjunto $\Omega$ de posibles resultados de un experimento aleatorio.
@@ -137,6 +137,7 @@ Entonces, \( (\mathcal{S}, \sigma, \delta) \) es un espacio de medida al que lla
 
 %A los alcances de la primer capítulo, donde nos limitaremos a una descripción intuitiva de la Teoría del Aprendizaje Estadístico, la siguiente
 %definición de probabilidad será suficiente. Luego la definiremos de manera más formal, haciendo uso de resultados conocidos de Teoría de la Medida. 
+\section{Espacios de Probabilidad}
 
 \begin{dfn}
 Dado un espacio muestral \( \Omega \) y una $\sigma$-álgebra asociada \( S \), 
@@ -715,6 +716,7 @@ f_{X_i}(x_i) = \int_{\mathbb{R}^{k-1}} f(t_1, \dots, x_i, \dots, t_k) \, dt_1 \c
 \end{dfn}
 
 \section{Momentos de una variable aleatoria}
+\subsection{Esperanza}
 \begin{dfn}
 Sea $X$ una variable aleatoria discreta no negativa. Definimos la \emph{Esperanza} de $X$ como
 \begin{equation*}
@@ -737,16 +739,357 @@ Si existen $\mathbb{E}(X^+)$ y $\mathbb{E}(X^-)$, entonces existe $\mathbb{E}(X)
 $\mathbb{E}(X)$ existe sí y sólo sí $|\mathbb{E}(X)|$ existe.
 \end{prop}
 
-\begin{ej}
-    Esperanzas de algunas variables aleatorias discretas:
-    \begin{enumerate}
-        \item Bernoulli: si $X\sim B(p)$ entonces $\mathbb{E}(X)=p$.
-        \item Binomial: si $X\sim Bi(n,p)$ entonces $\mathbb{E}(X)=np$.   
-    \end{enumerate}
+\begin{ej}[Esperanza de distribuciones clásicas]
+Sea \( X \) una variable aleatoria con alguna de las siguientes distribuciones. Su esperanza viene dada por:
+
+\begin{itemize}
+    \item \textbf{Distribución de Bernoulli:} \( X \sim \mathrm{Bernoulli}(p) \), con \( p \in [0,1] \). Entonces:
+    \[
+    \mathbb{E}(X) = p.
+    \]
+
+    \item \textbf{Distribución Binomial:} \( X \sim \mathrm{Binomial}(n, p) \), con \( n \in \mathbb{N} \) y \( p \in [0,1] \). Entonces:
+    \[
+    \mathbb{E}(X) = np.
+    \]
+
+    \item \textbf{Distribución Uniforme continua:} \( X \sim \mathcal{U}(a, b) \), con \( a < b \). Entonces:
+    \[
+    \mathbb{E}(X) = \frac{a + b}{2}.
+    \]
+
+    \item \textbf{Distribución Normal:} \( X \sim \mathcal{N}(\mu, \sigma^2) \), con \( \mu \in \mathbb{R} \) y \( \sigma^2 > 0 \). Entonces:
+    \[
+    \mathbb{E}(X) = \mu.
+    \]
+\end{itemize}
 \end{ej}
 
 
+\begin{dfn}
+    Sea $X$ una variable aleatoria continua, no negativa, con función de densidad $f$. Definimos su esperanza como
+    \begin{equation*}
+\mathbb{E}(X) = \int_{0}^{+\infty} x f(x) dx.
+    \end{equation*}
+    Diremos que la esperanza de la variable aleatoria existe si dicha integral es finita.
+\end{dfn}
 
+\begin{dfn}
+Sea $X$ una variable aleatoria continua. Escribimos, de forma análoga al caso discreto
+\begin{equation*}
+    X=X^+ - X^- = \max\{X,0\} - (-\min\{X,0\}).
+\end{equation*}
+Si existen $\mathbb{E}(X^+)$ y $\mathbb{E}(X^-)$, entonces existe $\mathbb{E}(X)$. Mas aún:
+\begin{equation*}
+    \mathbb{E}(X) = \mathbb{E}(X^+) - \mathbb{E}(X^-) = \int_{-\infty}^{+\infty} x f(x) dx.
+\end{equation*}
+\end{dfn}
+
+\begin{dfn}
+Sea $X$ una variable aleatoria discreta con soporte en $D$. Sea $g(X)$ otra variable aleatoria. Por la naturaleza de $X$, también 
+será discreta. Definimos la esperanza de la transformación como
+\begin{equation*}
+\mathbb{E}(g(X)) = \sum_{x_i\in D} g(x_i)P(X=x_i)
+\end{equation*}
+\end{dfn}
+
+
+\begin{dfn}
+Sea $X$ una variable aleatoria continua. Sea $g(X)$ otra variable aleatoria, necesariamente continua. 
+Definimos la esperanza de la transformación $g(X)$ como
+\begin{equation*}
+\mathbb{E}(g(X)) = \int_{-\infty}^{+\infty} g(x)f(x)dx
+\end{equation*}
+\end{dfn}
+
+\begin{prop}
+    Enunciamos algunas propiedades de la esperanza. Sea $X$ una variable aleatoria y $g,h$ transformaciones
+    de $X$. Sean $\alpha,\beta\in\mathbb{R}$. Entonces:
+    \begin{enumerate}
+        \item $\mathbb{E}(\alpha g(X) + \beta h(X)) = \alpha \mathbb{E}(g(X))+ \beta \mathbb{E}(h(X))$.
+        \item En particular: $\mathbb{E}(\alpha g(X) + \beta) = \alpha\mathbb{E}( g(X) ) + \beta$.
+        \item $P(\alpha\leq X \leq \beta) = 1$ implica que $\alpha\leq \mathbb{E}(X) \leq \beta$.
+        \item $P(g(X)\leq h(X)) = 1$ implica que $\mathbb{E}(g(X)) \leq \mathbb{E}(h(X))$.
+        \item $|\mathbb{E}(g(X))|\leq \mathbb{E}(|g(X)|)$.
+    \end{enumerate}
+\end{prop}
+
+\subsection{La Varianza y otros momentos}
+\begin{dfn}
+Dada una variable aleatoria \(X\), definimos el momento de orden \(k\) o \emph{momento no central de orden \(k\)} como
+\[
+\mu_k = \mathbb{E}[X^k].
+\]
+\end{dfn}
+
+\begin{dfn}
+Dada una variable aleatoria \(X\), definimos el \emph{momento central de orden \(k\)} como
+\[
+\mathbb{E}[(X - \mathbb{E}X)^k].
+\]
+\end{dfn}
+
+En particular, la \emph{varianza} de la variable \(X\) es el momento central de orden 2. Se denota como \( \operatorname{var}(X) \), \( V(X) \) o \( \sigma^2(X) \).
+
+\begin{dfn}
+Si la variable aleatoria \(X\) es \textit{discreta}, definimos su varianza como
+\[
+V(X) = \operatorname{var}(X) = \sigma^2(X) = \sum_i (x_i - \mathbb{E}X)^2 \, \mathbb{P}(X = x_i).
+\]
+Si la variable \(X\) es \textit{continua}, entonces su varianza viene dada por
+\[
+V(X) = \operatorname{var}(X) = \sigma^2(X) = \int_{-\infty}^{+\infty} (x - \mu)^2 f(x) \, dx.
+\]
+\end{dfn}
+
+\begin{dfn}
+Dada una variable aleatoria \(X\), definimos su \emph{desviación estándar} (o desviación típica) como
+\[
+\sigma_X = \sqrt{\operatorname{var}(X)},
+\]
+es decir, la definimos como la raíz cuadrada de la varianza.
+\end{dfn}
+
+\begin{prop}[Propiedades de la varianza]
+Sea \( X \) una variable aleatoria con varianza finita \( \sigma_X^2 < \infty \). Se verifica que:
+
+\begin{enumerate}
+    \item \( \operatorname{var}(X) \geq 0 \).
+    \item \( \operatorname{var}(aX + b) = a^2 \operatorname{var}(X) \).
+    \item \( \operatorname{var}(X) = \mathbb{E}(X^2) - [\mathbb{E}(X)]^2 \).
+    \item \( \operatorname{var}(X) \) minimiza \( \mathbb{E}[(X - a)^2] \).
+\end{enumerate}
+\end{prop}
+
+\begin{ej}[Varianza de distribuciones clásicas]
+Sea \( X \) una variable aleatoria con alguna de las siguientes distribuciones. Su varianza viene dada por:
+
+\begin{itemize}
+    \item \textbf{Distribución de Bernoulli:} \( X \sim \mathrm{Bernoulli}(p) \), con \( p \in [0,1] \). Entonces:
+    \[
+    \mathbb{E}(X) = p, \qquad \operatorname{var}(X) = \mathbb{E}(X^2) - [\mathbb{E}(X)]^2 = p - p^2 = p(1 - p).
+    \]
+
+    \item \textbf{Distribución Binomial:} \( X \sim \mathrm{Binomial}(n, p) \), con \( n \in \mathbb{N} \) y \( p \in [0,1] \). Entonces:
+    \[
+    \mathbb{E}(X) = np, \qquad \operatorname{var}(X) = np(1 - p).
+    \]
+
+    \item \textbf{Distribución Uniforme continua:} \( X \sim \mathcal{U}(a, b) \), con \( a < b \). Entonces:
+    \[
+    \mathbb{E}(X) = \frac{a + b}{2}, \qquad \operatorname{var}(X) = \frac{(b - a)^2}{12}.
+    \]
+
+    \item \textbf{Distribución Normal:} \( X \sim \mathcal{N}(\mu, \sigma^2) \), con \( \mu \in \mathbb{R} \) y \( \sigma^2 > 0 \). Entonces:
+    \[
+    \mathbb{E}(X) = \mu, \qquad \operatorname{var}(X) = \sigma^2.
+    \]
+\end{itemize}
+\end{ej}
+
+\begin{prop}
+Si \( \mathbb{E}(X^k) \) existe, entonces existen todos los momentos de orden inferior.
+\end{prop}
+
+\begin{thm}
+Si \( X \) es una variable aleatoria no negativa de forma casi segura\footnotemark[1]  (\( P(X\geq0)=1 \)) 
+con \( \mathbb{E}(X) \) finita, se verifica la siguiente igualdad:
+\[
+\mathbb{E}(X) = \int_0^{+\infty} P(X > x)\,dx = \int_0^{+\infty} P(X \geq x)\,dx.
+\]
+\end{thm}
+\footnotetext[1]{Definida correctamente en la siguiente sección}.
+\begin{thm}
+Si \( X \) es una variable aleatoria tal que existe su esperanza, entonces
+\[
+\mathbb{E}(X) = \int_0^{+\infty} P(X > x)\, dx - \int_{-\infty}^0 P(X < x)\, dx.
+\]
+\end{thm}
+
+\section{Tipos de convergencia}
+
+Para las siguientes definiciones, consideremos un espacio de probabilidad $(\Omega, S, P)$, 
+una sucesión de variables aleatorias $\{X_n\}$ y la variable aleatoria $X$.
+
+\begin{dfn} \label{dfn:conv_prob} (\textbf{Convergencia en probabilidad}) 
+    Decimos que $\{X_n\}$ converge a $X$ en probabilidad, $X_n \xrightarrow{P} X$, si para cada $\delta > 0$,
+\[
+\lim_{n} P\{\omega : |X_n(\omega) - X(\omega)| > \delta \} = 0.
+\]
+\end{dfn}
+
+\begin{dfn} \label{dfn:conv_cs}(\textbf{Convergencia casi segura}) Decimos que $\{X_n\}$ converge casi seguramente a $X$ (o con probabilidad 1), $X_n \xrightarrow{a.s.} X$, si
+\[
+P(\{\omega : \lim_{n} X_n(\omega) = X(\omega)\}) = 1.
+\]
+\end{dfn}
+\begin{obs}
+    Notamos \emph{a.s.} a la convergencia casi segura dada su nombre en inglés, \emph{almost surely}. 
+\end{obs}
+
+\begin{dfn} \label{dfn:conv_debil} (\textbf{Convergencia débil}) Sean $F_n$, $n \geq 1$, y 
+    $F$ funciones de distribución de probabilidad. Decimos que la sucesión $F_n$ converge \emph{débilmente} a $F$, y notamos $F_n \xrightarrow{w} F$, 
+    si $\displaystyle\lim_{n\rightarrow\infty} F_n(x) = F(x)$, $\forall x$ que sea punto de continuidad de $F$.
+\end{dfn}
+
+\begin{obs}
+    Notamos \emph{w} a la convergencia casi segura dada su nombre en inglés, \emph{weakly}. 
+\end{obs}
+
+
+\begin{dfn} \label{dfn:conv_ley} (\textbf{Convergencia en ley}) Decimos que $\{X_n\}$ converge en ley a $X$, 
+    $X_n \xrightarrow{L} X$, si $F_{X_n} \xrightarrow{w} F_X$. Teniendo en cuenta la definición de $F_n$ y $F$, la convergencia en ley puede expresarse también
+\[
+X_n \xrightarrow{L} X \iff \lim_n P(X_n \leq x) = P(X \leq x),
+\]
+$\forall x$ que sea punto de continuidad de $F$.
+\end{dfn}
+
+
+\begin{thm} \label{thm:rel_convergencias}  Sean $X_n$ y $X$ variables aleatorias definidas sobre un mismo espacio de probabilidad. Entonces:
+\[
+X_n \xrightarrow{a.s.} X \implies X_n \xrightarrow{P} X \implies X_n \xrightarrow{L} X
+\]
+\end{thm}
+
+
+\begin{thm} \label{thm:conv_law_to_prob}
+Si $X_n \xrightarrow{L} c$ entonces $X_n \xrightarrow{P} c$.
+\end{thm}
+
+\section{Desigualdades}
+\begin{prop}
+    Si para $X \geq 0$ \textbf{a.s.} existe su esperanza, sea $\varepsilon > 0$. Entonces
+\[
+P(X \geq \varepsilon) \leq \frac{E(X)}{\varepsilon}. 
+\]
+\end{prop}
+
+\begin{prop} \label{prop:markov} (\textbf{Desigualdad de Markov})
+\[
+P(|X| \geq \varepsilon) \leq \frac{1}{\varepsilon^k} E(|X|^k), 
+\]
+\end{prop}
+
+\begin{prop} \label{prop:chebyshev} (\textbf{Desigualdad de Chebyshev})
+\[
+P(|X - E(X)| \geq \varepsilon) \leq \frac{1}{\varepsilon^2} \mathrm{Var}(X).
+\]
+\end{prop}
+
+\begin{prop} \label{prop:variance_zero}
+Si $\mathrm{Var}(X) = 0$, entonces $X = \mu$ a.s..
+\end{prop}
+
+\begin{prop} \label{prop:jensen} (\textbf{Desigualdad de Jensen}) Si $g$ es una función convexa entonces
+\[
+E(g(X)) \geq g(E(X)).
+\]
+\end{prop}
+
+\section{Momentos de un vector aleatorio}
+\begin{dfn} \label{dfn:expected_value_vector}
+Sea $X = (X_1, \dots, X_k)$ un vector aleatorio discreto y sea $g$ una función medible de $\mathbb{R}^k$ en $\mathbb{R}$. 
+Definimos la esperanza del vector como:
+
+
+\[
+E(g(X)) = \sum_{(x_1,\dots,x_k) \in D} g(x_1,\dots,x_k)f_X(x_1,\dots,x_k),
+\]
+Con $D$ su soporte y $f_X$ su función de probabilidad conjunta.
+\end{dfn}
+
+\begin{dfn}\label{dfn:expected_value_vector_cont}
+Sea $X = (X_1, \dots, X_k)$ un vector aleatorio continuo y sea $g$ una función medible de $\mathbb{R}^k$ en $\mathbb{R}$. 
+Definimos la esperanza del vector como:
+
+\[
+E(g(X)) = \int_{-\infty}^{+\infty} \dots \int_{-\infty}^{+\infty} g(x_1,\dots,x_k)f_X(x_1,\dots,x_k) \,dx_1 \dots dx_k.
+\]
+
+si $f_X$ es su función de densidad conjunta.
+\end{dfn}
+
+\begin{dfn} \label{dfn:momento_conjunto}  Se define el momento conjunto de orden $(n_1,\dots,n_k)$ como $E(X_1^{n_1} \dots X_k^{n_k})$.
+\end{dfn}
+
+
+\begin{dfn} \label{dfn:momento_conjunto_central}  Se define como $E(X_1 - E(X_1))^{n_1} \dots (X_k - E(X_k))^{n_k}$ para $n_i \geq 0$.
+\end{dfn}
+
+
+\begin{dfn} \label{dfn:covarianza} Supongamos un vector bidimensional $(X_1,X_2)$. Se define la covarianza entre $X_1$ e $X_2$ como
+\[
+\mathrm{cov}(X_1, X_2) = E(X_1 - EX_1)(X_2 - EX_2).
+\]
+\end{dfn}
+
+\begin{dfn} \label{dfn:matriz_covarianzas} Dado el vector aleatorio $\mathbf{X} = (X_1,\dots,X_k)$, definimos la matriz de covarianzas como
+\[
+\Sigma = [\sigma_{ij}]_{i,j=1,\dots,k}
+\]
+\end{dfn}
+
+\section{Teoremas importantes de la Estadística inferencial}
+\subsection{Las Leyes de los Grandes Números}
+\begin{thm} \label{thm:ley_debil} (\textbf{Ley débil}) Sea $\{X_k\}$ una sucesión de variables aleatorias independientes 
+    tales que $E(X_k^2) < +\infty$, $\forall k$, y $\lim_n \frac{1}{n^2} \sum_{k=1}^n \mathrm{var}(X_k) = 0$, entonces
+\[
+\frac{1}{n} \sum_{k=1}^n (X_k - E(X_k)) \xrightarrow{P} 0.
+\]
+\end{thm}
+
+\begin{obs}
+Sea $\{X_k\}$ una sucesión de variables aleatorias independientes tales que todas se distribuyen de la misma manera. 
+Diremos entonces que  $\{X_k\}$ es una sucesión de variables aleatorias \emph{i.i.d.} (independientes e idénticamente
+distribuidas).
+\end{obs}
+
+\begin{thm} \label{thm:ley_fuerte} (\textbf{Ley fuerte}) Si $\{X_k\}$ es una sucesión de variables aleatorias i.i.d. con esperanza finita, entonces
+\[
+\sum_{k=1}^n \frac{X_k}{n} \xrightarrow{a.s.} E(X_1).
+\]
+\end{thm}
+
+
+\begin{cor} \label{cor:divergence_positive_infinite_mean}
+Si $\{X_k\}$ es una sucesión de variables aleatorias i.i.d. con $E(X_1^-) < +\infty$ y $E(X_1^+) = +\infty$, 
+entonces $$\frac{S_n}{n} \xrightarrow{a.s.} \infty$$.
+\end{cor}
+
+\begin{dfn}
+    Para las variables aleatorias $X_1, X_2, \dots, X_n$ se define la función de distribución empírica mediante
+    \[
+        F_n(x, \omega) = \frac{1}{n} \sum_{k=1}^n \mathbf{1}_{[-\infty,x]}(X_k(\omega)).
+        \]
+\end{dfn}
+
+\begin{obs}
+    Cuando todas las variables tienen la misma distribución, $F_n(x,\omega)$ es el estimador natural de la función de distribución común, $F(x)$. 
+    El acierto en la elección de este estimador se pone de manifiesto en el siguiente resultado.
+\end{obs}
+
+\begin{thm} \label{thm:empirical_fn_convergence}
+Sea $\{X_k\}$ una sucesión de variables aleatorias i.i.d. con función de distribución común $F(x)$, entonces $F_n(x,\omega) \xrightarrow{a.s.} F(x)$.
+\end{thm}
+
+
+\begin{thm} \label{thm:glivenko_cantelli} (\textbf{Glivenko-Cantelli}) Sea $\{X_k\}$ una sucesión de variables aleatorias i.i.d. con función de distribución común $F(x)$. Hagamos $D_n(\omega) = \sup_x |F_n(x,\omega) - F(x)|$, entonces $D_n \xrightarrow{a.s.} 0$.
+\end{thm}
+
+\subsection{El Teorema Central del Límite}
+
+\begin{thm} \label{thm:de_moivre_laplace} (\textbf{De Moivre-Laplace}) Sea $X_n \sim B(n,p)$ y definamos $Z_n = \frac{X_n - np}{\sqrt{np(1-p)}}$. Entonces
+\[
+Z_n \xrightarrow{L} N(0,1).
+\]
+\end{thm}
+
+\begin{thm} \label{thm:lindeberg} (\textbf{Teorema Central del Límite - Lindeberg}) Sean $X_1, X_2, \dots, X_n$ v.a. i.i.d. con media y varianza finitas, $\mu$ y $\sigma^2$, respectivamente. Sea $\bar{X}_n = \frac{1}{n} \sum_{k=1}^n X_k$ su media muestral, entonces
+\[
+Y_n = \frac{\bar{X}_n - \mu}{\sigma/\sqrt{n}} = \frac{\bar{X}_n - E(\bar{X}_n)}{\sqrt{\mathrm{var}(\bar{X}_n)}} \xrightarrow{L} N(0,1).
+\]
+\end{thm}
 
 \chapter{Un acercamiento amistoso a la Teoría del Aprendizaje Estadístico}
 \section{Introducción}
