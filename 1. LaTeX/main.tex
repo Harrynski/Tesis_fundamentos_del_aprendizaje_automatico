@@ -45,6 +45,11 @@ Una familia de subconjuntos de un espacio muestral $S=\{A: A\subseteq\Omega\}$, 
 \end{enumerate}
 \end{dfn}
 
+\begin{obs}
+    Diremos que un conjunto a lo sumo numerable es numerable. Es decir, un conjunto numerable será para nosotros un conjunto
+    para el que puede definirse una correspondencia biyectiva con un subconjunto (no necesariamente estricto) de los números naturales.
+\end{obs}
+
 \begin{dfn}
 Sea \( \mu \) una función definida sobre una \(\sigma\)-álgebra \( S \). Diremos que \( \mu \) es una \textit{medida} sobre \( S \) si se cumple:
 
@@ -134,6 +139,26 @@ Definimos \( \sigma \) como la familia de todos los subconjuntos de \( \mathcal{
 Entonces, \( (\mathcal{S}, \sigma, \delta) \) es un espacio de medida al que llamamos \emph{discreto}.
 \end{ej}
 
+\begin{dfn}
+Sea \( \Sigma \) una \( \sigma \)-álgebra de subconjuntos medibles con respecto a una medida $\mu$, de un conjunto dado \( \Omega \). 
+Una \emph{función de conjuntos} es una aplicación \( F: \Sigma \to \mathbb{R} \) que satisface las siguientes condiciones:
+\begin{enumerate}
+    \item \( F(E) \) es finito para todo \( E \in \Sigma \).
+    \item \( F \) es \(\sigma\)-aditiva: si \( E = \bigcup_k E_k \), donde \( \{E_k\} \subset \Sigma \) es una familia de conjuntos disjuntos dos a dos, entonces
+    \[
+        F(E) = \sum_k F(E_k).
+    \]
+\end{enumerate}
+\end{dfn}
+
+\begin{dfn}
+Una función de conjuntos \( F \) se dice \emph{absolutamente continua con respecto a la medida de Lebesgue} (o simplemente \emph{absolutamente continua})
+ si \( F(E) \to 0 \) cuando la medida de \( E \) tiende a cero. Es decir, \( F \) es absolutamente continua si, dado \( \varepsilon > 0 \), existe \( \delta > 0 \) tal que
+\[
+\mathcal{L}(F(E)) < \varepsilon \quad \text{siempre que} \quad \mu(E) < \delta.
+\]
+\end{dfn}
+
 
 %A los alcances de la primer capítulo, donde nos limitaremos a una descripción intuitiva de la Teoría del Aprendizaje Estadístico, la siguiente
 %definición de probabilidad será suficiente. Luego la definiremos de manera más formal, haciendo uso de resultados conocidos de Teoría de la Medida. 
@@ -203,6 +228,21 @@ Entonces se cumple que:
 \end{enumerate}
 \end{thm}
 
+\begin{lem}[Primer Lema de Borel-Cantelli]
+Sea \( \{A_n\} \) una sucesión de eventos tales que \( \sum_{n \geq 1} \mathbb{P}(A_n) < \infty \), entonces
+\[
+\mathbb{P} \left( \limsup_{n \to \infty} A_n \right) = 0.
+\]
+\end{lem}
+
+\begin{lem}[Segundo Lema de Borel-Cantelli]
+Sea \( \{A_n\} \) una sucesión de eventos tales que \( \sum_{n \geq 1} \mathbb{P}(A_n) = \infty \) y \( \{A_n\} \) son independientes, entonces
+\[
+\mathbb{P} \left( \limsup_{n \to \infty} A_n \right) = 1.
+\]
+\end{lem}
+
+
 \begin{dfn}
 Sea \( (\Omega, S, P) \) un espacio de probabilidad y sean \( A \) y \( B \) dos sucesos, con \( P(B) > 0 \). 
 Se define la probabilidad de \( A \) condicionada a \( B \) mediante la expresión,
@@ -237,15 +277,27 @@ $$
 
 \begin{dfn}
 Sean $\{A_i\}_{i\in\mathbb{N}}\in S$, una familia infinita numerable de sucesos. En este caso, diremos que los eventos son mutuamente
-independientes entre sí si cualquier sucolección finita de la familia lo es.
+independientes entre sí si cualquier subcolección finita de la familia lo es.
 \end{dfn}
+
+\begin{thm}(\textbf{Bayes})
+Sean $A$ y $B$ sucesos en $S$. Entonces
+\begin{equation*}
+    P(A\mid B) = \frac{P(B\mid A)P(A)}{P(B)}
+\end{equation*}
+\end{thm}
 
 \section{Variables Aleatorias}
 
 \begin{dfn}
     Llamamos $\sigma$-álgebra de Borel, $\mathcal{B}$, a la menor de todas las $\sigma$-álgebras en $\mathbb{R}$ que contienen a todos los intervalos
-    de números reales. Llamamos \emph{borelianos} a los elementos de $\mathcal{B}$. 
+    abiertos de números reales. Llamamos \emph{borelianos} a los elementos de $\mathcal{B}$. 
 \end{dfn}
+
+\begin{obs}
+    La $\sigma$-álgebra de Borel existe puesto que la intersección de $\sigma$-álgebras es una $\sigma$-álgebra, y la hemos definido como la intersección
+    de todas las $\sigma$-álgebras que continene a los abiertos en $\mathbb{R}$.
+\end{obs}
 
 \begin{thm}
     Todo boreliano es medible de Lebesgue.
@@ -368,6 +420,12 @@ Sea $F:\mathbb{R}\rightarrow[0,1]$ una función. Decimos que $F$ es una \emph{fu
 \end{enumerate}
 \end{dfn}
 
+\begin{dfn}
+    Consideremos una familia de funciones de distribución $\mathcal{F}$. Si los miembros de dicha familia pueden ser determinados en base a un
+    valor real $\theta$, que al variar nos da cada uno de los miembros, decimos que $\mathcal{F}$ es una familia \emph{paramétrica} de funciones de 
+    de distribución y llamamos \emph{parámetro} a $\theta$. Notamos $\mathcal{F}=\{F:\Omega\rightarrow\mathbb{R}, F=F(\theta)\}$.
+\end{dfn}
+
 \begin{obs}
     Cuando una variable aleatoria $X$ tiene función de distribución $F$ con parámetros $\alpha_1,\ldots,\alpha_n$, decimos que $X$ \emph{se distribuye} según $F$  y notamos
     $X\sim F(\alpha_1,\ldots,\alpha_n)$.
@@ -384,8 +442,9 @@ Sea $F:\mathbb{R}\rightarrow[0,1]$ una función. Decimos que $F$ es una \emph{fu
 Una \emph{variable aleatoria discreta} es aquella para la que existe un conjunto numerable $D\subset \mathbb{R}$ sobre la cual
 la variable toma valores exclusivamente. Es decir, $X$ es discreta si:
 \begin{equation*}
-    \exists D\subset\mathbb{R}, \; \#(D)\leq \aleph_0 : \qquad P_X(D)=1.
+    \exists D\subset\mathbb{R}, \; \#(D)\leq \aleph_0 : \qquad P_X(D)=1;
 \end{equation*}
+donde $\aleph_0 = \#(\mathbb{N})$.
 \end{dfn}
 
 \begin{obs}
@@ -405,6 +464,10 @@ la variable toma valores exclusivamente. Es decir, $X$ es discreta si:
         \end{cases}
     \end{equation*}
 \end{dfn}
+
+\begin{obs}
+    Se suelle llamar también \emph{función de cuantía} a la función de probabilidad de una variable aleatoria discreta.
+\end{obs}
 
 \begin{lem}
     Sea $f_X$ la función de probabilidad asociada a una variable aleatoria discreta $X$. Entonces:
@@ -471,18 +534,25 @@ la variable toma valores exclusivamente. Es decir, $X$ es discreta si:
         \item $\int_{\mathbb{R}}f = 1$
         \item $P(a<X\leq b) = \int_{b}^{a} f(x)dx = F_X(b)-F_X(a)$.
     \end{enumerate}
+    En ese caso, $f$ es la función de probabilidad de la variable aleatoria.
 \end{dfn}
 
-\begin{dfn}
-Decimos que \( F_X \) es absolutamente continua si para cada \( \varepsilon \) existe un \( \delta \) tal que para cualquier familia finita de intervalos disjuntos, 
-\( [a_i, b_i] \), \( i = 1, \dots, k \)
+\begin{obs}
+    Se suelle llamar también \emph{función de densidad} a la función de probabilidad de una variable aleatoria continua.
+\end{obs}
 
-\[
-\sum_{i=1}^{k} \left| F_X(b_i) - F_X(a_i) \right| < \varepsilon \qquad \text{si} \qquad \sum_{i=1}^{k} (b_i - a_i) < \delta.
-\]
+% \begin{dfn}
+% Decimos que \( F_X \) es absolutamente continua si para cada \( \varepsilon \) existe un \( \delta \) tal que para cualquier familia finita de intervalos disjuntos, 
+% \( [a_i, b_i] \), \( i = 1, \dots, k \)
+% 
+% \[
+% \sum_{i=1}^{k} \left| F_X(b_i) - F_X(a_i) \right| < \varepsilon \qquad \text{si} \qquad \sum_{i=1}^{k} (b_i - a_i) < \delta.
+% \]
+%     
+% \end{dfn}
+
+
     
-\end{dfn}
-
 % REVISAR SI HACE FALTA INCLUIR:
 \begin{obs}
     Considerando una variable aleatoria cualquiera $X$:
@@ -562,6 +632,16 @@ La función definida en (\ref{def distribucion normal}) es una función de densi
 \end{thm}
 
 \section{Vectores Aleatorios}
+
+\begin{dfn}
+La \emph{$\sigma$-álgebra de Borel} en el espacio \( \mathbb{R}^k \) es la mínima $\sigma$-álgebra que contiene a los rectángulos
+\[
+(a, b) = \prod_{i=1}^{k} (a_i, b_i),
+\]
+donde \( a = (a_1, \dots, a_k) \) y \( b = (b_1, \dots, b_k) \) con \( a, b \in \mathbb{R}^k \). Existe por razones análogas
+al caso unidimensional.
+\end{dfn}
+
 
 \begin{dfn}
 Un \emph{vector aleatorio} \( X = (X_1, X_2, \dots, X_k) \) es una aplicación desde un espacio de probabilidad \( (\Omega, S, P) \) 
@@ -724,6 +804,7 @@ Sea $X$ una variable aleatoria discreta no negativa. Definimos la \emph{Esperanz
 \end{equation*}
 y diremos que existe si dicha suma es finita.    
 \end{dfn}
+
 \begin{dfn}
 Sea $X$ una variable aleatoria discreta. Escribimos
 \begin{equation*}
@@ -738,8 +819,8 @@ Si existen $\mathbb{E}(X^+)$ y $\mathbb{E}(X^-)$, entonces existe $\mathbb{E}(X)
 \begin{prop}
 $\mathbb{E}(X)$ existe sí y sólo sí $|\mathbb{E}(X)|$ existe.
 \end{prop}
-
-\begin{ej}[Esperanza de distribuciones clásicas]
+ 
+\begin{ej}
 Sea \( X \) una variable aleatoria con alguna de las siguientes distribuciones. Su esperanza viene dada por:
 
 \begin{itemize}
@@ -751,16 +832,6 @@ Sea \( X \) una variable aleatoria con alguna de las siguientes distribuciones. 
     \item \textbf{Distribución Binomial:} \( X \sim \mathrm{Binomial}(n, p) \), con \( n \in \mathbb{N} \) y \( p \in [0,1] \). Entonces:
     \[
     \mathbb{E}(X) = np.
-    \]
-
-    \item \textbf{Distribución Uniforme continua:} \( X \sim \mathcal{U}(a, b) \), con \( a < b \). Entonces:
-    \[
-    \mathbb{E}(X) = \frac{a + b}{2}.
-    \]
-
-    \item \textbf{Distribución Normal:} \( X \sim \mathcal{N}(\mu, \sigma^2) \), con \( \mu \in \mathbb{R} \) y \( \sigma^2 > 0 \). Entonces:
-    \[
-    \mathbb{E}(X) = \mu.
     \]
 \end{itemize}
 \end{ej}
@@ -802,6 +873,22 @@ Definimos la esperanza de la transformación $g(X)$ como
 \end{equation*}
 \end{dfn}
 
+\begin{ej}
+Sea \( X \) una variable aleatoria con alguna de las siguientes distribuciones. Su esperanza viene dada por:
+
+\begin{itemize}
+    \item \textbf{Distribución Uniforme continua:} \( X \sim \mathcal{U}(a, b) \), con \( a < b \). Entonces:
+    \[
+    \mathbb{E}(X) = \frac{a + b}{2}.
+    \]
+
+    \item \textbf{Distribución Normal:} \( X \sim \mathcal{N}(\mu, \sigma^2) \), con \( \mu \in \mathbb{R} \) y \( \sigma^2 > 0 \). Entonces:
+    \[
+    \mathbb{E}(X) = \mu.
+    \]
+\end{itemize}
+\end{ej}
+
 \begin{prop}
     Enunciamos algunas propiedades de la esperanza. Sea $X$ una variable aleatoria y $g,h$ transformaciones
     de $X$. Sean $\alpha,\beta\in\mathbb{R}$. Entonces:
@@ -814,6 +901,14 @@ Definimos la esperanza de la transformación $g(X)$ como
     \end{enumerate}
 \end{prop}
 
+
+\begin{obs}
+    En la bibliografía estadística, se suele utilizar la letra $\mu$ para hacer referencia a la esperanza
+    de una variable aleatoria, en especial cuando es considerada como un parámetro para una distribución,
+    como en el caso de la normal. De ahora en más, seguiremos esa convención y no la utilizaremos para
+    hacer referencia a una medida.
+\end{obs}
+
 \subsection{La Varianza y otros momentos}
 \begin{dfn}
 Dada una variable aleatoria \(X\), definimos el momento de orden \(k\) o \emph{momento no central de orden \(k\)} como
@@ -825,7 +920,7 @@ Dada una variable aleatoria \(X\), definimos el momento de orden \(k\) o \emph{m
 \begin{dfn}
 Dada una variable aleatoria \(X\), definimos el \emph{momento central de orden \(k\)} como
 \[
-\mathbb{E}[(X - \mathbb{E}X)^k].
+\mathbb{E}[(X - \mathbb{E}(X))^k].
 \]
 \end{dfn}
 
@@ -834,7 +929,7 @@ En particular, la \emph{varianza} de la variable \(X\) es el momento central de 
 \begin{dfn}
 Si la variable aleatoria \(X\) es \textit{discreta}, definimos su varianza como
 \[
-V(X) = \operatorname{var}(X) = \sigma^2(X) = \sum_i (x_i - \mathbb{E}X)^2 \, \mathbb{P}(X = x_i).
+V(X) = \operatorname{var}(X) = \sigma^2(X) = \sum_i (x_i - \mathbb{E}(X))^2 \, P(X = x_i).
 \]
 Si la variable \(X\) es \textit{continua}, entonces su varianza viene dada por
 \[
@@ -857,7 +952,7 @@ Sea \( X \) una variable aleatoria con varianza finita \( \sigma_X^2 < \infty \)
     \item \( \operatorname{var}(X) \geq 0 \).
     \item \( \operatorname{var}(aX + b) = a^2 \operatorname{var}(X) \).
     \item \( \operatorname{var}(X) = \mathbb{E}(X^2) - [\mathbb{E}(X)]^2 \).
-    \item \( \operatorname{var}(X) \) minimiza \( \mathbb{E}[(X - a)^2] \).
+    \item \( \operatorname{var}(X) \) minimiza \( \mathbb{E}[(X - a)^2] \) para $a$.
 \end{enumerate}
 \end{prop}
 
@@ -957,23 +1052,27 @@ X_n \xrightarrow{a.s.} X \implies X_n \xrightarrow{P} X \implies X_n \xrightarro
 Si $X_n \xrightarrow{L} c$ entonces $X_n \xrightarrow{P} c$.
 \end{thm}
 
+\begin{obs}
+    En general, la recíproca de las implicancias dadas no vale.
+\end{obs}
+
 \section{Desigualdades}
 \begin{prop}
     Si para $X \geq 0$ \textbf{a.s.} existe su esperanza, sea $\varepsilon > 0$. Entonces
 \[
-P(X \geq \varepsilon) \leq \frac{E(X)}{\varepsilon}. 
+P(X \geq \varepsilon) \leq \frac{\mathbb{E}(X)}{\varepsilon}. 
 \]
 \end{prop}
 
 \begin{prop} \label{prop:markov} (\textbf{Desigualdad de Markov})
 \[
-P(|X| \geq \varepsilon) \leq \frac{1}{\varepsilon^k} E(|X|^k), 
+P(|X| \geq \varepsilon) \leq \frac{1}{\varepsilon^k} \mathbb{E}(|X|^k), 
 \]
 \end{prop}
 
 \begin{prop} \label{prop:chebyshev} (\textbf{Desigualdad de Chebyshev})
 \[
-P(|X - E(X)| \geq \varepsilon) \leq \frac{1}{\varepsilon^2} \mathrm{Var}(X).
+P(|X - \mathbb{E}(X)| \geq \varepsilon) \leq \frac{1}{\varepsilon^2} \mathrm{Var}(X).
 \]
 \end{prop}
 
@@ -983,7 +1082,7 @@ Si $\mathrm{Var}(X) = 0$, entonces $X = \mu$ a.s..
 
 \begin{prop} \label{prop:jensen} (\textbf{Desigualdad de Jensen}) Si $g$ es una función convexa entonces
 \[
-E(g(X)) \geq g(E(X)).
+\mathbb{E}(g(X)) \geq g(\mathbb{E}(X)).
 \]
 \end{prop}
 
@@ -994,7 +1093,7 @@ Definimos la esperanza del vector como:
 
 
 \[
-E(g(X)) = \sum_{(x_1,\dots,x_k) \in D} g(x_1,\dots,x_k)f_X(x_1,\dots,x_k),
+\mathbb{E}(g(X)) = \sum_{(x_1,\dots,x_k) \in D} g(x_1,\dots,x_k)f_X(x_1,\dots,x_k),
 \]
 Con $D$ su soporte y $f_X$ su función de probabilidad conjunta.
 \end{dfn}
@@ -1004,40 +1103,77 @@ Sea $X = (X_1, \dots, X_k)$ un vector aleatorio continuo y sea $g$ una función 
 Definimos la esperanza del vector como:
 
 \[
-E(g(X)) = \int_{-\infty}^{+\infty} \dots \int_{-\infty}^{+\infty} g(x_1,\dots,x_k)f_X(x_1,\dots,x_k) \,dx_1 \dots dx_k.
+\mathbb{E}(g(X)) = \int_{-\infty}^{+\infty} \dots \int_{-\infty}^{+\infty} g(x_1,\dots,x_k)f_X(x_1,\dots,x_k) \,dx_1 \dots dx_k.
 \]
 
 si $f_X$ es su función de densidad conjunta.
 \end{dfn}
 
-\begin{dfn} \label{dfn:momento_conjunto}  Se define el momento conjunto de orden $(n_1,\dots,n_k)$ como $E(X_1^{n_1} \dots X_k^{n_k})$.
+\begin{dfn} \label{dfn:momento_conjunto}  Se define el momento conjunto de orden $(n_1,\dots,n_k)$ como $\mathbb{E}(X_1^{n_1} \dots X_k^{n_k})$.
 \end{dfn}
 
 
-\begin{dfn} \label{dfn:momento_conjunto_central}  Se define como $E(X_1 - E(X_1))^{n_1} \dots (X_k - E(X_k))^{n_k}$ para $n_i \geq 0$.
+\begin{dfn} \label{dfn:momento_conjunto_central}  Se define como $\mathbb{E}(X_1 - \mathbb{E}(X_1))^{n_1} \dots (X_k - \mathbb{E}(X_k))^{n_k}$ para $n_i \geq 0$.
 \end{dfn}
 
 
 \begin{dfn} \label{dfn:covarianza} Supongamos un vector bidimensional $(X_1,X_2)$. Se define la covarianza entre $X_1$ e $X_2$ como
 \[
-\mathrm{cov}(X_1, X_2) = E(X_1 - EX_1)(X_2 - EX_2).
+\mathrm{cov}(X_1, X_2) = \mathbb{E}(X_1 - \mathbb{E}(X_1))(X_2 - \mathbb{E}(X_2)).
 \]
 \end{dfn}
 
-\begin{dfn} \label{dfn:matriz_covarianzas} Dado el vector aleatorio $\mathbf{X} = (X_1,\dots,X_k)$, definimos la matriz de covarianzas como
+\begin{dfn} \label{dfn:matriz_covarianzas} Dado el vector aleatorio $X = (X_1,\dots,X_k)$, definimos la matriz de covarianzas como
 \[
-\Sigma = [\sigma_{ij}]_{i,j=1,\dots,k}
+\mathrm{cov}(X) = [\sigma_{ij}]_{i,j=1,\dots,k}
 \]
 \end{dfn}
 
-\section{Teoremas importantes de la Estadística inferencial}
+\section{Resultados de la Estadística Inferencial}
+
+
+La \emph{estadística inferencial} es una rama de la estadística que se ocupa de formular conclusiones, generalizaciones o decisiones acerca de una población, basándose únicamente 
+en información proveniente de una muestra. A diferencia de la estadística descriptiva, cuyo objetivo es resumir y describir datos observados, la estadística inferencial se 
+fundamenta en el análisis probabilístico para estudiar el comportamiento de procedimientos que permiten estimar parámetros poblacionales.
+
+El marco típico de la inferencia estadística asume que los datos observados \( X_1, \dots, X_n \) son realizaciones de una muestra aleatoria extraída de una 
+población con distribución de probabilidad \( P_\theta \) que depende de un parámetro desconocido \( \theta \in \Theta \). El objetivo es obtener información 
+sobre el valor verdadero de \( \theta \) a partir de la muestra.
+
+\begin{dfn}
+Un \emph{estadístico} es una función medible \( T = T(X_1, \dots, X_n) \) definida sobre el espacio muestral, que no depende del valor del parámetro poblacional 
+\( \theta \). Formalmente, se trata de una variable aleatoria construida a partir de los datos observados.
+\end{dfn}
+
+\begin{dfn}
+Un \emph{estimador} de un parámetro \( \theta \in \Theta \) es un estadístico \( \hat{\theta}_n = T(X_1, \dots, X_n) \) cuyo objetivo es aproximar el valor 
+desconocido de \( \theta \). El valor observado \( \hat{\theta}_n \) se denomina \emph{estimación}.
+\end{dfn}
+
+\begin{dfn}
+Sea \( X_1, \dots, X_n \) una muestra i.i.d. con función de probabilidad \( f(x;\theta) \), para \( \theta \in \Theta \). El \emph{estimador de máxima verosimilitud} 
+de \( \theta \) es el valor \( \hat{\theta}_n \in \Theta \) que maximiza la función de verosimilitud:
+\[
+L(\theta; x_1, \dots, x_n) = \prod_{i=1}^n f(x_i; \theta),
+\]
+es decir,
+\[
+\hat{\theta}_n = \arg\max_{\theta \in \Theta} L(\theta; x_1, \dots, x_n).
+\]
+Alternativamente, se puede trabajar con el logaritmo de la verosimilitud:
+\[
+\ell(\theta) = \log L(\theta; x_1, \dots, x_n),
+\]
+y definir
+\[
+\hat{\theta}_n = \arg\max_{\theta \in \Theta} \ell(\theta).
+\]
+\end{dfn}
+
 \subsection{Las Leyes de los Grandes Números}
-\begin{thm} \label{thm:ley_debil} (\textbf{Ley débil}) Sea $\{X_k\}$ una sucesión de variables aleatorias independientes 
-    tales que $E(X_k^2) < +\infty$, $\forall k$, y $\lim_n \frac{1}{n^2} \sum_{k=1}^n \mathrm{var}(X_k) = 0$, entonces
-\[
-\frac{1}{n} \sum_{k=1}^n (X_k - E(X_k)) \xrightarrow{P} 0.
-\]
-\end{thm}
+
+Sea $\{X_k\}$ una sucesión de variables aleatorias independientes. Para los resultados de esta sección, consideremos la suma
+$$ S_n = \frac{1}{n}\sum_{k=1}^{n}(X_k-\mathbb{E}(X_k)).$$
 
 \begin{obs}
 Sea $\{X_k\}$ una sucesión de variables aleatorias independientes tales que todas se distribuyen de la misma manera. 
@@ -1045,23 +1181,86 @@ Diremos entonces que  $\{X_k\}$ es una sucesión de variables aleatorias \emph{i
 distribuidas).
 \end{obs}
 
+\begin{thm} \label{thm:ley_debil} (\textbf{Ley débil}) Sea $\{X_k\}$ una sucesión de variables aleatorias i.i.d.
+    tales que $\mathbb{E}(X_k^2) < +\infty$, $\forall k$, y $\lim_n \frac{1}{n^2} \sum_{k=1}^n \mathrm{var}(X_k) = 0$, entonces
+\[
+S_n \xrightarrow{P} 0.
+\]
+\end{thm}
+
+\begin{cor}
+Si las \( X_i \) son \emph{i.i.d.} con varianza finita y esperanza común \( \mathbb{E}(X_1) \), entonces
+\[
+\frac{1}{n} \sum_{k=1}^n X_k \xrightarrow{P} \mathbb{E}(X_1).
+\]
+\end{cor}
+
+
 \begin{thm} \label{thm:ley_fuerte} (\textbf{Ley fuerte}) Si $\{X_k\}$ es una sucesión de variables aleatorias i.i.d. con esperanza finita, entonces
 \[
-\sum_{k=1}^n \frac{X_k}{n} \xrightarrow{a.s.} E(X_1).
+\sum_{k=1}^n \frac{X_k}{n} \xrightarrow{a.s.} \mathbb{E}(X_1).
 \]
 \end{thm}
 
 
 \begin{cor} \label{cor:divergence_positive_infinite_mean}
-Si $\{X_k\}$ es una sucesión de variables aleatorias i.i.d. con $E(X_1^-) < +\infty$ y $E(X_1^+) = +\infty$, 
-entonces $$\frac{S_n}{n} \xrightarrow{a.s.} \infty$$.
+Si $\{X_k\}$ es una sucesión de variables aleatorias i.i.d. con $\mathbb{E}(X_1^-) < +\infty$ y $\mathbb{E}(X_1^+) = +\infty$,
+entonces $$\frac{S_n}{n} \xrightarrow{a.s.} \infty.$$
 \end{cor}
+
+\begin{lem}
+    La convergencia fuerte implica la convergencia débil para una sucesión de variables aleatorias i.i.d.    
+\end{lem}
+
+\begin{ej}
+El recíproco no es cierto. Consideremos \( \{X_n\}_{n=1}^\infty \), una sucesión de variables aleatorias independientes tales que
+\[
+P(X_n = n+1) = P(X_n = -(n+1)) = \frac{1}{2(n+1)\log(n+1)},
+\]
+y
+\[
+P(X_n = 0) = 1 - \frac{1}{(n+1)\log(n+1)}.
+\] 
+Por un lado:
+$$
+P\left(\frac{S_n}{n}\geq \epsilon\right) \leq \frac{1}{\epsilon}\mathbb{E}\left(\frac{S_n}{n}\right)^2 = 
+\frac{1}{\log(n+1)\epsilon^2}+\frac{1}{n\log(n+1)\epsilon^2} \xrightarrow{n\rightarrow\infty} 0,
+$$
+lo que implica convergencia débil. Por otro lado, para cada $n$ tenemos:
+$$
+\{X_n = n+1\} \subset \left\{ |S_n|\geq \frac{n}{2} \right\} \cup \left\{ |S_{n-1}|\geq \frac{n}{2} \right\} 
+$$
+Dado que
+\[
+\sum_{n=1}^{\infty} P(X_n = n+1) = \sum_{n=1}^{\infty} \frac{1}{2(n+1)\log(n+1)} = +\infty,
+\]
+tenemos necesariamente:
+\[
+\sum_{n=1}^{\infty} P\left(\left\{ |S_n|\geq \frac{n}{2} \right\} \cup \left\{ |S_{n-1}|\geq \frac{n}{2} \right\} \right)  = +\infty.
+\]
+por el segundo lema de Borel-Cantelli tenemos que 
+\[
+\frac{|S_n|}{n}\geq \frac{1}{2}
+\]
+para infinitos $n$, y con probabilidad $1$. Es decir:
+\[
+\limsup_{n \to \infty} P \left( \frac{|S_n|}{n} \geq \frac{1}{2} \right) = 1,
+\]
+y por lo tanto,
+\[
+P \left( \lim_{n \to \infty} \frac{S_n}{n} = 0 \right) < 1.
+\]
+Es decir, la convergencia fuerte no se cumple.
+\end{ej}
+
+\subsection{La distribución empírica}
 
 \begin{dfn}
     Para las variables aleatorias $X_1, X_2, \dots, X_n$ se define la función de distribución empírica mediante
     \[
-        F_n(x, \omega) = \frac{1}{n} \sum_{k=1}^n \mathbf{1}_{[-\infty,x]}(X_k(\omega)).
+        F_n(x, \omega) = \frac{1}{n} \sum_{k=1}^n \mathbf{1}_{(-\infty,x]}(X_k(\omega)).
         \]
+    Donde $ \mathbf{1}_{(-\infty,x]}$ es la función característica del rayo cerrado $(-\infty,x]$.
 \end{dfn}
 
 \begin{obs}
@@ -1087,7 +1286,7 @@ Z_n \xrightarrow{L} N(0,1).
 
 \begin{thm} \label{thm:lindeberg} (\textbf{Teorema Central del Límite - Lindeberg}) Sean $X_1, X_2, \dots, X_n$ v.a. i.i.d. con media y varianza finitas, $\mu$ y $\sigma^2$, respectivamente. Sea $\bar{X}_n = \frac{1}{n} \sum_{k=1}^n X_k$ su media muestral, entonces
 \[
-Y_n = \frac{\bar{X}_n - \mu}{\sigma/\sqrt{n}} = \frac{\bar{X}_n - E(\bar{X}_n)}{\sqrt{\mathrm{var}(\bar{X}_n)}} \xrightarrow{L} N(0,1).
+Y_n = \frac{\bar{X}_n - \mu}{\sigma/\sqrt{n}} = \frac{\bar{X}_n - \mathbb{E}(\bar{X}_n)}{\sqrt{\mathrm{var}(\bar{X}_n)}} \xrightarrow{L} N(0,1).
 \]
 \end{thm}
 
@@ -1707,8 +1906,8 @@ con respecto a la pérdida 0-1 será
     \mathcal{R}(f_{\text{Bayes}}) & = \mathbb{E}(\ell(X,Y,f_{\text{Bayes}}(X))) \\
     & = \mathbb{E}(1\cdot P(f_{\text{Bayes}}(X)\neq Y) + 0 \cdot P(f_{\text{Bayes}}(X) = Y))\\
     & = \mathbb{E}(P(f_{\text{Bayes}}(X)\neq Y))\\
-    & = \int_{0}^{1} P(Y = 1 \mid X = x) \cdot \mathbb{I}_{\{f_{\text{Bayes}}(x) \neq 1\}} \, dx \\
-    & \qquad \qquad + \int_{0}^{1} P(Y=0 \mid X=x) \cdot \mathbb{I}_{\{f_{\text{Bayes}}(x) = 1\}} \\
+    & = \int_{0}^{1} P(Y = 1 \mid X = x) \cdot \mathbf{1}_{\{f_{\text{Bayes}}(x) \neq 1\}} \, dx \\
+    & \qquad \qquad + \int_{0}^{1} P(Y=0 \mid X=x) \cdot \mathbf{1}_{\{f_{\text{Bayes}}(x) = 1\}} \\
     & = \int_{0}^{1} (0.9 \cdot 0 + 0.1 \cdot 1) \, dx = 0.1.
 \end{aligned}
 \]
@@ -1755,7 +1954,7 @@ que el tamaño \(k\) de la vecindad bajo consideración crezca con el tamaño de
 se puede demostrar el siguiente teorema:\newline
 
 
-\begin{thm}[Stone, 1977]
+\begin{thm}(\textbf{Stone, 1977})
 Sea \(f_n\) el clasificador de los \(k\)-vecinos más cercanos construido 
 a partir de una muestra de \(n\) puntos. Si \(n \to \infty\) y \(k \to \infty\) de modo que \(k/n \to 0\), 
 entonces \(R(f_n) \to R(f_{\text{Bayes}})\) para todas las distribuciones de probabilidad \(P\). 
@@ -2475,48 +2674,111 @@ idioma original - por los dos colosos rusos.\newline
 
 \subsection{Definiciones preliminares}
 
-Sea \( X \) un conjunto de eventos sobre el cual se ha definido una medida de probabilidad \( P_X \). Sea \( \mathcal{S} \) una colección de eventos 
-aleatorios, es decir, subconjuntos del espacio \( X \) que son medibles con respecto 
-a la medida \( P_X \). \newline
+Sea \( \Omega \) un conjunto de eventos sobre el cual se ha definido una medida de probabilidad \( P \). Sea \( \mathcal{S} \) una colección de eventos 
+aleatorios, es decir, subconjuntos del espacio \( \Omega \) que son medibles con respecto 
+a la medida \( P \). \newline
+\begin{dfn}
+    Denotemos por \( \Omega^{(l)} \) el espacio de muestras de tamaño \( l \) en \( \Omega \). 
+\end{dfn}
 
-Denotemos por \( X^{(l)} \) el espacio de muestras de tamaño \( l \) en \( X \). 
-Sobre el espacio \( X^{(l)} \), definimos una medida de probabilidad \( P \) tal que
+\begin{obs}
+Los elementos en  \( \Omega^{(l)} \) son muestras de tamaño $l$, por lo que son vectores
+aleatorios compuestos por $l$ variables aleatorias independientes e idénticamente distribuídas.
+Luego
+$$
+Z_l = (\omega_1, \ldots, \omega_l)
+$$
+es un elemento de \( \Omega^{(l)} \).
+\end{obs}
 
-\begin{equation}\label{def: probabilidad en espacio muestral}
-P(Y_1\times Y_2 \times\dots\times Y_l) = P_X(Y_1) P_X(Y_2) \dots P_X(Y_l),
-\end{equation}
-
-donde los \( Y_i \) son subconjuntos medibles de \( X \).\newline
+\begin{obs}
+    \( \Omega^{(l)} = \underbrace{\Omega \times \Omega \times \ldots \times \Omega}_{l \text{ veces}} \).
+\end{obs}
 
 \begin{dfn}
-Cada muestra \( \{X_1, \dots, X_l\} \) y cada evento \( A \in \mathcal{S} \) determinan 
+Seguiremos las siguientes convenciones:
+\begin{enumerate}
+    \item $X^{(l)} = (X(\omega),\ldots,X(\omega))$ es un vector aleatorio de tamaño $l$ (es un vector de funciones, todas ellas iguales).
+    \item $x^{(l)} = (X(\omega_1),\ldots,X(\omega_l)) \in \mathbb{R}^l$ es la realización vector aleatorio de tamaño $l$ (es un vector en $\mathbb{R}^l$).
+    \item $Z_l = (\omega_1,\ldots,\omega_l)$ es una muestra aleatoria (es un conjunto de elementos del espacio muestral $\Omega$).
+\end{enumerate}
+\end{dfn}
+
+\begin{ej}
+    Consideremos la variable aleatoria $X\sim B(p=0.5)$. Un vector aleatorio de tamaño $5$ es
+    $$
+    X^{(5)} = (X,X,X,X,X),
+    $$
+    El cual podria realizarse con valores
+    $$
+    x^{(5)} = (1,0,1,0,0).
+    $$
+    Estos valores numéricos, corresponden a eventos en el espacio muestral, a los que hemos asignado el valor $1$
+    para el éxito y $0$ para el fracaso. Por lo tanto, el elemento de $\Omega^{(l)}$ en este caso es
+    $$
+    Z_{5}=(\omega_1, \omega_2, \omega_3, \omega_4, \omega_5)
+    $$
+    donde $\omega_1$ y $\omega_3$ implican éxito, mientras que $\omega_2, \omega_4$ y $\omega_5$ implican fracaso.
+\end{ej}
+
+\begin{ej}
+    Sea $\Omega$ el espacio muestral, al que definimos como los posibles resultados de lanzar dos monedas no cargadas. Sean $\circ$ (cara) y $+$ (cruz)
+    los posibles resultados. Entonces los elementos del espacio muestral son todas las combinaciones posibles de estos resultados:
+    $$
+        \Omega = \{(\circ,\circ), (\circ,+),(+,\circ),(+,+)\}.
+    $$
+    Una posible muestra de tamaño $3$ es:
+    $$
+        Z_{3} = \{(+,\circ),(+,+), (\circ,\circ)\}.
+    $$
+    Si ahora definimos como \emph{éxito} el sacar al menos una cara en cada evento, el vector aleatoria realizado tendría valores:
+    $$
+        x^{(3)} = (X(+,\circ), X(+,+), X(\circ,\circ)) = (1,1,0).
+    $$
+\end{ej}
+
+\begin{dfn}
+    Sobre el espacio \( \Omega^{(l)} \), definimos una medida de probabilidad \( P^{(l)} \) tal que
+
+\begin{equation}\label{def: probabilidad en espacio muestral}
+P^{(l)}(A_1\times A_2 \times\dots\times A_l) = P(A_1) P(A_2) \dots P(A_l),
+\end{equation}
+donde los \( A_i \) son subconjuntos medibles de \( \Omega \).\newline
+\end{dfn}
+
+
+\begin{dfn}
+Cada muestra \( Z_l = \{\omega_1, \dots, \omega_l\} \) y cada evento \( A \in \mathcal{S} \) determinan 
 una \textbf{frecuencia relativa} para \( A \), la cual es igual al cociente entre 
 el número \( n_A \) de elementos de la muestra que pertenecen a \( A \) y el tamaño 
 total de la muestra:
 
 \[
-\nu_A(\{X_1,\dots X_l\}) = \frac{n_A}{l}.
+\nu_A(\{\omega_1,\dots, \omega_l\}) = \nu(A,Z_l) = \frac{n_A(Z_l)}{l} = \frac{\#(\{ \omega_i \in Z_l \mid \omega_i \in A \})}{l}.
 \]
 
 \end{dfn}
 
-Observemos que la frecuencia relativa no es más que una probabilidad empírica, y en lo siguiente, representará al riesgo
-empírico. Un conocido resultado de la relación entre esta probabilidad muestral y la probabilidad real en el espacio
-es el Teorema de Bernoulli, el cual enunciamos sin demostración:
+Observemos que la frecuencia relativa no es más que una frecuencia empírica del evento $A$, es decir, como ese evento
+se hace presente en las muestras que tomamos. Rn lo siguiente, representará al riesgo
+empírico. 
+
+Un conocido resultado de la relación entre esta probabilidad muestral y la probabilidad real en el espacio
+es el Teorema de Bernoulli, el cual es una de las versiones de las leyes de los grandes números que destacamos en el capítulo 1.
 \bigskip
 \begin{thm}[de Bernoulli]
-Sea \( A \in \mathcal{S} \) un evento aleatorio, $P(A)$ la probabilidad del evento $A$ y $\nu_A(\{X_1,\dots X_l\})$ su frecuencia relativa para una muestra de
+Sea \( A \in \mathcal{S} \) un evento aleatorio, $P(A)$ la probabilidad del evento $A$ y $\nu_A(\{\omega_1,\dots, \omega_l\})$ su frecuencia relativa para una muestra de
 tamaño $l$. Entonces, para cualquier $\varepsilon > 0$,
 \[
-    \lim_{l\to\infty} P_X\left(| P(A)-\nu_A(\{X_1,\dots X_l\})| \geq \varepsilon\right) = 0.
+    \lim_{l\to\infty} P^{(l)}\left(| P(A)-\nu_A(\{\omega_1,\dots, \omega_l\})| \geq \varepsilon\right) = 0.
 \]
 \end{thm}
 
-Es decir, la frecuencia relativa (o probabilidad empírica) converge en probabilidad a la probabilidad real del evento $A$.\newline
+Es decir, la frecuencia relativa (o probabilidad empírica) converge en probabilidad (en medida) a la probabilidad real del evento $A$ (la medida de $A$ en $(\Omega, S, P)$).\newline
 
 Nos interesará el supremo de esta diferencia sobre todos los posibles eventos en $\mathcal{S}$:
 \begin{equation}
-    \pi^{(l)} = \sup_{A\in\mathcal{S}} |P(A)-\nu_A(\{X_1,\dots X_l\})|. \label{def: funcion pi}
+    \pi^{(l)} = \sup_{A\in\mathcal{S}} |P(A)-\nu_A(\{\omega_1,\dots, \omega_l\})|. \label{def: funcion pi}
 \end{equation}
 
 Notemos que analizando el comportamiento de la medida de dicho supremo al crecer el tamaño muestral, 
@@ -2524,20 +2786,22 @@ estaremos en condiciones de hacer afirmaciones acerca de la ecuación (\ref{eq:m
 que es una instancia particular de esta.\newline
 
 \begin{obs}
-La frecuencia relativa es una función puntual en el espacio \( X^{(l)} \). Es decir
-\[ \nu(A, X^{(l)}): X^{(l)} \rightarrow \mathbb{R}
+$\pi$ es una función puntual en el espacio \( \Omega^{(l)} \). Es decir
+\[ \pi(A, \Omega^{(l)}): \Omega^{(l)} \rightarrow \mathbb{R}
 \]
-Además, supondremos que esta función es medible con respecto a la medida en \( X^{(l)} \), 
-es decir, que \( \nu(A, X^{(l)}) \) es una variable aleatoria.
+Además, supondremos que esta función es medible con respecto a la medida en \( \Omega^{(l)} \), 
+es decir, que \( \pi(A, \Omega^{(l)}) \) es una variable aleatoria.
 \end{obs} 
-
-Y si la variable \( \nu(A, X^{(l)}) \) converge en probabilidad a cero a medida que 
+\begin{dfn}
+Si la variable \( \pi(A, \Omega^{(l)}) \) converge en probabilidad a cero a medida que 
 el tamaño de la muestra crece indefinidamente, diremos que la frecuencia relativa 
 de los eventos \( A \in \mathcal{S} \) tiende (en probabilidad) a la probabilidad 
-de estos eventos de manera \textit{uniforme} sobre la clase \( \mathcal{S} \).\newline
+de estos eventos de manera \emph{uniforme} sobre la clase \( \mathcal{S} \).
+\end{dfn}
+
 
 Los teoremas siguientes están dedicados a obtener estimaciones para la probabilidad 
-de los eventos \( \{ \nu(A, X^{(l)}) > \varepsilon \} \) y a clarificar las condiciones 
+de los eventos \( \{ \pi(A, \Omega^{(l)}) > \varepsilon \} \) y a clarificar las condiciones 
 bajo las cuales, para cualquier \( \varepsilon \),
 
 \[
@@ -2547,10 +2811,10 @@ bajo las cuales, para cualquier \( \varepsilon \),
 
 
 \begin{dfn}
-Sea \( Z_l = \{X_1, \dots, X_r\} \) una muestra finita de elementos en \( X \). 
+Sea \( Z_r = \{\omega_1, \dots, \omega_r\} \) una muestra finita de elementos en \( X \). 
 Cada conjunto \( A \) en \( \mathcal{S} \) determina en esta muestra un subconjunto 
 \[ 
-    Z_l^A = Z_l \cap A = \{X_i \in Z_l \mid X_i \in A\}, 
+    Z_l^A = Z_l \cap A = \{\omega_i \in Z_l \mid \omega_i \in A\}, 
 \]
 que consiste en aquellos elementos de la 
 muestra \( Z_l \) que pertenecen a \( A \). Diremos que el conjunto \( A \) \textbf{induce} 
@@ -2560,7 +2824,7 @@ el subconjunto \( Z_l^A  \) en la muestra \( Z_l \).
 
 \begin{dfn}
 Denotamos el conjunto de todos los subconjuntos diferentes inducidos por los 
-conjuntos de \( \mathcal{S} \) en la muestra \( Z_r = \{X_1, \dots, X_r\} \) como \( \mathcal{S}(X_1, \dots, X_r) \) 
+conjuntos de \( \mathcal{S} \) en la muestra \( Z_r = \{\omega_1, \dots, \omega_r\} \) como \( \mathcal{S}(\omega_1, \dots, \omega_r) \) 
 o \( \mathcal{S}(Z_r) \). Es decir
 \[
     \mathcal{S}(Z_r) =  \left\{Z_r^A \mid A \in \mathcal{S}\right\}.
@@ -2569,12 +2833,12 @@ o \( \mathcal{S}(Z_r) \). Es decir
 \bigskip
 
 \begin{dfn}
-El número de subconjuntos distintos de la muestra \( Z_r = \{X_1, \dots, X_r\} \) 
+El número de subconjuntos distintos de la muestra \( Z_r = \{\omega_1, \dots, \omega_r\} \) 
 inducidos por los conjuntos en \( \mathcal{S} \) será denominado el \textbf{índice 
 del sistema \( \mathcal{S} \)} con respecto a la muestra \( Z_r \) 
 y será denotado por $\Delta^{\mathcal{S}}(Z_r)$. Es decir
 \[
-\Delta^{\mathcal{S}}(X_1, \dots, X_r) = \#\left(\mathcal{S}(X_1, \dots, X_r)\right).
+\Delta^{\mathcal{S}}(\omega_1, \dots, \omega_r) = \#\left(\mathcal{S}(\omega_1, \dots, \omega_r)\right).
 \]
 \end{dfn}
 
@@ -2587,7 +2851,7 @@ de lo que hemos dicho en tanto a la cardinalidad del conjunto de fragmentación.
 
 \begin{obs} El índice del sistema puede ser a lo sumo $2$ elevada a la cantidad de elementos en la muestra. Es decir
 \[
-    \Delta^{\mathcal{S}}(X_1, \dots, X_r) \leq 2^r
+    \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_r) \leq 2^r
 \]
 \end{obs}
 
@@ -2598,24 +2862,24 @@ tomando el máximo sobre todos los índices posibles.\newline
     Llamaremos \textbf{función de crecimiento} de orden $r$ al índice máximo de un sistema sobre todas las muestras
     posibles de tamaño $r$ sobre un espacio $X$. 
     \[
-    m^{\mathcal{S}}(r) = \max_{\{X_1,\dots,X_r\}}\Delta^{\mathcal{S}}(X_1,\dots,X_r)
+    m^{\mathcal{S}}(r) = \max_{\{\omega_1,\dots,\omega_r\}}\Delta^{\mathcal{S}}(\omega_1,\dots,\omega_r)
     \]
 \end{dfn}
 \bigskip
 
-\textbf{Ejemplo 1}: Sea \( X \) una línea recta y sea \( \mathcal{S} \) el conjunto 
+\textbf{Ejemplo 1}: Sea \( \Omega \) una línea recta y sea \( \mathcal{S} \) el conjunto 
 de todos los rayos de la forma \( X \leq a \). En este caso, la función de crecimiento es  
 \[
 m^{\mathcal{S}}(r) = r + 1.
 \]
 
-\textbf{Ejemplo 2}: Sea \( X \) el segmento \([0,1]\). El conjunto \( \mathcal{S} \) 
+\textbf{Ejemplo 2}: Sea \( \Omega \) el segmento \([0,1]\). El conjunto \( \mathcal{S} \) 
 consiste en todos los conjuntos abiertos. En este caso,  
 \[
-m^{\mathcal{S}}(r) = 2.\newline
+m^{\mathcal{S}}(r) = 2^r.
 \]
 
-\textbf{Ejemplo 3}: Sea \( X = E_n \), el espacio euclidiano de dimensión \( n \). 
+\textbf{Ejemplo 3}: Sea \( \Omega = E_n \), el espacio euclidiano de dimensión \( n \). 
 El conjunto \( \mathcal{S} \) de eventos consiste en todos los semiespacios de la forma  
 \[
 \langle X_0, \varphi \rangle \geq 1,
@@ -2623,14 +2887,14 @@ El conjunto \( \mathcal{S} \) de eventos consiste en todos los semiespacios de l
 donde \( \varphi \) es un vector fijo y las llaves representan el producto interno en el espacio.
  Evaluemos la función de crecimiento \( m^{\mathcal{S}}(r) \).\newline
 
-Consideremos, junto con el espacio \( E_n \) de vectores \( X_0 \), el espacio \( E_n \) 
-de vectores \( \varphi \). A cada vector \( X_0 \in E_n \) le corresponde una partición 
-del espacio \( E_n \) en dos subespacios: \(\langle X_k, \varphi_2 \rangle \geq 1\) y \(\langle X_k, \varphi_2 \rangle < 1\). 
+Consideremos, junto con el espacio \( E_n \) de vectores \( V \), el espacio \( E_n \) 
+de vectores \( \varphi \). A cada vector \( v \in E_n \) le corresponde una partición 
+del espacio \( E_n \) en dos subespacios: \(\langle v_k, \varphi_2 \rangle \geq 1\) y \(\langle v_k, \varphi_2 \rangle < 1\). 
 Recíprocamente, cada vector \(\varphi\) determina un evento $A$ en el sistema \(\mathcal{S}\).\newline
 
-Tomemos \( r \) vectores \( X_1, \dots, X_r \). Estos generan una partición del espacio \( E_n \) 
+Tomemos \( r \) vectores \( v_1, \dots, v_r \). Estos generan una partición del espacio \( E_n \) 
 en un número de componentes tales que los vectores \( \varphi \) dentro de cada componente determinan eventos 
-\( A \in \mathcal{S} \) que inducen el mismo subconjunto en la muestra \( \{X_1, \dots, X_r \}\).\newline
+\( A \in \mathcal{S} \) que inducen el mismo subconjunto en la muestra \( \{\omega_1, \dots, \omega_r \}\).\newline
 
 \begin{dfn}
     Sea \( \Phi(n, r) \) el número máximo de componentes en los que es posible particionar el espacio \( n \)-dimensional 
@@ -2674,7 +2938,7 @@ Para \( n > 0 \) y \( r \geq 0 \), se cumple que:
 Y tomaremos \( \binom{n}{k} = 0 \) en el caso que \( n < k \).\newline
 \end{obs}
 
-\subsection{La función de crecimiento}
+\section{La función de crecimiento}
 
 Una propiedad que nos interesa del coeficiente de fragmentación (y por extensión, de la dimensión VC) es que podamos asegurarnos
 de que, de ser posible, sean polinómicas. De esa manera la desigualdad (\ref{eq: cota convergencia coeficiente fragmentacion})
@@ -2689,21 +2953,20 @@ m^{\mathcal{S}}(r) = 2^r
 se viola por primera vez. Para demostrar este hecho, necesitamos el siguiente lema.\newline
 
 \begin{lem}\label{Lema 1}
-Si para alguna muestra de tamaño \( X_1, \dots, X_i \) y algún número \( n \), con \( 1 \leq n \leq i \),  
+Si para alguna muestra  \( \omega_1, \ldots, \omega_i \) de tamaño $i$ y algún número \( n \), con \( 1 \leq n \leq i \),  
 se cumple que  
 \[
-\Delta^{\mathcal{S}}(X_1, \dots, X_i) \geq \Phi(n, i),
+\Delta^{\mathcal{S}}(\omega_1, \ldots, \omega_i) \geq \Phi(n, i),
 \]  
 entonces existe un subconjunto \( X_1, \dots, X_n \) de esta muestra tal que  
 \[
-\Delta^{\mathcal{S}}(X_1, \dots, X_n) = 2^n.
+\Delta^{\mathcal{S}}(\omega_1, \dots, \omega_n) = 2^n.
 \]  
 
-Donde la función \( \Phi(n, i) \) está definida de forma recursiva.  
+Donde la función \( \Phi(n, i) \) está definida de forma recursiva.  \newline
 \end{lem}
 
-Una demostración de este lema puede hallarse en [8].\newline
-
+Una demostración de este lema puede hallarse en [8].
 Ahora si, enunciamos y demostramos el resultado.\newline
 
 \begin{thm} \label{teo: cota polinomica de la función de crecimiento}
@@ -2724,11 +2987,11 @@ Ya hemos dicho que \( m^{\mathcal{S}}(r) \leq 2^r \). Supongamos que \( m^{\math
     Entonces, para cualquier muestra de tamaño \( r > n \),
     
     \[
-    \Delta^{\mathcal{S}}(X_1, \dots, X_r) < \Phi(n, r).
+    \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_r) < \Phi(n, r).
     \]
     
     De lo contrario, en base a la afirmación del lema, se podría encontrar una sub muestra  
-    \( Z_n^A = \{X_i \in Z_n \mid X_i \in A\} \) tal que  
+    \( Z_n^A = \{\omega_i \in Z_n \mid \omega_i \in A\} \) tal que  
     
     \[
     \Delta^{\mathcal{S}}\left(Z_n^A\right) = 2^n.
@@ -2772,12 +3035,12 @@ hemos demostrado el Lema (\ref{def:cota combinatoria de dimensión VC}). Lo enun
 
 \bigskip
 
-\subsection{El Lema de simetrización}
+\section{El Lema de simetrización}
 
 Enfoquémonos ahora en probar el lema de simetrización (\ref{lema de simetrizacion}). Tomemos dos muestra de tamaño $l$ y
 unifiquémolas en una sola muestra de tamaño \( 2l \),
-\( Z_{2l} = \{ X_1, \dots, X_l, X_{l+1}, \dots, X_{2l} \} \). Supongamos que las frecuencias relativas del evento \( A \in \mathcal{S} \) 
-han sido calculadas en la primera semimuestra \( \{ X_1, \dots, X_l \} \) y en la segunda semimuestra \( \{ X_{l+1}, \dots, X_{2l} \} \)
+\( Z_{2l} = \{ \omega_1, \dots, \omega_l, \omega_{l+1}, \dots, \omega_{2l} \} \). Supongamos que las frecuencias relativas del evento \( A \in \mathcal{S} \) 
+han sido calculadas en la primera semimuestra \( \{ \omega_1, \dots, \omega_l \} \) y en la segunda semimuestra \( \{ \omega_{l+1}, \dots, \omega_{2l} \} \)
 por separado.\newline
 
 Para cualquier evento $A\in\mathcal{S}$, denotemos las respectivas frecuencias por \( \nu_A^{1}\) y \( \nu_A^{2} \), 
@@ -2800,12 +3063,12 @@ Observemos que
 \]
 
 ya que, para un \( l \) fijo, \( \rho_A^{(l)} \) solo toma un número finito de valores. Expliquemos esto.
-Al fijar dos muestras de tamaño $l$, tenemos a lo sumo $2l$ elementos distintos del espacio $X$. Tomemos un
-subconjunto $A\subset X$ tal que $A\in\mathcal{S}$. Para cada muestra $Z_l$, definimos la frecuencia muestral
+Al fijar dos muestras de tamaño $l$, tenemos a lo sumo $2l$ elementos distintos del espacio $\Omega$. Tomemos un
+subconjunto $A\subset \Omega$ tal que $A\in\mathcal{S}$. Para cada muestra $Z_l$, hemos definido la frecuencia muestral
 como 
 
 \[
-\nu(A,Z_l) = \frac{n(A,Z_l)}{l} = \frac{\#(\{ X_i \in Z_l \mid X_i \in A \})}{l}.
+\nu(A,Z_l) = \frac{n(A,Z_l)}{l} = \frac{\#(\{ \omega_i \in Z_l \mid \omega_i \in A \})}{l}.
 \]
 
 Si bien los conjuntos $A$ son potencialmente infinitos, podemos separarlos en un número finito de grupos. Basicamente,
@@ -2838,13 +3101,13 @@ El siguiente es exactamente el Lema de simetrización que hemos presentado con a
 \begin{proof}
 Por definición
 \begin{equation*}
-P(C) = P\left(\rho^{(l)}-\frac{\varepsilon}{2}\geq 0\right) = \int_{Z^{(2l)}} \left( 1 \cdot \chi_{\{\rho^{(l)}-\frac{\varepsilon}{2}\geq 0\}} + 
+P(C) = P\left(\rho^{(l)}-\frac{\varepsilon}{2}\geq 0\right) = \int_{\Omega^{(2l)}} \left( 1 \cdot \chi_{\{\rho^{(l)}-\frac{\varepsilon}{2}\geq 0\}} + 
 0 \cdot \chi_{\{\rho^{(l)}-\frac{\varepsilon}{2}< 0\}} \right) dP
 \end{equation*}
 
 Donde integramos sobre el espacio muestral de tamaño $2l$ de tal manera que
 \begin{equation}
-    Z^{(2l)} = Z_1^{(l)}\times Z_2^{(l)} = \{X_1,\dots,X_l\} \times \{X_{l+1},\dots,X_{2l}\} \label{def Z2l prod interno}
+    \Omega^{(2l)} = \Omega_1^{(l)}\times \Omega_2^{(l)} = \{\omega_1,\ldots,\omega_l\} \times \{\omega_{l+1},\dots,\omega_{2l}\} \label{def Z2l prod interno}
 \end{equation}
 
 
@@ -2858,21 +3121,21 @@ Definamos la función indicadora:
 
 con la cual reescribimos la probabilidad de $C$ como
 \begin{equation}
-P(C) = \int_{Z^{(2l)}} \left( \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right)\right) dP
+P(C) = \int_{\Omega^{(2l)}} \left( \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right)\right) dP
 \end{equation}
 
 Descomponiendo como en (\ref{def Z2l prod interno}) al espacio muestral, podemos escribir:
 
 \[
-P(C) = \int_{Z_1^{(l)}\times Z_2^{(l)}} \left( \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right)\right) dP
+P(C) = \int_{\Omega_1^{(l)}\times \Omega_2^{(l)}} \left( \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right)\right) dP
 \]
 Y, tomando $P=P_1\times P_2$, por el teorema de Fubini separamos los signos de integración
 
 \[
-P(C) = \int_{Z_1^{(l)}} \left( \int_{ Z_2^{(l)}}  \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right) dP_2\right) dP_1
+P(C) = \int_{\Omega_1^{(l)}} \left( \int_{ \Omega_2^{(l)}}  \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right) dP_2\right) dP_1
 \]
 
-Ahora, consideremos el subevento $Q$ sobre el espacio muestral $Z_1^{(l)}$, es decir aquellas muestras de $l$
+Ahora, consideremos el subevento $Q$ sobre el espacio muestral $\Omega_1^{(l)}$, es decir aquellas muestras de $l$
 elementos en las cuales se verifica la definición de $Q$ que hemos dado
 \[
 Q = \left\{ \pi^{(l)} > \varepsilon \right\} = \left\{\hat{Z}^{(l)}\in Z^{(l)}:\; 
@@ -2881,7 +3144,7 @@ Q = \left\{ \pi^{(l)} > \varepsilon \right\} = \left\{\hat{Z}^{(l)}\in Z^{(l)}:\
 
 y restringimos la primer integral a este evento
 \begin{equation}
-P(C) \geq \int_{Q} \left( \int_{ Z_2^{(l)}}  \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right) dP_2\right) dP_1. \label{desigualdad P(C)}
+P(C) \geq \int_{Q} \left( \int_{ \Omega_2^{(l)}}  \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right) dP_2\right) dP_1. \label{desigualdad P(C)}
 \end{equation}
 
 Por definición, para cada muestra $\hat{Z}^{(l)}$ en $Q$ debe existir algún evento $A_0\in\mathcal{S}$ tal que $|P_{A_0}-\nu_{A_0}\left(\hat{Z}^{(l)}\right)|>\varepsilon$.
@@ -2915,15 +3178,15 @@ con tan solo un evento $A_0\in\mathcal{S}$, en vez de tomar el supremo sobre tod
 
 \[
 \begin{aligned}
-\int_{ Z_2^{(l)}} \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right) dP_2 \;&\geq\; \int_{ Z_2^{(l)}}  \theta\left(\rho^{(l)}_{A_0}-\frac{\varepsilon}{2}\right) dP_2 \\
-& = \; \int_{ Z_2^{(l)}}  \theta\left(\frac{\varepsilon}{2} - |\nu^{(2)}_{A_0}-P_{A_0}|\right) dP_2
+\int_{ \Omega_2^{(l)}} \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right) dP_2 \;&\geq\; \int_{ \Omega_2^{(l)}}  \theta\left(\rho^{(l)}_{A_0}-\frac{\varepsilon}{2}\right) dP_2 \\
+& = \; \int_{ \Omega_2^{(l)}}  \theta\left(\frac{\varepsilon}{2} - |\nu^{(2)}_{A_0}-P_{A_0}|\right) dP_2
 \end{aligned}
 \]
 
 En donde en la última igualdad aplicamos lo recién explicado. Ahora notemos que 
 
 \begin{equation}\label{eq: theta como probabilidad}
-    \int_{ Z_2^{(l)}}  \theta\left(\frac{\varepsilon}{2} - |\nu^{(2)}_{A_0}-P_{A_0}|\right) dP_2 \;=\; 1 - P\left(|\nu^{(2)}_{A_0}-P_{A_0}|>\frac{\varepsilon}{2}\right),
+    \int_{ \Omega_2^{(l)}}  \theta\left(\frac{\varepsilon}{2} - |\nu^{(2)}_{A_0}-P_{A_0}|\right) dP_2 \;=\; 1 - P\left(|\nu^{(2)}_{A_0}-P_{A_0}|>\frac{\varepsilon}{2}\right),
 \end{equation}
 
 
@@ -2949,7 +3212,7 @@ P\left(|\nu_{A_0}^{(2)} - \mathbb{E}\left(\nu_{A_0}^{(2)} \right)| \geq \frac{\v
 
 Analicemos esta última desigualdad, factor a factor.\newline
 
-Podemos escribir la frecuencia relativa del evento $A_0$ sobre una muestra $Z_l''$ en el espacio muestral $Z^{(l)}_2=\{X_1,\dots,X_l\}$ como la suma de variables aleatorias
+Podemos escribir la frecuencia relativa del evento $A_0$ sobre una muestra $Z_l''=\{\omega_1,\ldots,\omega_l\}$ en el espacio muestral $\Omega^{(l)}_2$ como la suma de variables aleatorias
 Bernoulli $\tilde{X}_i$ con $i=1,2,\dots,l$ tales que
 
 \[
@@ -3022,13 +3285,13 @@ P\left( \left| \nu^{(2)}_{A_0} - P_{A_0} \right| > \frac{\varepsilon}{2} \right)
 
 Retomando (\ref{eq: theta como probabilidad}), tenemos 
 \[
-    \int_{ Z_2^{(l)}}  \theta\left(\frac{\varepsilon}{2} - |\nu^{(2)}_{A_0}-P_{A_0}|\right) dP_2 \;\geq\; 1 - \frac{1}{\varepsilon^2 l}.
+    \int_{ \Omega_2^{(l)}}  \theta\left(\frac{\varepsilon}{2} - |\nu^{(2)}_{A_0}-P_{A_0}|\right) dP_2 \;\geq\; 1 - \frac{1}{\varepsilon^2 l}.
     \]
 
 Por lo tanto, para \( l \geq 2 / \varepsilon^2 \),
 
 \[
-\int_{Z_2^{(l)}} \theta \left( \frac{\varepsilon}{2} - \left| \nu^{(2)}_{A_0} - P_{A_0} \right| \right) dP_2 \geq \frac{1}{2}.
+\int_{\Omega_2^{(l)}} \theta \left( \frac{\varepsilon}{2} - \left| \nu^{(2)}_{A_0} - P_{A_0} \right| \right) dP_2 \geq \frac{1}{2}.
 \]
 
 De esto se sigue inmediatamente que, para \( l \geq 2 / \varepsilon^2 \),
@@ -3066,27 +3329,27 @@ Utilizamos el Lema de Simetrización para probar el siguiente teorema.\newline
 En virtud del Lema de Simetrización, basta con estimar  
     
 \[
-P\left( \rho^{(l)} \geq \frac{\varepsilon}{2} \right) = \int_{Z^{(2l)}} \theta \left( \rho^{(l)} - \frac{\varepsilon}{2} \right) dP.
+P\left( \rho^{(l)} \geq \frac{\varepsilon}{2} \right) = \int_{\Omega^{(2l)}} \theta \left( \rho^{(l)} - \frac{\varepsilon}{2} \right) dP.
 \]
 
 donde \( \rho^{(l)} \) se considera como una función de la muestra  
 
 \[
-Z^{(2l)} = (X_1, \dots, X_l, X_{l+1}, \dots, X_{2l}).
+\Omega^{(2l)} = (X_1, \dots, X_l, X_{l+1}, \dots, X_{2l}).
 \]
 
-Consideremos la aplicación del espacio \( Z^{(2l)} \) sobre sí mismo, resultante de alguna permutación \( T_i \) de los elementos de la muestra \( Z^{(2l)} \). Dada la simetría 
-de la definición (\ref{def: probabilidad en espacio muestral}) de la medida \( P \) en \( Z^{(2l)} \), se cumple la siguiente relación para cualquier función integrable \( f \)
+Consideremos la aplicación del espacio \( \Omega^{(2l)} \) sobre sí mismo, resultante de alguna permutación \( T_i \) de los elementos de la muestra \( \Omega^{(2l)} \). Dada la simetría 
+de la definición (\ref{def: probabilidad en espacio muestral}) de la medida \( P \) en \( \Omega^{(2l)} \), se cumple la siguiente relación para cualquier función integrable \( f \)
 sobre cualquier muestra $Z_{2l}$:
 
 \[
-\int_{Z^{(2l)}} f(Z_{2l}) \, dP = \int_{Z^{(2l)}} f(T_i Z_{2l}) \, dP.
+\int_{\Omega^{(2l)}} f(Z_{2l}) \, dP = \int_{\Omega^{(2l)}} f(T_i Z_{2l}) \, dP.
 \]
 
 Por lo tanto,
 
 \begin{equation}\label{eq:probabilidad integral con permutaciones}
-P\left( \rho^{(l)} \geq \frac{\varepsilon}{2} \right) = \int_{Z^{(2l)}} \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2}  \right) dP.
+P\left( \rho^{(l)} \geq \frac{\varepsilon}{2} \right) = \int_{\Omega^{(2l)}} \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2}  \right) dP.
 \end{equation}
 
 donde simplemente promnediamos sobre las \((2l)!\) permutaciones posibles.\newline
@@ -3207,7 +3470,7 @@ Hemos dado condiciones suficientes para que las frecuencias relativas (nuestras 
 probabilidades reales de los eventos en la clase \( \mathcal{S} \). En la siguiente sección veremos que estas condiciones nos aseguran, además, 
 convergencia uniforme de forma casi segura.\newline
 
-\subsection{Condiciones de convergencia uniforme casi segura}
+\section{Condiciones de convergencia uniforme casi segura}
 
 \begin{thm}
     Si \( m^{\mathcal{S}}(l) \leq l^n + 1 \), entonces  
@@ -3517,12 +3780,12 @@ Recordemos que, por el Lema de Simetrización, \( 2P(C) \geq \frac{1}{2} P(Q) \)
 Como mostramos previamente,
 
 \[
-P(C) \leq \frac{1}{(2l)!} \int_{Z^{(2l)}} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) dP.
+P(C) \leq \frac{1}{(2l)!} \int_{\Omega^{(2l)}} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) dP.
 \]
 
 Sea \( \delta = \varepsilon^2 / 16 \) y dividamos la región de integración en dos partes: 
 \( Z_1^{(2l)} = \{ \log_2 \Delta^{\mathcal{S}}(Z_{2l}) \leq 2\delta \} \) y 
-\( Z_2^{(2l)} = Z^{(2l)} - Z_1^{(2l)} \). Entonces,
+\( Z_2^{(2l)} = \Omega^{(2l)} - Z_1^{(2l)} \). Entonces,
 
 \[
 P(C) = \int_{Z_1^{(2l)}} \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) dP
@@ -3636,8 +3899,8 @@ Si suponemos que (\ref{eq 25}) se satisface, podemos aplicar el Lema (\ref{lema 
 \( 3^\circ \). Para completar la demostración de la necesidad, solo debemos estimar
 
 \begin{equation*}
-P(C') = \int_{Z^{(2l)}} \theta \left( \sup_{A \in \mathcal{S}} | \nu_A^{(1)} - \nu_A^{(2)} | - 2\varepsilon \right) dP
-= \int_{Z^{(2l)}} \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)} (T_i Z_{2l}) - 2\varepsilon \right) dP
+P(C') = \int_{\Omega^{(2l)}} \theta \left( \sup_{A \in \mathcal{S}} | \nu_A^{(1)} - \nu_A^{(2)} | - 2\varepsilon \right) dP
+= \int_{\Omega^{(2l)}} \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)} (T_i Z_{2l}) - 2\varepsilon \right) dP
 \end{equation*}
 
 para \( \varepsilon > 0 \).\newline
