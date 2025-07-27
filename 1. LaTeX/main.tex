@@ -2672,13 +2672,14 @@ Vapnik y Chernovenkis. Ahora nos proponemos alcanzar la rigurosidad necesaria pa
 previamente. Para ello, introduciremos una nueva notación y seguiremos [8], el célebre artículo de 1971 - escrito tres años antes en su 
 idioma original - por los dos colosos rusos.\newline
 
-\subsection{Definiciones preliminares}
+\section{Definiciones preliminares}
 
 Sea \( \Omega \) un conjunto de eventos sobre el cual se ha definido una medida de probabilidad \( P \). Sea \( \mathcal{S} \) una colección de eventos 
 aleatorios, es decir, subconjuntos del espacio \( \Omega \) que son medibles con respecto 
 a la medida \( P \). \newline
 \begin{dfn}
-    Denotemos por \( \Omega^{(l)} \) el espacio de muestras de tamaño \( l \) en \( \Omega \). 
+    Denotemos por \( \Omega^{(l)} \) el espacio de muestras de tamaño \( l \) en \( \Omega \). Es decir
+    \[ \Omega^{(l)} = \underbrace{\Omega \times \Omega \times \ldots \times \Omega}_{l \text{ veces}}. \]
 \end{dfn}
 
 \begin{obs}
@@ -2689,10 +2690,6 @@ $$
 Z_l = (\omega_1, \ldots, \omega_l)
 $$
 es un elemento de \( \Omega^{(l)} \).
-\end{obs}
-
-\begin{obs}
-    \( \Omega^{(l)} = \underbrace{\Omega \times \Omega \times \ldots \times \Omega}_{l \text{ veces}} \).
 \end{obs}
 
 \begin{dfn}
@@ -2805,7 +2802,7 @@ de los eventos \( \{ \pi(A, \Omega^{(l)}) > \varepsilon \} \) y a clarificar las
 bajo las cuales, para cualquier \( \varepsilon \),
 
 \[
-\lim_{l \to \infty} P\left(\pi^{(l)} > \varepsilon\right) = 0.
+\lim_{l \to \infty} P\left\{\pi^{(l)} > \varepsilon\right\} = 0.
 \]
 \bigskip
 
@@ -2896,6 +2893,8 @@ Tomemos \( r \) vectores \( v_1, \dots, v_r \). Estos generan una partición del
 en un número de componentes tales que los vectores \( \varphi \) dentro de cada componente determinan eventos 
 \( A \in \mathcal{S} \) que inducen el mismo subconjunto en la muestra \( \{\omega_1, \dots, \omega_r \}\).\newline
 
+Este último ejemplo motiva la siguiente definición, que nos será útil en adelante.\newline
+
 \begin{dfn}
     Sea \( \Phi(n, r) \) el número máximo de componentes en los que es posible particionar el espacio \( n \)-dimensional 
 mediante \( r \) hiperplanos. Llamaremos a esta función \textbf{función de crecimiento lineal} del sistema.
@@ -2919,7 +2918,7 @@ Esto a su vez nos permite dar la definición combinatoria de la funcion de creci
 \begin{equation}
 \Phi(n, r) =
 \begin{cases}
-\sum\limits_{k=0}^{n} \binom{r}{n}, & \text{si } r > n, \\
+\sum\limits_{k=0}^{n} \binom{n}{k}, & \text{si } r > n, \\
 2^r, & \text{si } r \leq n.
 \end{cases}
 \label{def: combinatoria función crecimiento lineal}
@@ -2958,9 +2957,9 @@ se cumple que
 \[
 \Delta^{\mathcal{S}}(\omega_1, \ldots, \omega_i) \geq \Phi(n, i),
 \]  
-entonces existe un subconjunto \( X_1, \dots, X_n \) de esta muestra tal que  
+entonces existe un subconjunto \( \omega_{i_1}, \dots, \omega_{i_n} \) de esta muestra tal que  
 \[
-\Delta^{\mathcal{S}}(\omega_1, \dots, \omega_n) = 2^n.
+\Delta^{\mathcal{S}}(\omega_{i_1}, \dots,\omega_{i_n}) = 2^n.
 \]  
 
 Donde la función \( \Phi(n, i) \) está definida de forma recursiva.  \newline
@@ -3029,7 +3028,7 @@ hemos demostrado el Lema (\ref{def:cota combinatoria de dimensión VC}). Lo enun
     \]
     entonces
     \[
-        m^{\mathcal{S}}(r) \leq \sum\limits_{k=0}^{n} \binom{r}{k}. 
+        m^{\mathcal{S}}(r) \leq \sum\limits_{k=0}^{n} \binom{n}{k}. 
     \]
 \end{cor}
 
@@ -3043,11 +3042,11 @@ unifiquémolas en una sola muestra de tamaño \( 2l \),
 han sido calculadas en la primera semimuestra \( \{ \omega_1, \dots, \omega_l \} \) y en la segunda semimuestra \( \{ \omega_{l+1}, \dots, \omega_{2l} \} \)
 por separado.\newline
 
-Para cualquier evento $A\in\mathcal{S}$, denotemos las respectivas frecuencias por \( \nu_A^{1}\) y \( \nu_A^{2} \), 
+Para cualquier evento $A\in\mathcal{S}$, denotemos las respectivas frecuencias por \( \nu_A^{(1)}\) y \( \nu_A^{(2)} \), 
 y consideremos la diferencia entre estas cantidades:
 
 \[
-\rho^{(l)}_A = |\nu_A^{1} - \nu_A^{2}|.
+\rho^{(l)}_A = |\nu_A^{(1)} - \nu_A^{(2)}|.
 \]
 
 Nos interesa la máxima diferencia entre estas cantidades sobre todos los eventos en la clase \( \mathcal{S} \),
@@ -3078,17 +3077,22 @@ tomando infinitos $A\in\mathcal{S}$. Por lo tanto, sus diferencias $\rho_A^{(l)}
 
 
 
-Mostraremos que si \( \rho^{(l)} \to 0 \) cuando \( l \to \infty \), entonces también \( \pi^{(l)} \to 0 \), 
+Mostraremos que si \( \rho^{(l)} \to 0 \) cuando \( l \to \infty \), entonces también \( \pi^{(l)} \xrightarrow{P} 0 \), 
 y que las estimaciones de \( \rho^{(l)}\) conducen a estimaciones para \( \pi^{(l)} \). Recordemos que $\pi$ es la diferencia
 entre la frecuencia muestral $\nu(A,Z_l)$ y la probabilidad del evento $A$ definida en (\ref{def: funcion pi}).
 De ahora en más, supondremos que \( \rho^{(l)} \) es una función medible.\newline
 
+Consideremos las dos muestras $Z^{(1)}_l = \{\omega_1,\dots, \omega_l\}$ y $Z^{(2)}_l = \{\omega_{l+1},\dots, \omega_{2l}\}$.
 Es conveniente introducir la siguiente notación:
 
 \[
-Q = \left\{ \pi^{(l)} > \varepsilon \right\}, \quad C = \left\{ \rho^{(l)} \geq \frac{1}{2}\varepsilon \right\}.
+Q = \left\{ \pi^{(l)} > \varepsilon \right\} = \left\{ \sup_{A\in\mathcal{S}} |P(A)-\nu_A\left(Z^{(1)}_l\right)| > \varepsilon\right\}
 \]
-
+\[
+\quad C = \left\{ \rho^{(l)} \geq \frac{1}{2}\varepsilon \right\} = \left\{ |\nu_A^{(1)} - \nu_A^{(2)}| \geq \frac{1}{2} \varepsilon\right\}
+= \left\{ |\nu_A\left(Z^{(1)}_l\right) - \nu_A\left(Z^{(2)}_l\right)| \geq \frac{1}{2} \varepsilon\right\}.
+\]
+\bigbreak
 El siguiente es exactamente el Lema de simetrización que hemos presentado con anterioridad.\newline
 
 \begin{lem} [de simetrización]
@@ -3107,9 +3111,10 @@ P(C) = P\left(\rho^{(l)}-\frac{\varepsilon}{2}\geq 0\right) = \int_{\Omega^{(2l)
 
 Donde integramos sobre el espacio muestral de tamaño $2l$ de tal manera que
 \begin{equation}
-    \Omega^{(2l)} = \Omega_1^{(l)}\times \Omega_2^{(l)} = \{\omega_1,\ldots,\omega_l\} \times \{\omega_{l+1},\dots,\omega_{2l}\} \label{def Z2l prod interno}
+    \Omega^{(2l)} = \Omega_1^{(l)}\times \Omega_2^{(l)}.  \label{def Z2l prod interno}
 \end{equation}
 
+Notemos que los elementos de $\Omega^{(2l)}$ son de la forma $ \{\omega_1,\ldots,\omega_l\} \times \{\omega_{l+1},\dots,\omega_{2l}\}$.\newline
 
 Definamos la función indicadora: 
 \[
@@ -3135,11 +3140,11 @@ Y, tomando $P=P_1\times P_2$, por el teorema de Fubini separamos los signos de i
 P(C) = \int_{\Omega_1^{(l)}} \left( \int_{ \Omega_2^{(l)}}  \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right) dP_2\right) dP_1
 \]
 
-Ahora, consideremos el subevento $Q$ sobre el espacio muestral $\Omega_1^{(l)}$, es decir aquellas muestras de $l$
-elementos en las cuales se verifica la definición de $Q$ que hemos dado
+Ahora, consideremos el subevento $Q$ sobre el espacio muestral $\Omega_1^{(l)}$, es decir aquellas muestras $\hat{Z}_l$ de $l$
+elementos en las cuales se verifica la definición de $Q$ que hemos dado:
 \[
-Q = \left\{ \pi^{(l)} > \varepsilon \right\} = \left\{\hat{Z}^{(l)}\in Z^{(l)}:\; 
-\sup_{A\in\mathcal{S}}\left|P_A - \nu_A\left(\hat{Z}^{(l)}\right)\right| > \varepsilon \right\},
+Q = \left\{ \pi^{(l)} > \varepsilon \right\} = \left\{\hat{Z}_l\in Z^{(l)}:\; 
+\sup_{A\in\mathcal{S}}\left|P_A - \nu_A\left(\hat{Z}_l\right)\right| > \varepsilon \right\},
 \]
 
 y restringimos la primer integral a este evento
@@ -3147,7 +3152,7 @@ y restringimos la primer integral a este evento
 P(C) \geq \int_{Q} \left( \int_{ \Omega_2^{(l)}}  \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right) dP_2\right) dP_1. \label{desigualdad P(C)}
 \end{equation}
 
-Por definición, para cada muestra $\hat{Z}^{(l)}$ en $Q$ debe existir algún evento $A_0\in\mathcal{S}$ tal que $|P_{A_0}-\nu_{A_0}\left(\hat{Z}^{(l)}\right)|>\varepsilon$.
+Por definición, para cada muestra $\hat{Z}_l$ en $Q$ debe existir algún evento $A_0\in\mathcal{S}$ tal que $|P_{A_0}-\nu_{A_0}\left(\hat{Z}_l\right)|>\varepsilon$.
 Para dicho evento, se cumple
 
 \[
@@ -3298,8 +3303,17 @@ De esto se sigue inmediatamente que, para \( l \geq 2 / \varepsilon^2 \),
 
 \[
 P(C) \geq \int_{Q} \left( \frac{1}{2} \right) dP_1  =
- \frac{1}{2} P(Q).
+ \frac{1}{2} \int_{Q} dP_1.
 \]
+Por otro lado, podemos escribir
+\begin{equation*}
+ \begin{split}
+   \int_{Q}dP_1 & = \frac{1}{2} \int_{\Omega_1^{(l)}} \chi_{\{Q\}}dP_1 \\
+   &=\frac{1}{2}  \int_{\Omega_2^{(l)}}\left(\int_{\Omega_1^{(l)}} \chi_{\{Q\}}dP_1\right) dP_2 \\
+   &=\frac{1}{2}  \int_{\Omega_1^{(l)}\times\Omega_2^{(l)}}  \chi_{\{Q\times \Omega_2^{(l)}\}} dP \\
+   &=\frac{1}{2}  P(Q)
+\end{split}   
+\end{equation*}
 
 Y el lema queda demostrado.\
 

@@ -41,10 +41,10 @@
 \contentsline {subsection}{\numberline {2.6.4}Cotas de generalización}{56}{subsection.2.6.4}%
 \contentsline {subsection}{\numberline {2.6.5}La dimensión VC}{57}{subsection.2.6.5}%
 \contentsline {chapter}{\numberline {3}La Teoría VC}{60}{chapter.3}%
-\contentsline {subsection}{\numberline {3.0.1}Definiciones preliminares}{60}{subsection.3.0.1}%
-\contentsline {section}{\numberline {3.1}La función de crecimiento}{65}{section.3.1}%
-\contentsline {section}{\numberline {3.2}El Lema de simetrización}{67}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Condiciones de convergencia uniforme casi segura}{74}{section.3.3}%
+\contentsline {section}{\numberline {3.1}Definiciones preliminares}{60}{section.3.1}%
+\contentsline {section}{\numberline {3.2}La función de crecimiento}{65}{section.3.2}%
+\contentsline {section}{\numberline {3.3}El Lema de simetrización}{67}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Condiciones de convergencia uniforme casi segura}{75}{section.3.4}%
 \contentsline {chapter}{\numberline {4}Otros conceptos del Aprendizaje}{87}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Más medidas de capacidad de un espacio de clasificadores}{87}{section.4.1}%
 \contentsline {subsection}{\numberline {4.1.1}Complejidad de Rademacher}{87}{subsection.4.1.1}%
