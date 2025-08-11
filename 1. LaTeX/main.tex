@@ -228,14 +228,14 @@ Entonces se cumple que:
 \end{enumerate}
 \end{thm}
 
-\begin{lem}[Primer Lema de Borel-Cantelli]
+\begin{lem}[Primer Lema de Borel-Cantelli] \label{primer lema de Borel-Cantelli}
 Sea \( \{A_n\} \) una sucesión de eventos tales que \( \sum_{n \geq 1} \mathbb{P}(A_n) < \infty \), entonces
 \[
 \mathbb{P} \left( \limsup_{n \to \infty} A_n \right) = 0.
 \]
 \end{lem}
 
-\begin{lem}[Segundo Lema de Borel-Cantelli]
+\begin{lem}[Segundo Lema de Borel-Cantelli] \label{segundo  lema de Borel-Cantelli}
 Sea \( \{A_n\} \) una sucesión de eventos tales que \( \sum_{n \geq 1} \mathbb{P}(A_n) = \infty \) y \( \{A_n\} \) son independientes, entonces
 \[
 \mathbb{P} \left( \limsup_{n \to \infty} A_n \right) = 1.
@@ -675,10 +675,10 @@ por la estructura de \( (\Omega, \mathcal{A}, P) \) a través del vector aleator
 
 \begin{dfn}
 Dado un vector aleatorio \( X = (X_1, X_2, \dots, X_k) \), definimos su \textit{función de distribución conjunta}
- (o \textit{función de distribución asociada} a la distribución \( P_X \)) en un punto \( x = (x_1, \dots, x_k) \in \mathbb{R}^k \) mediante:
+ (o \textit{función de distribución asociada} a la distribución \( P_X \)) en un punto \( x = (\omega_1, \dots, \omega_k) \in \mathbb{R}^k \) mediante:
 
 \begin{equation*}
-F_X(x) = F_X(x_1, \dots, x_k) = P_X(S_x) = P(X \in S_x) = P\left( \bigcap_{i=1}^{k} \{ X_i \leq x_i \} \right),
+F_X(x) = F_X(\omega_1, \dots, \omega_k) = P_X(S_x) = P(X \in S_x) = P\left( \bigcap_{i=1}^{k} \{ X_i \leq x_i \} \right),
 \end{equation*}
 
 donde el conjunto \( S_x \) está definido como
@@ -688,7 +688,7 @@ S_x = \prod_{i=1}^{k} (-\infty, x_i].
 \end{dfn}
 
 \begin{prop}
-Sea \( X = (X_1, \dots, X_k) \). Entonces, \( X \) es un vector aleatorio si y solo si cada una de sus componentes \( X_i \) es una variable aleatoria.
+Sea \( X = (\omega_1, \dots, \omega_k) \). Entonces, \( X \) es un vector aleatorio si y solo si cada una de sus componentes \( X_i \) es una variable aleatoria.
 \end{prop}
 
 \subsection{Vectores Aleatorios Discretos}
@@ -699,13 +699,13 @@ Sea $X$ un vector aleatorio. Si el soporte $D\in\mathbb{R}$ de $X$ es numerable,
 
 \begin{dfn}
 Se define la \textit{función de cuantía} o \textit{función de probabilidad conjunta} de un vector aleatorio discreto 
-\( X = (X_1, \dots, X_k) \) en un punto \( x = (x_1, \dots, x_k) \in \mathbb{R}^k \) como
+\( X = (\omega_1, \dots, \omega_k) \) en un punto \( x = (\omega_1, \dots, \omega_k) \in \mathbb{R}^k \) como
 
 \[
-f_X(x_1, \dots, x_k) = 
+f_X(\omega_1, \dots, \omega_k) = 
 \begin{cases}
-P(X_i = x_i, \ i = 1, \dots, k), & \text{si } x = (x_1, \dots, x_k) \in D, \\
-0, & \text{si } x = (x_1, \dots, x_k) \notin D, 
+P(X_i = x_i, \ i = 1, \dots, k), & \text{si } x = (\omega_1, \dots, \omega_k) \in D, \\
+0, & \text{si } x = (\omega_1, \dots, \omega_k) \notin D, 
 \end{cases}
 \]
 
@@ -739,7 +739,7 @@ Una función de probabilidad conjunta \( f_X \colon D \to [0,1] \), con $D$ nume
 \[
 \begin{split}
     P_X((a, b]) = P\left( X \in (a, b] \right) &= P\left( a_i < X_i \leq b_i, \ i = 1, \dots, k \right) \\
-    &= \int_{a_k}^{b_k} \cdots \int_{a_1}^{b_1} f_X(x_1, \dots, x_k) \, dx_1 \cdots dx_k,
+    &= \int_{a_k}^{b_k} \cdots \int_{a_1}^{b_1} f_X(\omega_1, \dots, \omega_k) \, dx_1 \cdots dx_k,
 \end{split}
 \]
 
@@ -747,13 +747,13 @@ para todo $a,b\in\mathbb{R}^k$, con $a_i\leq b_i$; entonces decimos que $X$ es u
 \end{dfn}
 
 \begin{dfn}
-Una función \( f_X(x_1, \dots, x_k) \) es una \textit{función de densidad de probabilidad conjunta} si se verifica:
+Una función \( f_X(\omega_1, \dots, \omega_k) \) es una \textit{función de densidad de probabilidad conjunta} si se verifica:
 
 \begin{enumerate}
     \item \( f_X(x) \geq 0 \) para todo \( x \in \mathbb{R}^k \),
     \item \( P(X \in \mathbb{R}^k) = 1 \), lo cual implica que
     \[
-    \int_{-\infty}^{+\infty} \cdots \int_{-\infty}^{+\infty} f_X(x_1, \dots, x_k) \, dx_1 \cdots dx_k = 1.
+    \int_{-\infty}^{+\infty} \cdots \int_{-\infty}^{+\infty} f_X(\omega_1, \dots, \omega_k) \, dx_1 \cdots dx_k = 1.
     \]
 \end{enumerate}
 \end{dfn}
@@ -762,7 +762,7 @@ Una función \( f_X(x_1, \dots, x_k) \) es una \textit{función de densidad de p
 \begin{dfn}
    Establecemos la siguiente relación entre la función de distribución conjunta y la densidad: 
 \begin{equation*}
-F_X(x_1, \dots, x_k) = P_X(S_x) = \int_{-\infty}^{x_k} \cdots \int_{-\infty}^{x_1} f(t_1, \dots, t_k) \, dt_1 \cdots dt_k,
+F_X(\omega_1, \dots, \omega_k) = P_X(S_x) = \int_{-\infty}^{x_k} \cdots \int_{-\infty}^{x_1} f(t_1, \dots, t_k) \, dt_1 \cdots dt_k,
 \end{equation*}
 
 donde \( S_x = \prod_{i=1}^{k} (-\infty, x_i] \). 
@@ -772,7 +772,7 @@ donde \( S_x = \prod_{i=1}^{k} (-\infty, x_i] \).
 Si \( x \in \mathbb{R}^k \) es un punto de continuidad de \( f_X \), entonces se cumple:
 
 \begin{equation*}
-f_X(x_1, \dots, x_k) = \frac{\partial^k F_X(x_1, \dots, x_k)}{\partial x_1 \cdots \partial x_k}.
+f_X(\omega_1, \dots, \omega_k) = \frac{\partial^k F_X(\omega_1, \dots, \omega_k)}{\partial x_1 \cdots \partial x_k}.
 \end{equation*} 
 \end{obs}
 
@@ -781,7 +781,7 @@ f_X(x_1, \dots, x_k) = \frac{\partial^k F_X(x_1, \dots, x_k)}{\partial x_1 \cdot
 Sea $X$ un vector aleatorio continuo y $X_i$ alguna de sus componentes. La \emph{distribucón marginal} de la componente es:
 \begin{equation*}
     \begin{split}
-        F_{X_i}(x_i) & = \lim_{x_j \to +\infty, \, j \neq i} F_X(x_1, \dots, x_k)\\ 
+        F_{X_i}(x_i) & = \lim_{x_j \to +\infty, \, j \neq i} F_X(\omega_1, \dots, \omega_k)\\ 
         &= \int_{-\infty}^{+\infty} \cdots \int_{-\infty}^{x_i} \cdots \int_{-\infty}^{+\infty} 
         f(t_1, \dots, t_i, \dots, t_k) \, dt_1 \cdots dt_i \cdots dt_k.
     \end{split}
@@ -1009,13 +1009,13 @@ una sucesión de variables aleatorias $\{X_n\}$ y la variable aleatoria $X$.
 \begin{dfn} \label{dfn:conv_prob} (\textbf{Convergencia en probabilidad}) 
     Decimos que $\{X_n\}$ converge a $X$ en probabilidad, $X_n \xrightarrow{P} X$, si para cada $\delta > 0$,
 \[
-\lim_{n} P\{\omega : |X_n(\omega) - X(\omega)| > \delta \} = 0.
+\lim_{n\rightarrow \infty} P\{\omega : |X_n(\omega) - X(\omega)| > \delta \} = 0.
 \]
 \end{dfn}
 
 \begin{dfn} \label{dfn:conv_cs}(\textbf{Convergencia casi segura}) Decimos que $\{X_n\}$ converge casi seguramente a $X$ (o con probabilidad 1), $X_n \xrightarrow{a.s.} X$, si
 \[
-P(\{\omega : \lim_{n} X_n(\omega) = X(\omega)\}) = 1.
+P(\{\omega : \lim_{n\rightarrow \infty} X_n(\omega) = X(\omega)\}) = 1.
 \]
 \end{dfn}
 \begin{obs}
@@ -1088,7 +1088,7 @@ Si $\mathrm{Var}(X) = 0$, entonces $X = \mu$ a.s..
 
 \section{Momentos de un vector aleatorio}
 \begin{dfn} \label{dfn:expected_value_vector}
-Sea $X = (X_1, \dots, X_k)$ un vector aleatorio discreto y sea $g$ una función medible de $\mathbb{R}^k$ en $\mathbb{R}$. 
+Sea $X = (\omega_1, \dots, \omega_k)$ un vector aleatorio discreto y sea $g$ una función medible de $\mathbb{R}^k$ en $\mathbb{R}$. 
 Definimos la esperanza del vector como:
 
 
@@ -1099,7 +1099,7 @@ Con $D$ su soporte y $f_X$ su función de probabilidad conjunta.
 \end{dfn}
 
 \begin{dfn}\label{dfn:expected_value_vector_cont}
-Sea $X = (X_1, \dots, X_k)$ un vector aleatorio continuo y sea $g$ una función medible de $\mathbb{R}^k$ en $\mathbb{R}$. 
+Sea $X = (\omega_1, \dots, \omega_k)$ un vector aleatorio continuo y sea $g$ una función medible de $\mathbb{R}^k$ en $\mathbb{R}$. 
 Definimos la esperanza del vector como:
 
 \[
@@ -2802,7 +2802,7 @@ de los eventos \( \{ \pi(A, \Omega^{(l)}) > \varepsilon \} \) y a clarificar las
 bajo las cuales, para cualquier \( \varepsilon \),
 
 \[
-\lim_{l \to \infty} P\left\{\pi^{(l)} > \varepsilon\right\} = 0.
+\lim_{l \to \infty} P^{(l)}\left\{\pi^{(l)} > \varepsilon\right\} = 0.
 \]
 \bigskip
 
@@ -3099,14 +3099,14 @@ El siguiente es exactamente el Lema de simetrización que hemos presentado con a
     Sea \( l \geq 2 / \varepsilon^2 \), entonces
 
     \[
-    P(C) \geq \frac{1}{2} P(Q).
+    P^{(2l)}(C) \geq \frac{1}{2} P^{(l)}(Q).
     \]
 \end{lem}
 \begin{proof}
 Por definición
 \begin{equation*}
-P(C) = P\left(\rho^{(l)}-\frac{\varepsilon}{2}\geq 0\right) = \int_{\Omega^{(2l)}} \left( 1 \cdot \chi_{\{\rho^{(l)}-\frac{\varepsilon}{2}\geq 0\}} + 
-0 \cdot \chi_{\{\rho^{(l)}-\frac{\varepsilon}{2}< 0\}} \right) dP
+P^{(2l)}(C) = P^{(2l)}\left(\rho^{(l)}-\frac{\varepsilon}{2}\geq 0\right) = \int_{\Omega^{(2l)}} \left( 1 \cdot \chi_{\{\rho^{(l)}-\frac{\varepsilon}{2}\geq 0\}} + 
+0 \cdot \chi_{\{\rho^{(l)}-\frac{\varepsilon}{2}< 0\}} \right) dP^{(2l)}
 \end{equation*}
 
 Donde integramos sobre el espacio muestral de tamaño $2l$ de tal manera que
@@ -3126,18 +3126,18 @@ Definamos la función indicadora:
 
 con la cual reescribimos la probabilidad de $C$ como
 \begin{equation}
-P(C) = \int_{\Omega^{(2l)}} \left( \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right)\right) dP
+P^{(2l)}(C) = \int_{\Omega^{(2l)}} \left( \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right)\right) dP^{(2l)}
 \end{equation}
 
 Descomponiendo como en (\ref{def Z2l prod interno}) al espacio muestral, podemos escribir:
 
 \[
-P(C) = \int_{\Omega_1^{(l)}\times \Omega_2^{(l)}} \left( \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right)\right) dP
+P^{(2l)}(C) = \int_{\Omega_1^{(l)}\times \Omega_2^{(l)}} \left( \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right)\right) dP^{(2l)}
 \]
-Y, tomando $P=P_1\times P_2$, por el teorema de Fubini separamos los signos de integración
+Y, tomando $P^{(2l)}=P^{(l)}\times P^{(l)} = P_1\times P_2$, por el teorema de Fubini separamos los signos de integración
 
 \[
-P(C) = \int_{\Omega_1^{(l)}} \left( \int_{ \Omega_2^{(l)}}  \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right) dP_2\right) dP_1
+P^{(2l)}(C) = \int_{\Omega_1^{(l)}} \left( \int_{ \Omega_2^{(l)}}  \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right) dP_2\right) dP_1
 \]
 
 Ahora, consideremos el subevento $Q$ sobre el espacio muestral $\Omega_1^{(l)}$, es decir aquellas muestras $\hat{Z}_l$ de $l$
@@ -3149,7 +3149,7 @@ Q = \left\{ \pi^{(l)} > \varepsilon \right\} = \left\{\hat{Z}_l\in Z^{(l)}:\;
 
 y restringimos la primer integral a este evento
 \begin{equation}
-P(C) \geq \int_{Q} \left( \int_{ \Omega_2^{(l)}}  \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right) dP_2\right) dP_1. \label{desigualdad P(C)}
+P^{(2l)}(C) \geq \int_{Q} \left( \int_{ \Omega_2^{(l)}}  \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right) dP_2\right) dP_1. \label{desigualdad P^{(2l)}(C)}
 \end{equation}
 
 Por definición, para cada muestra $\hat{Z}_l$ en $Q$ debe existir algún evento $A_0\in\mathcal{S}$ tal que $|P_{A_0}-\nu_{A_0}\left(\hat{Z}_l\right)|>\varepsilon$.
@@ -3177,7 +3177,7 @@ se verifica si
 |\nu^{(2)}_{A_0}-P_{A_0}|\geq \frac{\varepsilon}{2}.
 \]
 
-Retomando la desigualdad (\ref{desigualdad P(C)}), reparemos un momento en la integral interior. 
+Retomando la desigualdad (\ref{desigualdad P^{(2l)}(C)}), reparemos un momento en la integral interior. 
 Dada la monotonía de $\theta$ y quedándonos
 con tan solo un evento $A_0\in\mathcal{S}$, en vez de tomar el supremo sobre todos los eventos, podemos escribir
 
@@ -3302,7 +3302,7 @@ Por lo tanto, para \( l \geq 2 / \varepsilon^2 \),
 De esto se sigue inmediatamente que, para \( l \geq 2 / \varepsilon^2 \),
 
 \[
-P(C) \geq \int_{Q} \left( \frac{1}{2} \right) dP_1  =
+P^{(2l)}(C) \geq \int_{Q} \left( \frac{1}{2} \right) dP_1  =
  \frac{1}{2} \int_{Q} dP_1.
 \]
 Por otro lado, podemos escribir
@@ -3310,8 +3310,8 @@ Por otro lado, podemos escribir
  \begin{split}
    \int_{Q}dP_1 & = \frac{1}{2} \int_{\Omega_1^{(l)}} \chi_{\{Q\}}dP_1 \\
    &=\frac{1}{2}  \int_{\Omega_2^{(l)}}\left(\int_{\Omega_1^{(l)}} \chi_{\{Q\}}dP_1\right) dP_2 \\
-   &=\frac{1}{2}  \int_{\Omega_1^{(l)}\times\Omega_2^{(l)}}  \chi_{\{Q\times \Omega_2^{(l)}\}} dP \\
-   &=\frac{1}{2}  P(Q)
+   &=\frac{1}{2}  \int_{\Omega_1^{(l)}\times\Omega_2^{(l)}}  \chi_{\{Q\times \Omega_2^{(l)}\}} dP^{(2l)} \\
+   &=\frac{1}{2}  P^{(l)}(Q)
 \end{split}   
 \end{equation*}
 
@@ -3334,7 +3334,7 @@ Utilizamos el Lema de Simetrización para probar el siguiente teorema.\newline
     muestra de tamaño \( l \) por más de \( \varepsilon \), para \( l \geq 2 / \varepsilon^2 \), satisface la desigualdad  
 
     \[
-    P\left(\pi^{(l)} > \varepsilon\right) \leq 4 \; m^{\mathcal{S}}(2l) \; e^{-\varepsilon^2 l/8}.
+    P^{(2l)}\left(\pi^{(l)} > \varepsilon\right) \leq 4 \; m^{\mathcal{S}}(2l) \; e^{-\varepsilon^2 l/8}.
     \]  
 \end{thm}
 
@@ -3343,30 +3343,47 @@ Utilizamos el Lema de Simetrización para probar el siguiente teorema.\newline
 En virtud del Lema de Simetrización, basta con estimar  
     
 \[
-P\left( \rho^{(l)} \geq \frac{\varepsilon}{2} \right) = \int_{\Omega^{(2l)}} \theta \left( \rho^{(l)} - \frac{\varepsilon}{2} \right) dP.
+P^{(2l)}\left( \rho^{(l)} \geq \frac{\varepsilon}{2} \right) = \int_{\Omega^{(2l)}} \theta \left( \rho^{(l)} - \frac{\varepsilon}{2} \right) dP^{(2l)}.
 \]
 
 donde \( \rho^{(l)} \) se considera como una función de la muestra  
 
 \[
-\Omega^{(2l)} = (X_1, \dots, X_l, X_{l+1}, \dots, X_{2l}).
+\Omega^{(2l)} = (\omega_1, \dots, \omega_l, \omega_{l+1}, \dots, \omega_{2l}),
 \]
+
+y $\theta$ es la función indicadora usada en la demostración anterior.\newline
 
 Consideremos la aplicación del espacio \( \Omega^{(2l)} \) sobre sí mismo, resultante de alguna permutación \( T_i \) de los elementos de la muestra \( \Omega^{(2l)} \). Dada la simetría 
 de la definición (\ref{def: probabilidad en espacio muestral}) de la medida \( P \) en \( \Omega^{(2l)} \), se cumple la siguiente relación para cualquier función integrable \( f \)
-sobre cualquier muestra $Z_{2l}$:
+-verifica el Teorema de Fubini- sobre cualquier muestra $Z_{2l}$:
 
+\begin{equation*}
+    \begin{split}
+            \int_{\Omega^{(2l)}} f(Z_{2l}) \, dP^{(2l)} &= \int_{\Omega_1} \ldots \int_{\Omega_{2l}} f(\omega_1,\ldots,\omega_{2l})  \, d\omega_1\ldots d\omega_{2l} \\
+                &= \int_{\Omega_{j_1}}\ldots\int_{\Omega_{j_{2l}}} f(\omega_{j_1},\ldots,\omega_{j_{2l}}) \, d\omega_{j_1}\ldots \omega_{j_{2l}}\\
+                &= \int_{\Omega^{(2l)}} f(T_i Z_{2l}) \, dP^{(2l)}.
+    \end{split}
+\end{equation*}
+
+donde $\omega_{j_1},\ldots,\omega_{j_{2l}}$ es una permutación cualquiera de la muestra original, es decir:
 \[
-\int_{\Omega^{(2l)}} f(Z_{2l}) \, dP = \int_{\Omega^{(2l)}} f(T_i Z_{2l}) \, dP.
+T_i Z_{2l} = T_i (\omega_1,\ldots,\omega_{2l}) = \omega_{j_1},\ldots,\omega_{j_{2l}}
+\]
+
+lo que implica, en general que:
+\[
+\int_{\Omega^{(2l)}} f(Z_{2l}) \, dP^{(2l)} = \int_{\Omega^{(2l)}} f(T_i Z_{2l}) \, dP^{(2l)}.
 \]
 
 Por lo tanto,
 
 \begin{equation}\label{eq:probabilidad integral con permutaciones}
-P\left( \rho^{(l)} \geq \frac{\varepsilon}{2} \right) = \int_{\Omega^{(2l)}} \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2}  \right) dP.
+P^{(2l)}\left( \rho^{(l)} \geq \frac{\varepsilon}{2} \right) = \int_{\Omega^{(2l)}} \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2}  \right) dP^{(2l)}.
 \end{equation}
 
-donde simplemente promnediamos sobre las \((2l)!\) permutaciones posibles.\newline
+donde simplemente promediamos sobre las \((2l)!\) permutaciones posibles. Notemos que la sumatoria de \((2l)!\) elementos iguales
+es igual al valor del elemento por \((2l)!\), por lo que solo multiplicamos y dividimos por este numero lo que se halla dentro de la integral. \newline
 
 Observemos además que
 
@@ -3378,7 +3395,7 @@ Observemos además que
 Claramente, si dos conjuntos \( A_1 \) y \( A_2 \) inducen la misma submuestra en una muestra 
 
 \[
-Z_{2l} = (X_1, \dots, X_l, X_{l+1}, \dots, X_{2l}),
+Z_{2l} = (\omega_1, \dots, \omega_l, \omega_{l+1}, \dots, \omega_{2l}),
 \]
 
 entonces
@@ -3411,7 +3428,7 @@ A su vez, podemos acotar la expresión por la suma sobre un numero finito de eve
 
 Notemos que este es exactamente el mismo argumento que utilizamos en el capítulo anterior para acotar la medida de probabilidad del supremo de la diferencia
 entre el riesgo y el riesgo empírico, tomado sobre todos los clasificadores en un espacio funcional, utilizando solo una cantidad finita de clasificadores en el espacio.
-Recordemos que llamamos indíce del sistema al cardinal del conjunto $S'$, al que notamos como $ \Delta^{\mathcal{S'}}(X_1, \dots, X_{2l})$.\newline
+Recordemos que llamamos indíce del sistema al cardinal del conjunto $S'$, al que notamos como $ \Delta^{\mathcal{S'}}(\omega_1, \dots, \omega_{2l})$.\newline
 
 Ahora, podemos acotar la integral en (\ref{eq:probabilidad integral con permutaciones}) escribiendo
 \[
@@ -3431,7 +3448,7 @@ es exactamente igual a:
 \Gamma = \sum_{k : |2\frac{k}{l} - \frac{n_A}{l}| \geq \frac{\varepsilon}{2}} \frac{\binom{n_A}{k} \binom{2l - n_A}{l - k}}{\binom{2l}{l}}.
 \]
 
-donde \( n_A \) es el número de elementos en la muestra \( \{X_1, \dots, X_{2l}\} \) que pertenecen a \( A \), como ya hemos dicho. \newline 
+donde \( n_A \) es el número de elementos en la muestra \( \{\omega_1, \dots, \omega_{2l}\} \) que pertenecen a \( A \), como ya hemos dicho. \newline 
 
 Esta expresión satisface la estimación 
 
@@ -3439,45 +3456,53 @@ Esta expresión satisface la estimación
 \Gamma \leq 2 e^{-\varepsilon^2 l / 8},
 \]
 
-que se obtiene mediante un cálculo sencillo pero largo, por lo que omitimos la demostración, como los autores de [8] hacen. \newline
+que se obtiene mediante un cálculo sencillo pero largo y cuya demostración puede hallarse en la página 163 de [3], junto con una explicación de la propia función $\Gamma$.  \newline
 
 Por lo tanto,
 \begin{equation*}
 \begin{aligned}
 \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left(  \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) 
 &\leq \sum_{A \in \mathcal{S}'} 2 e^{-\varepsilon^2 l / 8} \\
-&= 2 \Delta^{\mathcal{S}}(X_1, \dots, X_{2l}) e^{-\varepsilon^2 l / 8}\\
+&= 2 \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_{2l}) e^{-\varepsilon^2 l / 8}\\
 &\leq 2 m^S(2l) e^{-\varepsilon^2 l / 8}.
 \end{aligned}
 \end{equation*}
 
-Aplicando el Lema de Simetrización, tenemos
-
+Integrando a cada lado, donde el derecho implica la integral de una constante, y aplicando el Lema de Simetrización, tenemos
 \[
-P\left(\pi^{(l)}>\varepsilon\right) \leq 2 \cdot 2 m^S(2l) e^{-\varepsilon^2 l / 8}.
-\]
-
-Por último, notemos que 
-\[
-m^S(2l)<(2l)^n + 1
-\]
-
-por la cota dada en el Teorema (\ref{teo: cota polinomica de la función de crecimiento}), lo que nos da
-\[
-\lim_{l\to\infty} P\left(\pi^{(l)}>\varepsilon\right) \leq 4 \lim_{l\to\infty} ((2l)^n+1) e^{-\varepsilon^2 l / 8} = 0.
+P^{(2l)}\left(\pi^{(l)}>\varepsilon\right) \leq 2 P^{(l)}(Q) \leq 2 \cdot 2 m^S(2l) e^{-\varepsilon^2 l / 8}.
 \]
 
 \end{proof}
 
-El siguiente corolario es inmediato.\newline
+El siguiente corolario es inmediato y nos dice una condición suficiente para que las frecuencias relativas de 
+los eventos en la clase \( \mathcal{S} \) converjan uniformemente sobre \( \mathcal{S} \) (en probabilidad) a sus 
+correspondientes probabilidades.
 
 \begin{cor}
-Una condición suficiente para que las frecuencias relativas de los eventos en la clase \( \mathcal{S} \) converjan uniformemente sobre \( \mathcal{S} \) (en probabilidad) a sus correspondientes probabilidades es que exista un \( n \) finito tal que  
-
+En las condiciones del teorema anterior, supongamos que existe un $n$ finito tal que:
 \[
 m^{\mathcal{S}}(l) \leq l^n + 1, \quad \text{para todo } l.
 \]
+entonces
+\[
+\lim_{l\to\infty} P^{(l)}\left(Q\right)= 0.
+\]
 \end{cor}
+
+\begin{proof}
+
+Retomando las condiciones de la demostración anterior, sea $l=2k$
+\[
+m^S(2k)<(2k)^n + 1
+\]
+
+por la cota dada en el Teorema (\ref{teo: cota polinomica de la función de crecimiento}), lo que nos da
+\[
+\lim_{k\to\infty} P^{(2k)}\left(\pi^{(2k)}>\varepsilon\right) \leq 4 \lim_{l\to\infty} ((2k)^n+1) e^{-\varepsilon^2 k / 8} = 0.
+\]    
+\end{proof}
+
 
 \bigskip
 Hemos dado condiciones suficientes para que las frecuencias relativas (nuestras probabilidades empíricas) converjan uniformemente a las 
@@ -3486,11 +3511,58 @@ convergencia uniforme de forma casi segura.\newline
 
 \section{Condiciones de convergencia uniforme casi segura}
 
+Comenzamos demostrando el siguiente lema, bien conocido en la teoría de probabilidades, y una consecuencia directa del primer lema de Borel Cantelli \ref{primer lema de Borel-Cantelli}.
+
+\begin{lem}
+    Sea $\{\xi_i\}_{i\in\mathbb{N}}$ una sucesión de variables aleatorias y $C\in\mathbb{R}$. Si para cualquier \( \varepsilon > 0 \),
+
+    \[
+    \sum_{i}^{\infty} P(|\xi_i - C| > \varepsilon) < \infty,
+    \]
+    
+    entonces,
+    
+    \[
+    P(\xi_i \to C) = 1.
+    \]
+\end{lem}
+
+\begin{proof}
+    Sea $\epsilon > 0$. Sea el evento
+    \[
+        A_i = \{ \omega \in \Omega : |\xi_i(\omega)-C| > \epsilon\}.
+    \]
+Por nuestra hipótesis,
+\[
+    \sum_{i=1}^{\infty}P(A_i) < \infty,
+\]
+por lo que el primer lema de Borel-Cantelli nos permite asegurar que
+\[
+    P\left( \limsup_i A_i \right) = 0.
+\]
+
+Esto no es más que
+\[
+P\left( \bigcap_{n=1}^{\infty} \bigcup_{i\geq n}^{\infty} \{ \omega \in \Omega : |\xi_i(\omega)-C| > \epsilon\} \right) = 0.
+\]
+
+Lo que implica que el evento $A_i$ sucede infinitamente con probabilidad cero. Es decir, su complemento sucede con probabilidad $1$:
+
+\[
+P(A_i^c) = P(\{ \omega \in \Omega : |\xi_i(\omega)-C| < \epsilon\}) = 1
+\]
+
+Como esto es cierto para cualquier $\epsilon > 0$, tenemos
+
+\[P(\xi_i \to C) = 1.\]
+
+\end{proof}
+
 \begin{thm}
     Si \( m^{\mathcal{S}}(l) \leq l^n + 1 \), entonces  
 
     \[
-    P(\pi^{(l)} \to 0) = 1.
+    P^{(l)}(\pi^{(l)} \to 0) = 1.
     \]
     
 \end{thm} 
@@ -3500,13 +3572,13 @@ convergencia uniforme de forma casi segura.\newline
 Dado que  
 
 \[
-P(\pi^{(l)} > \varepsilon) \leq 4 m^{\mathcal{S}}(2l)  e^{-\varepsilon^2 l/8},
+P^{(l)}(\pi^{(l)} > \varepsilon) \leq 4 m^{\mathcal{S}}(2l)  e^{-\varepsilon^2 l/8},
 \]
 
 para \( l \geq 2 / \varepsilon^2 =L \), la serie  
 
 \[
-\sum_{l=1}^{\infty} P(\pi^{(l)} > \varepsilon) \leq \sum_{l=1}^{L} P(\pi^{(l)} > \varepsilon) + 4 \sum_{l=L+1}^{\infty} [(2l)^n + 1] e^{-\varepsilon^2 l/8}
+\sum_{l=1}^{\infty} P^{(l)}(\pi^{(l)} > \varepsilon) \leq \sum_{l=1}^{L} P^{(l)}(\pi^{(l)} > \varepsilon) + 4 \sum_{l=L+1}^{\infty} [(2l)^n + 1] e^{-\varepsilon^2 l/8}
 \]
 
 es convergente para cualquier \( \varepsilon \).  
@@ -3514,7 +3586,7 @@ es convergente para cualquier \( \varepsilon \).
 Por el lema, esto implica que  
 
 \[
-P(\pi^{(l)} \to 0) = 1.
+P^{(l)}(\pi^{(l)} \to 0) = 1.
 \]
 \end{proof}
 
@@ -3522,26 +3594,26 @@ P(\pi^{(l)} \to 0) = 1.
     La definición del índice implica inmediatamente que  
 
     \begin{equation*}
-    \Delta^{\mathcal{S}}(X_1, \dots, X_{k}, X_{k+1}, \dots,X_l) \leq \Delta^{\mathcal{S}}(X_1, \dots, X_k) \Delta^{\mathcal{S}}(X_{k+1}, \dots, X_l).
+    \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_{k}, \omega_{k+1}, \dots,\omega_l) \leq \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_k) \Delta^{\mathcal{S}}(\omega_{k+1}, \dots, \omega_l).
     \end{equation*}
     De aquí se sigue que  
     \begin{equation*}
-    \log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_{k}, X_{k+1}, \dots,X_l) \leq \log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_k) + \log_2 \Delta^{\mathcal{S}}(X_{k+1}, \dots, X_l).
+    \log_2 \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_{k}, \omega_{k+1}, \dots,\omega_l) \leq \log_2 \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_k) + \log_2 \Delta^{\mathcal{S}}(\omega_{k+1}, \dots, \omega_l).
     \end{equation*}\newline
 \end{obs}
 
 
-En lo que sigue, se asumirá que el índice \( \Delta^{\mathcal{S}}(X_1, \dots, X_k) \), visto como una función de 
-\( X_l = \{X_1, \dots, X_l\} \), es medible con respecto a la medida \( P \).\newline
+En lo que sigue, se asumirá que el índice \( \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_l) \), visto como una función de 
+\( Z_l = \{\omega_1, \dots, \omega_l\} \), es medible con respecto a la medida \( P \).\newline
 
 \begin{dfn}
     Sean  
     \[
-    F^{\mathcal{S}}(z) = P\left(\log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_l) < z \right).
+    F^{\mathcal{S}}(z) = P^{(l)}\left(\log_2 \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_l) < z \right).
     \]
      
     \[
-    H^{\mathcal{S}}(l) = \mathbb{E} \left[ \log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_l) \right].
+    H^{\mathcal{S}}(l) = \mathbb{E} \left[ \log_2 \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_l) \right].
     \]\newline
 
     Llamamos \textbf{entropía del sistema} de eventos \( \mathcal{S} \) en muestras de tamaño \( l \) a  $H^{\mathcal{S}}(l)$.\newline
@@ -3566,28 +3638,16 @@ Una demostración de este Lema puede hallarse en [9]. Ahora mostraremos que, par
 la distribución de la variable aleatoria  
 
 \[
-\xi^{(l)} = \frac{1}{l} \log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_l)
+\xi^{(l)} = \frac{1}{l} \log_2 \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_l)
 \]
 
 se concentra cerca de \( c \). Para esto, usaremos el siguiente resultado.
-\begin{lem}
-    Sea $\{\xi_i\}_{i\in\mathbb{N}}$. Si para cualquier \( \varepsilon > 0 \),
 
-    \[
-    \sum_{i}^{\infty} P(|\xi_i - C| > \varepsilon) < \infty,
-    \]
-    
-    entonces,
-    
-    \[
-    P(\xi_i \to C) = 1.
-    \]
-\end{lem}
 \bigskip
 \begin{lem} \label{lema 4}
     Sea la variable aleatoria
     \[
-        \xi^{(l)} = \frac{1}{l} \log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_l).
+        \xi^{(l)} = \frac{1}{l} \log_2 \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_l).
     \]
 
     Entonces
@@ -3619,28 +3679,28 @@ se concentra cerca de \( c \). Para esto, usaremos el siguiente resultado.
     A partir de (\ref{obs:desigualdad triangular indice de un sistema}) se sigue que
     
     \[
-    \log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_{nl_0}) \leq \sum_{i=0}^{n-1} \log_2 \Delta^{\mathcal{S}}(X_{il_0+1}, \dots, X_{(i+1)l_0}).
+    \log_2 \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_{nl_0}) \leq \sum_{i=0}^{n-1} \log_2 \Delta^{\mathcal{S}}(\omega_{il_0+1}, \dots, \omega_{(i+1)l_0}).
     \]
     
     De esto obtenemos
     
     \begin{equation}\label{desigualdad 15}
-    P^+\left(nl_0, \frac{\varepsilon}{2}\right) \leq P \left( \frac{1}{nl_0} \sum_{i=0}^{n-1} \log_2 \Delta^{\mathcal{S}}(X_{il_0+1}, \dots, X_{(i+1)l_0}) - c > \frac{\varepsilon}{2} \right).
+    P^+\left(nl_0, \frac{\varepsilon}{2}\right) \leq P \left( \frac{1}{nl_0} \sum_{i=0}^{n-1} \log_2 \Delta^{\mathcal{S}}(\omega_{il_0+1}, \dots, \omega_{(i+1)l_0}) - c > \frac{\varepsilon}{2} \right).
     \end{equation}
     
     Definimos
     
     \[
-    y = \frac{1}{nl_0} \sum_{i=0}^{n-1} \log_2 \Delta^{\mathcal{S}}(X_{il_0+1}, \dots, X_{(i+1)l_0})
+    y = \frac{1}{nl_0} \sum_{i=0}^{n-1} \log_2 \Delta^{\mathcal{S}}(\omega_{il_0+1}, \dots, \omega_{(i+1)l_0})
     \]
     y observamos que
     \[
-    \sum_{i=0}^{n-1} \log_2 \Delta^{\mathcal{S}}(X_{il_0+1}, \dots, X_{(i+1)l_0}).
+    \sum_{i=0}^{n-1} \log_2 \Delta^{\mathcal{S}}(\omega_{il_0+1}, \dots, \omega_{(i+1)l_0}).
     \]
     es una suma de variables aleatorias independientes e idénticamente distribuidas, cada una de ellas con esperanza \( H^{\mathcal{S}}(l_0) \)
     y una cierta varianza $V$. De esto, sigue que
     \[
-    \mathbb{E}(y) = \frac{H^{\mathcal{S}}(l_0)}{l_0} ; \qquad \text{Var}(y) = \frac{V}{n_0^2}.
+    \mathbb{E}(y) = \frac{H^{\mathcal{S}}(l_0)}{l_0} ; \qquad \text{Var}(y) = \frac{V}{n \cdot l_0^2}.
     \]\newline
 
     Usando la desigualdad (\ref{desigualdad 14}), escribimos 
@@ -3685,7 +3745,7 @@ se concentra cerca de \( c \). Para esto, usaremos el siguiente resultado.
     Para un \( l > l_0 \) arbitrario, sea \( n \) tal que \( n l_0 < l < (n+1)l_0 \). Tenemos
 
     \[
-    \frac{1}{n l_0} \log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_{(n+1)l_0}) > \frac{1}{l} \log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_l).
+    \frac{1}{n l_0} \log_2 \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_{(n+1)l_0}) > \frac{1}{l} \log_2 \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_l).
     \]
     Esto es exactamente
     
@@ -3775,7 +3835,7 @@ se traduce en la tan buscada consistencia de una clase de funciones asociada a u
     Observemos que, por el Lema (\ref{lema 4}), la condición (\ref{condicion nec y suf}) es equivalente a la siguiente afirmación:  
     
 \begin{equation}
-    \lim_{l \to \infty} P\left( \frac{1}{l}\log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_l) > \delta  \right) = 0, 
+    \lim_{l \to \infty} P\left( \frac{1}{l}\log_2 \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_l) > \delta  \right) = 0, 
     \quad \text{para todo } \delta > 0.
 \end{equation}
 \begin{proof}
@@ -3789,12 +3849,12 @@ Supongamos que
 \lim_{l \to \infty} \frac{H^{\mathcal{S}}(l)}{l} = 0.
 \]
 
-Recordemos que, por el Lema de Simetrización, \( 2P(C) \geq \frac{1}{2} P(Q) \). Estimemos la probabilidad del evento \( C \).\newline
+Recordemos que, por el Lema de Simetrización, \( 2P^{(2l)}(C) \geq \frac{1}{2} P^{(l)}(Q) \). Estimemos la probabilidad del evento \( C \).\newline
 
 Como mostramos previamente,
 
 \[
-P(C) \leq \frac{1}{(2l)!} \int_{\Omega^{(2l)}} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) dP.
+P^{(2l)}(C) \leq \frac{1}{(2l)!} \int_{\Omega^{(2l)}} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) dP^{(2l)}.
 \]
 
 Sea \( \delta = \varepsilon^2 / 16 \) y dividamos la región de integración en dos partes: 
@@ -3802,30 +3862,30 @@ Sea \( \delta = \varepsilon^2 / 16 \) y dividamos la región de integración en 
 \( Z_2^{(2l)} = \Omega^{(2l)} - Z_1^{(2l)} \). Entonces,
 
 \[
-P(C) = \int_{Z_1^{(2l)}} \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) dP
+P^{(2l)}(C) = \int_{Z_1^{(2l)}} \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) dP^{(2l)}
 \]
 
 \[
-+ \int_{Z_2^{(2l)}} \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) dP.
++ \int_{Z_2^{(2l)}} \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) dP^{(2l)}.
 \]
 
 Dado que el integrando no excede la unidad, tenemos que
 
 \[
-P(C) \leq \int_{Z_1^{(2l)}} \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) dP + P^+(2l, \delta).
+P^{(2l)}(C) \leq \int_{Z_1^{(2l)}} \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) dP^{(2l)} + P^+(2l, \delta).
 \]
 
 Se demostró que
 
 \[
-\frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) \leq 2 \Delta^{\mathcal{S}}(X_1, \dots, X_{2l}) e^{-\varepsilon^2 l / 8}.
+\frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) \leq 2 \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_{2l}) e^{-\varepsilon^2 l / 8}.
 \]
 
-Usando el hecho de que \( \Delta^{\mathcal{S}}(X_1, \dots, X_{2l}) \leq 2^{2\delta l} \) en la región de integración y el valor que hemos
+Usando el hecho de que \( \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_{2l}) \leq 2^{2\delta l} \) en la región de integración y el valor que hemos
 fijado de $\delta$, obtenemos
 
 \[
-P(C) \leq 2 \cdot 2^{2\delta l} e^{-\varepsilon^2 l / 8} + P^+(2l, \delta) = 2\left(\frac{2}{e}\right)^{\varepsilon^2 l / 8} + P^+(2l, \delta).
+P^{(2l)}(C) \leq 2 \cdot 2^{2\delta l} e^{-\varepsilon^2 l / 8} + P^+(2l, \delta) = 2\left(\frac{2}{e}\right)^{\varepsilon^2 l / 8} + P^+(2l, \delta).
 \]
 
 Pero, por el Lema (\ref{lema 4}), sabemos que
@@ -3833,7 +3893,7 @@ Pero, por el Lema (\ref{lema 4}), sabemos que
 \lim_{l \to \infty} P^+(2l, \delta) = 0 .
 \]
 
-Por lo tanto, se sigue que \( \lim_{l \to \infty} P(C) = 0 \) y, en consecuencia, \( \lim_{l \to \infty} P(Q) = 0 \). Esto prueba la suficiencia.\newline
+Por lo tanto, se sigue que \( \lim_{l \to \infty} P^{(2l)}(C) = 0 \) y, en consecuencia, \( \lim_{l \to \infty} P^{(l)}(Q) = 0 \). Esto prueba la suficiencia.\newline
 
 \textbf{Necesidad.}\newline
 \( 1^\circ \). Supongamos como antes que
@@ -3844,14 +3904,14 @@ Por lo tanto, se sigue que \( \lim_{l \to \infty} P(C) = 0 \) y, en consecuencia
 y procedamos por el contrarrecíproco. Para demostrar la necesidad, debemos mostrar que existe un \( \varepsilon > 0 \) tal que
 
 \begin{equation*}
-\lim_{l \to \infty} P(Q) = \lim_{l \to \infty} P \left\{ \sup_{A \in \mathcal{S}} \left| \nu_A^{(l)} - P_A \right| > \varepsilon \right\} \neq 0.
+\lim_{l \to \infty} P^{(l)}(Q) = \lim_{l \to \infty} P \left\{ \sup_{A \in \mathcal{S}} \left| \nu_A^{(l)} - P_A \right| > \varepsilon \right\} \neq 0.
 \end{equation*}
 Es suficiente estimar la probabilidad del evento
 
 \begin{equation*}
 C' = \left\{ \sup_{A \in \mathcal{S}} \left| \nu_A^{(1)} - \nu_A^{(2)} \right| > 2\varepsilon \right\}.
 \end{equation*}
-En efecto, mostraremos que a partir de una estimación inferior para la probabilidad del evento \( C' \) se obtendrá una estimación inferior para \( P(Q) \). Supongamos que \( X_1, \dots, X_{2l} \) es una muestra dada y que el evento \( Q \) no ocurre en ambas semimuestras, es decir,
+En efecto, mostraremos que a partir de una estimación inferior para la probabilidad del evento \( C' \) se obtendrá una estimación inferior para \( P^{(l)}(Q) \). Supongamos que \( \omega_1, \dots, \omega_{2l} \) es una muestra dada y que el evento \( Q \) no ocurre en ambas semimuestras, es decir,
 
 \begin{equation*}
 \sup_{A \in \mathcal{S}} \left| \nu_A^{(1)} - P_A \right| \leq \varepsilon, \quad \sup_{A \in \mathcal{S}} \left| \nu_A^{(2)} - P_A \right| \leq \varepsilon.
@@ -3864,23 +3924,23 @@ Entonces, automáticamente
 A partir de la independencia de las semimuestras, obtenemos
 
 \begin{equation*}
-1 - P(C') \geq (1 - P(Q))^2, 
+1 - P(C') \geq (1 - P^{(l)}(Q))^2, 
 \end{equation*}
 es decir, 
 \[
-P(C') \leq 2P(Q) - P^2(Q).
+P(C') \leq 2P^{(l)}(Q) - P^2(Q).
 \]
 Una versión más débil de esta desigualdad nos da
 
 \begin{equation*}
-P(Q) \geq \frac{1}{2} P(C').
+P^{(l)}(Q) \geq \frac{1}{2} P(C').
 \end{equation*}
 
 \bigskip
 \( 2^\circ \). Observemos ahora que, en virtud del lema (\ref{Lema 1}), se puede encontrar una submuestra \( X_{i_1}, \dots, X_{i_n} \) de \( Z_{2l} \) tal que \( \mathcal{S} \) induce en ella todos los subsistemas posibles, proporcionando
 
 \begin{equation}\label{eq 24}
-\Delta^{\mathcal{S}}(X_1, \dots, X_l) \geq \Phi(n, l).
+\Delta^{\mathcal{S}}(\omega_1, \dots, \omega_l) \geq \Phi(n, l).
 \end{equation}
 Asignamos algún \( q \), \( 0 < q < \frac{1}{4} \), y estimamos la probabilidad de que (\ref{eq 24}) se mantenga para \( n = [ ql ] \). No es difícil ver que, para \( q < \frac{1}{4} \) y \( n = [ ql ] \),
 
@@ -3895,9 +3955,9 @@ En lo que sigue, asumiremos que \( l \geq 1/q \). Así, \( [ ql ] \geq \frac{1}{
 Ahora, para la probabilidad de que (\ref{eq 24}) se mantenga, obtenemos la estimación
 
 \begin{align*}
-P \left( \Delta^{\mathcal{S}}(X_1, \dots, X_l) \geq \Phi(n, l) \right) 
+P \left( \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_l) \geq \Phi(n, l) \right) 
 &\geq P \left( \Delta^{\mathcal{S}}(X_l) > \left( \frac{2e}{q} \right)^{ql} \right) \\
-&= P \left( \frac{\log_2 \Delta^{\mathcal{S}}(X_1, \dots, X_l)}{l} > q \log_2 \frac{2e}{q} + \frac{1}{l} \right).
+&= P \left( \frac{\log_2 \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_l)}{l} > q \log_2 \frac{2e}{q} + \frac{1}{l} \right).
 \end{align*}
 Dado que \( \lim_{l \to \infty} \frac{H^{\mathcal{S}}(l)}{l} = c \), podemos elegir un \( q \) suficientemente pequeño tal que
 
@@ -3907,7 +3967,7 @@ q \log_2 \frac{2e}{q} < c.
 Si suponemos que (\ref{eq 25}) se satisface, podemos aplicar el Lema (\ref{lema 4}) para obtener
 
 \begin{equation}\label{eq 26}
-\lim_{l \to \infty} P \left( \Delta^{\mathcal{S}}(X_1, \dots, X_l) > \Phi(n, l) \right) = 1.
+\lim_{l \to \infty} P \left( \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_l) > \Phi(n, l) \right) = 1.
 \end{equation}
 
 \( 3^\circ \). Para completar la demostración de la necesidad, solo debemos estimar
@@ -3920,11 +3980,11 @@ P(C') = \int_{\Omega^{(2l)}} \theta \left( \sup_{A \in \mathcal{S}} | \nu_A^{(1)
 para \( \varepsilon > 0 \).\newline
 
 Escogemos un \( q \) que satisfaga (\ref{eq 25}) y sea \( B \) el conjunto de aquellas muestras para las cuales 
-\( \Delta^{\mathcal{S}}(X_1, \dots, X_{2l}) \geq \Phi([ 2ql ], 2l) \). Entonces,
+\( \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_{2l}) \geq \Phi([ 2ql ], 2l) \). Entonces,
 
 \begin{equation*}
-P(C') \geq \int_B \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)} (T_i Z_{2l}) - 2\varepsilon \right) dP
-= \int_B Z \, dP.
+P(C') \geq \int_B \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)} (T_i Z_{2l}) - 2\varepsilon \right) dP^{(2l)}
+= \int_B Z \, dP^{(2l)}.
 \end{equation*}
 Examinemos ahora el integrando \( Z \) asumiendo que \( Z_{2l} \in B \).\newline
 
@@ -4051,12 +4111,12 @@ Observamos que
 Finalmente, asumiendo que (\ref{eq 28}) se cumple, tenemos para \( l > 1/\varepsilon \):
 
 \[
-P(C') = \int_B Z \, dP \geq \left( 1 - \frac{1}{\varepsilon^2 l} \right) \frac{\binom{2l - [2q l]}{l - r} \binom{[2q l]}{r}}{\binom{2l}{l}} P(B).
+P(C') = \int_B Z \, dP^{(2l)} \geq \left( 1 - \frac{1}{\varepsilon^2 l} \right) \frac{\binom{2l - [2q l]}{l - r} \binom{[2q l]}{r}}{\binom{2l}{l}} P(B).
 \]
 y 
 
 \[
-\lim_{l \to \infty} P(C') \geq \lim_{l \to \infty} P(B) = \lim_{l \to \infty} P(\Delta^{\mathcal{S}}(X_1, \dots, X_{2l}) > \Phi([2q l]/2)).
+\lim_{l \to \infty} P(C') \geq \lim_{l \to \infty} P(B) = \lim_{l \to \infty} P(\Delta^{\mathcal{S}}(\omega_1, \dots, \omega_{2l}) > \Phi([2q l]/2)).
 \]
 Mostramos en \( 2^\circ \) que este último límite tiene el valor 1. Por lo tanto, se sigue que 
 

@@ -45,12 +45,12 @@
 \contentsline {section}{\numberline {3.2}La función de crecimiento}{65}{section.3.2}%
 \contentsline {section}{\numberline {3.3}El Lema de simetrización}{67}{section.3.3}%
 \contentsline {section}{\numberline {3.4}Condiciones de convergencia uniforme casi segura}{75}{section.3.4}%
-\contentsline {chapter}{\numberline {4}Otros conceptos del Aprendizaje}{87}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Más medidas de capacidad de un espacio de clasificadores}{87}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Complejidad de Rademacher}{87}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Cotas con grandes márgenes de separación}{88}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}Conclusiones acerca de las cotas de generalización}{90}{subsection.4.1.3}%
-\contentsline {section}{\numberline {4.2}Consistencia de Bayes y error de aproximación}{90}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Espacios funcionales anidados}{91}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Regularización}{93}{subsection.4.2.2}%
-\contentsline {section}{\numberline {4.3}Los teoremas de la chancha y los veinte}{95}{section.4.3}%
+\contentsline {chapter}{\numberline {4}Otros conceptos del Aprendizaje}{88}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Más medidas de capacidad de un espacio de clasificadores}{88}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Complejidad de Rademacher}{88}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Cotas con grandes márgenes de separación}{89}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Conclusiones acerca de las cotas de generalización}{91}{subsection.4.1.3}%
+\contentsline {section}{\numberline {4.2}Consistencia de Bayes y error de aproximación}{91}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Espacios funcionales anidados}{92}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Regularización}{94}{subsection.4.2.2}%
+\contentsline {section}{\numberline {4.3}Los teoremas de la chancha y los veinte}{96}{section.4.3}%
