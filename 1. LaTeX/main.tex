@@ -1223,8 +1223,8 @@ P(X_n = 0) = 1 - \frac{1}{(n+1)\log(n+1)}.
 \] 
 Por un lado:
 $$
-P\left(\frac{S_n}{n}\geq \epsilon\right) \leq \frac{1}{\epsilon}\mathbb{E}\left(\frac{S_n}{n}\right)^2 = 
-\frac{1}{\log(n+1)\epsilon^2}+\frac{1}{n\log(n+1)\epsilon^2} \xrightarrow{n\rightarrow\infty} 0,
+P\left(\frac{S_n}{n}\geq \varepsilon\right) \leq \frac{1}{\varepsilon}\mathbb{E}\left(\frac{S_n}{n}\right)^2 = 
+\frac{1}{\log(n+1)\varepsilon^2}+\frac{1}{n\log(n+1)\varepsilon^2} \xrightarrow{n\rightarrow\infty} 0,
 $$
 lo que implica convergencia débil. Por otro lado, para cada $n$ tenemos:
 $$
@@ -1586,14 +1586,14 @@ Ahora, definimos los distintos de convergencia que trataremos al considerar el c
     \begin{enumerate}
     \item  El algoritmo de aprendizaje se dice \textnormal{consistente con respecto a $\mathcal{F}$ y a $P$} si el riesgo $\mathcal{R}(f_n)$
      converge en probabilidad al riesgo  $\mathcal{R}(f_{\mathcal{F}})$ del mejor clasificador en $\mathcal{F}$. Esto es,
-     que para todo $\epsilon>0$:
+     que para todo $\varepsilon>0$:
      \[
-     P\left(\mathcal{R}(f_n)-\mathcal{R}(f_{\mathcal{F}})>\epsilon\right) \rightarrow 0 \qquad \text{ cuando } \qquad n\rightarrow \infty
+     P\left(\mathcal{R}(f_n)-\mathcal{R}(f_{\mathcal{F}})>\varepsilon\right) \rightarrow 0 \qquad \text{ cuando } \qquad n\rightarrow \infty
      \]
      \item  El algoritmo de aprendizaje se dice \textnormal{Bayes-consistente con respecto a $P$} si el riesgo $\mathcal(R)(f_n)$
-     converge en probabilidad al riesgo  $\mathcal(R)(f_{\text{Bayes}})$ del clasificador bayesiano. Esto es, para todo $\epsilon>0$
+     converge en probabilidad al riesgo  $\mathcal(R)(f_{\text{Bayes}})$ del clasificador bayesiano. Esto es, para todo $\varepsilon>0$
     \[
-     P\left(\mathcal{R}(f_n)-\mathcal{R}(f_{\text{Bayes}})>\epsilon\right) \rightarrow 0 \qquad \text{ cuando } \qquad n\rightarrow \infty
+     P\left(\mathcal{R}(f_n)-\mathcal{R}(f_{\text{Bayes}})>\varepsilon\right) \rightarrow 0 \qquad \text{ cuando } \qquad n\rightarrow \infty
     \]
     \item  El algoritmo de aprendizaje se dice \textnormal{universalmente consistente con respecto a $\mathcal{F}$} si 
     es consistente con respecto a $\mathcal{F}$ para toda distribución de probabilidad $P$.
@@ -2059,19 +2059,19 @@ tan bien la media empírica aproxima el valor esperado. Específicamente, si las
 toman valores solo en el intervalo \([0, 1]\), entonces:
 
 \begin{equation}\label{eq:Chernoff-Hoeffding}
-P\left( \left| \frac{1}{n} \sum_{i=1}^n \xi_i - \mathbb{E}(\xi) \right| \geq \epsilon \right) \leq 
-2 \exp(-2n\epsilon^2). 
+P\left( \left| \frac{1}{n} \sum_{i=1}^n \xi_i - \mathbb{E}(\xi) \right| \geq \varepsilon \right) \leq 
+2 \exp(-2n\varepsilon^2). 
 \end{equation}\newline
 
-Este teorema establece que la probabilidad de que la media de la muestra se desvíe más de \(\epsilon\) del 
-valor esperado de la distribución está acotada por una cantidad muy pequeña, específicamente \(2 \exp(-2n\epsilon^2)\). 
+Este teorema establece que la probabilidad de que la media de la muestra se desvíe más de \(\varepsilon\) del 
+valor esperado de la distribución está acotada por una cantidad muy pequeña, específicamente \(2 \exp(-2n\varepsilon^2)\). 
 Nótese que, cuanto mayor sea \(n\), más pequeña será esta cantidad; es decir, la probabilidad de desviaciones 
 grandes disminuye rápidamente con \(n\). Una vez más, podemos aplicar este teorema al contexto del riesgo empírico 
 y verdadero. Esto conduce a una cota que establece qué tan probable es que el riesgo empírico esté cerca del 
 riesgo verdadero para una función dada \(f\):
 
 \begin{equation}
-P(|\mathcal{R}_{\text{emp}}(f) - \mathcal{R}(f)| \geq \epsilon) \leq 2 \exp(-2n\epsilon^2).  \label{eq:Chernoff}
+P(|\mathcal{R}_{\text{emp}}(f) - \mathcal{R}(f)| \geq \varepsilon) \leq 2 \exp(-2n\varepsilon^2).  \label{eq:Chernoff}
 \end{equation}
 
 Para cualquier función fija (y un \(n\) suficientemente grande), es muy probable que el error de entrenamiento 
@@ -2190,7 +2190,7 @@ se vuelva pequeña simultáneamente. Es decir, requerimos que exista un valor gr
 tamaño de muestra al menos \(n\):
 
 \[
-\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \leq \epsilon.
+\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \leq \varepsilon.
 \]
 
 Luego
@@ -2203,15 +2203,15 @@ En particular, esto también se cumple para una función \(f_n\) que se haya ele
 de puntos de entrenamiento
 
 \begin{equation}
-P(|R(f_n) - \mathcal{R}_{\text{emp}}(f_n)| \geq \epsilon) \leq P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \geq \epsilon\right). \label{eq:cota_uniforme}
+P(|R(f_n) - \mathcal{R}_{\text{emp}}(f_n)| \geq \varepsilon) \leq P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \geq \varepsilon\right). \label{eq:cota_uniforme}
 \end{equation}
 
 La cantidad en el lado derecho de la ecuación (\ref{eq:cota_uniforme}) es ahora el objeto de la ley uniforme de los grandes números. 
 Decimos que la ley de los grandes números se cumple de manera uniforme sobre una clase de funciones \(\mathcal{F}\) si, 
-para todo \(\epsilon > 0\),
+para todo \(\varepsilon > 0\),
 
 \[
-P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \geq \epsilon \right) \to 0 \quad \text{cuando } n \to \infty.
+P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \geq \varepsilon \right) \to 0 \quad \text{cuando } n \to \infty.
 \]
 
 Ahora podemos usar la ecuación (\ref{eq:cota_uniforme}) para mostrar que, si la ley uniforme de los grandes números se cumple para 
@@ -2239,7 +2239,7 @@ al tomar el supremo de todas las funciones en el espacio $\mathcal{F}$.\\
 De esto podemos concluir:
 
 \[
-P\left(|R(f_n) - R(f_\mathcal{F})| \geq \epsilon \right) \leq P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \geq \epsilon/2\right).
+P\left(|R(f_n) - R(f_\mathcal{F})| \geq \varepsilon \right) \leq P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \geq \varepsilon/2\right).
 \]
 
 Bajo la ley uniforme de los grandes números, el lado derecho tiende a \(0\), lo que lleva a la consistencia de 
@@ -2256,10 +2256,10 @@ teorema:\newline
 La convergencia uniforme
     
     \[
-        P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| > \epsilon \right) \to 0 \quad \text{cuando } n \to \infty, 
+        P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| > \varepsilon \right) \to 0 \quad \text{cuando } n \to \infty, 
         \]
         
-        para todo \(\epsilon > 0\), es una condición necesaria y suficiente para la consistencia de la minimización del 
+        para todo \(\varepsilon > 0\), es una condición necesaria y suficiente para la consistencia de la minimización del 
         riesgo empírico con respecto a \(\mathcal{F}\).\newline
 \end{thm}
         
@@ -2277,7 +2277,7 @@ Intuitivamente, parece claro que cuanto mayor sea el espacio de funciones \(\mat
 Por lo tanto, cuanto mayor sea \(\mathcal{F}\), mayor será la medida de probabilidad:
 
 \[
-P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| > \epsilon \right).
+P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| > \varepsilon \right).
 \]
 
 En consecuencia, cuanto mayor sea \(\mathcal{F}\), más difícil será satisfacer la ley uniforme de los grandes números. 
@@ -2302,7 +2302,7 @@ qué propiedades de las clases de funciones determinan si la convergencia unifor
 en la probabilidad del Teorema anterior:
 
 \begin{equation}
-P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| > \epsilon \right). \label{eq:med_unif_riesgo_riesgo_emp}
+P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| > \varepsilon \right). \label{eq:med_unif_riesgo_riesgo_emp}
 \end{equation}
 
 Consideremos entonces un espacio de funciones finito, como el que nos encontramos en la práctica. Sea
@@ -2310,24 +2310,24 @@ Consideremos entonces un espacio de funciones finito, como el que nos encontramo
 \(f_i \in \mathcal{F}_{emp}\) satisface la ley estándar de los grandes números en la forma de la cota de Chernoff:
 
 \[
-P\left(|R(f_i) - \mathcal{R}_{\text{emp}}(f_i)| \geq \epsilon \right) \leq 2 \exp(-2n\epsilon^2).
+P\left(|R(f_i) - \mathcal{R}_{\text{emp}}(f_i)| \geq \varepsilon \right) \leq 2 \exp(-2n\varepsilon^2).
 \]
 
 Ahora queremos transformar estas afirmaciones sobre funciones individuales \(f_i\) en una ley uniforme de los 
 grandes números. Dada la subatividad de la probabilidad, tenemos:
 
 \[
-P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \geq \epsilon \right) \leq \sum_{i=1}^m P\left(|R(f_i) - \mathcal{R}_{\text{emp}}(f_i)| \geq \epsilon \right).
+P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \geq \varepsilon \right) \leq \sum_{i=1}^m P\left(|R(f_i) - \mathcal{R}_{\text{emp}}(f_i)| \geq \varepsilon \right).
 \]
 
 Y aplicando la cota de Chernoff a cada término en la suma, obtenemos:
 
 \begin{equation}
-P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \geq \epsilon \right) \leq 2m \exp(-2n\epsilon^2). \label{eq: chernoff acotada por m}
+P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \geq \varepsilon \right) \leq 2m \exp(-2n\varepsilon^2). \label{eq: chernoff acotada por m}
 \end{equation}
 
 Si el espacio de funciones \(\mathcal{F}_{emp}\) es fijo, \(m\) puede considerarse una 
-constante, y el término \(2m \exp(-2n\epsilon^2)\) converge a \(0\) cuando \(n \to \infty\). Por lo tanto,
+constante, y el término \(2m \exp(-2n\varepsilon^2)\) converge a \(0\) cuando \(n \to \infty\). Por lo tanto,
 la minimización del riesgo empírico sobre un conjunto finito de funciones es consistente con respecto 
 a \(\mathcal{F}_{emp}\). \\
 
@@ -2358,14 +2358,14 @@ Con la ayuda de esta muestra fantasma, podemos demostrar el siguiente resultado:
 
 \begin{lem}[de simetrización] \label{lema de simetrizacion}
 
-Sea $m\epsilon^2 \geq 2$. Sea $\mathcal{F}$ el espacio de funciones definido por un algoritmo de aprendizaje. Sean
+Sea $m\varepsilon^2 \geq 2$. Sea $\mathcal{F}$ el espacio de funciones definido por un algoritmo de aprendizaje. Sean
 $(X_i,Y_i)_{i=1,\dots, n}$, $(X_i',Y_i')_{i=1,\dots, n}$ muestras aleatorias iid. Dada $f \in\mathcal{F}$,
 sean $\mathcal{R}(f)$ su riesgo, $\mathcal{R}_{emp}(f)$ su riesgo empírico sobre la primera muestra y 
-$\mathcal{R}'_{emp}(f)$ el riesgo sobre la segunda. Entonces, para cualquier $\epsilon > 0$
+$\mathcal{R}'_{emp}(f)$ el riesgo sobre la segunda. Entonces, para cualquier $\varepsilon > 0$
 
 \[
 P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| > 
-\epsilon \right) \leq 2P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}_{\text{emp}}(f) - \mathcal{R}'_{\text{emp}}(f)| > \frac{\epsilon}{2}\right).
+\varepsilon \right) \leq 2P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}_{\text{emp}}(f) - \mathcal{R}'_{\text{emp}}(f)| > \frac{\varepsilon}{2}\right).
 \]\newline
 \end{lem}
 
@@ -2493,10 +2493,10 @@ fragmentación. Escribimos:\newline
 
 \[
 \begin{aligned}
-P\left(\sup_{f \in \mathcal{F}} |R(f) - R_{\text{emp}}(f)| > \epsilon\right) &\leq 
-2P\left(\sup_{f \in \mathcal{F}} |R_{\text{emp}}(f) - R'_{\text{emp}}(f)| > \frac{\epsilon}{2}\right).\\
-& = 2P\left(\sup_{f \in \mathcal{F}_{Z_{2n}}} |R_{\text{emp}}(f) - R'_{\text{emp}}(f)| > \frac{\epsilon}{2}\right).\\
-& \leq 2  \mathcal{N}(\mathcal{F}, n)\cdot \exp\left(\frac{-n\epsilon^2}{4}\right).
+P\left(\sup_{f \in \mathcal{F}} |R(f) - R_{\text{emp}}(f)| > \varepsilon\right) &\leq 
+2P\left(\sup_{f \in \mathcal{F}} |R_{\text{emp}}(f) - R'_{\text{emp}}(f)| > \frac{\varepsilon}{2}\right).\\
+& = 2P\left(\sup_{f \in \mathcal{F}_{Z_{2n}}} |R_{\text{emp}}(f) - R'_{\text{emp}}(f)| > \frac{\varepsilon}{2}\right).\\
+& \leq 2  \mathcal{N}(\mathcal{F}, n)\cdot \exp\left(\frac{-n\varepsilon^2}{4}\right).
 \end{aligned}
 \]
 
@@ -2510,8 +2510,8 @@ de particiones que \(\mathcal{F}\) puede realizar sobre una muestra de \(2n\) pu
 y la cota de Chernoff, obtenemos:
 
 \begin{equation} 
-    P\left(\sup_{f \in \mathcal{F}} |R(f) - R_{\text{emp}}(f)| > \epsilon \right) \leq 
-    2\mathcal{N}(\mathcal{F}, 2n) \exp\left(-\frac{n\epsilon^2}{4}\right). \label{eq: cota convergencia coeficiente fragmentacion}
+    P\left(\sup_{f \in \mathcal{F}} |R(f) - R_{\text{emp}}(f)| > \varepsilon \right) \leq 
+    2\mathcal{N}(\mathcal{F}, 2n) \exp\left(-\frac{n\varepsilon^2}{4}\right). \label{eq: cota convergencia coeficiente fragmentacion}
 \end{equation}
 
 Esta es una cota de convergencia uniforme que conecta el coeficiente de fragmentación con la probabilidad de 
@@ -2524,8 +2524,8 @@ pues cualquier muestra de $2n$ puntos puede ser separada de $2^{2n}$ formas posi
 es:
 
 \[
-P\left(\sup_{f \in \mathcal{F}_{all}} |R(f) - R_{\text{emp}}(f)| > \epsilon \right) \leq
-2\cdot 2^{2n} \exp\left(-\frac{n\epsilon^2}{4}\right) = 2\exp\left(n\left( 2\log(2) - \frac{n\epsilon^2}{4}\right)\right).
+P\left(\sup_{f \in \mathcal{F}_{all}} |R(f) - R_{\text{emp}}(f)| > \varepsilon \right) \leq
+2\cdot 2^{2n} \exp\left(-\frac{n\varepsilon^2}{4}\right) = 2\exp\left(n\left( 2\log(2) - \frac{n\varepsilon^2}{4}\right)\right).
 \]
 
 Que es una expresión que no tiende a $0$ cuando $n$ tiende a infinito. Con lo que sabemos hasta ahora, esto no significa que podamos 
@@ -2554,11 +2554,11 @@ Demostraremos este teorema, de manera más general, en el siguiente capitulo.
 \subsection{Cotas de generalización}
 
 Es a veces útil reescribir la ecuación (\ref{eq: cota convergencia coeficiente fragmentacion}) de forma inversa. Es decir, en lugar de 
-fijar \(\epsilon\) y 
-luego calcular la probabilidad de que el riesgo empírico se desvíe del riesgo verdadero en más de \(\epsilon\), 
+fijar \(\varepsilon\) y 
+luego calcular la probabilidad de que el riesgo empírico se desvíe del riesgo verdadero en más de \(\varepsilon\), 
 podemos especificar la probabilidad con la que queremos que la cota se cumpla, y luego obtener una afirmación 
 que nos indique qué tan cerca podemos esperar que esté el riesgo del riesgo empírico. Es decir, fijamos \(\delta > 0\) 
-y resolviendo para \(\epsilon\). Como resultado, obtenemos que, con una probabilidad al menos \(1 - \delta\), cualquier 
+y resolviendo para \(\varepsilon\). Como resultado, obtenemos que, con una probabilidad al menos \(1 - \delta\), cualquier 
 función \(f \in \mathcal{F}\) satisface:
 
 \begin{equation}
@@ -2599,7 +2599,7 @@ contiene esa función y pocas o ninguna otra, estamos en una excelente posición
 Existe una gran cantidad de cotas similares a (\ref{eq: cota convergencia coeficiente fragmentacion}) 
 y su forma alternativa (\ref{eq: cota generalizacion}). Las diferencias ocurren en 
 las constantes, tanto en el coeficiente frente a la exponencial como en su exponente. Las cotas también 
-difieren en el exponente de \(\epsilon\) y en la forma en que miden la capacidad.\newline
+difieren en el exponente de \(\varepsilon\) y en la forma en que miden la capacidad.\newline
 
 \subsection{La dimensión VC}
 
@@ -3149,7 +3149,7 @@ Q = \left\{ \pi^{(l)} > \varepsilon \right\} = \left\{\hat{Z}_l\in Z^{(l)}:\;
 
 y restringimos la primer integral a este evento
 \begin{equation}
-P^{(2l)}(C) \geq \int_{Q} \left( \int_{ \Omega_2^{(l)}}  \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right) dP_2\right) dP_1. \label{desigualdad P^{(2l)}(C)}
+P^{(2l)}(C) \geq \int_{Q} \left( \int_{ \Omega_2^{(l)}}  \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right) dP_2\right) dP_1. \label{desigualdad P^(2l)(C)}
 \end{equation}
 
 Por definición, para cada muestra $\hat{Z}_l$ en $Q$ debe existir algún evento $A_0\in\mathcal{S}$ tal que $|P_{A_0}-\nu_{A_0}\left(\hat{Z}_l\right)|>\varepsilon$.
@@ -3177,7 +3177,7 @@ se verifica si
 |\nu^{(2)}_{A_0}-P_{A_0}|\geq \frac{\varepsilon}{2}.
 \]
 
-Retomando la desigualdad (\ref{desigualdad P^{(2l)}(C)}), reparemos un momento en la integral interior. 
+Retomando la desigualdad (\ref{desigualdad P^(2l)(C)}), reparemos un momento en la integral interior. 
 Dada la monotonía de $\theta$ y quedándonos
 con tan solo un evento $A_0\in\mathcal{S}$, en vez de tomar el supremo sobre todos los eventos, podemos escribir
 
@@ -3211,7 +3211,7 @@ escribimos
 
 \begin{equation}
 P\left(|\nu_{A_0}^{(2)} - \mathbb{E}\left(\nu_{A_0}^{(2)} \right)| \geq \frac{\varepsilon}{2}\right) 
-\;\leq\; \frac{4}{\epsilon^2}\cdot \text{Var}\left(\nu_{A_0}^{(2)}\right). \label{Chebyshev aplicada a frecuencia relativa}
+\;\leq\; \frac{4}{\varepsilon^2}\cdot \text{Var}\left(\nu_{A_0}^{(2)}\right). \label{Chebyshev aplicada a frecuencia relativa}
 \end{equation}
 \bigskip
 
@@ -3513,7 +3513,7 @@ convergencia uniforme de forma casi segura.\newline
 
 Comenzamos demostrando el siguiente lema, bien conocido en la teoría de probabilidades, y una consecuencia directa del primer lema de Borel Cantelli \ref{primer lema de Borel-Cantelli}.
 
-\begin{lem}
+\begin{lem}\label{Aplicacion del lema de Borel-Cantelli}
     Sea $\{\xi_i\}_{i\in\mathbb{N}}$ una sucesión de variables aleatorias y $C\in\mathbb{R}$. Si para cualquier \( \varepsilon > 0 \),
 
     \[
@@ -3528,9 +3528,9 @@ Comenzamos demostrando el siguiente lema, bien conocido en la teoría de probabi
 \end{lem}
 
 \begin{proof}
-    Sea $\epsilon > 0$. Sea el evento
+    Sea $\varepsilon > 0$. Sea el evento
     \[
-        A_i = \{ \omega \in \Omega : |\xi_i(\omega)-C| > \epsilon\}.
+        A_i = \{ \omega \in \Omega : |\xi_i(\omega)-C| > \varepsilon\}.
     \]
 Por nuestra hipótesis,
 \[
@@ -3543,16 +3543,16 @@ por lo que el primer lema de Borel-Cantelli nos permite asegurar que
 
 Esto no es más que
 \[
-P\left( \bigcap_{n=1}^{\infty} \bigcup_{i\geq n}^{\infty} \{ \omega \in \Omega : |\xi_i(\omega)-C| > \epsilon\} \right) = 0.
+P\left( \bigcap_{n=1}^{\infty} \bigcup_{i\geq n}^{\infty} \{ \omega \in \Omega : |\xi_i(\omega)-C| > \varepsilon\} \right) = 0.
 \]
 
 Lo que implica que el evento $A_i$ sucede infinitamente con probabilidad cero. Es decir, su complemento sucede con probabilidad $1$:
 
 \[
-P(A_i^c) = P(\{ \omega \in \Omega : |\xi_i(\omega)-C| < \epsilon\}) = 1
+P(A_i^c) = P(\{ \omega \in \Omega : |\xi_i(\omega)-C| < \varepsilon\}) = 1
 \]
 
-Como esto es cierto para cualquier $\epsilon > 0$, tenemos
+Como esto es cierto para cualquier $\varepsilon > 0$, tenemos
 
 \[P(\xi_i \to C) = 1.\]
 
@@ -3581,9 +3581,9 @@ para \( l \geq 2 / \varepsilon^2 =L \), la serie
 \sum_{l=1}^{\infty} P^{(l)}(\pi^{(l)} > \varepsilon) \leq \sum_{l=1}^{L} P^{(l)}(\pi^{(l)} > \varepsilon) + 4 \sum_{l=L+1}^{\infty} [(2l)^n + 1] e^{-\varepsilon^2 l/8}
 \]
 
-es convergente para cualquier \( \varepsilon \).  
+es convergente para cualquier \( \varepsilon \).  \newline
 
-Por el lema, esto implica que  
+Por el lema \ref{Aplicacion del lema de Borel-Cantelli}, esto implica que  
 
 \[
 P^{(l)}(\pi^{(l)} \to 0) = 1.
@@ -3614,18 +3614,25 @@ En lo que sigue, se asumirá que el índice \( \Delta^{\mathcal{S}}(\omega_1, \d
      
     \[
     H^{\mathcal{S}}(l) = \mathbb{E} \left[ \log_2 \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_l) \right].
-    \]\newline
+    \]
 
     Llamamos \textbf{entropía del sistema} de eventos \( \mathcal{S} \) en muestras de tamaño \( l \) a  $H^{\mathcal{S}}(l)$.\newline
 
 \end{dfn}
 
-\begin{obs}
+\begin{obs} \label{subaditividad de la entropia 1}
     Dada la monotonía de la esperanza, la observación (\ref{obs:desigualdad triangular indice de un sistema}) implica que  
     
     \[
         H^{\mathcal{S}}(l_1 + l_2) \leq H^{\mathcal{S}}(l_1) + H^{\mathcal{S}}(l_2).
-    \]\newline
+    \]
+\end{obs}
+
+\begin{obs} \label{subaditivdad de la entropia 2}
+    Usando la desigualdad anterior de manera repetida obtenemos que, para $k\in \mathbb{N}$:
+        \[
+        H^{\mathcal{S}}(kl) \leq k H^{\mathcal{S}}(l)
+    \]
 \end{obs}
 
 Los siguientes lemas nos ayudarán para probar el último de los resultados de este capítulo.\newline
@@ -3634,8 +3641,84 @@ Los siguientes lemas nos ayudarán para probar el último de los resultados de e
     La sucesión \( \frac{H^{\mathcal{S}}(l)}{l} \) tiene un límite \( c \), con \( 0 \leq c \leq 1 \), cuando \( l \to \infty \).
 \end{lem}
     
-Una demostración de este Lema puede hallarse en [9]. Ahora mostraremos que, para valores grandes de \( l \),
-la distribución de la variable aleatoria  
+\begin{proof}
+    Notemos primero que la propia definición de la entropía $H^S$
+    \[
+    H^S(l) = \mathbb{E}\log_2 \Delta^S(\omega_1,\ldots,\omega_l)
+    \] 
+    junto a la cota del índice del sistema $S$ en la muestra:
+    \[
+    1 \leq \Delta^S(\omega_1,\ldots,\omega_l) \leq 2^l
+    \]
+    nos permiten escribir
+    \[
+    \log_2 \mathbb{E} (1) \leq H^S(l) \leq \log_2 \mathbb{E} \left(2^l\right),
+    \]
+    es decir, al dividir por el tamaño de la muestra $l$:
+    \begin{equation} \label{cota de la entropia}
+        0 \leq \frac{H^S(l)}{l} \leq 1.
+    \end{equation}
+    Siendo así, sabemos que existe una cota inferior para el límite
+    \[
+    c = \liminf_{l\to\infty} \frac{H^S(l)}{l}
+    \]
+    con $c\in [0,1]$.
+
+    Entonces, para cualquier $\varepsilon>0$, existe $l_0\in\mathbb{N}$ tal que
+    \begin{equation}\label{cota inferior mas epsilon de la entropia}
+        \frac{H^S(l)}{l} < c + \varepsilon.
+    \end{equation}
+    Observemos que cualquier $l$ puede ser escrito de la forma
+    \[
+        l = n l_0 + k,
+    \]
+    con $n\geq 0$ y $k<l_0$, con $k$ positivo. Usando las desigualdades (\ref{subaditividad de la entropia 1}) 
+    y (\ref{subaditivdad de la entropia 2}), escribimos
+    \begin{equation*}
+        H^S(l) = H^S(nl_0+k) \leq nH^S(l_0) + H^S(k) \leq nH^S(l) + k.
+    \end{equation*}
+    Dividiendo a cada lado por $l=nl_0+k$ tenemos
+    \[
+        \frac{H^S(l)}{l} \leq \frac{nH^S(l_0) + k}{nl_0+k} < \frac{nH^S(l_0) + l_0}{nl_0} = \frac{H^S(l_0)}{l_0} + \frac{1}{n}.
+    \]
+    Entonces, por la condición \ref{cota inferior mas epsilon de la entropia}, tenemos
+    \[
+    \frac{H^S(l)}{l} < c + \varepsilon + \frac{1}{n}.
+    \]
+
+    En la medida que $l$ tiende a infinito, $n$ también lo hace. Así
+    \[
+        \limsup_{l\to\infty} \frac{H^S(l)}{l} < c + \varepsilon
+    \]
+y dado que $\varepsilon$ es arbitrariamente pequeño
+    \[
+        \lim_{l\to\infty} \frac{H^S(l)}{l} = c, \qquad 0\leq c\leq 1.
+    \]
+\end{proof}
+
+En esta demostración hemos probado también que el límite de $c$ es siempre acotado por $\frac{H^S(l)}{l}$ para cualquier $l$ finito.
+En efecto, hemos visto que
+\[
+    \frac{H^S(l)}{l} \leq \frac{H^S(l_0)}{l_0} + \frac{1}{n}
+\]
+si $l=n l_0+k$. Entonces, para cualquier $\varepsilon>0$ existe un $n_0$ tal que, para todo $n>n_0$, la desigualdad
+\[
+    \frac{H^S(l)}{l} \leq \frac{H^S(l_0)}{l_0} + \frac{1}{n} + \varepsilon
+\]
+se verifica. Dejando fijo $l_0$ y tomando el límite sobre $n$ también obtenemos el límite sobre $l$, es decir
+\[
+    \lim_{l\to\infty} \frac{H^S(l)}{l} \leq \lim_{n\to\infty} \frac{H^S(l_0)}{l_0} + \frac{1}{n} = \frac{H^S(l_0)}{l_0}.
+\]
+Enunciamos este resultado en el siguiente corolario:
+
+\begin{cor}\label{corolario de la cota del límite de la entropia}
+    Para cualquier $l_0$,
+    \[
+        \frac{H^S(l_0)}{l_0} \geq \lim_{l\to\infty} \frac{H^S(l)}{l} = c.
+    \]
+\end{cor}
+
+Ahora mostraremos que, para valores grandes de \( l \), la distribución de la variable aleatoria  
 
 \[
 \xi^{(l)} = \frac{1}{l} \log_2 \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_l)
@@ -3653,15 +3736,15 @@ se concentra cerca de \( c \). Para esto, usaremos el siguiente resultado.
     Entonces
     
     \[
-    \lim_{l \to \infty} P(|\xi^{(l)} - c| > \varepsilon) = 0, \quad \text{para } \varepsilon > 0.
+    \lim_{l \to \infty} P^{(l)}(|\xi^{(l)} - c| > \varepsilon) = 0, \quad \text{para } \varepsilon > 0.
     \]
 \end{lem}
 \bigskip
 \begin{proof}
     Denotemos 
-    \[ P(l, \varepsilon) = P(|\xi^{(l)} - c| > \varepsilon) , \] 
-    \[ P^+(l, \varepsilon) = P(\xi^{(l)} - c > \varepsilon) , \] 
-    \[ P^-(l, \varepsilon) = P(c - \xi^{(l)} > \varepsilon) . \]
+    \[ P^{(l)}(l, \varepsilon) = P^{(l)}(|\xi^{(l)} - c| > \varepsilon) , \] 
+    \[ P^+(l, \varepsilon) = P^{(l)}(\xi^{(l)} - c > \varepsilon) , \] 
+    \[ P^-(l, \varepsilon) = P^{(l)}(c - \xi^{(l)} > \varepsilon) . \]
 
     En consecuencia,
     
@@ -3669,59 +3752,80 @@ se concentra cerca de \( c \). Para esto, usaremos el siguiente resultado.
     P(l, \varepsilon) = P^+(l, \varepsilon) + P^-(l, \varepsilon).
     \]
     
-    El Lema (\ref{lema 3}) implica la existencia de un \( l_0 \) tal que
+    Observemos que el Lema (\ref{lema 3}) implica la existencia de un \( l_0 \) tal que
     
     \begin{equation}\label{desigualdad 14}
     \left| \frac{H^{\mathcal{S}}(l_0)}{l_0} - c \right| < \frac{\varepsilon}{4}.
     \end{equation}
     
-    Primero estimamos \( P^+(l, \frac{\varepsilon}{2}) \) con \( l = nl_0 \) (siendo \( n \) un entero).
-    A partir de (\ref{obs:desigualdad triangular indice de un sistema}) se sigue que
+    Estimemos entonces \( P^+(l, \frac{\varepsilon}{2}) \) con \( l = nl_0 \) (siendo \( n \) un entero). Definimos
     
     \[
-    \log_2 \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_{nl_0}) \leq \sum_{i=0}^{n-1} \log_2 \Delta^{\mathcal{S}}(\omega_{il_0+1}, \dots, \omega_{(i+1)l_0}).
-    \]
-    
-    De esto obtenemos
-    
-    \begin{equation}\label{desigualdad 15}
-    P^+\left(nl_0, \frac{\varepsilon}{2}\right) \leq P \left( \frac{1}{nl_0} \sum_{i=0}^{n-1} \log_2 \Delta^{\mathcal{S}}(\omega_{il_0+1}, \dots, \omega_{(i+1)l_0}) - c > \frac{\varepsilon}{2} \right).
-    \end{equation}
-    
-    Definimos
-    
-    \[
-    y = \frac{1}{nl_0} \sum_{i=0}^{n-1} \log_2 \Delta^{\mathcal{S}}(\omega_{il_0+1}, \dots, \omega_{(i+1)l_0})
+    y(\omega_1,\ldots,\omega_l) = \frac{1}{nl_0} \sum_{i=0}^{n-1} \log_2 \Delta^{\mathcal{S}}(\omega_{il_0+1}, \dots, \omega_{(i+1)l_0})
     \]
     y observamos que
     \[
-    \sum_{i=0}^{n-1} \log_2 \Delta^{\mathcal{S}}(\omega_{il_0+1}, \dots, \omega_{(i+1)l_0}).
+    \sum_{i=0}^{n-1} \log_2 \Delta^{\mathcal{S}}(\omega_{il_0+1}, \dots, \omega_{(i+1)l_0})
     \]
     es una suma de variables aleatorias independientes e idénticamente distribuidas, cada una de ellas con esperanza \( H^{\mathcal{S}}(l_0) \)
     y una cierta varianza $V$. De esto, sigue que
     \[
     \mathbb{E}(y) = \frac{H^{\mathcal{S}}(l_0)}{l_0} ; \qquad \text{Var}(y) = \frac{V}{n \cdot l_0^2}.
-    \]\newline
+    \]
+    A partir de (\ref{obs:desigualdad triangular indice de un sistema}) se sigue que
+    \[
+    \log_2 \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_{nl_0}) \leq \sum_{i=0}^{n-1} \log_2 \Delta^{\mathcal{S}}(\omega_{il_0+1}, \dots, \omega_{(i+1)l_0}),
+    \]
+    lo que implica
+    \[
+    \xi^{(l)} \leq y(\omega_1,\ldots,\omega_l).
+    \]
+    De esto último, considerando la monotonía de la probabilidad, y de la propia definición de $P^+$ obtenemos
+    \begin{equation}\label{desigualdad 15} 
+    P^+\left(nl_0, \frac{\varepsilon}{2}\right) = P^{(l)}\left(\xi^{(l)}-c>\frac{\varepsilon}{2}\right) \leq P^{(l)} \left(y(\omega_1,\ldots,\omega_l)-c > \frac{\varepsilon}{2}\right).
+    %P \left( \frac{1}{nl_0} \sum_{i=0}^{n-1} \log_2 \Delta^{\mathcal{S}}(\omega_{il_0+1}, \dots, \omega_{(i+1)l_0}) - c > \frac{\varepsilon}{2} \right)
+    \end{equation}
 
-    Usando la desigualdad (\ref{desigualdad 14}), escribimos 
+    Centremos nuestra atención en la desigualdad del argumento de la derecha, así:
     \[
-    P\left( y - c > \frac{\varepsilon}{2} \right) 
-    \leq P\left( y - \frac{H^{\mathcal{S}}(l_0)}{l_0} > \frac{\varepsilon}{4} \right),
+    y-c = y-c+\frac{H^{\mathcal{S}}(l_0)}{l_0}-\frac{H^{\mathcal{S}}(l_0)}{l_0} > \frac{\varepsilon}{2},
     \]
-    dado que
+    luego
     \[
-        P\left( y - c > \frac{\varepsilon}{2} \right) = P\left(\left\{\omega: y(\omega) - c > \frac{\varepsilon}{2} \right\}\right)
+    y-\frac{H^{\mathcal{S}}(l_0)}{l_0} > \frac{\varepsilon}{2} - \left(\frac{H^{\mathcal{S}}(l_0)}{l_0}-c\right)>\frac{\varepsilon}{2} -\frac{\varepsilon}{4} = \frac{\varepsilon}{4},
     \]
-    y es claro que
+    dada la desigualdad (\ref{desigualdad 14}) que nos dice
     \[
-        \left\{\omega: y(\omega) - \left(\frac{H^{\mathcal{S}}(l_0)}{l_0} -\frac{\varepsilon}{4}\right)
-        > \frac{\varepsilon}{2} \right\} \subseteq   \left\{\omega: y(\omega) - c > \frac{\varepsilon}{2} \right\}.
+    -\frac{\varepsilon}{4}< \frac{H^{\mathcal{S}}(l_0)}{l_0} - c < \frac{\varepsilon}{4}.
     \]
-    Podemos escribir entonces
+
+    Explicitando la probabilidad a la derecha de \ref{desigualdad 15} tenemos:
+      \[
+        P^{(l)}\left( y(\omega_1,\ldots,\omega_l) - c > \frac{\varepsilon}{2} \right) = P^{(l)}\left(\left\{\{\omega_1,\ldots,\omega_l\}\in\Omega^{(l)}: y(\omega_1,\ldots,\omega_l) - c > \frac{\varepsilon}{2} \right\}\right).
+    \]
+    
+    Observemos además que, por el cálculo recién hecho, cualquier muestra $\{\omega_1,\ldots,\omega_l\}$ verificando la desigualdad dentro de la probabilidad también
+    lo hará con
     \[
-        P\left( y - c > \frac{\varepsilon}{2} \right) 
+    y-\frac{H^{\mathcal{S}}(l_0)}{l_0} > \frac{\varepsilon}{4},
+    \]
+    
+    lo que implica la siguiente contención:
+    \[
+        \left\{\{\omega_1,\ldots,\omega_l\}: y(\omega_1,\ldots,\omega_l) - c
+        > \frac{\varepsilon}{2} \right\} \subseteq   \left\{\{\omega_1,\ldots,\omega_l\}: y(\omega_1,\ldots,\omega_l) - \frac{H^{\mathcal{S}}(l_0)}{l_0} > \frac{\varepsilon}{4} \right\}.
+    \]
+    La que a su vez implica, por la montononía de la probabilidad:
+    \[
+    P^{(l)}\left( y(\omega_1,\ldots,\omega_l) - c > \frac{\varepsilon}{2} \right) 
+    \leq P^{(l)}\left( y(\omega_1,\ldots,\omega_l) - \frac{H^{\mathcal{S}}(l_0)}{l_0} > \frac{\varepsilon}{4} \right),
+    \]
+    Finalmente, por lo que hemos notado en tanto a la esperanza de la variable $y$, podemos escribir:
+    \[
+        P^{(l)}\left( y - c > \frac{\varepsilon}{2} \right) 
         \leq P\left( y - \mathbb{E}(y) > \frac{\varepsilon}{4} \right).
     \]
+
     Ahora, utilizando la constante \( k = \frac{\varepsilon}{4\text{Var}^{1/2}(y)} \) en la desigualdad de Chebyshev, obtenemos que
 
     \[P\left( |y - \mathbb{E}(y)| > \frac{\varepsilon}{4} \right) \leq \frac{4^2}{\varepsilon^2}\text{Var(y)} =  \frac{16}{\varepsilon^2}\frac{V}{n l_0^2}.\]
@@ -3731,7 +3835,7 @@ se concentra cerca de \( c \). Para esto, usaremos el siguiente resultado.
     P^+\left(n l_0, \frac{\varepsilon}{2} \right) 
     \leq \frac{16V}{n \varepsilon^2 l_0^2},
     \]
-    lo que nos da
+    tomando el límite de $n$ al infinito, obtenemos:
     \begin{equation}\label{limite de P+}
         \lim_{n \to \infty} P^+\left(n l_0, \frac{\varepsilon}{2} \right) = 0.
     \end{equation}
@@ -3747,7 +3851,7 @@ se concentra cerca de \( c \). Para esto, usaremos el siguiente resultado.
     \[
     \frac{1}{n l_0} \log_2 \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_{(n+1)l_0}) > \frac{1}{l} \log_2 \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_l).
     \]
-    Esto es exactamente
+    Esto lleva a
     
     \[
     P\left( \frac{n+1}{n l_0} \xi^{(n+1)l_0} > c + \varepsilon \right) > P^+(l, \varepsilon).
@@ -3770,34 +3874,80 @@ se concentra cerca de \( c \). Para esto, usaremos el siguiente resultado.
     A partir de las propiedades de la esperanza y el hecho de que \( \mathbb{E} (\xi^{(l)}) = \frac{H^{\mathcal{S}}(l)}{l} \), se sigue que
 
     \begin{equation}\label{eq 17}
-    \int_{0}^{H^{\mathcal{S}}(l)/l} \left| \frac{H^{\mathcal{S}}(l)}{l} - \xi \right| dF_{\xi} =
-    \int_{H^{\mathcal{S}}(l)/l}^{1} \left| \xi - \frac{H^{\mathcal{S}}(l)}{l} \right| dF_{\xi}.
+    \int_{0}^{H^{\mathcal{S}}(l)/l} \left( \frac{H^{\mathcal{S}}(l)}{l} - \xi \right) dF_{\xi} =
+    \int_{H^{\mathcal{S}}(l)/l}^{1} \left( \xi - \frac{H^{\mathcal{S}}(l)}{l} \right) dF_{\xi}.
     \end{equation}
     Denotando el lado izquierdo de (\ref{eq 17}) como \( R_1 \) y el lado derecho como \( R_2 \), 
     los estimamos suponiendo que \( l \) es lo suficientemente grande como para que 
     \[
-    \left| \frac{H^{\mathcal{S}}(l)}{l} - c \right| < \frac{\varepsilon}{2}
+    \left| \frac{H^{\mathcal{S}}(l)}{l} - c \right| < \frac{\varepsilon}{2}.
     \]
-    y obtenemos primero
+    Además, por el corolario \ref{corolario de la cota del límite de la entropia}
+    \[
+        c-\varepsilon < c \leq \frac{H^{\mathcal{S}}(l)}{l},
+    \]
+    por lo que
+    \[
+        R_1 = \int_{0}^{H^{\mathcal{S}}(l)/l} \left( \frac{H^{\mathcal{S}}(l)}{l} - \xi \right) dF_{\xi}
+        > \int_{0}^{c-\varepsilon} \left( \frac{H^{\mathcal{S}}(l)}{l} - \xi \right) dF_{\xi}.
+    \]
+    Por la misma razón, $c-\xi \leq  \frac{H^{\mathcal{S}}(l)}{l} - \xi$, lo que implica
+    \[
+        R_1 > \int_{0}^{c-\varepsilon} \left( c - \xi \right) dF_{\xi}.
+    \]
+    Luego, dada la región de integración, es cierto que $\xi \leq c-\varepsilon$. Luego $\frac{\varepsilon}{2} \leq \varepsilon \leq c-\xi$. Así
+    \begin{equation*}
+    \begin{aligned}
+        R_1 &> \int_{0}^{c-\varepsilon} \left( \frac{\varepsilon}{2}  \right) dF_{\xi} = \frac{\varepsilon}{2} \int_{0}^{c-\varepsilon}dF_{\xi} \\
+        &= \frac{\varepsilon}{2} \int_{\Omega^{(l)}} \chi_{\{\xi< c-\varepsilon\}} d\Omega^{(l)} \\
+        &= \frac{\varepsilon}{2} P^{(l)}(c-\xi>\varepsilon) 
+        = \frac{\varepsilon}{2} P^-\left(l,\frac{\varepsilon}{2}\right).
+    \end{aligned}
+    \end{equation*}
+    
+    y obtenemos
     
     \begin{equation}\label{eq 18}
-    R_1 \geq \frac{\varepsilon}{2} \int_{0}^{c - \varepsilon} dF_{\xi} = \frac{\varepsilon}{2} P^-(l, \varepsilon).
+    R_1 > \frac{\varepsilon}{2} P^-(l, \varepsilon).
     \end{equation}
     \bigskip
 
-    Sea \( \delta \) un número positivo. Entonces,
+    Sea \( \delta \) un número positivo. Entonces, separando la integral en dos tramos,
 
+    \begin{equation*}
+        R_2 \leq \int_{H^{\mathcal{S}}(l)/l}^{c + \delta} \left( \xi - \frac{H^{\mathcal{S}}(l)}{l} \right) dF_{\xi}
+        + \int_{c + \delta}^{1} \left( \xi - \frac{H^{\mathcal{S}}(l)}{l} \right) dF_{\xi}.
+    \end{equation*}
+    Notemos que en la primera de las dos integrales, se verifica, dada la zona de integración, que \(\xi \leq c+\delta\),
+    luego
+    \[
+    \xi - \frac{H^{\mathcal{S}}(l)}{l} \leq c + \delta -  \frac{H^{\mathcal{S}}(l)}{l} 
+    \leq \left| c + \delta -  \frac{H^{\mathcal{S}}(l)}{l} \right|.
+    \]
+    Por lo tanto
+    \[
+        \int_{H^{\mathcal{S}}(l)/l}^{c + \delta} \left( \xi - \frac{H^{\mathcal{S}}(l)}{l} \right) dF_{\xi} 
+        \leq \int_{H^{\mathcal{S}}(l)/l}^{c + \delta} \left| c + \delta -  \frac{H^{\mathcal{S}}(l)}{l} \right| dF_{\xi}
+        = \left| c + \delta -  \frac{H^{\mathcal{S}}(l)}{l} \right|.
+    \]\newline
+
+    Ahora, centrándonos en la integral de la derecha, tenemos que $1\geq\xi\geq \xi-\frac{H^{\mathcal{S}}(l)}{l}$. Luego
+    \[
+        \int_{c + \delta}^{1} \left( \xi - \frac{H^{\mathcal{S}}(l)}{l} \right) dF_{\xi}
+        \leq \int_{c + \delta}^{1} 1 dF_{\xi} = P^{(l)}(\xi-c>\delta) = P^+(l, \delta).
+    \]
+    Estas dos desigualdades nos permiten escribir:
     \begin{equation}\label{eq 19}
         \begin{aligned}
-            R_2 & \leq \left| \int_{H^{\mathcal{S}}(l)/l}^{c + \delta} \left( \xi - \frac{H^{\mathcal{S}}(l)}{l} \right) dF_{\xi} \right|
-            + \int_{c + \delta}^{1} \left( \xi - \frac{H^{\mathcal{S}}(l)}{l} \right) dF_{\xi}.\\
-            & \leq \left| c + \delta - \frac{H^{\mathcal{S}}(l)}{l} \right| + P^+(l, \delta).
+          R_2\leq \left| c + \delta - \frac{H^{\mathcal{S}}(l)}{l} \right| + P^+(l, \delta).
         \end{aligned}
-    \end{equation}
+    \end{equation}\newline
+
     Combinando las estimaciones (\ref{eq 18}) y (\ref{eq 19}), obtenemos
 
     \begin{equation}
-    P^-(l, \varepsilon) \leq \frac{2}{\varepsilon} \left[ \left| c + \delta - \frac{H^{\mathcal{S}}(l)}{l} \right| + P^+(l, \delta) \right].
+       \frac{\varepsilon}{2} P^-(l, \varepsilon) \leq R_1 = R_2 \leq \left| c + \delta - \frac{H^{\mathcal{S}}(l)}{l} \right| + P^+(l, \delta).
+    %P^-(l, \varepsilon) \leq \frac{2}{\varepsilon} \left[ \left| c + \delta - \frac{H^{\mathcal{S}}(l)}{l} \right| + P^+(l, \delta) \right].
     \end{equation}
     Esto, en conjunción con el Lema (\ref{lema 3}) y (\ref{eq 16}), implica que
 
