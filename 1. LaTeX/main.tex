@@ -3106,7 +3106,7 @@ El siguiente es exactamente el Lema de simetrización que hemos presentado con a
 Por definición
 \begin{equation*}
 P^{(2l)}(C) = P^{(2l)}\left(\rho^{(l)}-\frac{\varepsilon}{2}\geq 0\right) = \int_{\Omega^{(2l)}} \left( 1 \cdot \chi_{\{\rho^{(l)}-\frac{\varepsilon}{2}\geq 0\}} + 
-0 \cdot \chi_{\{\rho^{(l)}-\frac{\varepsilon}{2}< 0\}} \right) dP^{(2l)}
+0 \cdot \chi_{\{\rho^{(l)}-\frac{\varepsilon}{2}< 0\}} \right) dP(\Omega^{(2l)})
 \end{equation*}
 
 Donde integramos sobre el espacio muestral de tamaño $2l$ de tal manera que
@@ -3126,13 +3126,13 @@ Definamos la función indicadora:
 
 con la cual reescribimos la probabilidad de $C$ como
 \begin{equation}
-P^{(2l)}(C) = \int_{\Omega^{(2l)}} \left( \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right)\right) dP^{(2l)}
+P^{(2l)}(C) = \int_{\Omega^{(2l)}} \left( \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right)\right) dP(\Omega^{(2l)})
 \end{equation}
 
 Descomponiendo como en (\ref{def Z2l prod interno}) al espacio muestral, podemos escribir:
 
 \[
-P^{(2l)}(C) = \int_{\Omega_1^{(l)}\times \Omega_2^{(l)}} \left( \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right)\right) dP^{(2l)}
+P^{(2l)}(C) = \int_{\Omega_1^{(l)}\times \Omega_2^{(l)}} \left( \theta\left(\rho^{(l)}-\frac{\varepsilon}{2}\right)\right) dP(\Omega^{(2l)})
 \]
 Y, tomando $P^{(2l)}=P^{(l)}\times P^{(l)} = P_1\times P_2$, por el teorema de Fubini separamos los signos de integración
 
@@ -3310,7 +3310,7 @@ Por otro lado, podemos escribir
  \begin{split}
    \int_{Q}dP_1 & = \frac{1}{2} \int_{\Omega_1^{(l)}} \chi_{\{Q\}}dP_1 \\
    &=\frac{1}{2}  \int_{\Omega_2^{(l)}}\left(\int_{\Omega_1^{(l)}} \chi_{\{Q\}}dP_1\right) dP_2 \\
-   &=\frac{1}{2}  \int_{\Omega_1^{(l)}\times\Omega_2^{(l)}}  \chi_{\{Q\times \Omega_2^{(l)}\}} dP^{(2l)} \\
+   &=\frac{1}{2}  \int_{\Omega_1^{(l)}\times\Omega_2^{(l)}}  \chi_{\{Q\times \Omega_2^{(l)}\}} dP(\Omega^{(2l)}) \\
    &=\frac{1}{2}  P^{(l)}(Q)
 \end{split}   
 \end{equation*}
@@ -3343,7 +3343,7 @@ Utilizamos el Lema de Simetrización para probar el siguiente teorema.\newline
 En virtud del Lema de Simetrización, basta con estimar  
     
 \[
-P^{(2l)}\left( \rho^{(l)} \geq \frac{\varepsilon}{2} \right) = \int_{\Omega^{(2l)}} \theta \left( \rho^{(l)} - \frac{\varepsilon}{2} \right) dP^{(2l)}.
+P^{(2l)}\left( \rho^{(l)} \geq \frac{\varepsilon}{2} \right) = \int_{\Omega^{(2l)}} \theta \left( \rho^{(l)} - \frac{\varepsilon}{2} \right) dP(\Omega^{(2l)}).
 \]
 
 donde \( \rho^{(l)} \) se considera como una función de la muestra  
@@ -3360,9 +3360,9 @@ de la definición (\ref{def: probabilidad en espacio muestral}) de la medida \( 
 
 \begin{equation*}
     \begin{split}
-            \int_{\Omega^{(2l)}} f(Z_{2l}) \, dP^{(2l)} &= \int_{\Omega_1} \ldots \int_{\Omega_{2l}} f(\omega_1,\ldots,\omega_{2l})  \, d\omega_1\ldots d\omega_{2l} \\
+            \int_{\Omega^{(2l)}} f(Z_{2l}) \, dP(\Omega^{(2l)}) &= \int_{\Omega_1} \ldots \int_{\Omega_{2l}} f(\omega_1,\ldots,\omega_{2l})  \, d\omega_1\ldots d\omega_{2l} \\
                 &= \int_{\Omega_{j_1}}\ldots\int_{\Omega_{j_{2l}}} f(\omega_{j_1},\ldots,\omega_{j_{2l}}) \, d\omega_{j_1}\ldots \omega_{j_{2l}}\\
-                &= \int_{\Omega^{(2l)}} f(T_i Z_{2l}) \, dP^{(2l)}.
+                &= \int_{\Omega^{(2l)}} f(T_i Z_{2l}) \, dP(\Omega^{(2l)}).
     \end{split}
 \end{equation*}
 
@@ -3373,13 +3373,13 @@ T_i Z_{2l} = T_i (\omega_1,\ldots,\omega_{2l}) = \omega_{j_1},\ldots,\omega_{j_{
 
 lo que implica, en general que:
 \[
-\int_{\Omega^{(2l)}} f(Z_{2l}) \, dP^{(2l)} = \int_{\Omega^{(2l)}} f(T_i Z_{2l}) \, dP^{(2l)}.
+\int_{\Omega^{(2l)}} f(Z_{2l}) \, dP(\Omega^{(2l)}) = \int_{\Omega^{(2l)}} f(T_i Z_{2l}) \, dP(\Omega^{(2l)}).
 \]
 
 Por lo tanto,
 
 \begin{equation}\label{eq:probabilidad integral con permutaciones}
-P^{(2l)}\left( \rho^{(l)} \geq \frac{\varepsilon}{2} \right) = \int_{\Omega^{(2l)}} \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2}  \right) dP^{(2l)}.
+P^{(2l)}\left( \rho^{(l)} \geq \frac{\varepsilon}{2} \right) = \int_{\Omega^{(2l)}} \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2}  \right) dP(\Omega^{(2l)}).
 \end{equation}
 
 donde simplemente promediamos sobre las \((2l)!\) permutaciones posibles. Notemos que la sumatoria de \((2l)!\) elementos iguales
@@ -3459,14 +3459,14 @@ Esta expresión satisface la estimación
 que se obtiene mediante un cálculo sencillo pero largo y cuya demostración puede hallarse en la página 163 de [3], junto con una explicación de la propia función $\Gamma$.  \newline
 
 Por lo tanto,
-\begin{equation*}
+\begin{equation}\label{promedio de tita acotado por la funcion de crecimiento}
 \begin{aligned}
 \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left(  \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) 
 &\leq \sum_{A \in \mathcal{S}'} 2 e^{-\varepsilon^2 l / 8} \\
 &= 2 \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_{2l}) e^{-\varepsilon^2 l / 8}\\
 &\leq 2 m^S(2l) e^{-\varepsilon^2 l / 8}.
 \end{aligned}
-\end{equation*}
+\end{equation}
 
 Integrando a cada lado, donde el derecho implica la integral de una constante, y aplicando el Lema de Simetrización, tenemos
 \[
@@ -3514,23 +3514,23 @@ convergencia uniforme de forma casi segura.\newline
 Comenzamos demostrando el siguiente lema, bien conocido en la teoría de probabilidades, y una consecuencia directa del primer lema de Borel Cantelli \ref{primer lema de Borel-Cantelli}.
 
 \begin{lem}\label{Aplicacion del lema de Borel-Cantelli}
-    Sea $\{\xi_i\}_{i\in\mathbb{N}}$ una sucesión de variables aleatorias y $C\in\mathbb{R}$. Si para cualquier \( \varepsilon > 0 \),
+    Sea $\{\xi_i\}_{i\in\mathbb{N}}$ una sucesión de variables aleatorias y $a\in\mathbb{R}$. Si para cualquier \( \varepsilon > 0 \),
 
     \[
-    \sum_{i}^{\infty} P(|\xi_i - C| > \varepsilon) < \infty,
+    \sum_{i}^{\infty} P(|\xi_i - a| > \varepsilon) < \infty,
     \]
     
     entonces,
     
     \[
-    P(\xi_i \to C) = 1.
+    P(\xi_i \to a) = 1.
     \]
 \end{lem}
 
 \begin{proof}
     Sea $\varepsilon > 0$. Sea el evento
     \[
-        A_i = \{ \omega \in \Omega : |\xi_i(\omega)-C| > \varepsilon\}.
+        A_i = \{ \omega \in \Omega : |\xi_i(\omega)-a| > \varepsilon\}.
     \]
 Por nuestra hipótesis,
 \[
@@ -3543,19 +3543,30 @@ por lo que el primer lema de Borel-Cantelli nos permite asegurar que
 
 Esto no es más que
 \[
-P\left( \bigcap_{n=1}^{\infty} \bigcup_{i\geq n}^{\infty} \{ \omega \in \Omega : |\xi_i(\omega)-C| > \varepsilon\} \right) = 0.
+P\left( \bigcap_{n=1}^{\infty} \bigcup_{i\geq n}^{\infty} \{ \omega \in \Omega : |\xi_i(\omega)-a| > \varepsilon\} \right) = 0.
 \]
 
-Lo que implica que el evento $A_i$ sucede infinitamente con probabilidad cero. Es decir, su complemento sucede con probabilidad $1$:
+Lo que implica que el evento $A_i$ sucede infinitamente con probabilidad cero. Nos interesa la probabilidad del evento complementario
 
 \[
-P(A_i^c) = P(\{ \omega \in \Omega : |\xi_i(\omega)-C| < \varepsilon\}) = 1
+P(A_i^c) = P(\{ \omega \in \Omega : |\xi_i(\omega)-a| < \varepsilon\}).
 \]
-
-Como esto es cierto para cualquier $\varepsilon > 0$, tenemos
-
-\[P(\xi_i \to C) = 1.\]
-
+Recordando que
+\[
+\left(\limsup_i A_i\right)^c = \liminf_i A_i^c
+\]
+tenemos
+\[
+P\left(\liminf_i A_i^c\right) = P\left(\left(\limsup_i A_i\right)^c\right) = 1 - P\left( \limsup_i A_i \right) = 1.
+\]
+Como la probabilidad de cualquier evento es a lo sumo uno: 
+\[
+1 = P\left(\liminf_i A_i^c\right) \leq P\left(\lim_i A_i^c\right) \leq P\left( \limsup_i A_i^c \right) \leq 1,
+\]
+por lo que 
+\[
+P\left(\lim_i A_i^c\right) = P(\xi_i \to a) = 1.
+\]
 \end{proof}
 
 \begin{thm}
@@ -3666,7 +3677,7 @@ Los siguientes lemas nos ayudarán para probar el último de los resultados de e
 
     Entonces, para cualquier $\varepsilon>0$, existe $l_0\in\mathbb{N}$ tal que
     \begin{equation}\label{cota inferior mas epsilon de la entropia}
-        \frac{H^S(l)}{l} < c + \varepsilon.
+        \frac{H^S(l)}{l} < c + \varepsilon, \qquad \forall l \geq l_0.
     \end{equation}
     Observemos que cualquier $l$ puede ser escrito de la forma
     \[
@@ -3871,35 +3882,36 @@ se concentra cerca de \( c \). Para esto, usaremos el siguiente resultado.
 
     A continuación, probaremos que \( \lim_{l \to \infty} P^-(l, \varepsilon) = 0\).\newline
     
-    A partir de las propiedades de la esperanza y el hecho de que \( \mathbb{E} (\xi^{(l)}) = \frac{H^{\mathcal{S}}(l)}{l} \), se sigue que
+    Primero, notemos que \( \mathbb{E} (\xi^{(l)}) = \frac{H^{\mathcal{S}}(l)}{l} \). Abusando de la notación y escribiendo 
+    $\xi=\xi^{(l)}$, tenemos, por propiedad de la esperanza:
 
     \begin{equation}\label{eq 17}
-    \int_{0}^{H^{\mathcal{S}}(l)/l} \left( \frac{H^{\mathcal{S}}(l)}{l} - \xi \right) dF_{\xi} =
-    \int_{H^{\mathcal{S}}(l)/l}^{1} \left( \xi - \frac{H^{\mathcal{S}}(l)}{l} \right) dF_{\xi}.
+    \int_{0}^{H^{\mathcal{S}}(l)/l} \left( \frac{H^{\mathcal{S}}(l)}{l} - \xi \right) dP_{\xi} =
+    \int_{H^{\mathcal{S}}(l)/l}^{1} \left( \xi - \frac{H^{\mathcal{S}}(l)}{l} \right) dP_{\xi}.
     \end{equation}
     Denotando el lado izquierdo de (\ref{eq 17}) como \( R_1 \) y el lado derecho como \( R_2 \), 
     los estimamos suponiendo que \( l \) es lo suficientemente grande como para que 
     \[
     \left| \frac{H^{\mathcal{S}}(l)}{l} - c \right| < \frac{\varepsilon}{2}.
     \]
-    Además, por el corolario \ref{corolario de la cota del límite de la entropia}
+    Supongamos que $c>0$. Por el corolario \ref{corolario de la cota del límite de la entropia}:
     \[
         c-\varepsilon < c \leq \frac{H^{\mathcal{S}}(l)}{l},
     \]
     por lo que
     \[
-        R_1 = \int_{0}^{H^{\mathcal{S}}(l)/l} \left( \frac{H^{\mathcal{S}}(l)}{l} - \xi \right) dF_{\xi}
-        > \int_{0}^{c-\varepsilon} \left( \frac{H^{\mathcal{S}}(l)}{l} - \xi \right) dF_{\xi}.
+        R_1 = \int_{0}^{H^{\mathcal{S}}(l)/l} \left( \frac{H^{\mathcal{S}}(l)}{l} - \xi \right) dP_{\xi}
+        > \int_{0}^{c-\varepsilon} \left( \frac{H^{\mathcal{S}}(l)}{l} - \xi \right) dP_{\xi}.
     \]
     Por la misma razón, $c-\xi \leq  \frac{H^{\mathcal{S}}(l)}{l} - \xi$, lo que implica
     \[
-        R_1 > \int_{0}^{c-\varepsilon} \left( c - \xi \right) dF_{\xi}.
+        R_1 > \int_{0}^{c-\varepsilon} \left( c - \xi \right) dP_{\xi}.
     \]
     Luego, dada la región de integración, es cierto que $\xi \leq c-\varepsilon$. Luego $\frac{\varepsilon}{2} \leq \varepsilon \leq c-\xi$. Así
     \begin{equation*}
     \begin{aligned}
-        R_1 &> \int_{0}^{c-\varepsilon} \left( \frac{\varepsilon}{2}  \right) dF_{\xi} = \frac{\varepsilon}{2} \int_{0}^{c-\varepsilon}dF_{\xi} \\
-        &= \frac{\varepsilon}{2} \int_{\Omega^{(l)}} \chi_{\{\xi< c-\varepsilon\}} d\Omega^{(l)} \\
+        R_1 &> \int_{0}^{c-\varepsilon} \left( \frac{\varepsilon}{2}  \right) dP_{\xi} = \frac{\varepsilon}{2} \int_{0}^{c-\varepsilon}dP_{\xi} \\
+        &= \frac{\varepsilon}{2} \int_{\mathbb{R}} \chi_{\{\xi< c-\varepsilon\}} dP_{\xi} \\
         &= \frac{\varepsilon}{2} P^{(l)}(c-\xi>\varepsilon) 
         = \frac{\varepsilon}{2} P^-\left(l,\frac{\varepsilon}{2}\right).
     \end{aligned}
@@ -3910,31 +3922,31 @@ se concentra cerca de \( c \). Para esto, usaremos el siguiente resultado.
     \begin{equation}\label{eq 18}
     R_1 > \frac{\varepsilon}{2} P^-(l, \varepsilon).
     \end{equation}
+    En el caso de que $c=0$, entonces 
+    \[P^-(l, \varepsilon)= P^{(l)}(c - \xi > \varepsilon) = P^{(l)}(-\xi > \varepsilon) = 0\]
+    y el resultado \ref{eq 18}
+    se obtiene trivialmente.
+
     \bigskip
 
     Sea \( \delta \) un número positivo. Entonces, separando la integral en dos tramos,
 
     \begin{equation*}
-        R_2 \leq \int_{H^{\mathcal{S}}(l)/l}^{c + \delta} \left( \xi - \frac{H^{\mathcal{S}}(l)}{l} \right) dF_{\xi}
-        + \int_{c + \delta}^{1} \left( \xi - \frac{H^{\mathcal{S}}(l)}{l} \right) dF_{\xi}.
+        R_2 =  \int_{H^{\mathcal{S}}(l)/l}^{c + \delta} \left( \xi - \frac{H^{\mathcal{S}}(l)}{l} \right) dP_{\xi}
+        + \int_{c + \delta}^{1} \left( \xi - \frac{H^{\mathcal{S}}(l)}{l} \right) dP_{\xi}.
     \end{equation*}
-    Notemos que en la primera de las dos integrales, se verifica, dada la zona de integración, que \(\xi \leq c+\delta\),
+    Notemos que en la primera de las dos integrales, se verifica, dada la zona de integración, que \(\xi \leq c+\delta \leq 1\),
     luego
     \[
-    \xi - \frac{H^{\mathcal{S}}(l)}{l} \leq c + \delta -  \frac{H^{\mathcal{S}}(l)}{l} 
-    \leq \left| c + \delta -  \frac{H^{\mathcal{S}}(l)}{l} \right|.
-    \]
-    Por lo tanto
-    \[
-        \int_{H^{\mathcal{S}}(l)/l}^{c + \delta} \left( \xi - \frac{H^{\mathcal{S}}(l)}{l} \right) dF_{\xi} 
-        \leq \int_{H^{\mathcal{S}}(l)/l}^{c + \delta} \left| c + \delta -  \frac{H^{\mathcal{S}}(l)}{l} \right| dF_{\xi}
+        \int_{H^{\mathcal{S}}(l)/l}^{c + \delta} \left( \xi - \frac{H^{\mathcal{S}}(l)}{l} \right) dP_{\xi} 
+        \leq \int_{H^{\mathcal{S}}(l)/l}^{c + \delta} 1 dP_{\xi}
         = \left| c + \delta -  \frac{H^{\mathcal{S}}(l)}{l} \right|.
     \]\newline
 
-    Ahora, centrándonos en la integral de la derecha, tenemos que $1\geq\xi\geq \xi-\frac{H^{\mathcal{S}}(l)}{l}$. Luego
+    Para la integral de la derecha, tenemos que $1\geq\xi\geq \xi-\frac{H^{\mathcal{S}}(l)}{l}$. Luego
     \[
-        \int_{c + \delta}^{1} \left( \xi - \frac{H^{\mathcal{S}}(l)}{l} \right) dF_{\xi}
-        \leq \int_{c + \delta}^{1} 1 dF_{\xi} = P^{(l)}(\xi-c>\delta) = P^+(l, \delta).
+        \int_{c + \delta}^{1} \left( \xi - \frac{H^{\mathcal{S}}(l)}{l} \right) dP_{\xi}
+        \leq \int_{c + \delta}^{1} 1 dP_{\xi} = P^{(l)}(\xi-c>\delta) = P^+(l, \delta).
     \]
     Estas dos desigualdades nos permiten escribir:
     \begin{equation}\label{eq 19}
@@ -3980,70 +3992,90 @@ se traduce en la tan buscada consistencia de una clase de funciones asociada a u
     \begin{equation}
     \lim_{l \to \infty} \frac{H^{\mathcal{S}}(l)}{l} = 0. \label{condicion nec y suf}
     \end{equation}
+
+    Es decir:
+    \begin{equation*}
+       \lim_{l \to \infty} P\left(\left\{ \sup_{A\in\mathcal{S}} |P(A)-\nu_A\left(\omega_1,\ldots, \omega_l\right)| > \varepsilon\right\} \right) = 0
+        % \quad\text{ sí y solo sí }\quad 
+       \quad \Longleftrightarrow \quad
+        \lim_{l \to \infty} \frac{H^{\mathcal{S}}(l)}{l} = 0.
+    \end{equation*}
 \end{thm}
-    
+\bigbreak    
     Observemos que, por el Lema (\ref{lema 4}), la condición (\ref{condicion nec y suf}) es equivalente a la siguiente afirmación:  
     
 \begin{equation}
     \lim_{l \to \infty} P\left( \frac{1}{l}\log_2 \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_l) > \delta  \right) = 0, 
     \quad \text{para todo } \delta > 0.
 \end{equation}
-\begin{proof}
 
-
-\textbf{Suficiencia.} 
-
+\begin{proof} 
+    
+    Recordemos que 
+\[
+Q = \left\{ \pi^{(l)} > \varepsilon \right\} = \left\{ \sup_{A\in\mathcal{S}} |P(A)-\nu_A\left(\omega_1,\ldots, \omega_l\right)| > \varepsilon\right\}.
+\]
+\newline
+\textbf{Suficiencia.}
 Supongamos que
 
 \[
 \lim_{l \to \infty} \frac{H^{\mathcal{S}}(l)}{l} = 0.
 \]
 
-Recordemos que, por el Lema de Simetrización, \( 2P^{(2l)}(C) \geq \frac{1}{2} P^{(l)}(Q) \). Estimemos la probabilidad del evento \( C \).\newline
+Recordemos que, por el Lema de Simetrización, \( 2P^{(2l)}(C) \geq P^{(l)}(Q) \). Estimemos la probabilidad del evento \( C \).\newline
 
 Como mostramos previamente,
 
 \[
-P^{(2l)}(C) \leq \frac{1}{(2l)!} \int_{\Omega^{(2l)}} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) dP^{(2l)}.
+P^{(2l)}(C) = \frac{1}{(2l)!} \int_{\Omega^{(2l)}} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) dP(\Omega^{(2l)}).
 \]
 
 Sea \( \delta = \varepsilon^2 / 16 \) y dividamos la región de integración en dos partes: 
 \( Z_1^{(2l)} = \{ \log_2 \Delta^{\mathcal{S}}(Z_{2l}) \leq 2\delta \} \) y 
 \( Z_2^{(2l)} = \Omega^{(2l)} - Z_1^{(2l)} \). Entonces,
-
+\begin{equation*}
+    \begin{split}
+        P^{(2l)}(C) = \int_{Z_1^{(2l)}} \frac{1}{(2l)!} &\sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) dP(\Omega^{(2l)})\\
+        &+ \int_{Z_2^{(2l)}} \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) dP(\Omega^{(2l)}).
+    \end{split}
+\end{equation*}
+Dado que el integrando no excede la unidad (siendo $\theta$ una función indicadora que es a lo sumo $1$), repitiendo el procedimiento de estimación de la demostración anterior como en
+(\ref{eq 19}), tenemos que
+\begin{equation*}
+    \begin{split}
+        \int_{Z_2^{(2l)}} \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) dP(\Omega^{(2l)})
+        & \leq \int_{Z_2^{(2l)}} dP(\Omega^{(2l)}) \\
+        & =  \int_{\{ \log_2 \Delta^{\mathcal{S}}(Z_{2l}) > 2\delta \}} 1 dP(\Omega^{(2l)})\\
+        & = P(\xi^{(2l)} > 2\delta)\\
+        & = P^+(2l, 2\delta).
+    \end{split}
+\end{equation*}
+Por lo tanto
 \[
-P^{(2l)}(C) = \int_{Z_1^{(2l)}} \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) dP^{(2l)}
+P^{(2l)}(C) \leq \int_{Z_1^{(2l)}} \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) dP(\Omega^{(2l)}) + P^+(2l, 2\delta).
 \]
-
-\[
-+ \int_{Z_2^{(2l)}} \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) dP^{(2l)}.
-\]
-
-Dado que el integrando no excede la unidad, tenemos que
-
-\[
-P^{(2l)}(C) \leq \int_{Z_1^{(2l)}} \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) dP^{(2l)} + P^+(2l, \delta).
-\]
-
-Se demostró que
-
+Se demostró en (\ref{promedio de tita acotado por la funcion de crecimiento}) que
 \[
 \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)}(T_i Z_{2l}) - \frac{\varepsilon}{2} \right) \leq 2 \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_{2l}) e^{-\varepsilon^2 l / 8}.
 \]
-
-Usando el hecho de que \( \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_{2l}) \leq 2^{2\delta l} \) en la región de integración y el valor que hemos
+Usando el hecho de que \( \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_{2l}) \leq 2^{2\delta} \leq 2^{2\delta l} \) en la región de integración y el valor que hemos
 fijado de $\delta$, obtenemos
-
 \[
-P^{(2l)}(C) \leq 2 \cdot 2^{2\delta l} e^{-\varepsilon^2 l / 8} + P^+(2l, \delta) = 2\left(\frac{2}{e}\right)^{\varepsilon^2 l / 8} + P^+(2l, \delta).
+P^{(2l)}(C) \leq 2 \cdot 2^{2\delta l} e^{-\varepsilon^2 l / 8} + P^+(2l, 2\delta) = 2\left(\frac{2}{e}\right)^{\varepsilon^2 l / 8} + P^+(2l, 2\delta).
 \]
-
 Pero, por el Lema (\ref{lema 4}), sabemos que
 \[ 
-\lim_{l \to \infty} P^+(2l, \delta) = 0 .
+\lim_{l \to \infty} P^+(2l, 2\delta) = 0 .
 \]
-
-Por lo tanto, se sigue que \( \lim_{l \to \infty} P^{(2l)}(C) = 0 \) y, en consecuencia, \( \lim_{l \to \infty} P^{(l)}(Q) = 0 \). Esto prueba la suficiencia.\newline
+Por lo tanto, se sigue que 
+\[ 
+    \lim_{l \to \infty} P^{(2l)}(C) \leq \lim_{l \to \infty}  2\left(\frac{2}{e}\right)^{\varepsilon^2 l / 8}= 0. 
+\] 
+En consecuencia, 
+\[ \lim_{l \to \infty} P^{(l)}(Q) = 0. \]
+Esto prueba la suficiencia.\newline
+\bigbreak
 
 \textbf{Necesidad.}\newline
 \( 1^\circ \). Supongamos como antes que
@@ -4133,8 +4165,8 @@ Escogemos un \( q \) que satisfaga (\ref{eq 25}) y sea \( B \) el conjunto de aq
 \( \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_{2l}) \geq \Phi([ 2ql ], 2l) \). Entonces,
 
 \begin{equation*}
-P(C') \geq \int_B \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)} (T_i Z_{2l}) - 2\varepsilon \right) dP^{(2l)}
-= \int_B Z \, dP^{(2l)}.
+P(C') \geq \int_B \frac{1}{(2l)!} \sum_{i=1}^{(2l)!} \theta \left( \rho^{(l)} (T_i Z_{2l}) - 2\varepsilon \right) dP(\Omega^{(2l)})
+= \int_B Z \, dP(\Omega^{(2l)}).
 \end{equation*}
 Examinemos ahora el integrando \( Z \) asumiendo que \( Z_{2l} \in B \).\newline
 
@@ -4261,7 +4293,7 @@ Observamos que
 Finalmente, asumiendo que (\ref{eq 28}) se cumple, tenemos para \( l > 1/\varepsilon \):
 
 \[
-P(C') = \int_B Z \, dP^{(2l)} \geq \left( 1 - \frac{1}{\varepsilon^2 l} \right) \frac{\binom{2l - [2q l]}{l - r} \binom{[2q l]}{r}}{\binom{2l}{l}} P(B).
+P(C') = \int_B Z \, dP(\Omega^{(2l)}) \geq \left( 1 - \frac{1}{\varepsilon^2 l} \right) \frac{\binom{2l - [2q l]}{l - r} \binom{[2q l]}{r}}{\binom{2l}{l}} P(B).
 \]
 y 
 
