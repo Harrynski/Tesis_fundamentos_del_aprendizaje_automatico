@@ -4086,7 +4086,7 @@ Esto prueba la suficiencia.\newline
 y procedamos por el contrarrecíproco. Para demostrar la necesidad, debemos mostrar que existe un \( \varepsilon > 0 \) tal que
 
 \begin{equation*}
-\lim_{l \to \infty} P^{(l)}(Q) = \lim_{l \to \infty} P \left\{ \sup_{A \in \mathcal{S}} \left| \nu_A^{(l)} - P_A \right| > \varepsilon \right\} \neq 0.
+\lim_{l \to \infty} P^{(l)}(Q) = \lim_{l \to \infty} P^{(l)} \left\{ \sup_{A \in \mathcal{S}} \left| \nu_A^{(l)} - P_A \right| > \varepsilon \right\} \neq 0.
 \end{equation*}
 Es suficiente estimar la probabilidad del evento
 
@@ -4110,7 +4110,7 @@ A partir de la independencia de las semimuestras, obtenemos
 \end{equation*}
 es decir, 
 \[
-P(C') \leq 2P^{(l)}(Q) - P^2(Q).
+P(C') \leq 2P^{(l)}(Q) - \left(P^{(l)}(Q)\right)^2.
 \]
 Una versión más débil de esta desigualdad nos da
 
@@ -4138,7 +4138,7 @@ Ahora, para la probabilidad de que (\ref{eq 24}) se mantenga, obtenemos la estim
 
 \begin{align*}
 P \left( \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_l) \geq \Phi(n, l) \right) 
-&\geq P \left( \Delta^{\mathcal{S}}(X_l) > \left( \frac{2e}{q} \right)^{ql} \right) \\
+&\geq P \left( \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_l) > \left( \frac{2e}{q} \right)^{ql} \right) \\
 &= P \left( \frac{\log_2 \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_l)}{l} > q \log_2 \frac{2e}{q} + \frac{1}{l} \right).
 \end{align*}
 Dado que \( \lim_{l \to \infty} \frac{H^{\mathcal{S}}(l)}{l} = c \), podemos elegir un \( q \) suficientemente pequeño tal que
@@ -4192,10 +4192,10 @@ Claramente, \( r(k) + s(j) = l \) para \( k \) y \( j \) correspondientes a la m
 Tenemos entonces:
 
 \[
-Z = \frac{1}{\binom{2l}{l}} \sum_k \sum_j \theta ( \rho^{(l)} (N_k M_j Z_{2l}) - 2\varepsilon ),
+Z = \frac{1}{\binom{2l}{l}} \sum_k \sum_j^* \theta ( \rho^{(l)} (N_k M_j Z_{2l}) - 2\varepsilon ),
 \]
 
-donde \( \sum_j^* \) denota la sumatoria solo sobre aquellos \( j \) para los cuales 
+donde \( \displaystyle\sum_j^* \) denota la sumatoria solo sobre aquellos \( j \) para los cuales 
 \[
 S(j) = l - r(k).
 \]
@@ -4205,7 +4205,8 @@ Así,
 Z = \frac{1}{\binom{2l}{l}} \sum_{r=0}^{l} \left( \sum_k^* \sum_j^* \theta ( \rho^{(l)} (N_k M_j Z_{2l}) - 2\varepsilon ) \right),
 \]
 
-donde \( \sum_k^* \) es la sumatoria sobre solo aquellos \( k \) para los cuales \( r(k) = r \).
+donde \( \displaystyle\sum_k^* \) es la sumatoria sobre solo aquellos \( k \) para los cuales \( r(k) = r \).\newline
+
 Para cada \( N_k \), podemos especificar un conjunto \( A(k) \in \mathcal{S} \) tal que \( A(k) \) incluya exactamente
 los elementos de la submuestra \( y \) que pertenecen bajo la partición \( N_k \) a la primera semimuestra.\newline
 
@@ -4251,12 +4252,12 @@ Además, como se muestra en [10], se verifica:
 Aplicando la desigualdad de Chebyshev, obtenemos
 
 \[
-P \left( \left| \frac{M(u) - u}{l} \right| \leq \varepsilon \right) \geq 1 - \frac{1}{l \varepsilon^2},
+P \left( \left| \frac{\mathbb{E}(u) - u}{l} \right| \leq \varepsilon \right) \geq 1 - \frac{1}{l \varepsilon^2},
 \]
 o 
 
 \[
-\sum_u^* \frac{\binom{u}{l} \binom{2l - [2q l] - t}{l - r - u}}{\binom{2l - [2q l]}{l - r}} \geq 1 - \frac{1}{\varepsilon^2 l},
+\sum_u^* \frac{\binom{t}{u} \binom{2l - [2q l] - t}{l - r - u}}{\binom{2l - [2q l]}{l - r}} \geq 1 - \frac{1}{\varepsilon^2 l},
 \]
 donde la sumatoria es sobre todos los \( u \) que satisfacen
 
@@ -4268,7 +4269,7 @@ la desigualdad (\ref{eq 27}) implica que \( |2u + r - t| > 2 \varepsilon l \) pa
 Así, bajo estas condiciones,
 
 \[
-\sum_u^* \frac{\binom{u}{l} \binom{2l - [2q l] - t}{l - r - u}}{\binom{2l - [2q l]}{l - r}} \geq 1 - \frac{1}{\varepsilon^2 l}.
+\sum_u^* \frac{\binom{t}{u} \binom{2l - [2q l] - t}{l - r - u}}{\binom{2l - [2q l]}{l - r}} \geq 1 - \frac{1}{\varepsilon^2 l}.
 \]\newline
 
 Volviendo a la estimación de \( Z \), obtenemos para \( l > 1/\varepsilon \):
@@ -4298,7 +4299,7 @@ P(C') = \int_B Z \, dP(\Omega^{(2l)}) \geq \left( 1 - \frac{1}{\varepsilon^2 l} 
 y 
 
 \[
-\lim_{l \to \infty} P(C') \geq \lim_{l \to \infty} P(B) = \lim_{l \to \infty} P(\Delta^{\mathcal{S}}(\omega_1, \dots, \omega_{2l}) > \Phi([2q l]/2)).
+\lim_{l \to \infty} P(C') \geq \lim_{l \to \infty} P(B) = \lim_{l \to \infty} P(\Delta^{\mathcal{S}}(\omega_1, \dots, \omega_{2l}) > \Phi([2q l],2l)).
 \]
 Mostramos en \( 2^\circ \) que este último límite tiene el valor 1. Por lo tanto, se sigue que 
 
