@@ -7,7 +7,7 @@
 \usepackage{amsfonts}
 \usepackage{hyperref}
 \usepackage{mathrsfs}
-
+\usepackage{tikz}
 \usepackage[font=footnotesize,labelfont=bf,labelsep=colon]{caption} % Personalización de captions
 \DeclareMathOperator*{\argmin}{arg\,min}
 % Define the unnumbered theorem
@@ -1326,6 +1326,8 @@ muestran ejemplos de imágenes y sus respectivas etiquetas \((X_1,Y_1)\), \((X_2
 
 \section{La historia del aprendizaje automático}
 
+\subsection{Los orígenes de la Teoría del Aprendizaje}
+
 El primer modelo de aprendizaje automático, según Vapnik en [2], fue sugerido por F. Rosenblatt, un psicólogo estadounidense, al que llamó \textit{perceptrón}, y su introducción
 constituye el comienzo del análisis matemático del aprendizaje. Conceptualmente, la idea del perceptrón no era nueva, estando presente en la litetura de Neurofisiología durante
 varios años. Rosenblatt, sin embargo, se aventuró en describir el modelo como un programa para computadoras y demostró con simples experimentos que dicho modelo era generalizable.
@@ -1378,7 +1380,43 @@ N \leq \left [ \frac{R^2}{\rho^2}\right ]
 
 Resaltamos este teorema porque jugó un papel fundamental en la creación de la teoría del aprendizaje, conectando el
 principio de minimización de errores en el conjunto de datos de entrenamiento con la capacidad de generalización
-de los algoritmos de clasificación y su causa.
+de los algoritmos de clasificación y su causa.\newline
+
+
+\subsection{La década de 1960: Fundamentos de la Teoría del Aprendizaje Estadístico}
+
+Hacia finales de la década de 1960 se sentaron las bases de la \textit{Teoría del Aprendizaje Estadístico}. En esos años, Vladimir Vapnik y Alexey Chervonenkis comenzaron a formular un marco matemático que diera cuenta de cómo los algoritmos podían aprender a partir de un número finito de ejemplos. Este desarrollo surgió en gran medida como respuesta a las limitaciones del perceptrón de Rosenblatt, presentado en 1958, cuya incapacidad para resolver problemas no lineales, evidenciada por Minsky y Papert en 1969, puso de manifiesto la necesidad de una teoría más sólida. Vapnik y Chervonenkis introdujeron entonces la noción de dimensión VC, un concepto que mide la capacidad de un modelo y permite analizar su poder de generalización. Asimismo, distinguieron entre el riesgo esperado, definido como el error verdadero sobre la distribución de los datos, y el riesgo empírico, correspondiente al error calculado sobre una muestra finita, estableciendo así los cimientos para el análisis formal del sobreajuste. Si bien en esa década predominaba el principio de minimización del riesgo empírico, ya se vislumbraba la necesidad de un enfoque más robusto, que en los años siguientes cristalizaría en el principio de \textit{Minimización del Riesgo Estructural}. De este modo, los sesenta representaron el tránsito desde modelos heurísticos hacia un marco matemático riguroso que transformaría para siempre el estudio del aprendizaje automático.
+
+\subsection{La década de 1970: La Minimización del Riesgo Estructural}
+
+En la década de 1970, la Teoría del Aprendizaje Estadístico dio un paso decisivo con la formulación del principio de \textit{Minimización del Riesgo Estructural} (SRM), desarrollado por Vapnik y Chervonenkis como respuesta al problema del sobreajuste que surgía al aplicar únicamente la minimización del riesgo empírico. El SRM proponía organizar las posibles soluciones en una jerarquía de modelos de distinta complejidad y seleccionar, entre ellos, aquel que equilibrara de forma óptima la precisión en los datos de entrenamiento y la capacidad de generalización. Este principio se apoyaba en la dimensión VC como medida de complejidad y ofrecía por primera vez un criterio formal para elegir modelos que pudieran aprender de manera fiable con conjuntos de datos finitos. Al mismo tiempo, la teoría permitía establecer cotas de probabilidad sobre la diferencia entre el riesgo empírico y el riesgo esperado, lo que transformó el análisis del aprendizaje en un campo matemáticamente riguroso. Así, los años setenta consolidaron las bases teóricas de un paradigma que buscaba no solo ajustar datos, sino también garantizar predicciones válidas más allá de la muestra observada.
+
+\subsection{La década de 1980: Primeras aplicaciones prácticas y consolidación teórica}
+
+En la década de 1980, la Teoría del Aprendizaje Estadístico comenzó a trasladarse desde el plano estrictamente teórico hacia aplicaciones más concretas en problemas de reconocimiento de patrones y clasificación. Vapnik y sus colaboradores desarrollaron métodos de aprendizaje inspirados en el principio de minimización del riesgo estructural, los cuales demostraron ser especialmente eficaces en contextos de alta dimensionalidad, como el reconocimiento de imágenes y voz. Durante estos años, la teoría de Vapnik y Chervonenkis alcanzó mayor difusión gracias a la publicación de textos más especializados, como \textit{Estimation of Dependences Based on Empirical Data}, que presentaba un análisis detallado de la dimensión VC y las cotas de generalización. Aunque las redes neuronales comenzaron a resurgir hacia finales de la década con la popularización del algoritmo de retropropagación, la Teoría del Aprendizaje Estadístico ofrecía un marco riguroso que otras corrientes aún no poseían. Los ochenta, en consecuencia, marcaron la transición hacia algoritmos prácticos que mantenían un fundamento matemático sólido.
+
+\subsection{La década de 1990: El surgimiento de las Máquinas de Vectores de Soporte}
+
+Los años noventa representaron un punto de inflexión en la historia del aprendizaje automático gracias al desarrollo de las \textit{Máquinas de Vectores de Soporte} (SVM), introducidas por Vapnik y sus colegas. Basadas en el principio de maximización del margen, las SVM lograban encontrar hiperplanos de separación óptimos que ofrecían una notable capacidad de generalización, incluso en espacios de alta dimensión. Con la introducción de los núcleos (kernels), estas máquinas pudieron extenderse a problemas no lineales, lo que amplió considerablemente su aplicabilidad. Durante esta década, las SVM se consolidaron como uno de los métodos más poderosos y versátiles para la clasificación y la regresión, convirtiéndose en un estándar en disciplinas tan diversas como la bioinformática, la visión por computadora y el procesamiento de texto. Al mismo tiempo, se publicaron obras clave como \textit{The Nature of Statistical Learning Theory} (1995), que pusieron a disposición de la comunidad científica occidental los fundamentos de la teoría de Vapnik y marcaron el inicio de su gran influencia en la investigación internacional.
+
+\subsection{La década de 2000: Expansión de métodos y auge del ensemble learning}
+
+Durante la década de 2000, el campo del aprendizaje automático experimentó una diversificación de métodos y un auge en la aplicación de técnicas de conjunto. Algoritmos como \textit{Boosting} y \textit{Random Forests} ganaron protagonismo, demostrando que la combinación de múltiples modelos relativamente simples podía superar en rendimiento a modelos individuales más complejos. Aunque estas técnicas no fueron desarrolladas directamente por Vapnik, encajaban en el marco de la Teoría del Aprendizaje Estadístico, ya que podían interpretarse como estrategias para controlar la complejidad y mejorar la generalización. Paralelamente, las SVM seguían siendo uno de los métodos más robustos y ampliamente utilizados, especialmente en problemas de clasificación con conjuntos de datos de tamaño moderado. Durante este período, también se consolidó la transición del aprendizaje automático desde un campo académico hacia aplicaciones prácticas en la industria, favorecida por el aumento en la capacidad de cómputo y la disponibilidad creciente de datos digitales.
+
+\subsection{La actualidad: Deep Learning y nuevos paradigmas}
+
+En la actualidad, el aprendizaje automático está dominado por el \textit{Deep Learning}, cuyo renacimiento a partir de 2010 fue impulsado por el incremento en la capacidad de procesamiento mediante GPUs y la disponibilidad de grandes volúmenes de datos. Las redes neuronales profundas han alcanzado un desempeño sobresaliente en tareas como visión por computadora, reconocimiento de voz y procesamiento de lenguaje natural, desplazando en muchos ámbitos a las SVM y otros métodos clásicos. Sin embargo, Vladimir Vapnik ha señalado con frecuencia que el éxito del aprendizaje profundo se ha logrado más por avances computacionales que por fundamentos teóricos sólidos, criticando su dependencia del \textit{big data} y su falta de interpretabilidad. En paralelo, Vapnik ha propuesto nuevas ideas como el \textit{aprendizaje con información privilegiada} (LUPI), que busca reducir la necesidad de grandes volúmenes de datos y mejorar la eficiencia del aprendizaje. Así, mientras el deep learning domina el panorama actual, los principios de la Teoría del Aprendizaje Estadístico continúan siendo esenciales para comprender las nociones de generalización y complejidad, y siguen orientando la búsqueda de algoritmos que aprendan de manera más fiable y con menos datos.
+
+\subsection{Arquitecturas modernas en NLP: Transformers, BERT y GPT}
+
+En el campo del procesamiento de lenguaje natural (NLP), la última década ha estado marcada por la irrupción de arquitecturas basadas en \textit{Transformers}, introducidas por Vaswani et al. en 2017. A diferencia de los modelos anteriores, que dependían de estructuras secuenciales como redes recurrentes (RNN) o LSTM, los Transformers se fundamentan en un mecanismo de \textit{atención} que permite modelar dependencias a larga distancia de manera más eficiente y paralelizable. Esta innovación dio lugar a una familia de modelos que revolucionaron la disciplina.
+
+Entre ellos, \textit{BERT} (Bidirectional Encoder Representations from Transformers) representó un hito al introducir el preentrenamiento en tareas de enmascarado de palabras, seguido de una etapa de ajuste fino en tareas específicas. Este enfoque bidireccional permitió obtener representaciones contextuales mucho más ricas, transformando tareas como clasificación de texto, extracción de información y respuesta a preguntas. Por otro lado, la línea de modelos \textit{GPT} (Generative Pre-trained Transformer) se centró en un esquema autoregresivo de predicción de la siguiente palabra, lo que facilitó la generación coherente y fluida de secuencias de texto. Su entrenamiento a gran escala sobre cantidades masivas de datos los convirtió en sistemas capaces de realizar múltiples tareas sin necesidad de un ajuste fino explícito, marcando un cambio en la forma de concebir modelos de propósito general.
+
+No obstante, desde la perspectiva teórica, estos avances presentan deficiencias importantes. En primer lugar, carecen de un marco matemático sólido que explique de manera rigurosa por qué generalizan con tanta eficacia, en contraste con la Teoría del Aprendizaje Estadístico que ofrece garantías explícitas basadas en capacidad y complejidad. Además, dependen de cantidades descomunales de datos y recursos computacionales, lo que contradice el principio de Vapnik de aprender de forma eficiente con muestras pequeñas. Finalmente, su interpretabilidad es limitada, ya que aunque logran un desempeño sobresaliente en tareas prácticas, no ofrecen mecanismos claros para comprender la naturaleza de las representaciones aprendidas ni la relación entre su capacidad de generalización y la estructura de los datos. 
+En síntesis, los Transformers y sus derivados como BERT y GPT representan un salto cualitativo en la práctica del NLP, pero aún adolecen de fundamentos teóricos sólidos que los vinculen con principios de generalización bien establecidos, lo que abre un campo de investigación crucial para el futuro del aprendizaje automático.
+
+
 
 \section{Conceptos básicos del aprendizaje}
 
@@ -1649,7 +1687,7 @@ de un objeto e \(\mathcal{Y}\) la fuerza necesaria para arrastrar este objeto so
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=0.5\textwidth]{Images/1.png}
-    \caption{(Gráfica tomada de [1]) Dos posibles modelos de regresión, uno lineal y otro no, para un conjunto de datos dado.}
+    \caption{Dos posibles modelos de regresión, uno lineal y otro no, para un conjunto de datos dado. (Gráfica tomada de [1])}
     \label{fig:Sobreajuste y subajuste}
 \end{figure}
 
@@ -1739,7 +1777,7 @@ altos (quiza un equipo de basket, aunque no estaríamos ante una \textit{buena} 
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=0.5\textwidth]{Images/2.png}
-    \caption{Error de estimación y de aproximación.}
+    \caption{Error de estimación y de aproximación. (Gráfica tomada de [1])}
     \label{fig:error de estimación y aproximación}
 \end{figure}
 
@@ -1784,7 +1822,8 @@ funciones en \(F_{\text{all}}\) y de allí proviene el nombre error de aproximac
     \caption{Compromiso entre error de estimación y de aproximación. Si el espacio funcional $\mathcal{F}$ que define
     el algoritmo de aprendizaje es pequeño, es decir es poco complejo, el error de estimación es bajo, pero el de aproximación
     es alto, y estamos en una situación proclive al subajuste. Si, por otro lado,  $\mathcal{F}$ es complejo, el error de estimación
-    es alto y el de aproximación bajo, y tendemos al sobreajuste. El error ideal es usualmente obtenido con una complejidad moderada.}
+    es alto y el de aproximación bajo, y tendemos al sobreajuste. El error ideal es usualmente obtenido con una complejidad moderada.
+    (Gráfica tomada de [1])}
     \label{fig:Compromiso entre error de estimación y de aproximación.}
 \end{figure}
 
@@ -2391,7 +2430,13 @@ dos funciones \(f, g \in \mathcal{F}\) que toman los mismos valores en la muestr
 es decir, \(R_{\text{emp}}(f) = R_{\text{emp}}(g)\). La afirmación análoga se cumple para la muestra fantasma 
 y el riesgo empírico asociado \(R'_{\text{emp}}\). \newline
 
-AGREGAR FIGURA DE EJEMPLO CON DOS FUNCIONES LINEALES SEPARANDO DE IGUAL MANERA LAS MUESTRAS\newline
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Images/8.png}
+    
+    \caption{Dos puntos en $\mathbb{R}^2$ son clasificados de igual manera por dos clasificadores distintos.}
+    \label{clasificacion identica con distintos clasificadores}
+\end{figure}
 
 Por lo tanto, todas las funciones \(f, g\) que coinciden tanto en la muestra original como en la muestra fantasma 
 producirán el mismo término \(|R_{\text{emp}}(f) - R'_{\text{emp}}(f)|\). Así, las únicas funciones que 
@@ -2456,7 +2501,7 @@ mientras que el que queda en medio a la otra categoría, como en la figura \ref{
     \centering
     \includegraphics[width=0.8\textwidth]{Images/5.png}
     
-    \caption{Fragmentación de muestras en $\mathbb{R}^2$ de tres y cuatro puntos.}
+    \caption{Fragmentación de muestras en $\mathbb{R}^2$ de tres y cuatro puntos. (Gráfica tomada de [11])}
     \label{fragmentacion perceptron}
     \end{figure}
 
@@ -4412,7 +4457,7 @@ De manera análoga, se puede definir un margen para clasificadores lineales en u
     \caption{Margen de un clasificador lineal: las cruces representan puntos de entrenamiento con 
     etiqueta \(+1\), mientras que los círculos representan puntos de entrenamiento con etiqueta \(-1\). 
     La línea recta es el clasificador lineal \(f_n\), y la línea discontinua muestra el margen. La 
-    anchura \(\rho\) del margen está representada por la flecha.}
+    anchura \(\rho\) del margen está representada por la flecha.(Gráfica tomada de [1])}
     \label{fig:Clasificación con margen}
 \end{figure}
 
@@ -4933,7 +4978,7 @@ sentido que un clasificador que se basa en esas suposiciones no tenga ninguna po
     es en general mejor que el clasificador 2, y este último es muchísimo mejor para un subconjunto
     de distribuciones. Podemos pensar que 1 es un clasificador general y 2 está construído para un tipo
     de problemas específico. El teorema de la chancha y los veinte nos dice que el área debajo de ambas
-    curvas debe ser igual, es decir que en promedio ambos clasificadores tienen el mismo error.}
+    curvas debe ser igual, es decir que en promedio ambos clasificadores tienen el mismo error. (Gráfica tomada de [1])}
     \label{fig:no_free_lunch_theorem}
 \end{figure}
 
