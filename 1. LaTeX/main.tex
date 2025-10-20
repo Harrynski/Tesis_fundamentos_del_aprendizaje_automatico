@@ -4164,7 +4164,7 @@ P^{(l)}(Q) \geq \frac{1}{2} P(C').
 \end{equation*}
 
 \bigskip
-\( 2^\circ \). Observemos ahora que, en virtud del lema (\ref{Lema 1}), se puede encontrar una submuestra \( X_{i_1}, \dots, X_{i_n} \) de \( Z_{2l} \) tal que \( \mathcal{S} \) induce en ella todos los subsistemas posibles, proporcionando
+\( 2^\circ \). Observemos ahora que, en virtud del lema (\ref{Lema 1}), se puede encontrar una submuestra \( \omega_{i_1}, \dots, \omega_{i_n} \) de \( Z_{2l} \) tal que \( \mathcal{S} \) induce en ella todos los subsistemas posibles, proporcionando
 
 \begin{equation}\label{eq 24}
 \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_l) \geq \Phi(n, l).
@@ -4182,20 +4182,22 @@ En lo que sigue, asumiremos que \( l \geq 1/q \). Así, \( [ ql ] \geq \frac{1}{
 Ahora, para la probabilidad de que (\ref{eq 24}) se mantenga, obtenemos la estimación
 
 \begin{align*}
-P \left( \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_l) \geq \Phi(n, l) \right) 
+P \left( \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_l))  \geq  \Phi(n, l) \right) 
 &\geq P \left( \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_l) > \left( \frac{2e}{q} \right)^{ql} \right) \\
-&= P \left( \frac{\log_2 \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_l)}{l} > q \log_2 \frac{2e}{q} + \frac{1}{l} \right).
+&= P \left( \frac{\log_2 \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_l)}{l} > q \log_2 \frac{2e}{q} \right).
 \end{align*}
 Dado que \( \lim_{l \to \infty} \frac{H^{\mathcal{S}}(l)}{l} = c \), podemos elegir un \( q \) suficientemente pequeño tal que
 
 \begin{equation}\label{eq 25}
 q \log_2 \frac{2e}{q} < c.
 \end{equation}
-Si suponemos que (\ref{eq 25}) se satisface, podemos aplicar el Lema (\ref{lema 4}) para obtener
+Si suponemos que (\ref{eq 25}) se satisface, podemos aplicar el Lema \ref{lema 4} para obtener
 
 \begin{equation}\label{eq 26}
 \lim_{l \to \infty} P \left( \Delta^{\mathcal{S}}(\omega_1, \dots, \omega_l) > \Phi(n, l) \right) = 1.
 \end{equation}
+
+\bigskip
 
 \( 3^\circ \). Para completar la demostración de la necesidad, solo debemos estimar
 
@@ -4431,14 +4433,11 @@ con probabilidad al menos \(1 - \delta\).\\
 La complejidad de Rademacher tienen algunas ventajas sobre los conceptos clásicos de capacidad, como la 
 dimensión VC. En particular, las cotas obtenidas mediante complejidades de Rademacher tienden a ser mucho más 
 precisas que las obtenidas mediante herramientas clásicas. Las técnicas de demostración son diferentes de las 
-explicadas anteriormente, pero no entraremos en detalles aquí. Para literatura sobre cotas basadas en la 
-complejidad de Rademacher, véase, por ejemplo, Mendelson (2003), Bousquet et al. (2003) o Boucheron et al. 
-(2005) y las referencias allí citadas.
+explicadas anteriormente, pero no entraremos en detalles aquí. 
 
 \subsection{Cotas con grandes márgenes de separación}
 
-Finalmente, queremos introducir otro tipo de medida de capacidad de clases de funciones que es 
-más especializada que las cantidades combinatorias generales presentadas anteriormente. Consideremos 
+Consideremos 
 el caso particular en el que el espacio de datos consiste en puntos en el espacio bidimensional 
 \(\mathbb{R}^2\) y donde queremos separar las clases mediante una línea recta. 
 
@@ -4469,14 +4468,11 @@ esfera más pequeña que encierra los puntos de datos y el margen \(\rho\), es d
 \text{VC}(\mathcal{F}_\rho) \leq \min \left\{d, \frac{4R^2}{\rho^2} \right\} +1.
 \]
 
-(cf. Teorema 5.1 en Vapnik, 1995). Es decir, cuanto mayor sea el margen \(\rho\) de las funciones 
+Es decir, cuanto mayor sea el margen \(\rho\) de las funciones 
 en la clase \(\mathcal{F}_\rho\), menor será su dimensión VC. De esta manera, se puede usar el 
 margen de los clasificadores como un concepto de capacidad. Uno de los clasificadores más conocidos, 
 la \textbf{máquina de soporte vectorial} (SVM, \textit{Support Vector Machine}), se basa en este 
-resultado. Para un tratamiento más completo, véase Schölkopf y Smola (2002).\newline
-
-Un ejemplo de cota de generalización que involucra el gran margen es el siguiente (para una 
-declaración más precisa, véase el Teorema 7.3 en Schölkopf y Smola, 2002):\newline
+resultado. Un ejemplo de cota de generalización que involucra el gran margen es el siguiente:\newline
 
 \begin{thm}[Cotas de grandes márgenes]
 
@@ -4495,7 +4491,7 @@ puede ser acotado por:
 
 \subsection{Conclusiones acerca de las cotas de generalización}
 
-Hasta ahora, hemos introducido algunos conceptos de capacidad para clases de funciones: el 
+Hemos introducido algunos conceptos de capacidad para clases de funciones: el 
 coeficiente de fragmentación, la dimensión VC y la complejidad de Rademacher. En la literatura, 
 existen muchos otros conceptos de capacidad, y presentarlos todos está fuera del alcance de esta 
 visión general. Sin embargo, queremos destacar la forma general que suelen adoptar la mayoría 
@@ -4586,7 +4582,7 @@ Para que este clasificador sea consistente con Bayes, debemos garantizar dos con
 
 
 Un ejemplo de cómo estas dos condiciones pueden formularse de manera rigurosa se presenta en el 
-siguiente teorema, adaptado del Teorema 18.1 de Devroye et al. (1996):\newline
+siguiente teorema, adaptado del Teorema 18.1 de [4]:\newline
 
 \begin{thm}
  Sea \(\mathcal{F}_1, \mathcal{F}_2, \dots\) una secuencia de espacios funcionales, y 
@@ -4665,9 +4661,7 @@ disminuye y simplemente elegimos funciones basándonos en sus riesgos empíricos
 
 El principio de regularización consiste en elegir el clasificador \(f_n\) que minimiza el riesgo regularizado 
 \(\mathcal{R}_{\text{reg}}(f)\). Muchos de los clasificadores ampliamente utilizados pueden formularse dentro 
-del marco de la regularización, por ejemplo, la máquina de soporte vectorial (conocidas como SVM o Support Vector Machines)
-(ver Schölkopf y Smola, 2002, 
-para más detalles).\newline
+del marco de la regularización, por ejemplo, la máquina de soporte vectorial.\newline
 
 Para demostrar la \textbf{consistencia de Bayes} de clasificadores regularizados, se procede esencialmente como 
 se describió en la subsección anterior: para alguna secuencia lentamente creciente \(\omega_1, \omega_2, \dots\), 
@@ -4833,10 +4827,11 @@ es posible parametrizar la distribución conjunta con un solo valor
 Tomando la expansión binaria de $b$, tenemos:
 
 \[
-b = 0.b_0 b_1 b_2 \dots.
+b = 0.b_0 b_1 b_2 \dots b_K.
 \]
 
-Definimos entonces la etiqueta \(Y\) como función de \(X\):
+Notemos que podriamos definirla con una expansión infinita, pero consideraremos solo este caso finito para 
+mayor claridad. Definimos entonces la etiqueta \(Y\) como función de \(X\):
 
 \[
 Y = b_X,
@@ -4844,8 +4839,9 @@ Y = b_X,
 
 donde \(b_X\) coincide con el \(X\)-ésimo dígito binario de \(b\). Utilizar la expansión binaria de $b$ facilita la interpretación
 de la parametrización, dado que cada dígito $i$-ésimo es exactamente la etiqueta correspondiente a la muestra $i$-ésima.
-Por ejemplo, si \(K=3\) y estamos en el caso donde  \(f_{Bayes}(X_1)=0\),  \(f_{Bayes}(X_2)=1\) y \(f_{Bayes}(X_3)=1\), 
-la distribucíon conjunta estaría representada por $b=0,011$.\newline
+Por ejemplo, si \(K=3\) y estamos en el caso donde  \(f_{Bayes}(x_1)=0\),  \(f_{Bayes}(x_2)=1\) y \(f_{Bayes}(x_3)=1\), 
+la distribucíon conjunta estaría representada por $b=0,011$. Notemos que aquí consideramos las variables \emph{realizadas}, por ello
+las escribimos como minúsculas, siguiendo la convención del capítulo anterior.\newline
 
 
 Dado que \(Y\) es una función de \(X\), existe una regla de decisión perfecta y el clasificador de Bayes alcanza una pérdida cero:
@@ -4873,12 +4869,12 @@ como el riesgo de $f_n$ para esa distribución asociado a la pérdida-0-1:
 
 
 Ahora introducimos una variable aleatoria \(B\), distribuida uniformemente en \([0,1)\) e independiente de \(X\) y 
-de los datos de entrenamiento \(Z_n\). Su expansión binaria es: \(B = 0,B_1B_2B_3\dots\), que es una sucesión 
+de los datos de entrenamiento \(Z_n\). Su expansión binaria es: \(B = 0,B_1B_2B_3\dots B_k\), que es una sucesión 
 de variables aleatorias independientes en \(\{0,1\}\) con probabilidad $\frac{1}{2}$. Evidentemente, el rol de $B$
 es generar una distribución conjunta sobre $X$ e $Y$ de manera aleatoria. También podemos generar de manera aleatoria
 una distribución para $Y$, que podemos llamar $Y=B_X$, usando la misma convención que antes donde, de nuevo,
-$B_X$ es el dígito que corresponde al punto $X$ en la expansión binaria de $B$. Notemos que $X$ puede no pertenecer
-al conjunto de entrenamiento $Z_n$. \newline
+$B_X$ es el dígito que corresponde al punto $X$ en la expansión binaria de $B$. Notemos que la imagen de $X$ una vez realizada, $X(\omega) = x$, 
+puede no pertenecer al conjunto de entrenamiento $Z_n$. \newline
 Podemos expresar el riesgo de este nuevo parámetro como:
 
 
@@ -4894,11 +4890,11 @@ y dado que $B$ representa a cualquiera de las distribuciones parametrizadas por 
 
 
 
-Notemos que \(B_X\) es una variable de Bernoulli(\(1/2\)) independiente de \(f_n(X, Z_n)\) cuando 
+Notemos que \(B_X\) es una variable de Bernoulli (\(\frac{1}{2}\)) independiente de \(f_n(X, Z_n)\) cuando 
 \(X\) no pertenece al conjunto de entrenamiento. De aquí se obtiene:
 
 \[
-P(f_n(X, Z_n) \neq B_X \mid X, Z_n) = \frac{1}{2}, \quad \text{si } X \notin \{X_1, \dots, X_n\}.
+P(f_n(X, Z_n) \neq B_X \mid X, Z_n) = \frac{1}{2}, \quad \text{si } x \notin \{x_1, \dots, x_n\}.
 \]
 
 Esto se debe a que el clasificador no tiene información sobre la etiqueta de \(X\) si \(X\) no está en el conjunto de entrenamiento,
@@ -4909,10 +4905,10 @@ dar la siguiente expresión del riesgo de $B$:\newline
 \begin{equation*}
     \begin{aligned}
         \mathcal{R}_n(B) &= P(f_n(X, Z_n) \neq B_X)\\
-        &= P(f_n(X, Z_n) \neq B_X \mid X \notin \{X_1, \dots, X_n\}) \cdot P(X \notin \{X_1, \dots, X_n\})\\
-        &  \qquad + P(f_n(X, Z_n) \neq B_X \mid X \in \{X_1, \dots, X_n\}) \cdot P(X \in \{X_1, \dots, X_n\})\\
-        &\geq P(f_n(X, Z_n) \neq B_X \mid X \notin \{X_1, \dots, X_n\}) \cdot P(X \notin \{X_1, \dots, X_n\})\\
-        & = \frac{1}{2} \cdot P(X \notin \{X_1, \dots, X_n\})
+        &= P(f_n(X, Z_n) \neq B_X \mid x \notin \{x_1, \dots, x_n\}) \cdot P(x \notin \{x_1, \dots, x_n\})\\
+        &  \qquad + P(f_n(X, Z_n) \neq B_X \mid x \in \{x_1, \dots, x_n\}) \cdot P(x \in \{x_1, \dots, x_n\})\\
+        &\geq P(f_n(X, Z_n) \neq B_X \mid x \notin \{x_1, \dots, x_n\}) \cdot P(x \notin \{x_1, \dots, x_n\})\\
+        & = \frac{1}{2} \cdot P(x \notin \{x_1, \dots, x_n\})
     \end{aligned}
 \end{equation*}
 
@@ -4920,13 +4916,13 @@ Donde simplemente separamos los eventos en donde el punto $X$ sobre el que anali
 en el conjunto de entrenamiento, y desechamos el caso afirmativo. Luego
 
 \[
-\mathcal{R}_n(B) = P(f_n(X, Z_n) \neq B_X) \geq \frac{1}{2} \cdot P(X \notin \{X_1, \dots, X_n\})
+\mathcal{R}_n(B) = P(f_n(X, Z_n) \neq B_X) \geq \frac{1}{2} \cdot P(x \notin \{x_1, \dots, x_n\})
 \]
 
 Por otro lado, como las muestras son tomadas de forma iid:
 \[
 \begin{aligned}
-    P(X \notin \{X_1, \dots, X_n\}) &= P(X\neq X_1, X\neq X_2, \dots, X\neq X_n) \\
+    P(x \notin \{x_1, \dots, x_n\}) &= P(X\neq X_1, X\neq X_2, \dots, X\neq X_n) \\
    &= P(X\neq X_1)^n \\
    &= \left(1-\frac{1}{K}\right)^n
 \end{aligned}
@@ -4995,7 +4991,21 @@ la consistencia considera el límite cuando \(n \to \infty\).\newline
 
 Otra manera de expresar esto es la siguiente: si las etiquetas de los puntos se asignan de manera 
 completamente aleatoria, entonces las etiquetas de los puntos de prueba serán completamente independientes 
-de las etiquetas de los puntos de entrenamiento. En tal escenario, el aprendizaje es imposible.\newline
+de las etiquetas de los puntos de entrenamiento. En tal escenario, el aprendizaje es imposible. Una implicancia 
+directa de esto es que, al menos desde la perspectiva de la teoría que hemos presentado, es imposible construir
+una maquina de aprendizaje que se adapte correctamente a todos los problemas de clasificación (o, en general,
+a todos los problemas de los cuales la minimización de riesgo empírico generaliza, como la estimación de densidades
+y la regresión). Por lo tanto, no es posible construir un solo modelo de aprendizaje automático que se desempeñe
+de buena manera en todos los problemas que esperaríamos que una intelegencia artificial general pueda resolver. \newline
+
+Los
+teoremas de la chancha y los veinte, y la estructura en la que se sostienen, provista por la teoría aquí presentada,
+nos dan una poderosa advertencia ante la idea, tan publicitada al tiempo de la escritura de este texto, de que estamos
+prontos a conseguir, vía el creciente gasto computacional en LLMs y sus derivados multimodales, modelos de aprendizaje
+generales. Es también una invitación a pensar el problema del Machine Learning, y del campo de la Inteligencia Artificial
+en general, de nuevo en términos matemáticos, como lo hicieran Vapnik, Chernovenkis y otros en decenios anteriores. Es un
+testimonio más de la importancia de la Matemática en el destino de nuestra civilización.
+ \newline
 
 
 

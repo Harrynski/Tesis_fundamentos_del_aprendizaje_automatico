@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1756691274.33517 "/Users/niconash/Repositories/Tesis/1. LaTeX/main.tex" "main.pdf" "main" 1756691276.3578 0
-  "/Users/niconash/Repositories/Tesis/1. LaTeX/main.tex" 1756691271.73326 268440 7122741fe415314afe1b6d503c9766be ""
+["pdflatex"] 1760927772.14644 "/Users/niconash/Repositories/Tesis/1. LaTeX/main.tex" "main.pdf" "main" 1760927774.13616 0
+  "/Users/niconash/Repositories/Tesis/1. LaTeX/main.tex" 1760927771.87937 269389 9732978220c21f472b61ed77679c5edd ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -196,10 +196,10 @@
   "Images/6.png" 1738511219.96877 24998 ad775861cd3a131192bdec4478a1c453 ""
   "Images/7.png" 1738956320.17983 15788 866961957a4febf62533481d8dd9213a ""
   "Images/8.png" 1756691106.98496 35533 92eb44f65f9a195452f5d16d0043743b ""
-  "main.aux" 1756691276.19225 22819 3fb32c40f74239c19d09015227b1b52e "pdflatex"
-  "main.out" 1756691276.19885 14982 33fb71514c2f92c1e7947e27b16970d6 "pdflatex"
-  "main.tex" 1756691271.73326 268440 7122741fe415314afe1b6d503c9766be ""
-  "main.toc" 1756691276.20581 6367 b73935607d2a6cb5b8176496b3b44a48 "pdflatex"
+  "main.aux" 1760927773.96402 22819 3fb32c40f74239c19d09015227b1b52e "pdflatex"
+  "main.out" 1760927773.96969 14982 33fb71514c2f92c1e7947e27b16970d6 "pdflatex"
+  "main.tex" 1760927771.87937 269389 9732978220c21f472b61ed77679c5edd ""
+  "main.toc" 1760927773.97228 6367 b73935607d2a6cb5b8176496b3b44a48 "pdflatex"
   (generated)
   "main.aux"
   "main.log"
