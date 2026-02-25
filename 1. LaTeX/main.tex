@@ -1,4 +1,4 @@
-\documentclass{book}
+\documentclass{report}
 \usepackage{graphicx}
 \usepackage[spanish]{babel}
 \usepackage[utf8]{inputenc} % Ensures proper handling of special characters
@@ -8,7 +8,11 @@
 \usepackage{hyperref}
 \usepackage{mathrsfs}
 \usepackage{tikz}
+\pagestyle{plain}
 \usepackage[font=footnotesize,labelfont=bf,labelsep=colon]{caption} % Personalización de captions
+\usepackage{csquotes}
+\usepackage[backend=biber,style=numeric]{biblatex}
+\addbibresource{references.bib}
 \DeclareMathOperator*{\argmin}{arg\,min}
 % Define the unnumbered theorem
 \newtheorem{thm}{Teorema}[section]
@@ -24,10 +28,26 @@
 \begin{document}
 
 
-\title{Fundamentos Matemáticos \\ del Aprendizaje Automático}
-\author{Nicolas Silva Nash \\ Departamento de Matemática \\ Universidad Nacional del Comahue}
-
-\maketitle
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    {\LARGE\bfseries Fundamentos Matemáticos \\ del Aprendizaje Automático \par}
+    \vspace{2cm}
+    {\large Nicolas Silva Nash \par}
+    \vspace{0.5cm}
+    {\normalsize Departamento de Matemática \\ Universidad Nacional del Comahue \par}
+    \vspace{1.5cm}
+    \includegraphics[height=2.5cm]{Images/logo_unco.png}
+    \hspace{1cm}
+    \includegraphics[height=2.5cm]{Images/logo_matematica_faea.png}
+    \vfill
+    {\normalsize
+        \textbf{Director:} Dr. Luis Nowak \par
+        \vspace{0.4cm}
+        \textbf{Codirectora:} Dra. Alejandra Perini \par
+    }
+    \vspace{2cm}
+\end{titlepage}
 \chapter*{Introducción}
 Este trabajo explora los fundamentos matemáticos de la Teoría del Aprendizaje Estadístico. Más que una simple colección de algoritmos, 
 esta teoría sirve como un puente entre la Matemática (especialmente la teoría de la medida 
@@ -1385,7 +1405,7 @@ muestran ejemplos de imágenes y sus respectivas etiquetas \((X_1,Y_1)\), \((X_2
 
 \subsection{Los orígenes de la Teoría del Aprendizaje}
 
-El primer modelo de aprendizaje automático, según Vapnik en [2], fue sugerido por F. Rosenblatt, un psicólogo estadounidense, al que llamó \textit{perceptrón}, y su introducción
+El primer modelo de aprendizaje automático, según Vapnik en \cite{vapnik1995}, fue sugerido por F. Rosenblatt, un psicólogo estadounidense, al que llamó \textit{perceptrón}, y su introducción
 constituye el comienzo del análisis matemático del aprendizaje. Conceptualmente, la idea del perceptrón no era nueva, estando presente en la litetura de Neurofisiología durante
 varios años. Rosenblatt, sin embargo, se aventuró en describir el modelo como un programa para computadoras y demostró con simples experimentos que dicho modelo era generalizable.
 El perceptrón fue construído como una solución a un problema particular dentro del aprendizaje automático, el reconocimiento de patrones. En el caso más sencillo, este problema
@@ -1627,7 +1647,7 @@ hacer afirmaciones acerca del error del clasificador en la práctica.
 
 En la definición de riesgo empírico (\ref{dfn:riesgo_empirico}) consideramos una función clasificadora $f_n$ construida a partir
 de ejemplos, a la que se le alimenta con los primeros $n$ datos de entrenamiento. Lo que no hemos indicado es cómo se lleva a cabo dicha construcción. 
-Vapnik llama en [2] \textit{regla de decisión } a todo procedimiento matemático que, dado un conjunto de datos de entrenamiento, selecciona una función 
+Vapnik llama en \cite{vapnik1995} \textit{regla de decisión } a todo procedimiento matemático que, dado un conjunto de datos de entrenamiento, selecciona una función 
 $f$ de un espacio funcional $\mathcal{F}$, con el objetivo de aproximar lo mejor posible el clasificador de Bayes. Nosotros le daremos el nombre de
 \textit{algoritmo de aprendizaje}. Podemos definirlo más abstractamente de la siguiente manera:
 
@@ -1744,7 +1764,7 @@ de un objeto e \(\mathcal{Y}\) la fuerza necesaria para arrastrar este objeto so
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=0.5\textwidth]{Images/1.png}
-    \caption{Dos posibles modelos de regresión, uno lineal y otro no, para un conjunto de datos dado. (Gráfica tomada de [1])}
+    \caption{Dos posibles modelos de regresión, uno lineal y otro no, para un conjunto de datos dado. (Gráfica tomada de \cite{luxburg2008})}
     \label{fig:Sobreajuste y subajuste}
 \end{figure}
 
@@ -1834,7 +1854,7 @@ altos (quiza un equipo de basket, aunque no estaríamos ante una \textit{buena} 
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=0.5\textwidth]{Images/2.png}
-    \caption{Error de estimación y de aproximación. (Gráfica tomada de [1])}
+    \caption{Error de estimación y de aproximación. (Gráfica tomada de \cite{luxburg2008})}
     \label{fig:error de estimación y aproximación}
 \end{figure}
 
@@ -1880,7 +1900,7 @@ funciones en \(F_{\text{all}}\) y de allí proviene el nombre error de aproximac
     el algoritmo de aprendizaje es pequeño, es decir es poco complejo, el error de estimación es bajo, pero el de aproximación
     es alto, y estamos en una situación proclive al subajuste. Si, por otro lado,  $\mathcal{F}$ es complejo, el error de estimación
     es alto y el de aproximación bajo, y tendemos al sobreajuste. El error ideal es usualmente obtenido con una complejidad moderada.
-    (Gráfica tomada de [1])}
+    (Gráfica tomada de \cite{luxburg2008})}
     \label{fig:Compromiso entre error de estimación y de aproximación.}
 \end{figure}
 
@@ -1918,7 +1938,7 @@ debe existir alguna forma de relacionar las etiquetas de los puntos de entrenami
 puntos de prueba, y esto siempre implica suposiciones previas sobre las relaciones entre los puntos 
 de entrada. La relación más simple es una distancia entre puntos, pero existen otras formas de medir 
 la similitud, como los \textit{kernels}, que forman la base de algunos de los algoritmos 
-de aprendizaje más populares (ver [5]).\newline
+de aprendizaje más populares (ver \cite{scholkopf1996}).\newline
 
 Supongamos entonces que existe una función de distancia en el espacio de entrada, es decir, una función 
 \(d : X \times X \to \mathbb{R}\), que asigna un valor de distancia \(d(X, X')\) a cada par de puntos 
@@ -2271,7 +2291,7 @@ a una versión de la ley de los grandes números que es uniforme sobre todas las
     Sin embargo, esto no implica que, en el límite de tamaños de muestra infinitos, el minimizador del riesgo 
     empírico, \(f_n\), lleve a un valor del riesgo tan bueno como el del mejor \(f_F\) en la clase de funciones. 
     Para que esto sea cierto, requerimos la convergencia uniforme de \(\mathcal{R}_{\text{emp}}(f)\) a \(\mathcal{R}(f)\) sobre todas 
-    las funciones en \(F\). (Grafico adaptado de [5].}
+    las funciones en \(F\) (Gráfico adaptado de \cite{scholkopf1996}).}
     \label{riesgo vs riesgo empirico}
     \end{figure}
     
@@ -2558,7 +2578,7 @@ mientras que el que queda en medio a la otra categoría, como en la figura \ref{
     \centering
     \includegraphics[width=0.8\textwidth]{Images/5.png}
     
-    \caption{Fragmentación de muestras en $\mathbb{R}^2$ de tres y cuatro puntos. (Gráfica tomada de [11])}
+    \caption{Fragmentación de muestras en $\mathbb{R}^2$ de tres y cuatro puntos. (Gráfica tomada de \cite{abu2012})}
     \label{fragmentacion perceptron}
     \end{figure}
 
@@ -2771,7 +2791,7 @@ un comienzo nos interesaba.\newline
 
 En el capítulo previo, hemos intentado proveer una descripción liviana y en el orden de lo intuitivo de la teoría brindada por 
 Vapnik y Chernovenkis. Ahora nos proponemos alcanzar la rigurosidad necesaria para demostrar los teoremas que hemos presentado 
-previamente. Para ello, introduciremos una nueva notación y seguiremos [8], el célebre artículo de 1971 - escrito tres años antes en su 
+previamente. Para ello, introduciremos una nueva notación y seguiremos \cite{vapnik1971}, el célebre artículo de 1971 - escrito tres años antes en su 
 idioma original - por los dos colosos rusos.\newline
 
 \section{Definiciones preliminares}
@@ -3067,7 +3087,7 @@ entonces existe un subconjunto \( \omega_{i_1}, \dots, \omega_{i_n} \) de esta m
 Donde la función \( \Phi(n, i) \) está definida de forma recursiva.  \newline
 \end{lem}
 
-Una demostración de este lema puede hallarse en [8].
+Una demostración de este lema puede hallarse en \cite{vapnik1971}.
 Ahora si, enunciamos y demostramos el resultado.\newline
 
 \begin{thm} \label{teo: cota polinomica de la función de crecimiento}
@@ -3558,7 +3578,7 @@ Esta expresión satisface la estimación
 \Gamma \leq 2 e^{-\varepsilon^2 l / 8},
 \]
 
-que se obtiene mediante un cálculo sencillo pero largo y cuya demostración puede hallarse en la página 163 de [3], junto con una explicación de la propia función $\Gamma$.  \newline
+que se obtiene mediante un cálculo sencillo pero largo y cuya demostración puede hallarse en la página 163 de \cite{vapnik1998}, junto con una explicación de la propia función $\Gamma$.  \newline
 
 Por lo tanto,
 \begin{equation}\label{promedio de tita acotado por la funcion de crecimiento}
@@ -4348,7 +4368,7 @@ Z \geq \frac{1}{\binom{2l}{l}} \sum_{r=0}^{l} \binom{2l - [2q l]}{l - r} \sum_k^
 donde \( \sum_u^* \) es la sumatoria solo sobre aquellos \( u \) para los cuales \( l^{-1} |2u + r + t(k)| > 2\varepsilon \).
 La expresión en la última suma no es más que la probabilidad de extraer \( u \) bolas negras de una urna que contiene
 \( 2l - [2q l] \) bolas, de las cuales \( t \) son negras, suponiendo que \( l - r \) bolas en total son extraídas sin reemplazo.
-Además, como se muestra en [10], se verifica: 
+Además, como se muestra en \cite{feller1957}, se verifica: 
 
 \[
 \mathbb{E}(u) = \frac{(l - r)}{2l - [2q l]} t; \quad \text{Var}(u) \leq l.
@@ -4513,7 +4533,7 @@ De manera análoga, se puede definir un margen para clasificadores lineales en u
     \caption{Margen de un clasificador lineal: las cruces representan puntos de entrenamiento con 
     etiqueta \(+1\), mientras que los círculos representan puntos de entrenamiento con etiqueta \(-1\). 
     La línea recta es el clasificador lineal \(f_n\), y la línea discontinua muestra el margen. La 
-    anchura \(\rho\) del margen está representada por la flecha.(Gráfica tomada de [1])}
+    anchura \(\rho\) del margen está representada por la flecha.(Gráfica tomada de \cite{luxburg2008})}
     \label{fig:Clasificación con margen}
 \end{figure}
 
@@ -4639,7 +4659,7 @@ Para que este clasificador sea consistente con Bayes, debemos garantizar dos con
 
 
 Un ejemplo de cómo estas dos condiciones pueden formularse de manera rigurosa se presenta en el 
-siguiente teorema, adaptado del Teorema 18.1 de [4]:\newline
+siguiente teorema, adaptado del Teorema 18.1 de \cite{devroye1996}:\newline
 
 \begin{thm}
  Sea \(\mathcal{F}_1, \mathcal{F}_2, \dots\) una secuencia de espacios funcionales, y 
@@ -5031,7 +5051,7 @@ sentido que un clasificador que se basa en esas suposiciones no tenga ninguna po
     es en general mejor que el clasificador 2, y este último es muchísimo mejor para un subconjunto
     de distribuciones. Podemos pensar que 1 es un clasificador general y 2 está construído para un tipo
     de problemas específico. El teorema de la chancha y los veinte nos dice que el área debajo de ambas
-    curvas debe ser igual, es decir que en promedio ambos clasificadores tienen el mismo error. (Gráfica tomada de [1])}
+    curvas debe ser igual, es decir que en promedio ambos clasificadores tienen el mismo error. (Gráfica tomada de \cite{luxburg2008})}
     \label{fig:no_free_lunch_theorem}
 \end{figure}
 
@@ -5066,29 +5086,8 @@ testimonio más de la importancia de la Matemática en el destino de nuestra civ
 
 
 
-\chapter*{Bibliografía}
-
-[1] von Luxburg, B. Schölkopf - \textit{Statistical Learning Theory: Models, Concepts and Results} (2008). \\
-
-[2] Vladimir Vapnik - \textit{The Nature of Statistical Learning Theory} (1995). \\
-
-[3] Vladimir Vapnik  - \textit{Statistical Learning Theory} (1998). \\
-
-[4] Luc Devroye, László Györfi, Gábor Lugosi - \textit{A Probabilistic Theory of Pattern Recognition} (1996). \\
-
-[5] B. Schölkopf, A. Smola - \textit{Learning with Kernels} (1996). \\
-
-[6] G. Casella, R. Berger \textit{Statistical Inference, Second Edition} (2002). \\
-
-[7] C. Bishop - \textit{Pattern Recognition and Machine Learning} (2006). \\
-
-[8] V. N. Vapnik, A. YA. Chervonenkis - \textit{On the uniform convergence of relative frequencies of events to their probabilities} (1971)\\
-
-[9] A. YA. Khinchin -  \textit{On basic theorems of information theory} (1956), pp. 17-75.\\
-
-[10] W. Feller - \textit{Introduction to Probability Theory and its Applications, Vol. 1}  (1957).\\
-
-[11] Abu-Mostafa et al - \textit{Learning From Data} (2012)
+\nocite{*}
+\printbibliography[title={Bibliografía}]
 
 
 
