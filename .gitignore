@@ -1,2 +1,22 @@
 1. LaTeX_deprecated
 2. LaTeX
+
+# macOS
+.DS_Store
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*-SAVE-ERROR
+
+# latexmk output directory
+1. LaTeX/%OUTDIR%/
