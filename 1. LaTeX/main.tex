@@ -40,6 +40,9 @@
     \includegraphics[height=2.5cm]{Images/logo_unco.png}
     \hspace{1cm}
     \includegraphics[height=2.5cm]{Images/logo_matematica_faea.png}
+    \vspace{1.5cm}
+
+    {\normalsize Trabajo final para optar al título de Licenciado en Matemática \par}
     \vfill
     {\normalsize
         \textbf{Director:} Dr. Luis Nowak \par
@@ -48,12 +51,37 @@
     }
     \vspace{2cm}
 \end{titlepage}
+
+\thispagestyle{empty}
+\vspace*{\fill}
+\begin{center}
+    \textit{A mis padres, Beatriz y Gustavo.}
+\end{center}
+\vspace*{\fill}
+\newpage
+
+\thispagestyle{empty}
+\vspace*{\fill}
+\begin{flushright}
+    \textit{``Examinadlo todo; retened lo bueno.''} \\[0.4em]
+    --- 1 Tesalonicenses 5:21
+\end{flushright}
+\vspace{2cm}
+\begin{flushright}
+    \parbox{0.75\textwidth}{\raggedleft
+        {\itshape ``En aquel Imperio, el Arte de la Cartografía logró tal Perfección que el mapa de una sola Provincia ocupaba toda una Ciudad, y el mapa del Imperio, toda una Provincia. Con el tiempo, estos Mapas Desmesurados no satisficieron y los Colegios de Cartógrafos levantaron un Mapa del Imperio, que tenía el tamaño del Imperio y coincidía puntualmente con él.
+        Menos Adictas al Estudio de la Cartografía, las Generaciones Siguientes entendieron que ese dilatado Mapa era Inútil.''}
+    } \\[0.8em]
+    --- Jorge Luis Borges, \textit{Del Rigor en la Ciencia}
+\end{flushright}
+\vspace*{\fill}
+\newpage
+
 \chapter*{Introducción}
-Este trabajo explora los fundamentos matemáticos de la Teoría del Aprendizaje Estadístico. Más que una simple colección de algoritmos, 
-esta teoría sirve como un puente entre la Matemática (especialmente la teoría de la medida 
-y el análisis funcional) y el Aprendizaje Automático (Machine Learning), creando en un marco riguroso que explica cómo las máquinas pueden extraer reglas generales a partir 
-de datos empíricos. El campo de la inteligencia artifical, tan en auge en nuestros tiempos, se construye sobre un andamiaje
-de mucha riqueza teórica, pero ha dado sus últimos grandes saltos sobre resultados experimentales y el desarrollo de arquitecturas
+Este trabajo explora los fundamentos de la Teoría del Aprendizaje Estadístico. Esta disciplina intenta ser un puente entre la Matemática (especialmente la teoría de la medida 
+y el análisis funcional) y el Aprendizaje Automático (Machine Learning), creando en un marco riguroso que explica cómo las computadoras pueden extraer reglas generales a partir 
+de datos empíricos. El campo de la inteligencia artifical, tan en auge en nuestros tiempos, se constituye sobre un andamiaje
+de vasta riqueza teórica, pero ha dado sus últimos grandes saltos montado en resultados experimentales y el desarrollo de arquitecturas
 que aprovechan la escala de cómputo -hasta ahora- siempre creciente, más que como fruto de ideas matemáticas novedosas. Esta teoría intenta 
 responder a la profunda pregunta filosófica y de carácter formal (es decir, matemático) sobre qué permite realmente a una máquina generalizar: pasar
 de la simple memorización de ejemplos a la predicción exitosa de fenómenos no vistos. Al fundamentar el proceso de
@@ -88,21 +116,21 @@ de aprendizaje es universalmente apto: el aprendizaje exitoso siempre requiere r
 distribución subyacente de los datos. \newline
 
 
-A pesar de la elegancia de la teoría VC, la IA moderna presenta un desafío significativo para estos fundamentos clásicos. 
+A pesar de la elegancia de la teoría VC, los últimos hitos de la Inteligencia Artificial presentan un desafío significativo para estos fundamentos clásicos. 
 El éxito abrumador de las Redes Neuronales y las arquitecturas basadas en Transformers (como BERT y GPT) ocurre a menudo en 
 un régimen que la teoría clásica calificaría como ``sobreparametrizado'', donde el número de parámetros supera con creces el número 
 de ejemplos de entrenamiento. Las cotas clásicas suelen volverse vacuas en estos escenarios, fallando al explicar por qué modelos 
-con capacidad casi infinita no caen simplemente en el sobreajuste. En consecuencia, existe una necesidad urgente (y de a poco mitigada)
-de adaptar y expandir 
+con capacidad casi infinita no caen simplemente en el sobreajuste (memorización de ejemplos que lleva a la incapacidad de generalizar). Existe una necesidad, 
+parcialmente mitigada, de adaptar y expandir 
 la Teoría del Aprendizaje Estadístico para dar cuenta de los sesgos inductivos únicos de estos nuevos algoritmos, asegurando que la 
 próxima generación de IA permanezca anclada en un destino matemático sólido. La historia de la Inteligencia Artificial se ve signada
 por períodos de crecimiento exponencial en base a desarrollos tecnológicos y de arquitectura, alternados con largos inviernos de estancamiento
-que son sorteados por desarrollos teóricos que habilitan nuevos caminos. Mientras las Scaling Laws (o leyes de escalamiento) se mantengan y los
-modelos multimodales que aún llamamos sencillamente ``LLMs'' sigan mejorando en base al aumento de número de parámetros, datos de entrenamiento
-y capacidad de cómputo, se mantendrá el poco interés general en la búsqueda de razonamientos fundacionales para el aprendizaje. Pero
-si este progreso como lo conocemos se detiene, o al menos desacelera, la necesidad de una teoría fundamental del aprendizaje puede volverse
+que pueden ser sorteados por aportes teóricos que habilitan nuevos caminos. Mientras las Scaling Laws (o leyes de escalamiento) se mantengan y los
+modelos multimodales que aún llamamos sencillamente ``LLMs'' sigan mejorando según al crecimiento del número de parámetros, el volúmen de datos de entrenamiento
+y la capacidad de cómputo, suponemos entendible la prolongación del escaso interés actual en la búsqueda de razonamientos fundacionales para el aprendizaje. Pero
+si este progreso como se detiene, o al menos desacelera, la necesidad de una teoría fundamental revisada del aprendizaje puede volverse
 el cuello de botella de la inteligencia del mañana. En el escenario más optimista para estas tecnologías, en el que se vuelven eventualmente
-capaces de mejorarse a si mismas de forma autónoma, quiza la propia Matemática sea la llave para su evolución autoforzada.
+capaces de mejorarse a si mismas de forma autónoma, quiza la propia Matemática sea la llave para su evolución autoimpuesta.
 \newline
 
 \tableofcontents
@@ -2879,7 +2907,7 @@ total de la muestra:
 \end{dfn}
 
 Observemos que la frecuencia relativa no es más que una frecuencia empírica del evento $A$, es decir, como ese evento
-se hace presente en las muestras que tomamos. Rn lo siguiente, representará al riesgo
+se hace presente en las muestras que tomamos. En lo siguiente, representará al riesgo
 empírico. 
 
 Un conocido resultado de la relación entre esta probabilidad muestral y la probabilidad real en el espacio
