@@ -1,0 +1,64 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {chapter}{\numberline {1}Resultados Preliminares}{7}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Medida}{7}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Espacios de Probabilidad}{9}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Variables Aleatorias}{11}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Variables Aleatorias Discretas}{13}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Variables Aleatorias Continuas}{14}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Transformaciones de Variables Aleatorias}{15}{subsection.1.3.3}%
+\contentsline {section}{\numberline {1.4}Vectores Aleatorios}{16}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Vectores Aleatorios Discretos}{17}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}Vectores Aleatorios Continuos}{17}{subsection.1.4.2}%
+\contentsline {section}{\numberline {1.5}Momentos de una variable aleatoria}{18}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}Esperanza}{18}{subsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.5.2}La Varianza y otros momentos}{20}{subsection.1.5.2}%
+\contentsline {section}{\numberline {1.6}Tipos de convergencia}{22}{section.1.6}%
+\contentsline {section}{\numberline {1.7}Desigualdades}{22}{section.1.7}%
+\contentsline {section}{\numberline {1.8}Momentos de un vector aleatorio}{23}{section.1.8}%
+\contentsline {section}{\numberline {1.9}Resultados de la Estadística Inferencial}{24}{section.1.9}%
+\contentsline {subsection}{\numberline {1.9.1}Las Leyes de los Grandes Números}{24}{subsection.1.9.1}%
+\contentsline {subsection}{\numberline {1.9.2}La distribución empírica}{26}{subsection.1.9.2}%
+\contentsline {subsection}{\numberline {1.9.3}El Teorema Central del Límite}{27}{subsection.1.9.3}%
+\contentsline {chapter}{\numberline {2}Un acercamiento amistoso a la Teoría del Aprendizaje Estadístico}{29}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Introducción}{29}{section.2.1}%
+\contentsline {section}{\numberline {2.2}La historia del aprendizaje automático}{30}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Los orígenes de la Teoría del Aprendizaje}{30}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}La década de 1960: Fundamentos de la Teoría del Aprendizaje Estadístico}{32}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}La década de 1970: La Minimización del Riesgo Estructural}{32}{subsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.2.4}La década de 1980: Primeras aplicaciones prácticas y consolidación teórica}{33}{subsection.2.2.4}%
+\contentsline {subsection}{\numberline {2.2.5}La década de 1990: El surgimiento de las Máquinas de Vectores de Soporte}{33}{subsection.2.2.5}%
+\contentsline {subsection}{\numberline {2.2.6}La década de 2000: Expansión de métodos y auge del ensemble learning}{33}{subsection.2.2.6}%
+\contentsline {subsection}{\numberline {2.2.7}La actualidad: Deep Learning y nuevos paradigmas}{34}{subsection.2.2.7}%
+\contentsline {subsection}{\numberline {2.2.8}Arquitecturas modernas en NLP: Transformers, BERT y GPT}{34}{subsection.2.2.8}%
+\contentsline {section}{\numberline {2.3}Conceptos básicos del aprendizaje}{35}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Pérdida y Riesgo}{37}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Espacios de funciones y el clasificador de Bayes}{38}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Generalización}{39}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}Algortimos de aprendizaje}{39}{subsection.2.3.4}%
+\contentsline {subsection}{\numberline {2.3.5}Consistencia}{40}{subsection.2.3.5}%
+\contentsline {subsection}{\numberline {2.3.6}Dilemas del aprendizaje}{42}{subsection.2.3.6}%
+\contentsline {section}{\numberline {2.4}El clasificador de los $k$ vecinos más cercanos}{47}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Minimización del riesgo empírico}{51}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Aplicando la ley de los grandes números}{52}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Inconsistencia en la minimización del riesgo empírico}{54}{subsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.5.3}Convergencia uniforme}{55}{subsection.2.5.3}%
+\contentsline {section}{\numberline {2.6}Cotas de generalización y medidas de capacidad}{58}{section.2.6}%
+\contentsline {subsection}{\numberline {2.6.1}Simetrización}{59}{subsection.2.6.1}%
+\contentsline {subsection}{\numberline {2.6.2}El coeficiente de fragmentación}{60}{subsection.2.6.2}%
+\contentsline {subsection}{\numberline {2.6.3}Cotas de convergencia uniforme}{63}{subsection.2.6.3}%
+\contentsline {subsection}{\numberline {2.6.4}Cotas de generalización}{65}{subsection.2.6.4}%
+\contentsline {subsection}{\numberline {2.6.5}La dimensión VC}{66}{subsection.2.6.5}%
+\contentsline {chapter}{\numberline {3}La Teoría VC}{69}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Definiciones preliminares}{69}{section.3.1}%
+\contentsline {section}{\numberline {3.2}La función de crecimiento}{74}{section.3.2}%
+\contentsline {section}{\numberline {3.3}El Lema de simetrización}{76}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Condiciones de convergencia uniforme casi segura}{84}{section.3.4}%
+\contentsline {chapter}{\numberline {4}Otros conceptos del Aprendizaje}{101}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Más medidas de capacidad de un espacio de clasificadores}{101}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Complejidad de Rademacher}{101}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Cotas con grandes márgenes de separación}{102}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Conclusiones acerca de las cotas de generalización}{104}{subsection.4.1.3}%
+\contentsline {section}{\numberline {4.2}Consistencia de Bayes y error de aproximación}{104}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Espacios funcionales anidados}{105}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Regularización}{107}{subsection.4.2.2}%
+\contentsline {section}{\numberline {4.3}Los teoremas de la chancha y los veinte}{109}{section.4.3}%
