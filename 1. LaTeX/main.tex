@@ -1097,7 +1097,7 @@ con \( \mathbb{E}(X) \) finita, se verifica la siguiente igualdad:
 \mathbb{E}(X) = \int_0^{+\infty} P(X > x)\,dx = \int_0^{+\infty} P(X \geq x)\,dx.
 \]
 \end{thm}
-\footnotetext[1]{Definida correctamente en la siguiente sección}.
+\footnotetext[1]{Definida correctamente en la siguiente sección.}
 \begin{thm}
 Si \( X \) es una variable aleatoria tal que existe su esperanza, entonces
 \[
@@ -1113,7 +1113,7 @@ una sucesión de variables aleatorias $\{X_n\}$ y la variable aleatoria $X$.
 \begin{dfn} \label{dfn:conv_prob} (\textbf{Convergencia en probabilidad}) 
     Decimos que $\{X_n\}$ converge a $X$ en probabilidad, $X_n \xrightarrow{P} X$, si para cada $\delta > 0$,
 \[
-\lim_{n\rightarrow \infty} P\{\omega : |X_n(\omega) - X(\omega)| > \delta \} = 0.
+\lim_{n\rightarrow \infty} P\left(\{\omega : |X_n(\omega) - X(\omega)| > \delta \}\right) = 0.
 \]
 \end{dfn}
 
@@ -1123,7 +1123,7 @@ P(\{\omega : \lim_{n\rightarrow \infty} X_n(\omega) = X(\omega)\}) = 1.
 \]
 \end{dfn}
 \begin{obs}
-    Notamos \emph{a.s.} a la convergencia casi segura dada su nombre en inglés, \emph{almost surely}. 
+    Notamos \emph{a.s.} a la convergencia casi segura dado su nombre en inglés, \emph{almost surely}. 
 \end{obs}
 
 \begin{dfn} \label{dfn:conv_debil} (\textbf{Convergencia débil}) Sean $F_n$, $n \geq 1$, y 
@@ -1132,7 +1132,7 @@ P(\{\omega : \lim_{n\rightarrow \infty} X_n(\omega) = X(\omega)\}) = 1.
 \end{dfn}
 
 \begin{obs}
-    Notamos \emph{w} a la convergencia casi segura dada su nombre en inglés, \emph{weakly}. 
+    Notamos \emph{w} a la convergencia débil dado su nombre en inglés, \emph{weakly}. 
 \end{obs}
 
 
@@ -1170,7 +1170,7 @@ P(X \geq \varepsilon) \leq \frac{\mathbb{E}(X)}{\varepsilon}.
 
 \begin{prop} \label{prop:markov} (\textbf{Desigualdad de Markov})
 \[
-P(|X| \geq \varepsilon) \leq \frac{1}{\varepsilon^k} \mathbb{E}(|X|^k), 
+P(|X| \geq \varepsilon) \leq \frac{1}{\varepsilon^k} \mathbb{E}(|X|^k). 
 \]
 \end{prop}
 
@@ -1181,7 +1181,7 @@ P(|X - \mathbb{E}(X)| \geq \varepsilon) \leq \frac{1}{\varepsilon^2} \mathrm{Var
 \end{prop}
 
 \begin{prop} \label{prop:variance_zero}
-Si $\mathrm{Var}(X) = 0$, entonces $X = \mu$ a.s..
+Si $\mathrm{Var}(X) = 0$, entonces $X = \mu$ a.s.
 \end{prop}
 
 \begin{prop} \label{prop:jensen} (\textbf{Desigualdad de Jensen}) Si $g$ es una función convexa entonces
@@ -1197,7 +1197,7 @@ Definimos la esperanza del vector como:
 
 
 \[
-\mathbb{E}(g(X)) = \sum_{(x_1,\dots,x_k) \in D} g(x_1,\dots,x_k)f_X(x_1,\dots,x_k),
+\mathbb{E}(g(X)) = \sum_{(x_1,\dots,x_k) \in D} g(x_1,\dots,x_k)f_X(x_1,\dots,x_k)
 \]
 Con $D$ su soporte y $f_X$ su función de probabilidad conjunta.
 \end{dfn}
@@ -1241,7 +1241,7 @@ en información proveniente de una muestra. A diferencia de la estadística desc
 fundamenta en el análisis probabilístico para estudiar el comportamiento de procedimientos que permiten estimar parámetros poblacionales.
 
 El marco típico de la inferencia estadística asume que los datos observados \( X_1, \dots, X_n \) son realizaciones de una muestra aleatoria extraída de una 
-población con distribución de probabilidad \( P_\theta \) que depende de un parámetro desconocido \( \theta \in \Theta \). El objetivo es obtener información 
+población con distribución de probabilidad \( P_\theta \) que depende de un parámetro desconocido \( \theta \in \Theta \), con \(\Theta \) un espacio de parámetros usualmente escalar. El objetivo es obtener información 
 sobre el valor verdadero de \( \theta \) a partir de la muestra.
 
 \begin{dfn}

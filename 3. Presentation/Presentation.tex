@@ -1076,6 +1076,214 @@
 \end{frame}
 
 %==============================================================
+%  BLOQUE 5 — REFLEXIONES FINALES Y EL PARADIGMA ACTUAL
+%==============================================================
+
+%--------------------------------------------------------------
+% DIAPOSITIVA 18 — LA PARADOJA MODERNA
+%--------------------------------------------------------------
+\begin{frame}{La Paradoja Moderna: ¿Qué Dice la Teoría?}
+  \begin{columns}[T]
+
+    \begin{column}{0.50\textwidth}
+      \begin{block}{El marco clásico predice}
+        \small
+        Si $\mathrm{VC}(\mathcal{F}) = d < \infty$, con alta probabilidad:
+        \[
+          \mathcal{R}(f_n) \;\leq\; \hat{\mathcal{R}}_n(f_n)
+            + O\!\left(\!\sqrt{\frac{d + \ln(1/\delta)}{n}}\right)
+        \]
+        \vspace{-0.4em}
+        \begin{itemize}\setlength\itemsep{0.2em}
+          \item \textbf{Capacidad alta} $\Rightarrow$ cota grande.
+          \item \textbf{Sobreparametrización} $\Rightarrow$ sobreajuste inevitable.
+        \end{itemize}
+      \end{block}
+
+      \vspace{0.5em}
+      \begin{alertblock}{Lo que observamos en la práctica}
+        \small
+        GPT-4: ${\sim}1.8$\,T parámetros, $n \ll \text{parámetros}$.\\[0.3em]
+        Las cotas VC serían \textbf{astronómicamente grandes}…\\[0.3em]
+        \centering\alert{…y sin embargo, generalizan.}
+      \end{alertblock}
+    \end{column}
+
+    \begin{column}{0.48\textwidth}
+      \centering
+      %% f(x) = 0.08 + 0.80*exp(-0.55x) + 0.58*exp(-3.5*(x-5.5)^2)
+      %% Valores clave:  x=0 → 0.88,  x=4 → 0.17,  x=5.5 → 0.70 (pico),
+      %%                 x=7 → 0.09,  x=10 → 0.08
+      %% Ambos trazos usan la MISMA función → curva continua
+      \begin{tikzpicture}
+        \begin{axis}[
+            width=6.8cm, height=5.0cm,
+            axis lines=left,
+            xlabel={complejidad del modelo},
+            ylabel={error de generalización},
+            xlabel style={font=\scriptsize},
+            ylabel style={font=\scriptsize},
+            xmin=0, xmax=10,
+            ymin=0, ymax=1.0,
+            xtick=\empty, ytick=\empty,
+            clip=false,
+            legend style={font=\scriptsize, row sep=-2pt,
+                          at={(0.98,0.98)}, anchor=north east},
+          ]
+          %% Régimen clásico (sesgo–varianza): x de 0 a 5.5
+          \addplot[very thick, uncoBlue, domain=0.05:5.5, samples=200]
+            {0.08 + 0.80*exp(-0.55*x) + 0.58*exp(-3.5*(x-5.5)^2)};
+          \addlegendentry{\scriptsize teoría clásica};
+          %% Régimen moderno (doble descenso): x de 5.5 a 10
+          \addplot[very thick, red, dashed, domain=5.5:10, samples=200]
+            {0.08 + 0.80*exp(-0.55*x) + 0.58*exp(-3.5*(x-5.5)^2)};
+          \addlegendentry{\scriptsize DL moderno};
+          %% Línea vertical en el umbral de interpolación
+          \draw[dotted, gray!70, thick]
+            (axis cs:5.5, 0) -- (axis cs:5.5, 0.72);
+          \node[font=\tiny, gray, rotate=90] at (axis cs:5.18, 0.37)
+            {umbral interp.};
+          %% Etiqueta mínimo clásico
+          \node[font=\tiny, uncoBlue, align=center] at (axis cs:2.2, 0.38)
+            {sesgo-\\varianza};
+          %% Etiqueta doble descenso
+          \node[font=\tiny, red!80, align=center] at (axis cs:8.3, 0.30)
+            {doble\\descenso};
+        \end{axis}
+      \end{tikzpicture}
+
+      {\scriptsize\textcolor{gray}{Fenómeno de ``doble descenso'':
+      el error \emph{vuelve a bajar} tras la sobreparametrización.}}
+    \end{column}
+
+  \end{columns}
+\end{frame}
+
+%--------------------------------------------------------------
+% DIAPOSITIVA 19 — LEYES DE ESCALAMIENTO Y EL FUTURO
+%--------------------------------------------------------------
+\begin{frame}{Leyes de Escalamiento: Fuerza Bruta $\to$ Necesidad Teórica}
+  \begin{columns}[T]
+
+    \begin{column}{0.50\textwidth}
+      \begin{block}{Empirismo a escala (Kaplan et al., 2020)}
+        \small
+        \[
+          L(N) \;\approx\; \left(\frac{N_c}{N}\right)^{\alpha}, \quad \alpha \approx 0.076
+        \]
+        La pérdida sigue una \textbf{ley de potencias} en parámetros $N$,
+        tokens y cómputo.\\ Transformers, LLMs, modelos de difusión.
+      \end{block}
+
+      \vspace{0.45em}
+      \begin{itemize}\setlength{\itemsep}{0.3em}
+        \item \textbf{Hoy:} escalamos porque funciona empíricamente.
+        \item \textbf{Mañana:} los límites físicos y económicos frenarán el escalado.
+        \item \textbf{La teoría es el cuello de botella:} sin fundamentos de
+              generalización para regímenes sobreparametrizados, avanzamos a ciegas.
+      \end{itemize}
+
+      \vspace{0.4em}
+      \begin{tikzpicture}[>=Stealth, node distance=0.5cm]
+        \node[draw, rounded corners=4pt, fill=red!10, font=\small,
+              align=center, minimum width=2.6cm, thick]
+          (FB) {Fuerza\\Bruta};
+        \node[draw, rounded corners=4pt, fill=uncoBlue!15, font=\small,
+              align=center, minimum width=2.6cm, thick, right=1.6cm of FB]
+          (NT) {Necesidad\\Teórica};
+        \draw[->, very thick, uncoBlue] (FB) -- (NT)
+          node[midway, above, font=\scriptsize] {límites};
+      \end{tikzpicture}
+    \end{column}
+
+    \begin{column}{0.48\textwidth}
+      \centering
+      \begin{tikzpicture}
+        \begin{axis}[
+            width=6.8cm, height=5.2cm,
+            axis lines=left,
+            xmode=log, ymode=log,
+            xlabel={parámetros / cómputo (log)},
+            ylabel={pérdida de prueba (log)},
+            xlabel style={font=\scriptsize},
+            ylabel style={font=\scriptsize},
+            xmin=1e3, xmax=1e11,
+            ymin=0.2, ymax=20,
+            xtick=\empty, ytick=\empty,
+            clip=false,
+            legend pos=north east,
+            legend style={font=\tiny, row sep=-2pt},
+          ]
+          %% Scaling law: potencia negativa
+          \addplot[thick, uncoBlue, domain=1000:1e11, samples=200]
+            {12*(x)^(-0.076)};
+          \addlegendentry{$L(N)\propto N^{-\alpha}$};
+          %% Plateau teórico
+          \addplot[dashed, gray, domain=1e9:1e11] {0.28};
+          \node[font=\tiny, gray, align=left] at (axis cs:5e10, 0.22)
+            {límite\\teórico?};
+          %% Puntos anotados
+          \addplot[only marks, mark=*, mark size=1.8pt, uncoBlue!60]
+            coordinates {(1e7,2.8)(1e9,1.8)(1e11,1.2)};
+          \node[font=\tiny, above right] at (axis cs:1e11,1.2) {GPT-4?};
+        \end{axis}
+      \end{tikzpicture}
+
+      {\scriptsize\textcolor{gray}{Ley de potencias empírica
+      (Kaplan et al., 2020). Los valores son ilustrativos.}}
+    \end{column}
+
+  \end{columns}
+\end{frame}
+
+%--------------------------------------------------------------
+% DIAPOSITIVA 20 — CIERRE Y PREGUNTAS
+%--------------------------------------------------------------
+\begin{frame}[plain]
+  \begin{tikzpicture}[remember picture, overlay]
+    %% Fondo degradado suave
+    \fill[uncoBlue!8] (current page.south west) rectangle (current page.north east);
+    %% Banda superior e inferior decorativas
+    \fill[uncoBlue] (current page.north west)
+      rectangle ([yshift=-0.55cm]current page.north east);
+    \fill[uncoBlue] (current page.south west)
+      rectangle ([yshift= 0.45cm]current page.south east);
+  \end{tikzpicture}
+
+  \vspace{1.0em}
+
+  \begin{center}
+    {\color{uncoBlue}\large\bfseries
+      ``Dios mueve al jugador, y éste, la pieza.\\[0.1em]
+      ¿Qué Dios detrás de Dios la trama empieza?''}\\[0.3em]
+    {\small\color{gray} Jorge Luis Borges, \textit{Ajedrez}, 1960}
+  \end{center}
+
+  \vspace{0.9em}
+
+  \begin{center}
+    \begin{tikzpicture}
+      \node[draw=uncoBlue, thick, rounded corners=6pt,
+            fill=white, inner xsep=18pt, inner ysep=8pt,
+            align=center]
+        {%
+          {\color{uncoBlue}\Large\bfseries
+            Detrás de cada algoritmo, una pregunta matemática.}\\[0.4em]
+          {\normalsize\color{gray!80}
+            La tesina fue un paso; el camino sigue abierto.}
+        };
+    \end{tikzpicture}
+  \end{center}
+
+  \vspace{0.9em}
+
+  \begin{center}
+    {\Huge\color{uncoBlue}\bfseries Muchas gracias.}\\[0.4em]
+    {\large\color{gray} \textit{¿Preguntas?}}
+  \end{center}
+\end{frame}
+
+%==============================================================
 \end{document}
 %==============================================================
 %==============================================================
