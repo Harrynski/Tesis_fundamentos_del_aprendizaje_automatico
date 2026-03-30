@@ -6,7 +6,6 @@
 % Uso: pdflatex presentacion.tex
 % Requiere: pgfplots, tikz, babel(spanish), lmodern
 %==============================================================
-
 \documentclass[aspectratio=169, 10pt]{beamer}
 
 %--------------------------------------------------------------
@@ -35,6 +34,8 @@
 \usepackage{mathtools}
 \usepackage{lmodern}
 \usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{animate}
 \usepackage{tikz}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
@@ -76,6 +77,39 @@
 \begin{frame}
   \titlepage
 \end{frame}
+
+
+%--------------------------------------------------------------
+% DIAPOSITIVA 2 — Frase para empezar a reflexionar sobre el aprendizaje
+%--------------------------------------------------------------
+
+\begin{frame}{}
+  \vfill
+  \begin{center}
+    \begin{minipage}{0.78\textwidth}
+      \begin{block}{}
+        \small\itshape
+        ``[Funes] Había aprendido sin esfuerzo el inglés, el francés, el portugués, el latín.
+        Sospecho, sin embargo, que no era muy capaz de pensar. Pensar es olvidar
+        diferencias, es generalizar, abstraer. En el abarrotado mundo de Funes
+        no había sino detalles, casi inmediatos.''
+        \vspace{0.5em}
+        \begin{flushright}
+          \normalfont\scriptsize
+          ---~Jorge Luis Borges,\\
+          \textit{Funes el memorioso}
+        \end{flushright}
+      \end{block}
+    \end{minipage}
+  \end{center}
+  \vfill
+\end{frame}
+
+
+%--------------------------------------------------------------
+% DIAPOSITIVA 3 - LAS MAQUINAS APRENDEN
+%--------------------------------------------------------------
+
 
 %--------------------------------------------------------------
 % DIAPOSITIVA 2 — EL RIGOR EN LA CIENCIA (Borges)
@@ -152,7 +186,49 @@
 \end{frame}
 
 %--------------------------------------------------------------
-% DIAPOSITIVA 3 — FORMALIZANDO EL TERRENO DE JUEGO
+% DIAPOSITIVA 3 — LAS MÁQUINAS APRENDEN
+%--------------------------------------------------------------
+\begin{frame}{¿Qué Significa que una Máquina Aprenda?}
+  \begin{columns}[T]
+
+    \begin{column}{0.52\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{images/face_recognition.png}
+      {\scriptsize\textcolor{gray}{Reconocimiento facial mediante landmarks geométricos.}}
+    \end{column}
+
+    \begin{column}{0.46\textwidth}
+      \vspace{0.4em}
+      \begin{itemize}
+        \setlength{\itemsep}{0.8em}
+        \item A partir de \textbf{ejemplos}, la máquina construye una regla
+          de decisión.
+        \item No se programa la respuesta: se \textbf{infiere} desde los datos.
+        \item El desafío matemático: garantizar que la regla
+          \textbf{generalice} a casos nuevos.
+      \end{itemize}
+
+      \vspace{0.8em}
+      \centering
+      \large\alert{¿Cuándo y por qué funciona?}
+    \end{column}
+
+  \end{columns}
+\end{frame}
+
+%--------------------------------------------------------------
+% DIAPOSITIVA 3b — ANIMACIÓN: LA MÁQUINA APRENDE
+%--------------------------------------------------------------
+\begin{frame}{La Máquina Aprende: Ajuste Progresivo}
+  \centering
+  \animategraphics[loop, autoplay, width=0.82\linewidth]{12}{images/frames/frame_}{000}{180}
+
+  \vspace{0.3em}
+  {\scriptsize\textcolor{gray}{Proceso Gaussiano ajustándose progresivamente a los datos de entrenamiento.}}
+\end{frame}
+
+%--------------------------------------------------------------
+% DIAPOSITIVA 4 — FORMALIZANDO EL TERRENO DE JUEGO
 %--------------------------------------------------------------
 \begin{frame}{Formalizando el Terreno de Juego}
   \begin{columns}[T]

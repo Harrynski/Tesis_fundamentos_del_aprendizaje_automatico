@@ -20,3 +20,4 @@
 
 # latexmk output directory
 1. LaTeX/%OUTDIR%/
+3. Presentation/images/frames
