@@ -1431,65 +1431,58 @@ objetos en una cantidad de etiquetas como: silla, cama, microondas, perro, gato.
 matrices de orden \(N\times M\) con coeficientes reales en el interavalo \([0,1]\) que representan la intensidad de cada pixel, del negro al blanco), el espacio \(\mathcal{X}\) es 
 el conjunto de dichas matrices y el espacio \(\mathcal{Y}\) las categorías distintas que corresponden a lo que las imágenes muestran. Con el fin de aprender, a un algoritmo se le 
 muestran ejemplos de imágenes y sus respectivas etiquetas \((X_1,Y_1)\), \((X_2,Y_2)\), \dots, \((X_n,Y_n)\), a partir de los cuales este debe encontrar una función
-\(f: X\rightarrow Y\), que comete la menor cantidad de errores posibles. A esta función \(f\) la llamamos \textit{clasificador}.
+\(f: \mathcal{X}\rightarrow \mathcal{Y}\), que comete la menor cantidad de errores posibles. A esta función \(f\) la llamamos \textit{clasificador}.
 
 \section{La historia del aprendizaje automático}
 
 \subsection{Los orígenes de la Teoría del Aprendizaje}
 
-El primer modelo de aprendizaje automático, según Vapnik en \cite{vapnik1995}, fue sugerido por F. Rosenblatt, un psicólogo estadounidense, al que llamó \textit{perceptrón}, y su introducción
-constituye el comienzo del análisis matemático del aprendizaje. Conceptualmente, la idea del perceptrón no era nueva, estando presente en la litetura de Neurofisiología durante
-varios años. Rosenblatt, sin embargo, se aventuró en describir el modelo como un programa para computadoras y demostró con simples experimentos que dicho modelo era generalizable.
-El perceptrón fue construído como una solución a un problema particular dentro del aprendizaje automático, el reconocimiento de patrones. En el caso más sencillo, este problema
-consiste en hallar una regla para separar datos en dos categorías distintas a partir de ejemplos.
+El primer modelo de aprendizaje automático, según Vapnik en \cite{vapnik1995}, fue sugerido por F. Rosenblatt, un psicólogo estadounidense, al que llamó \textit{perceptrón}, y su introducción constituye el comienzo del análisis matemático del aprendizaje. Conceptualmente, la idea del perceptrón no era nueva, estando presente en la literatura de Neurofisiología durante varios años. Rosenblatt, sin embargo, se aventuró en describir el modelo como un programa para computadoras y demostró con simples experimentos que dicho modelo era generalizable. El perceptrón fue construido como una solución a un problema particular dentro del aprendizaje automático, el reconocimiento de patrones. En el caso más sencillo, este problema consiste en hallar una regla para separar datos en dos categorías distintas a partir de ejemplos.
 
-Para construir la regla de separación, el perceptrón sigue el modelo más sencillo de neurona, propuesto previamente por McCulloch y Pitts, de acuerdo al cual una neurona recibe
-\(n\) valores (o \textit{inputs}) en la forma de un vector \(x = (x^1,\dots, x^n) \in X \subset \mathbb{R}^n \) y genera una etiqueta (\textit{output}) 
-\(y\in\{-1,+1\}\) a través de una dependecia funcional dada por
-\[
-y = sgn\{(w\cdot x)-b\}
-\]
+Para construir la regla de separación, el perceptrón sigue el modelo más sencillo de neurona, propuesto previamente por McCulloch y Pitts, de acuerdo al cual una neurona recibe \(n\) valores (o \textit{inputs}) en la forma de un vector \(x = (x^1,\dots, x^n) \in \mathcal{X} \subset \mathbb{R}^n \) y genera una etiqueta (\textit{output}) \(y\in\{-1,+1\}\) a través de una dependencia funcional dada por:
 
-con \(\cdot\) el producto interno de vectores en \(\mathbb{R}^n\), \(b\) un valor de límite y un vector \(w\) que se genera en el proceso de aprendizaje. Geométricamente, una 
-neurona divide el espacio \(\mathcal{X}\) en dos regiones: en una la etiqueta \(y\) vale \(+1\) y en la otra \(-1\). Las dos regiones son separadas por el hiperplano:
+\begin{equation}
+    y = \text{sgn}\{(w \cdot x) - b\}
+\end{equation}
 
-\[
-(w\cdot x) - b = 0 
-\]
+con \(\cdot\) el producto interno de vectores en \(\mathbb{R}^n\), \(b\) un valor de límite y un vector \(w\) que se genera en el proceso de aprendizaje. Geométricamente, una neurona divide el espacio \(\mathcal{X}\) en dos regiones: en una la etiqueta \(y\) vale \(+1\) y en la otra \(-1\). Las dos regiones son separadas por el hiperplano:
 
-El vector \(w\) y el escalar \(b\) determinan la posición del hiperplano y sus valores son aprendidos por el perceptrón. Cuando combinamos varias neuronas, el perceptrón
-separa el espacio de entrada en en dos regiones lineales a trozos y no necesariamente conexas. En 1960 no era claro como elegir todos los parametros \((w_1,\dots,w_k)\) y
-\((b_1,\dots, b_k)\) de todas las neuronas, por lo que se fijaban los valores de las primeras \(k-1\) y se intentaba encontrar los valores deseables para la última
-de ellas. Geométricamente, se transformaba el espacio de entrada $X$ en un nuevo espacio $Z$ (eligiendo coeficientes apropiados para las primeras $k-1$ neuronas) y luego
-se utilizaban los datos de entrenamiento para construir un hiperplano que separe el plano $Z$. Tomando prestados de la fisiología los conceptos de aprendizaje con estímulos de premios y castigos, Rosenblat propuso un simple algoritmo para hallar estos 
-coeficientes de manera iterativa.
+\begin{equation}
+    (w \cdot x) - b = 0 
+\end{equation}
 
+El vector \(w\) y el escalar \(b\) determinan la posición del hiperplano y sus valores son aprendidos por el perceptrón. Para hallar estos coeficientes de manera iterativa, Rosenblatt propuso la siguiente regla de actualización para cada muestra mal clasificada $(x_i, y_i)$:
 
-En 1962 Novikoff demostró el primer teorema relacionado al perceptrón. Podemos decir que este teorema inció propiamente la teoría del aprendizaje.
+\begin{align}
+    w^{(t+1)} &\gets w^{(t)} + \eta (y_i - \hat{y}_i) x_i \\
+    b^{(t+1)} &\gets b^{(t)} - \eta (y_i - \hat{y}_i)
+\end{align}
+
+donde $\hat{y}_i$ es la predicción actual y $\eta \in (0, 1]$ es un valor ajustable (lo que llamámos hiperparámetro), la tasa de aprendizaje (o \textit{learning rate}). 
+Cuando combinamos varias neuronas, el perceptrón separa el espacio de entrada en dos regiones lineales a trozos y no necesariamente conexas. 
+En 1960 no era claro cómo elegir todos los parámetros \((w_1,\dots,w_k)\) y \((b_1,\dots, b_k)\) de todas las neuronas, por lo que se fijaban los valores de las 
+primeras \(k-1\) y se intentaba encontrar los valores deseables para la última de ellas. Geométricamente, se transformaba el espacio de entrada $X$ en un nuevo espacio $Z$ 
+(eligiendo coeficientes apropiados para las primeras $k-1$ neuronas) y luego se utilizaban los datos de entrenamiento para construir un hiperplano que separe el plano $Z$. 
+
+En 1962 Novikoff demostró el primer teorema relacionado al perceptrón. Podemos decir que este teorema inició propiamente la teoría del aprendizaje.
 
 \begin{thm}
-Dado un conjunto de datos de entrenamiento como el descrito previamente, de manera que
-(1) La norma de los vectores de entrenamiento $z_i$ está acotada por una constante $R$:
-\[
-|z_i| \leq R, \qquad \forall i=1,2,\dots,k
-\]
-(2) Los datos de entrenamiento pueden separados con un margen $\rho$:
-\[
-\sup_{w} \min_{i} y_i(z_i\cdot w) > \rho
-\]
-(3) Los datos son alimentandos al perceptrón una cantidad \textit{suficiente} de veces.
+Dado un conjunto de datos de entrenamiento como el descrito previamente, de manera que:
+\begin{enumerate}
+    \item La norma de los vectores de entrenamiento $z_i$ está acotada por una constante $R$:
+    \[ |z_i| \leq R, \qquad \forall i=1,2,\dots,k \]
+    \item Los datos de entrenamiento pueden ser separados con un margen $\rho$:
+    \[ \sup_{w} \min_{i} y_i(z_i \cdot w) > \rho \]
+    \item Los datos son alimentados al perceptrón una cantidad \textit{suficiente} de veces.
+\end{enumerate}
 
-Entonces el algoritmo encuentra el hiperplano que separa los datos de entrenamiento, luego de a lo
-sumo $N$ correcciones, con $N$ verificando:
+Entonces el algoritmo encuentra el hiperplano que separa los datos de entrenamiento, luego de a lo sumo $N$ correcciones, con $N$ verificando:
 \[
 N \leq \left [ \frac{R^2}{\rho^2}\right ]
 \]
-
 \end{thm}
 
-Resaltamos este teorema porque jugó un papel fundamental en la creación de la teoría del aprendizaje, conectando el
-principio de minimización de errores en el conjunto de datos de entrenamiento con la capacidad de generalización
-de los algoritmos de clasificación y su causa.
+Resaltamos este teorema porque jugó un papel fundamental en la creación de la teoría del aprendizaje, conectando el principio de minimización de errores en el conjunto de datos de entrenamiento con la capacidad de generalización de los algoritmos de clasificación y su causa.
 
 
 \subsection{La década de 1960: Fundamentos de la Teoría del Aprendizaje Estadístico}
@@ -1530,7 +1523,9 @@ En síntesis, los Transformers y sus derivados como BERT y GPT representan un sa
 \section{Conceptos básicos del aprendizaje}
 
 Volviendo al caso de clasificación binaria en aprendizaje supervisado, partimos de ejemplos (datos de entrenamiento) 
-en un espacio de entrada $X$ con alguna de las dos posibles etiquetas del espacio $Y=\{-1,+1\}$. Aquí, \textit{aprender}
+en un espacio de entrada $\mathcal{X}$ con alguna de las dos posibles etiquetas del espacio $\mathcal{Y}=\{-1,+1\}$. Consideremos,
+de ahora en más, a las variables aleatorias $X$ e $Y$ que representan el tomado de muestras de estos espacios, es decir,
+las funciones medibles que describen la probabilidad de obtener determinados valores en cada uno de los conjuntos. Aquí, \textit{aprender}
 se reduce a estimar una relación funcional $f:X\rightarrow Y$, el clasificador. Un algoritmo de aprendizaje es aquel
 que a partir de los datos de entrenamiento construye una función $f$. Nos interesa construir una teoría que no asuma
 de manera estricta nada acerca de $X$ e $Y$, pero nos permitimos asumir ciertas cosas del mecanismo que genera los
@@ -1696,7 +1691,9 @@ una forma general y que son definidas por el valor de ciertos paramétros dentro
 las funciones allí, construímos un algoritmo que, al presentarle datos, corrige los parámetros de manera que el riesgo empírico del clasificador 
 disminuya. Debe estar, por tanto, implícito en el algoritmo algún mecanismo para recorrer el espacio de parámetros de manera que el riesgo empírico,
 que es el único que podemos medir, disminuya. A medida que presentamos más ejemplos, el procedimiento se repite, disminuyendo en cada paso el riesgo
-empírico. 
+empírico.
+
+El ejemplo que hemos dado del perceptrón de Rosenblatt previamente es un caso de un algoritmo de aprendizaje.
 
 Nos gustaría entonces que, al construir este clasificador a base de ejemplos, obtengamos una función que pueda clasificar correctamente
 ejemplos nuevos. Es decir, que se equivoque cada vez menos a medida que le damos más datos. Esto no es otra cosa que disminuir el riesgo real 
