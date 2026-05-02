@@ -39,7 +39,7 @@
 \usepackage{tikz}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
-\usetikzlibrary{arrows.meta, positioning, shapes.geometric}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric, shadows}
 
 %--------------------------------------------------------------
 % METADATOS
@@ -113,7 +113,7 @@
     \begin{minipage}{0.9\textwidth}
         El aprendizaje es el proceso a través del cual pueden inferirse reglas generales a partir de ejemplos.\\
 
-        Nos interesa entender como una una computadora puede resolver ciertos problemas sin conocer las reglas de antemano, 
+        Nos interesa entender como una una computadora puede resolver ciertos problemas sin conocer las reglas de antemano,
         solo a partir de ejemplos y a través de un algoritmo de aprendizaje.\\
 
         Nos gustaría que la máquina aprenda no solo las reglas de los ejemplos dados, si no que pueda generalizarlas
@@ -132,7 +132,14 @@
 
     \begin{column}{0.52\textwidth}
       \centering
-      \includegraphics[width=\linewidth]{images/face_recognition.png}
+      \IfFileExists{images/face_recognition.png}{%
+        \includegraphics[width=\linewidth]{images/face_recognition.png}%
+      }{%
+        \begin{block}{Imagen no disponible}
+          \centering
+          \small No se encontró \texttt{images/face\_recognition.png}.
+        \end{block}
+      }
       {\scriptsize\textcolor{gray}{Reconocimiento facial mediante landmarks geométricos.}}
     \end{column}
 
@@ -158,28 +165,29 @@
 %--------------------------------------------------------------
 % DIAPOSITIVA 3b — ANIMACIÓN: LA MÁQUINA APRENDE
 %--------------------------------------------------------------
-\begin{frame}{La Máquina Aprende: Ajuste Progresivo}
-  \centering
-  % Fallback para compilar aun cuando no exista la secuencia de cuadros.
-  \IfFileExists{images/frames/frame_000.png}{%
-    \animategraphics[loop, autoplay, width=0.82\linewidth]{12}{images/frames/frame_}{000}{180}%
-  }{%
-    \begin{block}{Animación no disponible}
-      \centering
-      \small No se encontraron archivos en \texttt{images/frames/frame\_***}.
-    \end{block}
-  }
 
-  \vspace{0.3em}
-  {\scriptsize\textcolor{gray}{Proceso Gaussiano ajustándose progresivamente a los datos de entrenamiento.}}
-\end{frame}
+% \begin{frame}{La Máquina Aprende: Ajuste Progresivo}
+%   \centering
+%   % Fallback para compilar aun cuando no exista la secuencia de cuadros.
+%   \IfFileExists{images/frames/frame_000.png}{%
+%     \animategraphics[loop, autoplay, width=0.82\linewidth]{12}{images/frames/frame_}{000}{180}%
+%   }{%
+%     \begin{block}{Animación no disponible}
+%       \centering
+%       \small No se encontraron archivos en \texttt{images/frames/frame\_***}.
+%     \end{block}
+%   }
+
+%   \vspace{0.3em}
+%   {\scriptsize\textcolor{gray}{Proceso Gaussiano ajustándose progresivamente a los datos de entrenamiento.}}
+% \end{frame}
 
 \begin{frame}{Clasificación: Planteo del Problema}
   \vspace{0.4em}
   \begin{center}
     \begin{minipage}{0.92\textwidth}
-   
-        Consideremos dos espacios de variables: $X$, llamado espacio de entrada, e $Y$, el espacio de etiquetas. En un problema de 
+
+        Consideremos dos espacios de variables: $X$, llamado espacio de entrada, e $Y$, el espacio de etiquetas. En un problema de
         clasificación, deseamos poder etiquetar correctamente elementos de $X$ con los valores de $Y$.\\
 
         Por ejemplo, podríamos querer clasificar un conjunto de imágenes de animales en los distintos tipos
@@ -190,7 +198,7 @@
 \end{frame}
 
 \begin{frame}
-    
+
 \centering
 \includegraphics[height=0.8\textheight,keepaspectratio]{images/animal_classification.png}
 
@@ -208,13 +216,13 @@
         Asumimos que entre el espacio de entrada y el espacio de etiquetas hay una distribución
         de probabilidad conjunta $P=P(X,Y)$.\\
 
-        Con el fin de aprender, a un algoritmo se le muestran ejemplos de imágenes y sus respectivas 
-        etiquetas $(X_1,Y_1), (X_2,Y_2), \ldots, (X_n,Y_n)$, a partir de los cuales este debe 
+        Con el fin de aprender, a un algoritmo se le muestran ejemplos de imágenes y sus respectivas
+        etiquetas $(X_1,Y_1), (X_2,Y_2), \ldots, (X_n,Y_n)$, a partir de los cuales este debe
         encontrar una función $f : X \to Y$, que comete la menor cantidad de errores posibles. \\
-        
+
         A esta función $f$ la llamamos clasificador.\\
 
-        A fin de simplificar la teoría, nos centraremos en el más sencillo de los problemas del Machine Learning, el de 
+        A fin de simplificar la teoría, nos centraremos en el más sencillo de los problemas del Machine Learning, el de
         clasificación binaria. En este caso, tendremos dos categorías de etiquetas, por lo que
         $$
           Y = \{-1,+1\}
@@ -227,18 +235,20 @@
 
 \begin{frame}{Clasificación: Suposiciones básicas}
   \begin{itemize}
-    \item No imponemos condiciones a la distribución de probabilidad $P$.
-    \item Consideramos a las etiquetas de manera no determinística.
-    \item 
-    \item Muestro independiente.
-    \item La distribución $P$ es fija.
-    \item La distribución $P$ es desconocida al momento de aprender.
+    \setlength{\itemsep}{0.45em}
+    \item \textbf{No aplicamos restricciones sobre $P$:} no suponemos una forma paramétrica para la distribución que genera los datos.
+    \item \textbf{Etiquetas aleatorias:} modelamos $Y$ mediante probabilidades condicionales $P(Y=1\mid X=x)$. Esto se debe a que:
+      \begin{itemize}
+        \item Puede existir solapamiento entre las clases. (ej: imágenes lejanas de perros y gatos con características similares).
+        \item En la práctica, hay ruido en las etiquetas. (ej: distintos etiquetadores humanos no coincidiendo en si un email es spam;
+         errores de etiquetado).
+      \end{itemize}
+    \item \textbf{Muestreo iid:} los ejemplos se toman de manera independiente e idénticamente distribuida.
+    \item \textbf{Distribución fija:} asumimos que el mecanismo que genera los datos no cambia entre entrenamiento y uso.
+    \item \textbf{$P$ desconocida:} solo accedemos a la distribución a través de una muestra finita de datos. El valor de la teoría
+    estará en entender bajo qué condiciones podremos inferir algo sobre $P$.
   \end{itemize}
 \end{frame}
-
-
-
-
 
 
 
@@ -268,12 +278,18 @@
 
 \end{frame}
 
+\begin{frame}
+  \centering
+  \includegraphics[height=0.86\textheight,keepaspectratio]{images/Learning Problem 2.png}
+\end{frame}
+
+
 
 
 %--------------------------------------------------------------
 % DIAPOSITIVA 4 — ¿QUÉ SIGNIFICA EQUIVOCARSE?
 %--------------------------------------------------------------
-\begin{frame}{¿Qué Significa Equivocarse?}
+\begin{frame}{¿Qué Significa Equivocarse?: Función de Pérdida}
 
   Para medir la efectividad de la función clasificadora, definimos una Función de Pérdida $\ell$.\\
 
@@ -295,7 +311,7 @@ Es decir, el aprendizaje suele implicar un
 desafío de optimización en dónde deseamos hallar el mínimo de la función de
 perdida.
 \end{frame}
-\begin{frame}
+\begin{frame}{¿Qué Significa Equivocarse?: Función de Riesgo}
 Mientras que la función de pérdida mide el error del clasificador en un punto
 individual $x \in X$, llamamos riesgo, $R$, del clasificador a la pérdida esperada
 sobre todos los datos generados por la distribución de probabilidad P
@@ -308,7 +324,7 @@ sobre todos los datos generados por la distribución de probabilidad P
       \]
 
       \end{block}
-    
+
     El mejor clasificador posible minimiza $\mathcal{R}$.
 
 \end{frame}
@@ -372,14 +388,130 @@ sobre todos los datos generados por la distribución de probabilidad P
 
   \begin{block}{Definición}
   Dado un conjunto de datos de entrenamiento $ \{ (X_1,Y_1), \dots ,(X_n, Y_m)\}$
-obtenidos iid de una distribución $P$, y dada una función de pérdida $\ell$, deseamos construir una función clasificadora 
+obtenidos iid de una distribución $P$, y dada una función de pérdida $\ell$, deseamos construir una función clasificadora
 $f:X\rightarrow Y$ cuyo riesgo $\mathcal{R}(f)$ sea lo más cercano posible al riesgo de $f_{\text{Bayes}}$.
 Llamamos a este problema \textbf{clasificación binaria}.
   \end{block}
 
 \end{frame}
+
+% \begin{frame}
+
+% \begin{tikzpicture}[
+%     font=\sffamily\small,
+%     >=Stealth,
+%     node distance=1.2cm and 1.8cm,
+%     % Modern styling for boxes
+%     box/.style={
+%         rectangle, draw=blue!50!black!70, fill=blue!5, very thick,
+%         inner sep=8pt, text centered, align=center, rounded corners=4pt,
+%         minimum width=3.5cm, drop shadow={opacity=0.15}
+%     },
+%     % Styling for the central Learning Algorithm
+%     circlebox/.style={
+%         circle, draw=orange!80!black, fill=orange!10, very thick,
+%         inner sep=5pt, text centered, align=center, minimum size=2.8cm,
+%         drop shadow={opacity=0.15}
+%     },
+%     % Subtle styling for the Error Measure
+%     errorbox/.style={
+%         rectangle, draw=gray!60, fill=gray!5, thick,
+%         inner sep=5pt, rounded corners=10pt
+%     }
+% ]
+
+%     % --- NODES ---
+%     \node [box] (target) {
+%         \textbf{Target Distribution}\\
+%         $P(y \mid \mathbf{x})$
+%     };
+
+%     \node [box, right=of target] (input) {
+%         \textbf{Input Distribution}\\
+%         $P(\mathbf{x})$
+%     };
+
+%     \node [box, below=of target] (examples) {
+%         \textbf{Training Examples}\\
+%         $\mathcal{D} = \{(\mathbf{x}_1, y_1), \dots, (\mathbf{x}_N, y_N)\}$
+%     };
+
+%     \node [circlebox, below right=1cm and -0.2cm of examples] (algo) {
+%         \textbf{Learning}\\
+%         \textbf{Algorithm}\\
+%         $\mathcal{A}$
+%     };
+
+%     \node [box, below=2cm of examples] (hyp_set) {
+%         \textbf{Hypothesis Set}\\
+%         $\mathcal{H}$
+%     };
+
+%     \node [box, right=2.2cm of algo] (final) {
+%         \textbf{Final Hypothesis}\\
+%         $g \approx f$
+%     };
+
+%     \node [errorbox, above=0.8cm of algo] (error) {Error Measure};
+
+%     % --- ARROWS ---
+%     \draw [->, thick] (target) -- (examples);
+%     \draw [->, thick] (input.west) -- node[above, font=\scriptsize] {$\mathbf{x}_1, \dots, \mathbf{x}_N$} (examples.east);
+
+%     % Path from Input Dist to Final Hypothesis
+%     \draw [->, thick] (input.south) -- ++(0,-3.4) node[right, pos=0.85] {$\mathbf{x}$} -- (final.north);
+
+%     % Converging to Algorithm
+%     \draw [->, thick] (examples.south) to [out=-90, in=150] (algo.150);
+%     \draw [->, thick] (hyp_set.north) to [out=90, in=210] (algo.210);
+
+%     \draw [->, thick] (algo) -- (final);
+%     \draw [->, thick] (error) -- (algo);
+
+%     % Arc from Error to Final
+%     \draw [->, thick, dashed, color=gray] (error.east) to [out=0, in=120] (final.north west);
+
+% \end{tikzpicture}
+% \end{frame}
+
+
+\begin{frame}{Consistencia}
+
+    Sea $(X_i,Y_i)_{i\in\mathbb{N}}$ una sucesión infinita de puntos de entrenamiento que han sido tomados iid de una distribución $P$.
+    Sea $\ell$ una función de pérdida. Por cada $n\in \mathbb{N}$, sea $f_n$ un clasificador construido por algún algoritmo de aprendizaje
+    usando los primeros $n$ puntos de entrenamiento. Sea $\mathcal{F}$ el espacio funcional de todos los posibles clasificadores según
+    el mecanismo de construcción del algoritmo. Entonces
+    \begin{enumerate}
+    \item  El algoritmo de aprendizaje se dice \textnormal{consistente con respecto a $\mathcal{F}$ y a $P$} si el riesgo $\mathcal{R}(f_n)$
+     converge en probabilidad al riesgo  $\mathcal{R}(f_{\mathcal{F}})$ del mejor clasificador en $\mathcal{F}$. Esto es,
+     que para todo $\varepsilon>0$:
+     \[
+     P\left(\mathcal{R}(f_n)-\mathcal{R}(f_{\mathcal{F}})>\varepsilon\right) \rightarrow 0 \qquad \text{ cuando } \qquad n\rightarrow \infty
+     \]
+     \item  El algoritmo de aprendizaje se dice \textnormal{Bayes-consistente con respecto a $P$} si el riesgo $\mathcal(R)(f_n)$
+     converge en probabilidad al riesgo  $\mathcal(R)(f_{\text{Bayes}})$ del clasificador bayesiano. Esto es, para todo $\varepsilon>0$
+    \[
+     P\left(\mathcal{R}(f_n)-\mathcal{R}(f_{\text{Bayes}})>\varepsilon\right) \rightarrow 0 \qquad \text{ cuando } \qquad n\rightarrow \infty
+    \]
+    \item  El algoritmo de aprendizaje se dice \textnormal{universalmente consistente con respecto a $\mathcal{F}$} si
+    es consistente con respecto a $\mathcal{F}$ para toda distribución de probabilidad $P$.
+    \item  El algoritmo de aprendizaje se dice \textnormal{universalmente Bayes-consistente } si
+    es Bayes-consistente para toda distribución de probabilidad $P$.
+    \end{enumerate}
+
+\end{frame}
+
+
+
 \begin{frame}
-  Tomemos cualquier clasificador binario $f$. Dado que no conocemos la distribución de probabilidad 
+  \begin{alertblock}{Muchas cosas que no podemos calcular}
+      No solamente no somos capaces de hallar al clasificador de Bayes, si no que conocemos
+      ni al mejor clasificador de un espacio funcional dado.
+      Ni siquiera podemos calcular el riesgo de un clasificador que si conozcamos, porque
+      no sabemos la distribución de probabilidad $P$ sobre los datos.\\
+      ¿Qué podemos hacer?
+  \end{alertblock}
+  Tomemos cualquier clasificador binario $f$. Dado que no conocemos la distribución de probabilidad
   $P(X,Y)$ sobre los datos, no podemos calcular la esperanza de la pérdida de $f$, es decir su riesgo.\\
 
   Lo que si podemos hacer, dado un
@@ -387,8 +519,8 @@ conjunto de entrenamiento, es “contar” (o medir, en general, para problemas
 que no son de clasificación binaria) el número de errores del clasificador sobre los
 datos de entrenamiento. \\
 
-A esta cantidad le daremos el nombre de riesgo empírico y la veremos 
-presente en la literatura también como error de entrenamiento. Nuestro interés será ver bajo qué 
+A esta cantidad le daremos el nombre de riesgo empírico y la veremos
+presente en la literatura también como error de entrenamiento. Nuestro interés será ver bajo qué
 condiciones esta cantidad medible nos permite obtener conclusiones del riesgo real que no podemos observar.
 La definimos a continuación.
 \end{frame}
@@ -409,13 +541,13 @@ La definimos a continuación.
 \begin{frame}{Algoritmos de aprendizaje}
   \begin{block}{Definición}
     Llamamos \textbf{algoritmo de aprendizaje} a todo procedimiento matemático que, dado un conjunto
-de datos de entrenamiento $(X_i,Y_i)$, devuelve una función clasificadora $f$ sobre el espacio de entrada 
+de datos de entrenamiento $(X_i,Y_i)$, devuelve una función clasificadora $f$ sobre el espacio de entrada
 $\mathcal{X}$ y el espacio de etiquetas $\mathcal{Y}$ del que provienen los datos.
   \end{block}
 
   En la práctica, todo algoritmo de aprendizaje se construye sobre la función de pérdida previamente definida
   para el problema dado. El objetivo del algoritmo es minimizar la pérdida promedio, es decir,
-  el riesgo empírico. 
+  el riesgo empírico.
 
   Usualmente llamamos \textbf{error de entrenamiento} al riesgo empírico por su relación con el algoritmo de aprendizaje.
   \end{frame}
@@ -423,16 +555,16 @@ $\mathcal{X}$ y el espacio de etiquetas $\mathcal{Y}$ del que provienen los dato
 
   \begin{frame}
   \begin{block}{Ejemplo: El perceptrón de Rosenblatt}
-Dado un conjunto de entrenamiento $S = \{(\mathbf{x}_i, y_i)\}_{i=1}^n \subset \mathbb{R}^d \times \{0, 1\}$, 
+Dado un conjunto de entrenamiento $S = \{(\mathbf{x}_i, y_i)\}_{i=1}^n \subset \mathbb{R}^d \times \{0, 1\}$,
 el Perceptrón se define como un clasificador binario $h: \mathbb{R}^d \to \{0, 1\}$ mediante la siguiente función:
 
 \begin{equation*}
     h_{\mathbf{w}, b}(\mathbf{x}) = \mathbf{1}(\mathbf{w}^T \mathbf{x} + b > 0)
 \end{equation*}
 
-Donde $\mathbf{w} \in \mathbb{R}^d$ es el vector de pesos, $b \in \mathbb{R}$ es el sesgo (bias), 
-y $\mathbf{1}(\cdot)$ denota la función indicatriz. El aprendizaje de los parámetros se realiza a través 
-de una regla de actualización iterativa. Para cada muestra $(\mathbf{x}_i, y_i)$ donde existe un error de 
+Donde $\mathbf{w} \in \mathbb{R}^d$ es el vector de pesos, $b \in \mathbb{R}$ es el sesgo (bias),
+y $\mathbf{1}(\cdot)$ denota la función indicatriz. El aprendizaje de los parámetros se realiza a través
+de una regla de actualización iterativa. Para cada muestra $(\mathbf{x}_i, y_i)$ donde existe un error de
 clasificación, la actualización se define como:
 
 \begin{align*}
@@ -440,59 +572,466 @@ clasificación, la actualización se define como:
     b^{(t+1)} &\gets b^{(t)} + \eta (y_i - \hat{y}_i)
 \end{align*}
 
-donde $\hat{y}_i = h_{\mathbf{w}^{(t)}, b^{(t)}}(\mathbf{x}_i)$ es la predicción actual y $\eta \in (0, 1]$ 
-es la tasa de aprendizaje. De acuerdo con el teorema de convergencia del Perceptrón, si las clases son linealmente 
+donde $\hat{y}_i = h_{\mathbf{w}^{(t)}, b^{(t)}}(\mathbf{x}_i)$ es la predicción actual y $\eta \in (0, 1]$
+es la tasa de aprendizaje. De acuerdo con el teorema de convergencia del Perceptrón, si las clases son linealmente
 separables, el algoritmo garantiza alcanzar un hiperplano separador en un número finito de pasos.
-    
+
   \end{block}
 \end{frame}
 
+\begin{frame}
+  El algoritmo de aprendizaje define la forma de la función clasificadora que construimos a partir de los datos de entrenamiento.\\
 
+  En general, buscamos la función $f$ que minimiza el riesgo empírico para los datos que tenemos.\\
+
+  Nos gustaría que el riesgo real se acercara al riesgo de Bayes de una porque
+ queremos que sea un ``buen'' clasificador. Hemos llamado a esto \textbf{consistencia}.
+
+  También desearíamos que el riesgo empírico se halle ``cerca'' del real, porque podríamos inferir la calidad de nuestro clasificador
+  para toda la distribución y no solo en los datos de entrenamiento. Llamamos a esta idea el \textbf{generalización}.\\
+
+  \begin{block}{Generalización}
+    Deseamos que
+    \[
+\mathcal{R}_{\text{emp}}(f) \approx \mathcal{R}(f)
+    \]
+    es decir, que el clasificador se comporte de forma similar en los datos de entrenamiento
+    y en los ejemplos que aún no vio, para que podamos afirmar cosas del riesgo real
+    a partir de lo que podemos medir en el empírico.
+  \end{block}
+
+  \end{frame}
+
+
+\begin{frame}{Generalización}
+  \centering
+  \includegraphics[width=0.92\textwidth,height=0.78\textheight,keepaspectratio]{images/wolf.jpg}
+\end{frame}
 
 
 \begin{frame}
 En su forma más simple, la ley de los grandes números
-establece que, bajo condiciones suaves, la media de variables aleatorias \(\xi_i\) que han sido extraídas 
-de manera \textit{iid} a partir de una distribución de probabilidad 
+establece que, bajo condiciones suaves, la media de variables aleatorias \(\xi_i\) que han sido extraídas
+de manera \textit{iid} a partir de una distribución de probabilidad
 \(P\), converge a la media de la distribución subyacente cuando el tamaño de la muestra tiende a infinito:
 
-\begin{block}{}
   \[
 \frac{1}{n} \sum_{i=1}^n \xi_i \to \mathbb{E}(\xi) \quad \text{cuando } n \to \infty.
 \]
-\end{block}
 
-Este teorema puede aplicarse al caso del 
-riesgo empírico y el riesgo verdadero. Es decir, a partir de la ley de los grandes números, podemos concluir 
-que, \textbf{para una función fija \(f\)}:
 
+Tomando
+\(\xi_i = \ell(X_i, Y_i, f(X_i))\)
+, \textbf{para una función fija \(f\)},
+tenemos
+\[
+\frac{1}{n} \sum_{i=1}^n \ell(X_i, Y_i, f(X_i)) \to \mathbb{E}(\ell(X, Y, f(X))) \quad
+\text{cuando } n \to \infty.
+\]
+O lo que es lo mismo:
 \begin{block}{}
 \[
-\mathcal{R}_{\text{emp}}(f) = \frac{1}{n} \sum_{i=1}^n \ell(X_i, Y_i, f(X_i)) \to \mathbb{E}(\ell(X, Y, f(X))) \quad 
+\mathcal{R}^n_{\text{emp}}(f)  \to  \mathcal{R}(f) \quad
 \text{cuando } n \to \infty.
 \]
 \end{block}
 
 \end{frame}
 \begin{frame}
-Un algoritmo de aprendizaje arroja una función distinta por cada ejemplo de entrenamiento que ve. Esto implica que,
-a medida que el número de elementos $n$ en el conjunto de entrenamiento crece, la función que se define cambia. Nos 
-gustaría poder aplicar la Ley de los Grandes Números a esta función, pero no podemos porque no es fija.
+La Cota de Chernoff-Hoeffding nos permite obtener una cota de probabilidad para la diferencia entre el riesgo empírico y
+el riesgo real de una función fija $f$. En particular, si $\xi_1, \ldots, \xi_n$ son variables aleatorias independientes
+acotadas en el intervalo $[0,1]$ con media $\mathbb{E}(\xi)$, entonces para cualquier $\varepsilon > 0$ se cumple que
 
-Mas aún, nos gustaría usar la siguiente desigualdad para acotar la distancia entre el riesgo empírico y el real:
+  \begin{equation*}
+P\left( \left| \frac{1}{n} \sum_{i=1}^n \xi_i - \mathbb{E}(\xi) \right| \geq \varepsilon \right) \leq
+2 \exp(-2n\varepsilon^2).
+\end{equation*}
 
-  \begin{equation}\label{eq:Chernoff-Hoeffding}
-P\left( \left| \frac{1}{n} \sum_{i=1}^n \xi_i - \mathbb{E}(\xi) \right| \geq \varepsilon \right) \leq 
-2 \exp(-2n\varepsilon^2). 
-\end{equation}
+Es decir, para una función fija $f$:
+\begin{block}{Cota de Chernoff-Hoefding}
+  \begin{equation*}
+P(|\mathcal{R}_{\text{emp}}(f) - \mathcal{R}(f)| \geq \varepsilon) \leq 2 \exp(-2n\varepsilon^2).  \label{eq:Chernoff}
+\end{equation*}
+\end{block}
+\end{frame}
+\begin{frame}
+  Un algoritmo de aprendizaje arroja una función distinta por cada ejemplo de entrenamiento que ve. Esto implica que,
+a medida que el número de elementos $n$ en el conjunto de entrenamiento crece, la función que se define cambia. Nos
+gustaría poder aplicar la Ley de los Grandes Números a esta función, pero no podemos porque no es fija.\\
+
+
+Análogamente, la cota de Chernoff-Hoeffding no se puede aplicar directamente a nuestro caso porque cada punto
+nuevo cambia potencialmente la función que estamos tratando.\\
+
+Nuestro objetivo será entonces encontrar condiciones bajo las cuales podamos aplicar esta cota
+a funciones que no son fijas, sino que cambian con cada nuevo ejemplo de entrenamiento.\\
+
+Esto efectivamente implica una generalización de la Ley de los Grandes Números,
+que se conoce como la \textbf{ley uniforme de los grandes números}.\\
 \end{frame}
 
 
+\begin{frame}{Hacia una Ley Uniforme de los Grandes Números}
+  Sea $\mathcal{F}$ un espacio funcional de clasificadores. Para poder dar certezas no para una, sino
+  para cualquier función del espacio, debemos de ser capaces de acotar la diferencia entre el riesgo empírico y el riesgo real
+  para todas las funciones del espacio. Queremos entonces hallar condiciones bajo las cuales se cumple que, para todo $\varepsilon > 0$,
+\[
+\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \leq \varepsilon.
+\]
+Es claro que
+\begin{equation*}
+P(|R(f_n) - \mathcal{R}_{\text{emp}}(f_n)| \geq \varepsilon) \leq P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \geq \varepsilon\right).
+\end{equation*}
+
+Decimos que la ley de los grandes números se cumple de manera uniforme sobre una clase de funciones \(\mathcal{F}\) si,
+para todo \(\varepsilon > 0\),
+
+\[
+P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \geq \varepsilon \right) \to 0 \quad \text{cuando } n \to \infty.
+\]
+
+\end{frame}
+
+\begin{frame}
+Dados datos de entrenamiento \((X_1, Y_1), \dots, (X_n, Y_n)\), un espacio de funciones
+\(F\) con el cual trabajar, una función de pérdida \(\ell\) y el riesgo empírico asociado
+a dicha pérdida $\mathcal{R}_{\text{emp}} = \mathcal{R}_{\text{emp}}(\mathcal{F}, \ell, n)$ definimos el clasificador \(f_n\) como la función:
+
+\[
+f_n := \arg\min_{f \in \mathcal{F}} \mathcal{R}_{\text{emp}}(f).
+\]
+
+Esta es la función del espacio que minimiza el riesgo empírico para la muestra de tamaño n.\\
+
+El proceso de encontrar esta función se conoce como \textbf{minimización del riesgo empírico} y
+es, como veremos a continuación, consistente con el espacio fundional $\mathcal{F}$
+si se verifica la ley uniforme de los grandes números para este espacio.
 
 
+\end{frame}
 
 
+\begin{frame}
+Consideremos:
 
+
+\[
+|R(f_n) - R(f_\mathcal{F})| = R(f_n) - R(f_\mathcal{F}).
+\]
+
+Puesto que  \(R(f_n) - R(f_\mathcal{F}) \geq 0\), por definición de \(f_\mathcal{F}\). Sumando y restando cantidades idénticas,
+esta expresión se puede reescribir como:
+\[
+R(f_n) - \mathcal{R}_{\text{emp}}(f_n) + \mathcal{R}_{\text{emp}}(f_n) - \mathcal{R}_{\text{emp}}(f_\mathcal{F}) + \mathcal{R}_{\text{emp}}(f_F) - R(f_\mathcal{F})
+\]
+\[
+    \leq R(f_n) - \mathcal{R}_{\text{emp}}(f_n) + \mathcal{R}_{\text{emp}}(f_\mathcal{F}) - R(f_\mathcal{F})
+\]
+\[
+    \leq 2 \sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)|.
+\]
+Dado que \(\mathcal{R}_{\text{emp}}(f_n) - \mathcal{R}_{\text{emp}}(f_\mathcal{F}) \leq 0\) por definición de \(f_n\), y luego acotando
+al tomar el supremo de todas las funciones en el espacio \(\mathcal{F}\).
+
+De esto podemos concluir:
+
+\[
+P\left(|R(f_n) - R(f_\mathcal{F})| \geq \varepsilon \right) \leq P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \geq \varepsilon/2\right).
+\]
+\end{frame}
+
+\begin{frame}
+
+Bajo la ley uniforme de los grandes números, el lado derecho tiende a \(0\), lo que lleva a la consistencia de
+la minimización del riesgo empírico con respecto a la clase de funciones subyacente \(\mathcal{F}\). En otras palabras,
+la convergencia uniforme sobre \(\mathcal{F}\) es una condición suficiente para la consistencia de la minimización del
+riesgo empírico sobre \(\mathcal{F}\).
+
+Parte de la elegancia de la teoría VC radica en que el recíproco también es cierto. Es decir,
+la convergencia uniforme no solo es una condición suficiente, sino también una condición necesaria para la
+consistencia de la minimización del riesgo empírico con respecto a \(\mathcal{F}\). Esto se formaliza en el siguiente
+teorema:
+
+\begin{block}{Vapnik y Chervonenkis, 1971}
+La convergencia uniforme
+
+    \[
+        P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| > \varepsilon \right) \to 0 \quad \text{cuando } n \to \infty,
+        \]
+
+        para todo \(\varepsilon > 0\), es una condición necesaria y suficiente para la consistencia de la minimización del
+        riesgo empírico con respecto a \(\mathcal{F}\).
+\end{block}
+\end{frame}
+
+\begin{frame}
+
+Para hacer afirmaciones sobre lo que ocurre después de observar solo un número finito de puntos de datos
+—que en la práctica será siempre el caso—, necesitamos examinar más de cerca la
+convergencia uniforme del riesgo empírico al verdadero. Esto nos proporcionará cotas sobre el riesgo y también nos dará información sobre
+qué propiedades de las clases de funciones determinan si la convergencia uniforme puede tener lugar. Detengámonos
+en la probabilidad del Teorema anterior:
+
+\begin{equation}
+P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| > \varepsilon \right). \label{eq:med_unif_riesgo_riesgo_emp}
+\end{equation}
+
+Consideremos entonces un espacio de funciones finito. Sea
+\(\mathcal{F}_{m} = \{f_1, f_2, \dots, f_m\}\) un conjunto de \(m\) funciones. Cada una de las funciones
+\(f_i \in \mathcal{F}_{m}\) satisface la ley estándar de los grandes números en la forma de la cota de Chernoff:
+
+\[
+P\left(|R(f_i) - \mathcal{R}_{\text{emp}}(f_i)| \geq \varepsilon \right) \leq 2 \exp(-2n\varepsilon^2).
+\]
+
+Ahora queremos transformar estas afirmaciones sobre funciones individuales \(f_i\) en una ley uniforme de los
+grandes números. Dada la subatividad de la probabilidad, tenemos:
+
+\[
+P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \geq \varepsilon \right) \leq \sum_{i=1}^m P\left(|R(f_i) - \mathcal{R}_{\text{emp}}(f_i)| \geq \varepsilon \right).
+\]
+
+\end{frame}
+
+\begin{frame}
+  Y aplicando la cota de Chernoff a cada término en la suma, obtenemos:
+
+\begin{equation}
+P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \geq \varepsilon \right) \leq 2m \exp(-2n\varepsilon^2). \label{eq: chernoff acotada por m}
+\end{equation}
+
+
+Si el espacio de funciones \(\mathcal{F}_{m}\) es fijo, \(m\) puede considerarse una
+constante, y el término \(2m \exp(-2n\varepsilon^2)\) converge a \(0\) cuando \(n \to \infty\). Por lo tanto,
+la minimización del riesgo empírico sobre un conjunto finito de funciones es consistente con respecto
+a \(\mathcal{F}_{m}\).
+
+En la práctica, nuestros espacios de funciones serán infinitos. \\
+
+Veremos que podemos reemplazar a $m$ por un valor que depende
+de cada tipo de espacio funcional y que, de ser finito, será necesariamente polinómico, lo que nos permitirá obtener cotas de generalización.\\
+
+Llamaremos a dicha cantidad, la \textit{dimensión VC}.
+\end{frame}
+
+\begin{frame}{Simetrización}
+Como sabemos, no podemos calcular directamente $\mathcal{R}$, por lo que desearíamos acotar
+la ecuación (\ref{eq: chernoff acotada por m})
+por una cantidad que dependa de valores muestrales.\\
+
+Supongamos que tenemos una muestra
+\((X_i, Y_i)_{i=1,\dots,n}\). \\
+
+Ahora introducimos una nueva muestra llamada \textit{muestra fantasma}.
+Esta es simplemente otra muestra \((X'_i, Y'_i)_{i=1,\dots,n}\), que también se extrae de manera
+\textit{iid} de la misma distribución subyacente y que es independiente de la primera muestra. No necesitamos generar
+esta muestra en la práctica; es solo una herramienta matemática para realizar el análisis.
+
+Definimos el riesgo empírico con respecto a esta muestra como \(\mathcal{R}'_{\text{emp}}(f)\).
+Con la ayuda de esta muestra fantasma, podemos demostrar el siguiente resultado.
+\end{frame}
+
+\begin{frame}
+  \begin{block}{Lema de Simetrización}
+Sea $m\varepsilon^2 \geq 2$. Sea $\mathcal{F}$ el espacio de funciones definido por un algoritmo de aprendizaje. Sean
+$(X_i,Y_i)_{i=1,\dots, n}$, $(X_i',Y_i')_{i=1,\dots, n}$ muestras aleatorias iid. Dada $f \in\mathcal{F}$,
+sean $\mathcal{R}(f)$ su riesgo, $\mathcal{R}_{emp}(f)$ su riesgo empírico sobre la primera muestra y
+$\mathcal{R}'_{emp}(f)$ el riesgo sobre la segunda. Entonces, para cualquier $\varepsilon > 0$
+
+\[
+P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| >
+\varepsilon \right) \leq 2P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}_{\text{emp}}(f) - \mathcal{R}'_{\text{emp}}(f)| > \frac{\varepsilon}{2}\right).
+\]
+  \end{block}
+
+Este lema  nos permite trabajar
+con eventos que dependen únicamente de las muestras observadas.
+\end{frame}
+
+\begin{frame}{Fragmentación}
+Notemos que, incluso si \(\mathcal{F}\) contiene un número infinito de funciones,
+las diferentes formas en que estas pueden clasificar un conjunto de entrenamiento de \(n\) puntos de muestra
+es finita.\\
+
+En efecto, para cualquier punto de entrenamiento dado en la muestra, una función puede tomar solo los valores
+\(-1\) o \(+1\). En una muestra de \(n\) puntos \(\{X_1, \dots, X_n\}\), una función puede actuar de, como
+máximo, \(2^n\) formas diferentes.\\
+
+ Así, las únicas funciones que
+necesitamos considerar para calcular el supremo son las \(2^{n}\) funciones que podemos obtener en la muestra
+original y la muestra fantasma juntas. Por lo tanto, podemos reemplazar el supremo sobre \(f \in \mathcal{F}\) por el
+supremo sobre una clase finita de funciones con como máximo \(2^{n}\) funciones
+\end{frame}
+
+
+\begin{frame}
+  \begin{columns}[T]
+    \begin{column}{0.52\textwidth}
+      \begin{block}{Definición}
+        Sean \(\mathcal{F}\) una clase de funciones y sea \(Z_n\) un conjunto de \(n\) puntos etiquetados, donde
+        \[
+        Z_n := \{(X_1, Y_1), \dots, (X_n, Y_n)\}.
+        \]
+        Definimos la relación \(\sim\) sobre \(\mathcal{F}\):
+        \[
+        f_1 \sim f_2 \quad \text{si} \quad f_1(X_i) = f_2(X_i) \quad \forall i = 1, \dots, n.
+        \]
+      \end{block}
+    \end{column}
+
+    \begin{column}{0.45\textwidth}
+      \small
+      Observemos que la relación \(\sim\) es una relación de equivalencia sobre \(\mathcal{F}\).
+      Luego, para una muestra fija, define una partición sobre $X$.
+
+      \vspace{0.6em}
+      \centering
+      \includegraphics[width=\linewidth,height=0.48\textheight,keepaspectratio]{images/8.png}
+
+      \vspace{0.3em}
+      {\scriptsize\textcolor{gray}{Dos funciones que separan de igual manera a un par de puntos.}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+\begin{block}{Definición}
+    Definimos el \textbf{conjunto de fragmentación} \(\mathcal{F}_{Z_n}\) a cualquier conjunto de representantes de \(\mathcal{F}\)
+    bajo la relación de equivalencia \(\sim\) .
+\end{block}
+\begin{block}{Definición}
+    Dado un espacio muestral \(X\) y una muestra de tamaño \(n\), denotada por
+    \[
+    Z_n := \{(X_1, Y_1), \dots, (X_n, Y_n)\},
+    \]
+    definimos el
+    \textbf{coeficiente de fragmentación} del espacio funcional $\mathcal{F}$ como:
+
+    \[
+    \mathcal{N}(\mathcal{F}, n) = \max_{Z_n} \{|\mathcal{F}_{Z_n}|\} = \max_{\{X_1, \dots, X_n\}}\{|\mathcal{F}_{\{X_1, \dots, X_n\}}| \mid X_1, \dots, X_n \in X\}.
+    \]
+\end{block}
+
+\end{frame}
+
+\begin{frame}
+  $\mathcal{N}(\mathcal{F}, n)$ es el número de formas en las que \(\mathcal{F}\) puede separar en dos clases al
+espacio de entrada $X$.
+
+
+En el caso de clasificación binaria, como el que estamos tratando, el mayor cardinal posible para un conjunto de fragmentación
+coincide con el cardinal del conjunto de partes de un conjunto de tamaño $n$ (basta considerar cada subconjunto posible del mismo
+como aquel donde el clasificador etiqueta con $+1$ todos los valores en el subconjunto y con $-1$ los valores fuera de él). Entonces,
+si \(\mathcal{N}(\mathcal{F}, n) = 2^n\), existe al menos una muestra de tamaño \(n\) que puede ser separada
+de todas las formas posibles por funciones en \(\mathcal{F}\). En este caso, decimos que la clase de funciones
+\(\mathcal{F}\) \textit{fragmenta} al conjunto de \(n\) puntos.
+
+En la definición, tomamos el máximo puesto que ciertas muestras pueden no ser fragmentables de la misma manera que otras por \(\mathcal{F}\).
+Consideremos el espacio $\mathbb{R}^2$ y sea $\mathcal{F}=\{f: f(x)= \alpha x + \beta; \; \alpha, \beta\in\mathbb{R}\}$, el espacio
+de funciones lineales.
+
+Es claro que podemos separar dos puntos de la manera que deseemos en este espacio, pero no podemos hacer lo mismo con tres puntos \textit{cualesquiera}.
+En efecto, sea $Z_3 = \{X_1,X_2,X_3\} \in \mathbb{R}^2$ y supongamos que los puntos en dicho conjuntos son colineales. Tomemos el caso en el que el primero y el tercero de ellos pertenecen a la misma categoría,
+mientras que el que queda en medio a la otra categoría, como en la figura \ref{fragmentacion perceptron} (a).
+\end{frame}
+
+\begin{frame}
+  \begin{figure}[ht]
+      \centering
+    \includegraphics[width=0.8\textwidth]{images/5.png}
+    \caption{Fragmentación de muestras en $\mathbb{R}^2$ de tres y cuatro puntos.}
+    \label{fragmentacion perceptron}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+
+Tomemos $\mathcal{F}_{all}$, el espacio de todos los clasificadores posibles. Es claro que, en este caso, $\mathcal{N}(\mathcal{F}_{all}, n)=2^{2n}$,
+pues cualquier muestra de $2n$ puntos puede ser separada de $2^{2n}$ formas posibles. Entonces, la cota de convergencia uniforme para este espacio
+es:
+
+\[
+\begin{aligned}
+P\left(\sup_{f \in \mathcal{F}_{all}} |R(f) - R_{\text{emp}}(f)| > \varepsilon \right)
+&\leq 2\cdot 2^{2n} \exp\left(-\frac{n\varepsilon^2}{4}\right) \\
+&= 2\exp\left(n\left( 2\log(2) - \frac{n\varepsilon^2}{4}\right)\right).
+\end{aligned}
+\]
+
+\end{frame}
+
+\begin{frame}
+  Que es una expresión que no tiende a $0$ cuando $n$ tiende a infinito. Con lo que sabemos hasta ahora, esto no significa que podamos
+concluir que la minimización del riesgo empírico
+usando el espacio de todas las funciones clasificadoras posibles sea inconsistente, dado que la cota de convergencia uniforme anterior
+es solo una condicion suficiente. Pero si podemos dar el siguiente resultado para definir una condición necesaria y suficiente para
+la consistencia de la minimización del riesgo empírico.
+\begin{block}{Teorema}
+    La minimización del riesgo empírico es consistente con respecto a un espacio de funciones $\mathcal{F}$ si y solo si
+    \[
+    \frac{\log\left(\mathcal{N}(\mathcal{F}, n)\right)}{n} \rightarrow 0 \qquad \text{cuando } n \to \infty.
+    \]
+\end{block}
+\end{frame}
+
+\begin{frame}
+  \begin{block}{Corolario 1}
+    Si $\mathcal{N}(\mathcal{F}, n)$ es polinómica, entonces la minimización del riesgo empírico es consistente con respecto a $\mathcal{F}$.\\
+\end{block}
+\begin{block}{Corolario 2}
+    Si $\mathcal{N}(\mathcal{F}, n)=2^n$, entonces la minimización del riesgo empírico no es consistente con respecto a $\mathcal{F}$. En
+    particular, no es consistente con respecto al espacio de todas los clasificadores posibles $\mathcal{F}_{all}$.
+\end{block}
+\end{frame}
+
+\begin{frame}
+  La dimensión VC de una clase de funciones \(\mathcal{F}\) es el tamaño máximo de una muestra que puede ser fragmentada por \(\mathcal{F}\), es decir:
+\[
+\text{VC}(\mathcal{F}) = \max \{n \in \mathbb{N} \mid \mathcal{N}(\mathcal{F}, n) = 2^n\}.
+\]
+Si no existe tal máximo, definimos \(\text{VC}(\mathcal{F}) = \infty\).
+\end{frame}
+
+\begin{frame}
+      Sea $\mathcal{F}$ una clase de funciones con dimensión VC finita. Entonces
+    \[
+    \mathcal{N}(\mathcal{F}, n) \leq \sum_{i=0}^{\text{VC}(\mathcal{F})} \binom{n}{i} , \qquad \forall n \in \mathbb{N}.
+    \]
+    En particular, para $n\geq \text{VC}(\mathcal{F})$ se tiene que
+    \[
+    \mathcal{N}(\mathcal{F}, n) \leq \left(\frac{e\cdot n}{\text{VC}(\mathcal{F})}\right)^{\text{VC}(\mathcal{F})}.
+    \]
+\end{frame}
+\begin{frame}
+
+La importancia de esta afirmación radica en el último hecho. Si \( n \geq \text{VC}(\mathcal{F}) \),
+el coeficiente de fragmentación se comporta como una función polinómica del tamaño de la muestra \( n \).
+Este es un resultado muy notable: una vez que sabemos que la dimensión VC de una clase de funciones
+\(\mathcal{F}\) es finita, ya sabemos que los coeficientes de fragmentación crecen polinómicamente con \( n \).
+Por los resultados de la sección anterior, esto implica la consistencia de la minimización del riesgo empírico.
+
+Nótese que también tenemos una afirmación en la otra dirección. Si la dimensión VC es infinita, esto significa
+que para cada \( n \) existe alguna muestra que puede ser fragmentada por \(\mathcal{F}\), es decir, tal que
+\(\mathcal{N}(\mathcal{F}, n) = 2^n. \) Para este caso, ya vimos anteriormente que ERM no es consistente.
+Enunciamos todo esto en el siguiente Teorema.
+
+\end{frame}
+
+\begin{frame}
+  \begin{block}{Teorema}
+    La minimización del riesgo empírico es consistente con respecto a una clase de funciones \(\mathcal{F}\) si y solo si
+    \(\text{VC}(\mathcal{F}) < \infty\).
+\end{block}
+
+Una propiedad importante a notar tanto sobre el coeficiente de fragmentación como sobre la
+dimensión VC es que no dependen de la distribución subyacente \( P \), sino únicamente de la
+clase de funciones \(\mathcal{F}\). Por un lado, esto es una ventaja, ya que todas las cotas de
+generalización derivadas de estos conceptos se aplican a todas las distribuciones de probabilidad
+posibles. Por otro lado, esto también puede considerarse una desventaja, ya que los conceptos de
+capacidad no tienen en cuenta propiedades particulares de la distribución en cuestión. En este
+sentido, estos conceptos de capacidad a menudo conducen a cotas bastante amplias, pero es lo que desde
+un comienzo nos interesaba.
+\end{frame}
 
 % ─────────────────────────────────────────────────────────────
 % ─────────────────────────────────────────────────────────────
