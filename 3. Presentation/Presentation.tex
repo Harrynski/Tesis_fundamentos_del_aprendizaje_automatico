@@ -89,7 +89,7 @@
     \begin{minipage}{0.78\textwidth}
       \begin{block}{}
         \small\itshape
-        ``[Funes] Había aprendido sin esfuerzo el inglés, el francés, el portugués, el latín.
+        ``[Funes] había aprendido sin esfuerzo el inglés, el francés, el portugués, el latín.
         Sospecho, sin embargo, que no era muy capaz de pensar. Pensar es olvidar
         diferencias, es generalizar, abstraer. En el abarrotado mundo de Funes
         no había sino detalles, casi inmediatos.''
@@ -106,83 +106,22 @@
 \end{frame}
 
 
-%--------------------------------------------------------------
-% DIAPOSITIVA 3 - LAS MAQUINAS APRENDEN
-%--------------------------------------------------------------
 
+\begin{frame}{¿Qué Entendemos por Aprendizaje?}
+  \vspace{0.4em}
+  \begin{center}
+    \begin{minipage}{0.9\textwidth}
+        El aprendizaje es el proceso a través del cual pueden inferirse reglas generales a partir de ejemplos.\\
 
-%--------------------------------------------------------------
-% DIAPOSITIVA 2 — EL RIGOR EN LA CIENCIA (Borges)
-%--------------------------------------------------------------
-\begin{frame}{El Rigor en la Ciencia}
-  \begin{columns}[T]
+        Nos interesa entender como una una computadora puede resolver ciertos problemas sin conocer las reglas de antemano, 
+        solo a partir de ejemplos y a través de un algoritmo de aprendizaje.\\
 
-    %% — Columna izquierda: cita + mensaje clave
-    \begin{column}{0.46\textwidth}
-      \begin{block}{}
-        \small\itshape
-        ``\ldots las Generaciones Siguientes entendieron\\
-        que ese dilatado Mapa era Inútil.''
-        \vspace{0.4em}
-        \begin{flushright}
-          \normalfont\scriptsize
-          ---~Jorge Luis Borges,\\
-          \textit{Del Rigor en la Ciencia}
-        \end{flushright}
-      \end{block}
+        Nos gustaría que la máquina aprenda no solo las reglas de los ejemplos dados, si no que pueda generalizarlas
+        para ejemplos que todavía no vió.\\
 
-      \vspace{0.9em}
-      \begin{itemize}
-        \setlength{\itemsep}{0.5em}
-        \item Un mapa a escala 1:1 \textbf{replica} la realidad; no la simplifica.
-        \item Un modelo que memoriza los datos es igualmente inútil.
-      \end{itemize}
-
-      \vspace{0.8em}
-      \centering
-      \large\alert{Aprender $\neq$ Memorizar}
-    \end{column}
-
-    %% — Columna derecha: figura TikZ (overfitting vs. generalización)
-    \begin{column}{0.52\textwidth}
-      \centering
-      \begin{tikzpicture}
-        \begin{axis}[
-            width=7.2cm, height=5.2cm,
-            axis lines=left,
-            xlabel=$x$, ylabel=$y$,
-            xlabel style={font=\small},
-            ylabel style={font=\small},
-            xmin=0.0, xmax=5.8,
-            ymin=-0.3, ymax=4.8,
-            xtick=\empty, ytick=\empty,
-            clip=false,
-            legend pos=south east,
-            legend style={font=\scriptsize},
-          ]
-          %% Puntos de datos
-          \addplot[only marks, mark=*, mark size=2pt, black]
-            coordinates{(0.5,0.4)(1.0,1.05)(1.5,0.7)(2.0,1.6)
-                        (2.5,2.1)(3.0,2.4)(3.5,2.9)(4.0,3.2)
-                        (4.5,2.95)(5.0,3.75)};
-          %% Curva suave: generaliza
-          \addplot[thick, uncoBlue, domain=0.3:5.5, samples=80]
-            {0.72*x + 0.05};
-          \addlegendentry{generaliza ($f_{\text{lineal}}$)};
-          %% Curva oscilatoria: memoriza (sobreajuste)
-          \addplot[thick, red, dashed, domain=0.3:5.5, samples=300]
-            {0.72*x + 0.05
-             + 0.45*sin(deg(3.8*x))
-             + 0.28*cos(deg(5.5*x + 1))};
-          \addlegendentry{memoriza ($f_{\text{no lineal}}$)};
-        \end{axis}
-      \end{tikzpicture}
-
-      \vspace{0.2em}
-      {\scriptsize\textcolor{gray}{Inspirado en Figura 2.1 de la tesina.}}
-    \end{column}
-
-  \end{columns}
+        Machine Learning es una subdisciplina de la Inteligencia Artificial
+    \end{minipage}
+  \end{center}
 \end{frame}
 
 %--------------------------------------------------------------
@@ -221,117 +160,189 @@
 %--------------------------------------------------------------
 \begin{frame}{La Máquina Aprende: Ajuste Progresivo}
   \centering
-  \animategraphics[loop, autoplay, width=0.82\linewidth]{12}{images/frames/frame_}{000}{180}
+  % Fallback para compilar aun cuando no exista la secuencia de cuadros.
+  \IfFileExists{images/frames/frame_000.png}{%
+    \animategraphics[loop, autoplay, width=0.82\linewidth]{12}{images/frames/frame_}{000}{180}%
+  }{%
+    \begin{block}{Animación no disponible}
+      \centering
+      \small No se encontraron archivos en \texttt{images/frames/frame\_***}.
+    \end{block}
+  }
 
   \vspace{0.3em}
   {\scriptsize\textcolor{gray}{Proceso Gaussiano ajustándose progresivamente a los datos de entrenamiento.}}
 \end{frame}
 
+\begin{frame}{Clasificación: Planteo del Problema}
+  \vspace{0.4em}
+  \begin{center}
+    \begin{minipage}{0.92\textwidth}
+   
+        Consideremos dos espacios de variables: $X$, llamado espacio de entrada, e $Y$, el espacio de etiquetas. En un problema de 
+        clasificación, deseamos poder etiquetar correctamente elementos de $X$ con los valores de $Y$.\\
+
+        Por ejemplo, podríamos querer clasificar un conjunto de imágenes de animales en los distintos tipos
+        de animales que aparecen.
+
+    \end{minipage}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+    
+\centering
+\includegraphics[height=0.8\textheight,keepaspectratio]{images/animal_classification.png}
+
+{\scriptsize\textcolor{gray}{Reconocimiento de distintos tipos de animales}}
+
+
+\end{frame}
+
+
+
+\begin{frame}{Clasificación: Datos y Clasificador}
+  \vspace{0.4em}
+  \begin{center}
+    \begin{minipage}{0.92\textwidth}
+        Asumimos que entre el espacio de entrada y el espacio de etiquetas hay una distribución
+        de probabilidad conjunta $P=P(X,Y)$.\\
+
+        Con el fin de aprender, a un algoritmo se le muestran ejemplos de imágenes y sus respectivas 
+        etiquetas $(X_1,Y_1), (X_2,Y_2), \ldots, (X_n,Y_n)$, a partir de los cuales este debe 
+        encontrar una función $f : X \to Y$, que comete la menor cantidad de errores posibles. \\
+        
+        A esta función $f$ la llamamos clasificador.\\
+
+        A fin de simplificar la teoría, nos centraremos en el más sencillo de los problemas del Machine Learning, el de 
+        clasificación binaria. En este caso, tendremos dos categorías de etiquetas, por lo que
+        $$
+          Y = \{-1,+1\}
+        $$
+
+    \end{minipage}
+  \end{center}
+\end{frame}
+
+
+\begin{frame}{Clasificación: Suposiciones básicas}
+  \begin{itemize}
+    \item No imponemos condiciones a la distribución de probabilidad $P$.
+    \item Consideramos a las etiquetas de manera no determinística.
+    \item 
+    \item Muestro independiente.
+    \item La distribución $P$ es fija.
+    \item La distribución $P$ es desconocida al momento de aprender.
+  \end{itemize}
+\end{frame}
+
+
+
+
+
+
+
+%--------------------------------------------------------------%--------------------------------------------------------------
+%--------------------------------------------------------------%--------------------------------------------------------------
+%--------------------------------------------------------------%--------------------------------------------------------------
+
+
 %--------------------------------------------------------------
 % DIAPOSITIVA 4 — FORMALIZANDO EL TERRENO DE JUEGO
 %--------------------------------------------------------------
 \begin{frame}{Formalizando el Terreno de Juego}
-  \begin{columns}[T]
 
-    %% — Columna izquierda: definiciones formales
-    \begin{column}{0.54\textwidth}
-      \begin{itemize}
-        \setlength{\itemsep}{0.75em}
-        \item \textbf{Espacio de entrada:} $\mathcal{X}$
-        \item \textbf{Espacio de etiquetas:} $\mathcal{Y} = \{-1,\,+1\}$
-        \item \textbf{La gran incógnita:} distribución conjunta
-          \[
-            P(X,Y)\;\text{sobre }\mathcal{X}\times\mathcal{Y}
-          \]
-          \hfill\alert{desconocida e irrestricta}
-        \item \textbf{Lo que observamos:} muestra i.i.d.
-          \[
-            (X_1,Y_1),\ldots,(X_n,Y_n)
-            \;\overset{\mathrm{iid}}{\sim}\;P
-          \]
-      \end{itemize}
-    \end{column}
-
-    %% — Columna derecha: objetivo y diferencia clave
-    \begin{column}{0.44\textwidth}
       \begin{block}{Objetivo}
-        Construir $f:\mathcal{X}\to\mathcal{Y}$ que generalice
+        Construir $f:X\to Y$ que generalice
         a puntos \textbf{no vistos}.
       \end{block}
 
       \vspace{0.9em}
 
       \begin{alertblock}{Diferencia clave con Estadística clásica}
-        Somos \textbf{agnósticos} respecto a $P$:\\[0.2em]
-        no asumimos ninguna forma paramétrica.\\[0.3em]
-        La vemos \textit{solo} a través de la muestra finita.
-      \end{alertblock}
-    \end{column}
+        Somos \textbf{agnósticos} respecto a $P$:
+        no asumimos ninguna forma paramétrica.\\
 
-  \end{columns}
+        Conocemos a la distribución $P$ \textit{solo} a través de la muestra finita.
+      \end{alertblock}
+
 \end{frame}
+
+
 
 %--------------------------------------------------------------
 % DIAPOSITIVA 4 — ¿QUÉ SIGNIFICA EQUIVOCARSE?
 %--------------------------------------------------------------
 \begin{frame}{¿Qué Significa Equivocarse?}
-  \begin{columns}[T]
 
-    %% — Columna izquierda: pérdida y riesgo
-    \begin{column}{0.52\textwidth}
-      \textbf{Función de pérdida 0-1:}
-      \[
-        \ell\bigl(X,Y,f(X)\bigr) \;:=\;
+  Para medir la efectividad de la función clasificadora, definimos una Función de Pérdida $\ell$.\\
+
+  En el caso binario, la función más sencilla es
+\begin{block}{Función de pérdida 0-1}
+  \[
+          \ell\bigl(X,Y,f(X)\bigr) \;:=\;
         \begin{cases}
           1 & \text{si } f(X) \neq Y \\
           0 & \text{si } f(X) = Y
         \end{cases}
       \]
+\end{block}
 
-      \vspace{0.5em}
-      \textbf{Riesgo Real} \;---\; nuestro \alert{Santo Grial}:
+Por convención, una pérdida igual a 0 implica una clasificación perfecta y valores
+mayores implican peor clasificación. \\
+
+Es decir, el aprendizaje suele implicar un
+desafío de optimización en dónde deseamos hallar el mínimo de la función de
+perdida.
+\end{frame}
+\begin{frame}
+Mientras que la función de pérdida mide el error del clasificador en un punto
+individual $x \in X$, llamamos riesgo, $R$, del clasificador a la pérdida esperada
+sobre todos los datos generados por la distribución de probabilidad P
+
+      \begin{block}{Riesgo}
       \[
         \mathcal{R}(f)
         \;:=\;
         \mathbb{E}_P\bigl[\,\ell(X,Y,f(X))\,\bigr]
       \]
 
-      \vspace{0.3em}
-      {\small El mejor clasificador posible minimiza $\mathcal{R}$.}
-    \end{column}
-
-    %% — Columna derecha: el obstáculo y la solución provisional
-    \begin{column}{0.45\textwidth}
-      \begin{alertblock}{El obstáculo central}
-        Calcular $\mathcal{R}(f)$ requiere conocer\\
-        $P(X,Y)$\ldots\\[0.4em]
-        \centering\large\textbf{que no conocemos.}
-      \end{alertblock}
-
-      \vspace{0.6em}
-
-      \begin{block}{Lo que sí podemos hacer}
-        Aproximar $\mathcal{R}(f)$ con la \textbf{pérdida promedio}
-        sobre los datos de entrenamiento:
-        \[
-          \mathcal{R}(f)
-          \;\approx\;
-          \mathcal{R}_{\mathrm{emp}}(f)
-        \]
       \end{block}
-    \end{column}
+    
+    El mejor clasificador posible minimiza $\mathcal{R}$.
 
-  \end{columns}
 \end{frame}
+
+
+% %  \end{column}
+
+%     %% — Columna derecha: el obstáculo y la solución provisional
+%     \begin{column}{0.45\textwidth}
+%       \begin{alertblock}{El obstáculo central}
+%         Calcular $\mathcal{R}(f)$ requiere conocer\\
+%         $P(X,Y)$\ldots\\[0.4em]
+%         \centering\large\textbf{que no conocemos.}
+%       \end{alertblock}
+
+%       \vspace{0.6em}
+
+%       \begin{block}{Lo que sí podemos hacer}
+%         Aproximar $\mathcal{R}(f)$ con la \textbf{pérdida promedio}
+%         sobre los datos de entrenamiento:
+%         \[
+%           \mathcal{R}(f)
+%           \;\approx\;
+%           \mathcal{R}_{\mathrm{emp}}(f)
+%         \]
+%       \end{block}
+%     \end{column}
+
 
 %--------------------------------------------------------------
 % DIAPOSITIVA 5 — EL IDEAL INALCANZABLE (Clasificador de Bayes)
 %--------------------------------------------------------------
 \begin{frame}{El Ideal Inalcanzable: $f_{\mathrm{Bayes}}$}
-  \begin{columns}[T]
 
-    %% — Columna izquierda: definición
-    \begin{column}{0.55\textwidth}
       \textbf{Clasificador de Bayes:}
       \[
         f_{\mathrm{Bayes}}(x) \;:=\;
@@ -348,31 +359,158 @@
         \item Asigna siempre la etiqueta más probable dado $x$.
         \item Es el \textbf{techo teórico} de cualquier clasificador.
       \end{itemize}
-    \end{column}
 
-    %% — Columna derecha: por qué es inalcanzable + definición del problema
-    \begin{column}{0.43\textwidth}
       \begin{alertblock}{¿Por qué es inalcanzable?}
-        Requiere conocer $P(Y\mid X)$,\\
-        \textbf{que es exactamente lo que desconocemos}.
+        Requiere conocer $P(X, Y)$,\textbf{ que es exactamente lo que desconocemos}.
       \end{alertblock}
-
-      \vspace{0.5em}
-
-      \begin{block}{Problema central}
-        \small
-        Dado $\{(X_i,Y_i)\}_{i=1}^n$ i.i.d.\;de~$P$,
-        construir $f$ tal que
-        \[
-          \mathcal{R}(f)
-          \;\xrightarrow{\;n\to\infty\;}
-          \mathcal{R}(f_{\mathrm{Bayes}})
-        \]
-      \end{block}
-    \end{column}
-
-  \end{columns}
 \end{frame}
+
+\begin{frame}{Definición del problema de clasificación binaria}
+  Si el clasificador de Bayes es incomputable en la práctica, ¿Qué utilidad tiene definirlo?\\
+
+  Lo hacemos porque nos permite definir el problema que estamos tratando.
+
+  \begin{block}{Definición}
+  Dado un conjunto de datos de entrenamiento $ \{ (X_1,Y_1), \dots ,(X_n, Y_m)\}$
+obtenidos iid de una distribución $P$, y dada una función de pérdida $\ell$, deseamos construir una función clasificadora 
+$f:X\rightarrow Y$ cuyo riesgo $\mathcal{R}(f)$ sea lo más cercano posible al riesgo de $f_{\text{Bayes}}$.
+Llamamos a este problema \textbf{clasificación binaria}.
+  \end{block}
+
+\end{frame}
+\begin{frame}
+  Tomemos cualquier clasificador binario $f$. Dado que no conocemos la distribución de probabilidad 
+  $P(X,Y)$ sobre los datos, no podemos calcular la esperanza de la pérdida de $f$, es decir su riesgo.\\
+
+  Lo que si podemos hacer, dado un
+conjunto de entrenamiento, es “contar” (o medir, en general, para problemas
+que no son de clasificación binaria) el número de errores del clasificador sobre los
+datos de entrenamiento. \\
+
+A esta cantidad le daremos el nombre de riesgo empírico y la veremos 
+presente en la literatura también como error de entrenamiento. Nuestro interés será ver bajo qué 
+condiciones esta cantidad medible nos permite obtener conclusiones del riesgo real que no podemos observar.
+La definimos a continuación.
+\end{frame}
+
+\begin{frame}{Riesgo Empírico}
+  \begin{block}{Definición}
+    Sea $(X_i,Y_i)_{i=1}^n$ un conjunto de datos de entrenamiento, donde cada $(X_i,Y_i)$ es tomado iid de una distribución de probabilidad $P(X,Y)$. Sea
+    $\ell$ una función de pérdida. Sea $f_n$ un clasificador binario construido a partir de ejemplos, luego
+    de ser presentado con los primeros $n$ datos de entrenamiento.
+    Entonces el \textbf{riesgo empírico} del clasificador $f$ es la pérdida promedio sobre los datos de entrenamiento, es decir
+    \[
+    R_{emp}(f) := \frac{1}{n} \sum_{i=1}^n \ell(X_i,Y_i,f(X_i))
+    \]
+\end{block}
+\end{frame}
+
+
+\begin{frame}{Algoritmos de aprendizaje}
+  \begin{block}{Definición}
+    Llamamos \textbf{algoritmo de aprendizaje} a todo procedimiento matemático que, dado un conjunto
+de datos de entrenamiento $(X_i,Y_i)$, devuelve una función clasificadora $f$ sobre el espacio de entrada 
+$\mathcal{X}$ y el espacio de etiquetas $\mathcal{Y}$ del que provienen los datos.
+  \end{block}
+
+  En la práctica, todo algoritmo de aprendizaje se construye sobre la función de pérdida previamente definida
+  para el problema dado. El objetivo del algoritmo es minimizar la pérdida promedio, es decir,
+  el riesgo empírico. 
+
+  Usualmente llamamos \textbf{error de entrenamiento} al riesgo empírico por su relación con el algoritmo de aprendizaje.
+  \end{frame}
+
+
+  \begin{frame}
+  \begin{block}{Ejemplo: El perceptrón de Rosenblatt}
+Dado un conjunto de entrenamiento $S = \{(\mathbf{x}_i, y_i)\}_{i=1}^n \subset \mathbb{R}^d \times \{0, 1\}$, 
+el Perceptrón se define como un clasificador binario $h: \mathbb{R}^d \to \{0, 1\}$ mediante la siguiente función:
+
+\begin{equation*}
+    h_{\mathbf{w}, b}(\mathbf{x}) = \mathbf{1}(\mathbf{w}^T \mathbf{x} + b > 0)
+\end{equation*}
+
+Donde $\mathbf{w} \in \mathbb{R}^d$ es el vector de pesos, $b \in \mathbb{R}$ es el sesgo (bias), 
+y $\mathbf{1}(\cdot)$ denota la función indicatriz. El aprendizaje de los parámetros se realiza a través 
+de una regla de actualización iterativa. Para cada muestra $(\mathbf{x}_i, y_i)$ donde existe un error de 
+clasificación, la actualización se define como:
+
+\begin{align*}
+    \mathbf{w}^{(t+1)} &\gets \mathbf{w}^{(t)} + \eta (y_i - \hat{y}_i) \mathbf{x}_i \\
+    b^{(t+1)} &\gets b^{(t)} + \eta (y_i - \hat{y}_i)
+\end{align*}
+
+donde $\hat{y}_i = h_{\mathbf{w}^{(t)}, b^{(t)}}(\mathbf{x}_i)$ es la predicción actual y $\eta \in (0, 1]$ 
+es la tasa de aprendizaje. De acuerdo con el teorema de convergencia del Perceptrón, si las clases son linealmente 
+separables, el algoritmo garantiza alcanzar un hiperplano separador en un número finito de pasos.
+    
+  \end{block}
+\end{frame}
+
+
+
+
+\begin{frame}
+En su forma más simple, la ley de los grandes números
+establece que, bajo condiciones suaves, la media de variables aleatorias \(\xi_i\) que han sido extraídas 
+de manera \textit{iid} a partir de una distribución de probabilidad 
+\(P\), converge a la media de la distribución subyacente cuando el tamaño de la muestra tiende a infinito:
+
+\begin{block}{}
+  \[
+\frac{1}{n} \sum_{i=1}^n \xi_i \to \mathbb{E}(\xi) \quad \text{cuando } n \to \infty.
+\]
+\end{block}
+
+Este teorema puede aplicarse al caso del 
+riesgo empírico y el riesgo verdadero. Es decir, a partir de la ley de los grandes números, podemos concluir 
+que, \textbf{para una función fija \(f\)}:
+
+\begin{block}{}
+\[
+\mathcal{R}_{\text{emp}}(f) = \frac{1}{n} \sum_{i=1}^n \ell(X_i, Y_i, f(X_i)) \to \mathbb{E}(\ell(X, Y, f(X))) \quad 
+\text{cuando } n \to \infty.
+\]
+\end{block}
+
+\end{frame}
+\begin{frame}
+Un algoritmo de aprendizaje arroja una función distinta por cada ejemplo de entrenamiento que ve. Esto implica que,
+a medida que el número de elementos $n$ en el conjunto de entrenamiento crece, la función que se define cambia. Nos 
+gustaría poder aplicar la Ley de los Grandes Números a esta función, pero no podemos porque no es fija.
+
+Mas aún, nos gustaría usar la siguiente desigualdad para acotar la distancia entre el riesgo empírico y el real:
+
+  \begin{equation}\label{eq:Chernoff-Hoeffding}
+P\left( \left| \frac{1}{n} \sum_{i=1}^n \xi_i - \mathbb{E}(\xi) \right| \geq \varepsilon \right) \leq 
+2 \exp(-2n\varepsilon^2). 
+\end{equation}
+\end{frame}
+
+
+
+
+
+
+
+
+% ─────────────────────────────────────────────────────────────
+% ─────────────────────────────────────────────────────────────
+% ─────────────────────────────────────────────────────────────
+% ─────────────────────────────────────────────────────────────
+% ─────────────────────────────────────────────────────────────
+% ─────────────────────────────────────────────────────────────
+% ─────────────────────────────────────────────────────────────
+% ─────────────────────────────────────────────────────────────
+% ─────────────────────────────────────────────────────────────
+% ─────────────────────────────────────────────────────────────
+% ─────────────────────────────────────────────────────────────
+% ─────────────────────────────────────────────────────────────
+% ─────────────────────────────────────────────────────────────
+% ─────────────────────────────────────────────────────────────
+
+
+
 
 % ─────────────────────────────────────────────────────────────
 % BLOQUE 2: LA TRAMPA DE LA LIBERTAD
@@ -381,7 +519,7 @@
 %--------------------------------------------------------------
 % DIAPOSITIVA 6 — EL ATAJO EMPÍRICO
 %--------------------------------------------------------------
-\begin{frame}{El Atajo Empírico: Riesgo Empírico}
+\begin{frame}{Riesgo Empírico}
   \begin{columns}[T]
 
     %% — Columna izquierda: la fórmula y su origen
