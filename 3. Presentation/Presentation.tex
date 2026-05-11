@@ -915,7 +915,7 @@ En efecto, para cualquier punto de entrenamiento dado en la muestra, una funció
 \end{frame}
 
 
-\begin{frame}
+\begin{frame}{Fragmentación}
 
       \begin{block}{Definición}
         Sean \(\mathcal{F}\) una clase de funciones y sea \(Z_n\) un conjunto de \(n\) puntos etiquetados, donde
@@ -935,9 +935,10 @@ En efecto, para cualquier punto de entrenamiento dado en la muestra, una funció
 
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Fragmentación}
   En una muestra de \(n\) puntos \(\{X_1, \dots, X_n\}\), una función puede actuar de, como
 máximo, \(2^n\) formas diferentes.\\
+\bigskip
  Así, las únicas funciones que
 necesitamos considerar para calcular el supremo son las \(2^{n}\) funciones que podemos obtener en la muestra
 original y la muestra fantasma juntas. Por lo tanto, podemos reemplazar el supremo sobre \(f \in \mathcal{F}\) por el
@@ -945,7 +946,7 @@ supremo sobre una clase finita de funciones con como máximo \(2^{n}\) funciones
 \end{frame}
 
 
-\begin{frame}
+\begin{frame}{Fragmentación}
 \begin{block}{Definición}
     Definimos el \textbf{conjunto de fragmentación} \(\mathcal{F}_{Z_n}\) a cualquier conjunto de representantes de \(\mathcal{F}\)
     bajo la relación de equivalencia \(\sim\) para la muestra $Z_n$.
@@ -965,37 +966,49 @@ supremo sobre una clase finita de funciones con como máximo \(2^{n}\) funciones
 
 \end{frame}
 
-\begin{frame}
-  $\mathcal{N}(\mathcal{F}, n)$ es el número de formas en las que \(\mathcal{F}\) puede separar en dos clases al
-espacio de entrada $X$.
+\begin{frame}{Fragmentación}
+  $\mathcal{N}(\mathcal{F}, n)$ es el número máximo de formas en las que \(\mathcal{F}\) puede separar en dos clases a una muestra
+  de tamaño $n$ de $X$.\\
 
+  Esto no implica que \(\mathcal{F}\) pueda separar a \textbf{todas} las muestras de tamaño \(n\) de esta manera.\\
 
-En el caso de clasificación binaria, como el que estamos tratando, el mayor cardinal posible para un conjunto de fragmentación
-coincide con el cardinal del conjunto de partes de un conjunto de tamaño $n$ (basta considerar cada subconjunto posible del mismo
-como aquel donde el clasificador etiqueta con $+1$ todos los valores en el subconjunto y con $-1$ los valores fuera de él). Entonces,
-si \(\mathcal{N}(\mathcal{F}, n) = 2^n\), existe al menos una muestra de tamaño \(n\) que puede ser separada
+En el caso de clasificación binari el mayor cardinal posible para un conjunto de fragmentación
+coincide con el cardinal del conjunto de partes de un conjunto de tamaño $n$.\\
+
+Si \(\mathcal{N}(\mathcal{F}, n) = 2^n\), existe al menos una muestra de tamaño \(n\) que puede ser separada
 de todas las formas posibles por funciones en \(\mathcal{F}\). En este caso, decimos que la clase de funciones
 \(\mathcal{F}\) \textit{fragmenta} al conjunto de \(n\) puntos.
+\end{frame}
 
-En la definición, tomamos el máximo puesto que ciertas muestras pueden no ser fragmentables de la misma manera que otras por \(\mathcal{F}\).
+\begin{frame}{Fragmentación}
+En la definición, tomamos el máximo puesto que ciertas muestras pueden no ser fragmentables de la misma manera que otras por \(\mathcal{F}\).\\
+ 
 Consideremos el espacio $\mathbb{R}^2$ y sea $\mathcal{F}=\{f: f(x)= \alpha x + \beta; \; \alpha, \beta\in\mathbb{R}\}$, el espacio
 de funciones lineales.
 
-Es claro que podemos separar dos puntos de la manera que deseemos en este espacio, pero no podemos hacer lo mismo con tres puntos \textit{cualesquiera}.
-En efecto, sea $Z_3 = \{X_1,X_2,X_3\} \in \mathbb{R}^2$ y supongamos que los puntos en dicho conjuntos son colineales. Tomemos el caso en el que el primero y el tercero de ellos pertenecen a la misma categoría,
-mientras que el que queda en medio a la otra categoría, como en la figura \ref{fragmentacion perceptron} (a).
-\end{frame}
-
-\begin{frame}
   \begin{figure}[ht]
       \centering
     \includegraphics[width=0.8\textwidth]{images/5.png}
-    \caption{Fragmentación de muestras en $\mathbb{R}^2$ de tres y cuatro puntos.}
-    \label{fragmentacion perceptron}
+    \caption{Muestras en $\mathbb{R}^2$ de tres y cuatro puntos.}
 \end{figure}
 \end{frame}
 
-\begin{frame}
+
+\begin{frame}{El Coeficiente de Fragmentación y la Consistencia}
+Consideremos una muestra de \(2n\) puntos. Volviendo al lema de simetrización, tenemos que
+\[
+\begin{aligned}
+P\left(\sup_{f \in \mathcal{F}} |R(f) - R_{\text{emp}}(f)| > \varepsilon\right) &\leq
+2P\left(\sup_{f \in \mathcal{F}} |R_{\text{emp}}(f) - R'_{\text{emp}}(f)| > \frac{\varepsilon}{2}\right).\\
+& = 2P\left(\sup_{f \in \mathcal{F}_{Z_{2n}}} |R_{\text{emp}}(f) - R'_{\text{emp}}(f)| > \frac{\varepsilon}{2}\right).\\
+& \leq 2  \mathcal{N}(\mathcal{F}, n)\cdot \exp\left(\frac{-n\varepsilon^2}{4}\right).
+\end{aligned}
+\]
+\end{frame}
+
+
+\begin{frame}{El Coeficiente de Fragmentación y la Consistencia}
+
 
 Tomemos $\mathcal{F}_{all}$, el espacio de todos los clasificadores posibles. Es claro que, en este caso, $\mathcal{N}(\mathcal{F}_{all}, n)=2^{2n}$,
 pues cualquier muestra de $2n$ puntos puede ser separada de $2^{2n}$ formas posibles. Entonces, la cota de convergencia uniforme para este espacio
@@ -1012,11 +1025,12 @@ P\left(\sup_{f \in \mathcal{F}_{all}} |R(f) - R_{\text{emp}}(f)| > \varepsilon \
 \end{frame}
 
 \begin{frame}
-  Que es una expresión que no tiende a $0$ cuando $n$ tiende a infinito. Con lo que sabemos hasta ahora, esto no significa que podamos
-concluir que la minimización del riesgo empírico
-usando el espacio de todas las funciones clasificadoras posibles sea inconsistente, dado que la cota de convergencia uniforme anterior
-es solo una condicion suficiente. Pero si podemos dar el siguiente resultado para definir una condición necesaria y suficiente para
-la consistencia de la minimización del riesgo empírico.
+  Que es una expresión que no tiende a $0$ cuando $n$ tiende a infinito. \\
+  
+  Esto no significa que podamos
+concluir que la MRE no es consistente con respecto a $\mathcal{F}_{all}$.\\
+
+Pero si podemos dar el siguiente resultado:
 \begin{block}{Teorema}
     La minimización del riesgo empírico es consistente con respecto a un espacio de funciones $\mathcal{F}$ si y solo si
     \[
@@ -1035,15 +1049,18 @@ la consistencia de la minimización del riesgo empírico.
 \end{block}
 \end{frame}
 
-\begin{frame}
-  La dimensión VC de una clase de funciones \(\mathcal{F}\) es el tamaño máximo de una muestra que puede ser fragmentada por \(\mathcal{F}\), es decir:
-\[
-\text{VC}(\mathcal{F}) = \max \{n \in \mathbb{N} \mid \mathcal{N}(\mathcal{F}, n) = 2^n\}.
-\]
-Si no existe tal máximo, definimos \(\text{VC}(\mathcal{F}) = \infty\).
+\begin{frame}{La dimensión VC}
+\begin{block}{Definición}
+    La dimensión VC de una clase de funciones \(\mathcal{F}\) es el tamaño máximo de una muestra que puede ser fragmentada por \(\mathcal{F}\), es decir:
+    \[
+    \text{VC}(\mathcal{F}) = \max \{n \in \mathbb{N} \mid \mathcal{N}(\mathcal{F}, n) = 2^n\}.
+    \]
+    Si no existe tal máximo, definimos \(\text{VC}(\mathcal{F}) = \infty\).
+\end{block}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{La dimensión VC}
+  \begin{block}{Lema}
       Sea $\mathcal{F}$ una clase de funciones con dimensión VC finita. Entonces
     \[
     \mathcal{N}(\mathcal{F}, n) \leq \sum_{i=0}^{\text{VC}(\mathcal{F})} \binom{n}{i} , \qquad \forall n \in \mathbb{N}.
@@ -1052,37 +1069,52 @@ Si no existe tal máximo, definimos \(\text{VC}(\mathcal{F}) = \infty\).
     \[
     \mathcal{N}(\mathcal{F}, n) \leq \left(\frac{e\cdot n}{\text{VC}(\mathcal{F})}\right)^{\text{VC}(\mathcal{F})}.
     \]
+    \end{block}
 \end{frame}
-\begin{frame}
+\begin{frame}{La dimensión VC}
 
-La importancia de esta afirmación radica en el último hecho. Si \( n \geq \text{VC}(\mathcal{F}) \),
-el coeficiente de fragmentación se comporta como una función polinómica del tamaño de la muestra \( n \).
-Este es un resultado muy notable: una vez que sabemos que la dimensión VC de una clase de funciones
-\(\mathcal{F}\) es finita, ya sabemos que los coeficientes de fragmentación crecen polinómicamente con \( n \).
-Por los resultados de la sección anterior, esto implica la consistencia de la minimización del riesgo empírico.
+Si \( n \geq \text{VC}(\mathcal{F}) \),
+el coeficiente de fragmentación se comporta como una función polinómica del tamaño de la muestra \( n \).\\
+
+Por los resultados de la sección anterior, esto implica la consistencia de la minimización del riesgo empírico.\\
 
 Nótese que también tenemos una afirmación en la otra dirección. Si la dimensión VC es infinita, esto significa
 que para cada \( n \) existe alguna muestra que puede ser fragmentada por \(\mathcal{F}\), es decir, tal que
-\(\mathcal{N}(\mathcal{F}, n) = 2^n. \) Para este caso, ya vimos anteriormente que ERM no es consistente.
-Enunciamos todo esto en el siguiente Teorema.
+\(\mathcal{N}(\mathcal{F}, n) = 2^n. \)
 
-\end{frame}
-
-\begin{frame}
   \begin{block}{Teorema}
     La minimización del riesgo empírico es consistente con respecto a una clase de funciones \(\mathcal{F}\) si y solo si
-    \(\text{VC}(\mathcal{F}) < \infty\).
+    la dimensión VC de \(\mathcal{F}\) es finita.
 \end{block}
 
-Una propiedad importante a notar tanto sobre el coeficiente de fragmentación como sobre la
-dimensión VC es que no dependen de la distribución subyacente \( P \), sino únicamente de la
-clase de funciones \(\mathcal{F}\). Por un lado, esto es una ventaja, ya que todas las cotas de
-generalización derivadas de estos conceptos se aplican a todas las distribuciones de probabilidad
-posibles. Por otro lado, esto también puede considerarse una desventaja, ya que los conceptos de
-capacidad no tienen en cuenta propiedades particulares de la distribución en cuestión. En este
-sentido, estos conceptos de capacidad a menudo conducen a cotas bastante amplias, pero es lo que desde
-un comienzo nos interesaba.
 \end{frame}
+
+\begin{frame}{No hay almuerzos gratis}
+¿cuál de todos los clasificadores consistentes
+es \textit{el mejor} clasificador? ¿Existe un clasificador universalmente bueno?\\
+
+\bigskip
+
+No solamente no existe un clasificador universalmente bueno, sino que, en promedio sobre todas las distribuciones
+posibles, todos los clasificadores son equivalentes.
+
+
+\end{frame}
+\begin{frame}
+\begin{block}{El Teorema de la chancha y los veinte}
+    Sea \(\varepsilon > 0\). Para cualquier entero \(n\) y cualquier
+regla de clasificación \(f_n\), existe una distribución \(P(X, Y)\) con riesgo bayesiano
+\(\mathcal{R}(f_{Bayes}) = 0\) tal que:
+
+\[
+\mathbb{E}[\ell(X,Y,f_n)] \geq \frac{1}{2} - \varepsilon.
+\]
+\end{block}
+
+  
+
+\end{frame}
+
 
 % ─────────────────────────────────────────────────────────────
 % ─────────────────────────────────────────────────────────────
