@@ -81,32 +81,35 @@
 \end{frame}
 
 
-%--------------------------------------------------------------
-% DIAPOSITIVA 2 — Frase para empezar a reflexionar sobre el aprendizaje
-%--------------------------------------------------------------
 
-\begin{frame}{}
-  \vfill
-  \begin{center}
-    \begin{minipage}{0.78\textwidth}
-      \begin{block}{}
-        \small\itshape
-        ``[Funes] había aprendido sin esfuerzo el inglés, el francés, el portugués, el latín.
-        Sospecho, sin embargo, que no era muy capaz de pensar. Pensar es olvidar
-        diferencias, es generalizar, abstraer. En el abarrotado mundo de Funes
-        no había sino detalles, casi inmediatos.''
-        \vspace{0.5em}
-        \begin{flushright}
-          \normalfont\scriptsize
-          ---~Jorge Luis Borges,\\
-          \textit{Funes el memorioso}
-        \end{flushright}
-      \end{block}
-    \end{minipage}
-  \end{center}
-  \vfill
+\begin{frame}
+\centering
+\includegraphics[height=0.8\textheight,keepaspectratio]{images/ml ai diagram.png}
 \end{frame}
 
+\begin{frame}
+\centering
+\includegraphics[height=0.8\textheight,keepaspectratio]{images/ml ai math diagram.png}
+\end{frame}
+
+\begin{frame}
+  \begin{columns}[c]
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[width=0.75\linewidth,keepaspectratio]{images/chebyshev.jpg}
+
+      \vspace{0.4em}
+      \small Pafnuty Chebyshev
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[width=0.82\linewidth,keepaspectratio]{images/kolmogorov.jpg}
+
+      \vspace{0.4em}
+      \small Andrey Kolmogorov
+    \end{column}
+  \end{columns}
+\end{frame}
 
 
 \begin{frame}{¿Qué Entendemos por Aprendizaje?}
@@ -632,6 +635,34 @@ La definimos a continuación.
   \includegraphics[width=0.92\textwidth,height=0.78\textheight,keepaspectratio]{images/wolf.jpg}
 \end{frame}
 
+\begin{frame}{Subajuste y sobreajuste}
+  \centering
+  \includegraphics[width=0.92\textwidth,height=0.78\textheight,keepaspectratio]{images/over-underfitting.png}
+\end{frame}
+
+
+\begin{frame}{}
+  \vfill
+  \begin{center}
+    \begin{minipage}{0.78\textwidth}
+      \begin{block}{}
+        \small\itshape
+        ``[Funes] había aprendido sin esfuerzo el inglés, el francés, el portugués, el latín.
+        Sospecho, sin embargo, que no era muy capaz de pensar. Pensar es olvidar
+        diferencias, es generalizar, abstraer. En el abarrotado mundo de Funes
+        no había sino detalles, casi inmediatos.''
+        \vspace{0.5em}
+        \begin{flushright}
+          \normalfont\scriptsize
+          ---~Jorge Luis Borges,\\
+          \textit{Funes el memorioso}
+        \end{flushright}
+      \end{block}
+    \end{minipage}
+  \end{center}
+  \vfill
+\end{frame}
+
 
 \begin{frame}{La Ley de los Grandes Números}
 En su forma más simple, la ley de los grandes números
@@ -1134,990 +1165,990 @@ regla de clasificación \(f_n\), existe una distribución \(P(X, Y)\) con riesgo
 
 
 
-% ─────────────────────────────────────────────────────────────
-% BLOQUE 2: LA TRAMPA DE LA LIBERTAD
-% ─────────────────────────────────────────────────────────────
-
-%--------------------------------------------------------------
-% DIAPOSITIVA 6 — EL ATAJO EMPÍRICO
-%--------------------------------------------------------------
-\begin{frame}{Riesgo Empírico}
-  \begin{columns}[T]
-
-    %% — Columna izquierda: la fórmula y su origen
-    \begin{column}{0.54\textwidth}
-      \textbf{Riesgo Empírico} (lo que \textit{sí} podemos calcular):
-      \[
-        \mathcal{R}_{\mathrm{emp}}(f)
-        \;:=\;
-        \frac{1}{n}\sum_{i=1}^{n}\ell\bigl(X_i,\,Y_i,\,f(X_i)\bigr)
-      \]
-
-      \vspace{0.5em}
-      \textbf{Principio ERM} (Minimización del Riesgo Empírico):
-      \[
-        f_n \;:=\; \arg\min_{f \in \mathcal{F}}\;\mathcal{R}_{\mathrm{emp}}(f)
-      \]
-
-      \vspace{0.4em}
-      {\small La motivación proviene de la \textbf{Ley de los Grandes Números}:}
-      \[
-        \frac{1}{n}\sum_{i=1}^{n}\xi_i
-        \;\xrightarrow{\;n\to\infty\;}
-        \mathbb{E}[\xi]
-        \qquad (\xi_i \;\text{i.i.d.})
-      \]
-    \end{column}
-
-    %% — Columna derecha: por qué parece funcionar y la advertencia
-    \begin{column}{0.44\textwidth}
-      \begin{block}{La promesa}
-        Para $f$ \textbf{fija}, la LGN garantiza:
-        \[
-          \mathcal{R}_{\mathrm{emp}}(f)
-          \;\xrightarrow{\;n\to\infty\;}
-          \mathcal{R}(f)
-        \]
-        Más datos $\;\Rightarrow\;$ mejor estimación.
-      \end{block}
-
-      \vspace{0.7em}
-
-      \begin{alertblock}{La trampa oculta}
-        Nuestra $f_n$ \textbf{depende de los datos}.\\[0.3em]
-        La LGN aplica a funciones \textit{fijas},
-        no a funciones que cambian con la muestra.
-      \end{alertblock}
-    \end{column}
-
-  \end{columns}
-\end{frame}
-
-%--------------------------------------------------------------
-% DIAPOSITIVA 7 — EL COLAPSO DE LA MEMORIZACIÓN
-%--------------------------------------------------------------
-\begin{frame}{El Colapso de la Memorización: $\mathcal{F}_{\mathrm{all}}$}
-  \begin{columns}[T]
-
-    %% — Columna izquierda: el clasificador tramposo
-    \begin{column}{0.50\textwidth}
-      \textbf{El clasificador ``tramposo''}
-      (búsqueda irrestricta en $\mathcal{F}_{\mathrm{all}}$):
-      \[
-        f_n(X) \;:=\;
-        \begin{cases}
-          Y_i & \text{si } X = X_i \text{ para algún } i \\
-          +1  & \text{en otro caso}
-        \end{cases}
-      \]
-
-      \vspace{0.6em}
-      \begin{itemize}
-        \setlength{\itemsep}{0.45em}
-        \item $\mathcal{R}_{\mathrm{emp}}(f_n) = 0$ \hfill \textcolor{green!60!black}{(perfecto en train)}
-        \item $\mathcal{R}(f_n) = \tfrac{1}{2}$ \hfill \alert{(moneda al aire en test)}
-      \end{itemize}
-
-      \vspace{0.6em}
-      \begin{alertblock}{Diagnóstico}
-        \textbf{Sobreajuste catastrófico.}\\
-        El algoritmo aprendió los datos, no la regla.
-      \end{alertblock}
-    \end{column}
-
-    %% — Columna derecha: figura intuitiva
-    \begin{column}{0.48\textwidth}
-      \centering
-      \begin{tikzpicture}[scale=0.92]
-        \begin{axis}[
-            width=6.5cm, height=5.5cm,
-            axis lines=center,
-            xlabel=$x$, ylabel=$y$,
-            xlabel style={font=\small, at={(axis description cs:1,0)}, anchor=west},
-            ylabel style={font=\small, at={(axis description cs:0,1)}, anchor=south},
-            xmin=-0.3, xmax=5.5,
-            ymin=-0.5, ymax=2.0,
-            xtick=\empty, ytick=\empty,
-            clip=false,
-          ]
-          %% Puntos de entrenamiento clase +1
-          \addplot[only marks, mark=*, mark size=3pt, uncoBlue]
-            coordinates{(0.8,1.0)(1.5,1.0)(2.8,1.0)(4.2,1.0)};
-          %% Puntos de entrenamiento clase -1
-          \addplot[only marks, mark=square*, mark size=3pt, red]
-            coordinates{(1.1,0.0)(2.2,0.0)(3.5,0.0)(4.8,0.0)};
-          %% Punto de prueba nuevo (no visto)
-          \addplot[only marks, mark=triangle*, mark size=4pt, orange]
-            coordinates{(3.0,0.5)};
-          %% Etiquetas
-          \node[font=\scriptsize, uncoBlue, above] at (axis cs:0.8,1.0) {$+1$};
-          \node[font=\scriptsize, uncoBlue, above] at (axis cs:1.5,1.0) {$+1$};
-          \node[font=\scriptsize, uncoBlue, above] at (axis cs:2.8,1.0) {$+1$};
-          \node[font=\scriptsize, uncoBlue, above] at (axis cs:4.2,1.0) {$+1$};
-          \node[font=\scriptsize, red, below]  at (axis cs:1.1,0.0) {$-1$};
-          \node[font=\scriptsize, red, below]  at (axis cs:2.2,0.0) {$-1$};
-          \node[font=\scriptsize, red, below]  at (axis cs:3.5,0.0) {$-1$};
-          \node[font=\scriptsize, red, below]  at (axis cs:4.8,0.0) {$-1$};
-          %% Punto nuevo con predicción errónea
-          \node[font=\scriptsize, orange, right] at (axis cs:3.0,0.5)
-            {\;$x_{\mathrm{nuevo}}$\;\alert{$\hat{y}=+1$??}};
-        \end{axis}
-      \end{tikzpicture}
-
-      \vspace{0.2em}
-      {\scriptsize\textcolor{gray}{$f_n$ memoriza el train; ignora el test.}}
-    \end{column}
-
-  \end{columns}
-\end{frame}
-
-%--------------------------------------------------------------
-% DIAPOSITIVA 8 — EL DILEMA DE LA COMPLEJIDAD
-%--------------------------------------------------------------
-\begin{frame}{El Dilema de la Complejidad}
-  \begin{columns}[T]
-
-    %% — Columna izquierda: la ecuación de descomposición
-    \begin{column}{0.50\textwidth}
-      \textbf{Descomposición del exceso de riesgo:}
-      \[
-        \underbrace{\mathcal{R}(f_n) - \mathcal{R}(f_{\mathrm{Bayes}})}_{\text{lo que queremos reducir}}
-      \]
-      \[
-        =\;
-        \underbrace{\mathcal{R}(f_n) - \mathcal{R}(f_{\mathcal{F}})}_{\textcolor{red}{\text{error de estimación}}}
-        \;+\;
-        \underbrace{\mathcal{R}(f_{\mathcal{F}}) - \mathcal{R}(f_{\mathrm{Bayes}})}_{\textcolor{uncoBlue}{\text{error de aproximación}}}
-      \]
-
-      \vspace{0.6em}
-      \begin{itemize}
-        \setlength{\itemsep}{0.4em}
-        \item \textcolor{uncoBlue}{\textbf{Aprox.:}} $\mathcal{F}$ pequeño $\Rightarrow$ alto \textcolor{uncoBlue}{sesgo} (subajuste).
-        \item \textcolor{red}{\textbf{Estim.:}} $\mathcal{F}$ grande $\Rightarrow$ alta \textcolor{red}{varianza} (sobreajuste).
-      \end{itemize}
-    \end{column}
-
-    %% — Columna derecha: figura sesgo-varianza (Figura 2.3)
-    \begin{column}{0.48\textwidth}
-      \centering
-      \begin{tikzpicture}
-        \begin{axis}[
-            width=6.8cm, height=5.2cm,
-            axis lines=left,
-            xlabel={complejidad de $\mathcal{F}$},
-            ylabel={error},
-            xlabel style={font=\scriptsize},
-            ylabel style={font=\scriptsize},
-            xmin=0, xmax=6,
-            ymin=0, ymax=3.2,
-            xtick=\empty, ytick=\empty,
-            clip=false,
-            legend pos=north east,
-            legend style={font=\scriptsize, row sep=-2pt},
-          ]
-          %% Error de aproximación (decreasing)
-          \addplot[thick, uncoBlue, domain=0.2:5.8, samples=100]
-            {2.5*exp(-0.65*x) + 0.05};
-          \addlegendentry{\textcolor{uncoBlue}{aprox.}};
-          %% Error de estimación (increasing)
-          \addplot[thick, red, domain=0.2:5.8, samples=100]
-            {0.08*x^2 - 0.1*x + 0.15};
-          \addlegendentry{\textcolor{red}{estim.}};
-          %% Riesgo total (U-shaped)
-          \addplot[thick, black, domain=0.2:5.8, samples=100]
-            {2.5*exp(-0.65*x) + 0.08*x^2 - 0.1*x + 0.20};
-          \addlegendentry{riesgo total};
-          %% Mínimo óptimo (flecha)
-          \draw[dashed, gray] (axis cs:2.05,0) -- (axis cs:2.05,1.45);
-          \node[font=\scriptsize, gray, below] at (axis cs:2.05,0) {óptimo};
-        \end{axis}
-      \end{tikzpicture}
-
-      \vspace{0.1em}
-      {\scriptsize\textcolor{gray}{Inspirado en Figura 2.3 de la tesina.}}
-    \end{column}
-
-  \end{columns}
-\end{frame}
-
-%--------------------------------------------------------------
-% DIAPOSITIVA 9 — LA NECESIDAD DE UN SESGO (PUENTE A VC)
-%--------------------------------------------------------------
-\begin{frame}{La Necesidad de un Sesgo Inductivo}
-  \begin{columns}[T]
-
-    %% — Columna izquierda: la conclusión forzosa
-    \begin{column}{0.50\textwidth}
-      \begin{block}{Conclusión del bloque}
-        Para que ERM sea \textbf{consistente}, el espacio $\mathcal{F}$
-        debe ser \alert{suficientemente restringido}.
-      \end{block}
-
-      \vspace{0.7em}
-      \begin{itemize}
-        \setlength{\itemsep}{0.55em}
-        \item $\mathcal{F} = \mathcal{F}_{\mathrm{all}}$ \;\alert{$\Rightarrow$}\; inconsistencia garantizada.
-        \item $\mathcal{F}$ pequeño (e.g., funciones lineales)\;
-              \textcolor{green!60!black}{$\Rightarrow$}\; bajo error de estimación.
-        \item Todo aprendizaje exitoso impone un \textbf{sesgo inductivo}.
-      \end{itemize}
-
-      \vspace{0.7em}
-      {\small No existe conocimiento sin suposición. \\ La pregunta es cuál suposición elegir.}
-    \end{column}
-
-    %% — Columna derecha: la pregunta puente
-    \begin{column}{0.48\textwidth}
-      \begin{alertblock}{Pregunta puente}
-        ¿Cómo \textbf{medir formalmente} si un espacio
-        $\mathcal{F}$ es lo suficientemente ``restringido''
-        para que ERM no nos mienta?
-      \end{alertblock}
-
-      \vspace{0.8em}
-
-      \begin{tikzpicture}[scale=0.85]
-        %% Círculo grande: F_all
-        \draw[thick, uncoBlue!40, fill=uncoBlue!5]
-              (0,0) circle (2.1cm);
-        \node[font=\small, uncoBlue!70] at (0, 1.6) {$\mathcal{F}_{\mathrm{all}}$};
-        %% Círculo pequeño: F restringido
-        \draw[thick, uncoBlue, fill=uncoBlue!20]
-              (0.2,-0.1) circle (0.9cm);
-        \node[font=\small, uncoBlue] at (0.2,-0.1) {$\mathcal{F}$};
-        %% Punto f_Bayes fuera de F
-        \fill[red] (-1.2, 0.3) circle (3pt);
-        \node[font=\scriptsize, red, left] at (-1.2, 0.3) {$f_{\mathrm{Bayes}}$};
-        %% Flechas / etiqueta
-        \node[font=\scriptsize, gray] at (0, -2.6)
-          {Restringir $\Leftrightarrow$ controlar la capacidad};
-      \end{tikzpicture}
-
-      \vspace{0.4em}
-      \centering
-      \large $\;\longrightarrow\;$ \textbf{Teoría VC}
-    \end{column}
-
-  \end{columns}
-\end{frame}
-
-% ─────────────────────────────────────────────────────────────
-% BLOQUE 3: EL ANDAMIAJE FORMAL — TEORÍA VC
-% ─────────────────────────────────────────────────────────────
-
-%--------------------------------------------------------------
-% DIAPOSITIVA 10 — LA LEY QUE NOS QUEDÓ CHICA
-%--------------------------------------------------------------
-\begin{frame}{La Ley que nos Quedó Chica: Convergencia Uniforme}
-  \begin{columns}[T]
-
-    \begin{column}{0.52\textwidth}
-      \textbf{LGN para $f$ fija} (lo que ya teníamos):
-      \[
-        \mathcal{R}_{\mathrm{emp}}(f)
-        \;\xrightarrow{\;n\to\infty\;}
-        \mathcal{R}(f)
-        \qquad\textcolor{green!60!black}{\checkmark}
-      \]
-
-      \vspace{0.5em}
-      \textbf{Lo que realmente necesitamos:}
-      \[
-        \sup_{f\,\in\,\mathcal{F}}
-        \bigl|\mathcal{R}(f) - \mathcal{R}_{\mathrm{emp}}(f)\bigr|
-        \;\xrightarrow{\;n\to\infty\;} 0
-        \quad\alert{(?)}
-      \]
-      {\small Convergencia \textit{simultánea} para \textbf{todas} las $f\in\mathcal{F}$.}
-    \end{column}
-
-    \begin{column}{0.46\textwidth}
-      \begin{alertblock}{¿Por qué la LGN no alcanza?}
-        $f_n = \arg\min_{f\in\mathcal{F}}\mathcal{R}_{\mathrm{emp}}(f)$
-        \textbf{depende de los datos}.\\[0.3em]
-        La LGN aplica a funciones \textit{fijas}, no a funciones que cambian con la muestra.
-      \end{alertblock}
-
-      \vspace{0.5em}
-
-      \begin{block}{Lo que hay que probar}
-        \[
-          P\!\left(
-            \sup_{f\in\mathcal{F}}
-            \bigl|\mathcal{R}(f)-\mathcal{R}_{\mathrm{emp}}(f)\bigr|>\varepsilon
-          \right)
-          \xrightarrow{n\to\infty} 0
-        \]
-        para todo $\varepsilon > 0$.
-      \end{block}
-    \end{column}
-
-  \end{columns}
-\end{frame}
-
-%--------------------------------------------------------------
-% DIAPOSITIVA 11 — COEFICIENTE DE FRAGMENTACIÓN
-%--------------------------------------------------------------
-\begin{frame}{Geometría de la Capacidad: Coeficiente de Fragmentación}
-  \begin{columns}[T]
-
-    \begin{column}{0.50\textwidth}
-      \begin{block}{Coeficiente de fragmentación}
-        \[
-          N(\mathcal{F},\,n) \;:=\;
-          \max_{x_1,\ldots,x_n\in\mathcal{X}}
-          \bigl|\bigl\{(f(x_1),\ldots,f(x_n)):f\in\mathcal{F}\bigr\}\bigr|
-        \]
-      \end{block}
-
-      \vspace{0.5em}
-      \begin{itemize}
-        \setlength{\itemsep}{0.45em}
-        \item Reduce $\mathcal{F}$ (infinito) a un conteo \textbf{combinatorio finito}.
-        \item $N(\mathcal{F},n) \leq 2^n$ siempre; la igualdad = \textit{fragmentación completa}.
-        \item Clasificadores lineales en $\mathbb{R}^2$:
-          \[N(\mathcal{F},\,3) = 8 = 2^3 \quad\textcolor{green!60!black}{\checkmark}\]
-      \end{itemize}
-    \end{column}
-
-    \begin{column}{0.48\textwidth}
-      \centering
-      {\small\textbf{4 de 8 dicotomías posibles con clasificadores lineales:}}
-      \vspace{0.4em}
-
-      \begin{tikzpicture}[scale=0.78]
-        %% Panel 1: (+,+,+) — línea por debajo de todo
-        \begin{scope}[shift={(0, 0)}]
-          \fill[uncoBlue] (0.2,0.25) circle (3.2pt);
-          \fill[uncoBlue] (0.75,0.8) circle (3.2pt);
-          \fill[uncoBlue] (1.3,0.25) circle (3.2pt);
-          \draw[thick,gray!70] (-0.1,-0.05) -- (1.55,-0.05);
-          \node[font=\tiny,gray] at (0.75,-0.35) {$(+,+,+)$};
-        \end{scope}
-        %% Panel 2: (+,+,-) — línea vertical entre punto central y derecho
-        \begin{scope}[shift={(2.1,0)}]
-          \fill[uncoBlue] (0.2,0.25) circle (3.2pt);
-          \fill[uncoBlue] (0.75,0.8) circle (3.2pt);
-          \fill[red]      (1.3,0.25) circle (3.2pt);
-          \draw[thick,gray!70] (1.05,-0.1) -- (1.05,1.05);
-          \node[font=\tiny,gray] at (0.75,-0.35) {$(+,+,-)$};
-        \end{scope}
-        %% Panel 3: (-,+,+) — línea vertical entre punto izquierdo y central
-        \begin{scope}[shift={(0,-1.7)}]
-          \fill[red]      (0.2,0.25) circle (3.2pt);
-          \fill[uncoBlue] (0.75,0.8) circle (3.2pt);
-          \fill[uncoBlue] (1.3,0.25) circle (3.2pt);
-          \draw[thick,gray!70] (0.48,-0.1) -- (0.48,1.05);
-          \node[font=\tiny,gray] at (0.75,-0.35) {$(-,+,+)$};
-        \end{scope}
-        %% Panel 4: (-,-,-) — línea por encima de todo
-        \begin{scope}[shift={(2.1,-1.7)}]
-          \fill[red] (0.2,0.25) circle (3.2pt);
-          \fill[red] (0.75,0.8) circle (3.2pt);
-          \fill[red] (1.3,0.25) circle (3.2pt);
-          \draw[thick,gray!70] (-0.1,1.05) -- (1.55,1.05);
-          \node[font=\tiny,gray] at (0.75,-0.35) {$(-,-,-)$};
-        \end{scope}
-      \end{tikzpicture}
-
-      \vspace{0.3em}
-      {\scriptsize\textcolor{gray}{$N(\mathcal{F},\,3)=2^3=8$\;: fragmentación completa.}}
-    \end{column}
-
-  \end{columns}
-\end{frame}
-
-%--------------------------------------------------------------
-% DIAPOSITIVA 12 — LA DIMENSIÓN VC
-%--------------------------------------------------------------
-\begin{frame}{El Límite del Aprendizaje: La Dimensión VC}
-  \begin{columns}[T]
-
-    \begin{column}{0.52\textwidth}
-      \begin{block}{Dimensión VC}
-        \[
-          \mathrm{VC}(\mathcal{F}) \;:=\;
-          \max\bigl\{n\in\mathbb{N}
-            \;\big|\;
-            N(\mathcal{F},\,n)=2^n
-          \bigr\}
-        \]
-        \small El tamaño máximo de una muestra que $\mathcal{F}$ puede fragmentar \textit{completamente}.
-      \end{block}
-
-      \vspace{0.5em}
-      \begin{itemize}
-        \setlength{\itemsep}{0.45em}
-        \item Condensa la complejidad de $\mathcal{F}$ en un \textbf{número entero}.
-        \item \textbf{Clasificadores lineales en $\mathbb{R}^2$}:\;
-              $\mathrm{VC}(\mathcal{F}) = 3$.
-        \item $\mathrm{VC}(\mathcal{F}) = \infty$\;\alert{$\Rightarrow$}\;
-              sobreajuste garantizado ($\mathcal{F}_{\mathrm{all}}$).
-      \end{itemize}
-    \end{column}
-
-    \begin{column}{0.46\textwidth}
-      \centering
-      {\small\textbf{4 puntos en configuración XOR: ningún clasificador lineal los fragmenta}}
-      \vspace{0.5em}
-
-      \begin{tikzpicture}[scale=1.05, >=Stealth]
-        %% 4 puntos
-        \fill[uncoBlue] (0,0)     circle (4pt);
-        \fill[red]      (1.8,0)   circle (4pt);
-        \fill[red]      (0,1.8)   circle (4pt);
-        \fill[uncoBlue] (1.8,1.8) circle (4pt);
-        %% Etiquetas
-        \node[below left, font=\scriptsize, uncoBlue]  at (0,0)     {$+$};
-        \node[below right,font=\scriptsize, red]       at (1.8,0)   {$-$};
-        \node[above left, font=\scriptsize, red]       at (0,1.8)   {$-$};
-        \node[above right,font=\scriptsize, uncoBlue]  at (1.8,1.8) {$+$};
-        %% Intento 1: línea horizontal — falla
-        \draw[dashed, gray, thick] (-0.3, 0.9) -- (2.1, 0.9);
-        \node[font=\footnotesize, red] at (2.4, 0.9) {$\times$};
-        %% Intento 2: línea vertical — falla
-        \draw[dashed, gray!50, thick] (0.9, -0.3) -- (0.9, 2.1);
-        \node[font=\footnotesize, red] at (0.9, 2.4) {$\times$};
-        %% Anotación
-        \node[font=\scriptsize, gray, align=center] at (0.9,-0.7)
-          {configuración XOR};
-      \end{tikzpicture}
-
-      \vspace{0.2em}
-      {\scriptsize\textcolor{gray}{$N(\mathcal{F},4) < 16 = 2^4
-      \;\Rightarrow\;
-      \mathrm{VC}(\text{lin. en }\mathbb{R}^2)=3$}}
-    \end{column}
-
-  \end{columns}
-\end{frame}
-
-%--------------------------------------------------------------
-% DIAPOSITIVA 13 — EL LEMA DE SIMETRIZACIÓN
-%--------------------------------------------------------------
-\begin{frame}{El Truco Analítico: Lema de Simetrización}
-  \begin{columns}[T]
-
-    \begin{column}{0.50\textwidth}
-      \textbf{El obstáculo:} la cota original depende de $P$:
-      \[
-        P\!\left(\sup_{f\in\mathcal{F}}
-        \bigl|\mathcal{R}(f)-\mathcal{R}_{\mathrm{emp}}(f)\bigr|>\varepsilon\right)
-      \]
-      \hfill\alert{$\mathcal{R}(f) = \mathbb{E}_P[\cdots]$: incalculable.}
-
-      \vspace{0.7em}
-      \textbf{La idea:} introducir una \textbf{muestra fantasma} $S'$:
-      \[
-        \bigl|\mathcal{R}(f)-\mathcal{R}_{\mathrm{emp}}(f)\bigr|
-        \;\lesssim\;
-        \bigl|\mathcal{R}_{\mathrm{emp}}(f) - \mathcal{R}_{\mathrm{emp}}'(f)\bigr|
-      \]
-
-      \begin{block}{El resultado clave}
-        \small
-        \[
-          P\!\left(\sup_f|\mathcal{R}-\mathcal{R}_{\mathrm{emp}}|>\varepsilon\right)
-          \leq
-          2\,P\!\left(\sup_f|\mathcal{R}_{\mathrm{emp}}-\mathcal{R}_{\mathrm{emp}}'|>\tfrac{\varepsilon}{2}\right)
-        \]
-      \end{block}
-    \end{column}
-
-    \begin{column}{0.48\textwidth}
-      \centering
-      \begin{tikzpicture}[>=Stealth, scale=0.88]
-        %% Distribución P
-        \node[draw, ellipse, fill=uncoBlue!10, thick,
-              minimum width=3.4cm, minimum height=1.1cm, font=\small]
-              (P) at (2.0,3.0) {$P(X,Y)$};
-        %% Muestra real S
-        \node[draw, rectangle, fill=uncoBlue!25, rounded corners=4pt,
-              minimum width=2.9cm, minimum height=0.9cm, font=\small]
-              (S) at (0.4,1.3) {\;Muestra $S$\;};
-        %% Muestra fantasma S'
-        \node[draw, rectangle, fill=gray!20, rounded corners=4pt, dashed,
-              minimum width=2.9cm, minimum height=0.9cm, font=\small]
-              (Sp) at (3.6,1.3) {\;Muestra $S'$\;};
-        %% Flechas desde P
-        \draw[->, thick, uncoBlue] (P.south west) -- (S.north);
-        \draw[->, thick, gray, dashed] (P.south east) -- (Sp.north);
-        %% Flecha de comparación
-        \draw[<->, thick, red]
-          (S.east) -- node[above,font=\scriptsize]{comparar} (Sp.west);
-        %% Subetiquetas
-        \node[font=\scriptsize, uncoBlue, below=2pt of S]
-          {$\mathcal{R}_{\mathrm{emp}}(f)$};
-        \node[font=\scriptsize, gray, below=2pt of Sp]
-          {$\mathcal{R}_{\mathrm{emp}}'(f)$};
-        %% Tachado sobre P
-        \node[font=\small, red, below=1.5cm of P]
-          {\alert{$P$ desconocida $\;\to\;$ eliminada}};
-      \end{tikzpicture}
-
-      \vspace{0.2em}
-      \begin{alertblock}{La magia}
-        \small Pasamos de comparar contra $P$ (desconocida) a comparar \textbf{dos muestras finitas}: problema \textbf{combinatorio}, no probabilístico.
-      \end{alertblock}
-    \end{column}
-
-  \end{columns}
-\end{frame}
-
-%--------------------------------------------------------------
-% DIAPOSITIVA 14 — EL TEOREMA FUNDAMENTAL
-%--------------------------------------------------------------
-\begin{frame}{El Teorema Fundamental del Aprendizaje Estadístico}
-
-  \vspace{0.2em}
-  \begin{alertblock}{}
-    \centering\large\bfseries
-    \vspace{0.2em}
-    ERM es \textbf{universalmente consistente}
-    \vspace{0.3em}
-    \[
-      \iff \quad \mathrm{VC}(\mathcal{F}) \;<\; \infty
-    \]
-    \vspace{0.1em}
-  \end{alertblock}
-
-  \vspace{0.5em}
-
-  \begin{columns}[T]
-    \begin{column}{0.48\textwidth}
-      \begin{block}{Hoja de ruta de la prueba}
-        \small
-        \begin{enumerate}
-          \setlength{\itemsep}{0.25em}
-          \item \textbf{Simetrización:} $P$ desconocida $\to$ muestra fantasma $S'$.
-          \item \textbf{Permutaciones:} problema combinatorio sobre $2n$ puntos.
-          \item \textbf{Sauer–Shelah:}
-            $N(\mathcal{F},2n) \leq \left(\frac{2n}{\mathrm{VC}(\mathcal{F})}\right)^{\!\mathrm{VC}(\mathcal{F})}$.
-          \item \textbf{Unión de eventos:} la cota total $\to 0$ si $\mathrm{VC}<\infty$.
-        \end{enumerate}
-      \end{block}
-    \end{column}
-    \begin{column}{0.48\textwidth}
-      \begin{block}{Interpretación}
-        \small
-        \textbf{Aprender es, fundamentalmente,\\
-        un problema de \alert{capacidad finita}.}
-        \vspace{0.4em}
-        \begin{itemize}
-          \setlength{\itemsep}{0.3em}
-          \item De intuición estadística (``no sobreajustar'')\\
-                a \textbf{garantía matemática estricta}.
-          \item $\mathrm{VC}(\mathcal{F})$ cuantifica la riqueza\\
-                estructural del modelo.
-        \end{itemize}
-      \end{block}
-    \end{column}
-  \end{columns}
-
-\end{frame}
-
-% ─────────────────────────────────────────────────────────────
-% BLOQUE 4: LA REALIDAD Y SUS LÍMITES
-% ─────────────────────────────────────────────────────────────
-
-%--------------------------------------------------------------
-% DIAPOSITIVA 15 — LA BÚSQUEDA DEL ALGORITMO UNIVERSAL
-%--------------------------------------------------------------
-\begin{frame}{¿Existe un Algoritmo Maestro?}
-  \begin{columns}[T]
-
-    \begin{column}{0.52\textwidth}
-      \textbf{Hemos demostrado:}
-      \vspace{0.4em}
-      \begin{itemize}
-        \setlength{\itemsep}{0.35em}
-        \item ERM consistente $\iff$ $\mathrm{VC}(\mathcal{F}) < \infty$.
-        \item Con $\mathcal{F}$ adecuado, el error es acotable.
-        \item El ideal teórico es $f_{\mathrm{Bayes}}$.
-      \end{itemize}
-
-      \vspace{0.8em}
-      \textbf{Pregunta natural:}
-
-      \vspace{0.4em}
-      ¿Existe $f^*$ que, \textbf{en promedio sobre todas las distribuciones} $P(X,Y)$, supere a cualquier otro clasificador?
-    \end{column}
-
-    \begin{column}{0.46\textwidth}
-      \centering
-      \begin{tikzpicture}[>=Stealth, scale=0.92]
-        %% Cuatro algoritmos como nodos
-        \node[draw, fill=uncoBlue!15, rounded corners=4pt,
-              font=\scriptsize, thick, minimum height=0.65cm,
-              minimum width=1.1cm] (A1) at (0.0, 0) {$k$-NN};
-        \node[draw, fill=red!15, rounded corners=4pt,
-              font=\scriptsize, thick, minimum height=0.65cm,
-              minimum width=1.1cm] (A2) at (1.6, 0) {SVM};
-        \node[draw, fill=gray!20, rounded corners=4pt,
-              font=\scriptsize, thick, minimum height=0.65cm,
-              minimum width=1.1cm] (A3) at (3.2, 0) {Red N.};
-        \node[draw, fill=green!15, rounded corners=4pt,
-              font=\scriptsize, thick, minimum height=0.65cm,
-              minimum width=1.1cm] (A4) at (4.8, 0) {ERM};
-        %% Gran signo de pregunta arriba
-        \node[font=\huge\bfseries, uncoBlue] at (2.4, 2.3)
-              {\Large\textbf{?}};
-        \node[font=\small, gray] at (2.4, 1.6) {\textit{¿el mejor de todos?}};
-        %% Flechas desde cada algoritmo
-        \draw[->, thick, gray!55] (A1.north) to[out=80,in=220] (2.1, 1.5);
-        \draw[->, thick, gray!55] (A2.north) -- (2.2, 1.5);
-        \draw[->, thick, gray!55] (A3.north) -- (2.6, 1.5);
-        \draw[->, thick, gray!55] (A4.north) to[out=100,in=320] (2.7, 1.5);
-      \end{tikzpicture}
-    \end{column}
-
-  \end{columns}
-\end{frame}
-
-%--------------------------------------------------------------
-% DIAPOSITIVA 16 — LOS TEOREMAS DE LA CHANCHA Y LOS VEINTE
-%--------------------------------------------------------------
-\begin{frame}{``Los Teoremas de la Chancha y los Veinte''}
-
-  \begin{columns}[T]
-
-    \begin{column}{0.50\textwidth}
-      \begin{block}{Teorema 4.3.1 (Devroye, 1982)}
-        \small
-        Sea $\varepsilon>0$. Para cualquier $n\in\mathbb{N}$ y cualquier regla
-        $f_n$, \textbf{existe} una distribución $P(X,Y)$ con
-        $\mathcal{R}(f_{\mathrm{Bayes}})=0$ tal que:
-        \[
-          \mathbb{E}\bigl[\ell(X,Y,f_n)\bigr] \;\geq\; \frac{1}{2} - \varepsilon
-        \]
-      \end{block}
-
-      \vspace{0.5em}
-      \begin{itemize}
-        \setlength{\itemsep}{0.38em}
-        \item Por cada universo donde $f_n$ triunfa, existe un universo ``espejo'' donde falla como una moneda.
-        \item Promediado sobre \textbf{todas} las $P$: \alert{todo algoritmo rinde igual.}
-        \item \small No contradice consistencia: la distribución adversarial depende de $n$.
-      \end{itemize}
-    \end{column}
-
-    \begin{column}{0.48\textwidth}
-      \centering
-      \begin{tikzpicture}
-        \begin{axis}[
-            width=6.8cm, height=5.0cm,
-            axis lines=left,
-            xlabel={distribuciones},
-            ylabel={rendimiento},
-            xlabel style={font=\scriptsize},
-            ylabel style={font=\scriptsize},
-            xmin=0, xmax=10,
-            ymin=0, ymax=1.15,
-            xtick=\empty, ytick=\empty,
-            clip=false,
-            legend pos=north east,
-            legend style={font=\scriptsize, row sep=-2pt},
-          ]
-          %% Clasificador 1: especialista con pico pronunciado
-          \addplot[thick, uncoBlue, domain=0:10, samples=250]
-            {0.12 + 0.86*exp(-((x-3.0)^2)/1.6)};
-          \addlegendentry{clasificador 1};
-          %% Clasificador 2: generalista mediocre
-          \addplot[thick, red, dashed, domain=0:10, samples=250]
-            {0.15 + 0.07*sin(deg(x*2.2)) + 0.05*cos(deg(x*4.8))};
-          \addlegendentry{clasificador 2};
-          %% Línea de referencia: azar = 0.5
-          \addplot[dotted, gray, domain=0:10] {0.5};
-          \node[font=\tiny, gray] at (axis cs:10.4, 0.5) {azar};
-          %% Doble flecha indicando áreas iguales
-          \draw[<->, thin, gray!70]
-            (axis cs:6.5, 0.22) -- (axis cs:6.5, 0.48);
-          \node[font=\tiny, gray, right] at (axis cs:6.6, 0.35)
-            {$\int\!=\!\int$};
-        \end{axis}
-      \end{tikzpicture}
-
-      \vspace{0.1em}
-      {\scriptsize\textcolor{gray}{Área bajo ambas curvas es igual.
-      Inspirado en Figura 4.2 de la tesina.}}
-    \end{column}
-
-  \end{columns}
-\end{frame}
-
-%--------------------------------------------------------------
-% DIAPOSITIVA 17 — EL SESGO INDUCTIVO
-%--------------------------------------------------------------
-\begin{frame}{El Sesgo Inductivo: La Moraleja del Machine Learning}
-  \begin{columns}[T]
-
-    \begin{column}{0.50\textwidth}
-      \begin{alertblock}{La lección central}
-        \centering\large
-        Aprender ``en el vacío'' es \textbf{imposible}.\\[0.2em]
-        Para aprender, debemos \textbf{asumir}.
-      \end{alertblock}
-
-      \vspace{0.55em}
-
-      \begin{block}{Sesgo inductivo}
-        \small
-        Restricción sobre el espacio de distribuciones o funciones que el algoritmo considera plausibles.
-      \end{block}
-
-      \vspace{0.45em}
-      \begin{itemize}
-        \setlength{\itemsep}{0.3em}
-        \item \textbf{$k$-NN:} puntos cercanos tienen etiquetas similares.
-        \item \textbf{SVM:} las clases son separables por un margen.
-        \item \textbf{Red neuronal:} la función es aproximable por composición de no-linealidades.
-      \end{itemize}
-    \end{column}
-
-    \begin{column}{0.48\textwidth}
-      \centering
-      \begin{tikzpicture}[scale=0.85]
-        %% Universo de todas las distribuciones
-        \draw[thick, uncoBlue!30, fill=uncoBlue!5]
-              (0,0) circle (2.5cm);
-        \node[font=\small, uncoBlue!50] at (0, 2.0) {todas las $P$};
-        %% Subconjunto compatible con el sesgo
-        \draw[thick, uncoBlue, fill=uncoBlue!25]
-              (0.4, -0.2) circle (1.0cm);
-        \node[font=\scriptsize, uncoBlue, align=center] at (0.4,-0.2)
-              {$P$ compatibles\\con el sesgo};
-        %% Algoritmo con su sesgo
-        \node[draw, rectangle, fill=gray!10, rounded corners=4pt,
-              font=\scriptsize, thick, align=center, minimum width=2.0cm]
-              (Alg) at (4.2, -0.2)
-              {algoritmo $f_n$\\con sesgo};
-        \draw[->, thick, uncoBlue] (Alg.west) -- (1.45, -0.2);
-        %% Distribuciones adversariales
-        \fill[red!50, opacity=0.5] (-1.4, 0.9)  circle (5pt);
-        \fill[red!50, opacity=0.5] (-1.9,-0.2)  circle (5pt);
-        \fill[red!50, opacity=0.5] (-1.3,-1.3)  circle (5pt);
-        \node[font=\tiny, red!70, align=center] at (-1.6,-1.85)
-              {distribuciones\\adversariales};
-      \end{tikzpicture}
-
-      \vspace{0.4em}
-      \begin{block}{\small La clave del éxito práctico}
-        \small
-        No existe el algoritmo perfecto: el éxito es elegir aquel cuyas \textbf{suposiciones} coincidan con la \textbf{física del problema}.
-      \end{block}
-    \end{column}
-
-  \end{columns}
-\end{frame}
-
-%==============================================================
-%  BLOQUE 5 — REFLEXIONES FINALES Y EL PARADIGMA ACTUAL
-%==============================================================
-
-%--------------------------------------------------------------
-% DIAPOSITIVA 18 — LA PARADOJA MODERNA
-%--------------------------------------------------------------
-\begin{frame}{La Paradoja Moderna: ¿Qué Dice la Teoría?}
-  \begin{columns}[T]
-
-    \begin{column}{0.50\textwidth}
-      \begin{block}{El marco clásico predice}
-        \small
-        Si $\mathrm{VC}(\mathcal{F}) = d < \infty$, con alta probabilidad:
-        \[
-          \mathcal{R}(f_n) \;\leq\; \hat{\mathcal{R}}_n(f_n)
-            + O\!\left(\!\sqrt{\frac{d + \ln(1/\delta)}{n}}\right)
-        \]
-        \vspace{-0.4em}
-        \begin{itemize}\setlength\itemsep{0.2em}
-          \item \textbf{Capacidad alta} $\Rightarrow$ cota grande.
-          \item \textbf{Sobreparametrización} $\Rightarrow$ sobreajuste inevitable.
-        \end{itemize}
-      \end{block}
-
-      \vspace{0.5em}
-      \begin{alertblock}{Lo que observamos en la práctica}
-        \small
-        GPT-4: ${\sim}1.8$\,T parámetros, $n \ll \text{parámetros}$.\\[0.3em]
-        Las cotas VC serían \textbf{astronómicamente grandes}…\\[0.3em]
-        \centering\alert{…y sin embargo, generalizan.}
-      \end{alertblock}
-    \end{column}
-
-    \begin{column}{0.48\textwidth}
-      \centering
-      %% f(x) = 0.08 + 0.80*exp(-0.55x) + 0.58*exp(-3.5*(x-5.5)^2)
-      %% Valores clave:  x=0 → 0.88,  x=4 → 0.17,  x=5.5 → 0.70 (pico),
-      %%                 x=7 → 0.09,  x=10 → 0.08
-      %% Ambos trazos usan la MISMA función → curva continua
-      \begin{tikzpicture}
-        \begin{axis}[
-            width=6.8cm, height=5.0cm,
-            axis lines=left,
-            xlabel={complejidad del modelo},
-            ylabel={error de generalización},
-            xlabel style={font=\scriptsize},
-            ylabel style={font=\scriptsize},
-            xmin=0, xmax=10,
-            ymin=0, ymax=1.0,
-            xtick=\empty, ytick=\empty,
-            clip=false,
-            legend style={font=\scriptsize, row sep=-2pt,
-                          at={(0.98,0.98)}, anchor=north east},
-          ]
-          %% Régimen clásico (sesgo–varianza): x de 0 a 5.5
-          \addplot[very thick, uncoBlue, domain=0.05:5.5, samples=200]
-            {0.08 + 0.80*exp(-0.55*x) + 0.58*exp(-3.5*(x-5.5)^2)};
-          \addlegendentry{\scriptsize teoría clásica};
-          %% Régimen moderno (doble descenso): x de 5.5 a 10
-          \addplot[very thick, red, dashed, domain=5.5:10, samples=200]
-            {0.08 + 0.80*exp(-0.55*x) + 0.58*exp(-3.5*(x-5.5)^2)};
-          \addlegendentry{\scriptsize DL moderno};
-          %% Línea vertical en el umbral de interpolación
-          \draw[dotted, gray!70, thick]
-            (axis cs:5.5, 0) -- (axis cs:5.5, 0.72);
-          \node[font=\tiny, gray, rotate=90] at (axis cs:5.18, 0.37)
-            {umbral interp.};
-          %% Etiqueta mínimo clásico
-          \node[font=\tiny, uncoBlue, align=center] at (axis cs:2.2, 0.38)
-            {sesgo-\\varianza};
-          %% Etiqueta doble descenso
-          \node[font=\tiny, red!80, align=center] at (axis cs:8.3, 0.30)
-            {doble\\descenso};
-        \end{axis}
-      \end{tikzpicture}
-
-      {\scriptsize\textcolor{gray}{Fenómeno de ``doble descenso'':
-      el error \emph{vuelve a bajar} tras la sobreparametrización.}}
-    \end{column}
-
-  \end{columns}
-\end{frame}
-
-%--------------------------------------------------------------
-% DIAPOSITIVA 19 — LEYES DE ESCALAMIENTO Y EL FUTURO
-%--------------------------------------------------------------
-\begin{frame}{Leyes de Escalamiento: Fuerza Bruta $\to$ Necesidad Teórica}
-  \begin{columns}[T]
-
-    \begin{column}{0.50\textwidth}
-      \begin{block}{Empirismo a escala (Kaplan et al., 2020)}
-        \small
-        \[
-          L(N) \;\approx\; \left(\frac{N_c}{N}\right)^{\alpha}, \quad \alpha \approx 0.076
-        \]
-        La pérdida sigue una \textbf{ley de potencias} en parámetros $N$,
-        tokens y cómputo.\\ Transformers, LLMs, modelos de difusión.
-      \end{block}
-
-      \vspace{0.45em}
-      \begin{itemize}\setlength{\itemsep}{0.3em}
-        \item \textbf{Hoy:} escalamos porque funciona empíricamente.
-        \item \textbf{Mañana:} los límites físicos y económicos frenarán el escalado.
-        \item \textbf{La teoría es el cuello de botella:} sin fundamentos de
-              generalización para regímenes sobreparametrizados, avanzamos a ciegas.
-      \end{itemize}
-
-      \vspace{0.4em}
-      \begin{tikzpicture}[>=Stealth, node distance=0.5cm]
-        \node[draw, rounded corners=4pt, fill=red!10, font=\small,
-              align=center, minimum width=2.6cm, thick]
-          (FB) {Fuerza\\Bruta};
-        \node[draw, rounded corners=4pt, fill=uncoBlue!15, font=\small,
-              align=center, minimum width=2.6cm, thick, right=1.6cm of FB]
-          (NT) {Necesidad\\Teórica};
-        \draw[->, very thick, uncoBlue] (FB) -- (NT)
-          node[midway, above, font=\scriptsize] {límites};
-      \end{tikzpicture}
-    \end{column}
-
-    \begin{column}{0.48\textwidth}
-      \centering
-      \begin{tikzpicture}
-        \begin{axis}[
-            width=6.8cm, height=5.2cm,
-            axis lines=left,
-            xmode=log, ymode=log,
-            xlabel={parámetros / cómputo (log)},
-            ylabel={pérdida de prueba (log)},
-            xlabel style={font=\scriptsize},
-            ylabel style={font=\scriptsize},
-            xmin=1e3, xmax=1e11,
-            ymin=0.2, ymax=20,
-            xtick=\empty, ytick=\empty,
-            clip=false,
-            legend pos=north east,
-            legend style={font=\tiny, row sep=-2pt},
-          ]
-          %% Scaling law: potencia negativa
-          \addplot[thick, uncoBlue, domain=1000:1e11, samples=200]
-            {12*(x)^(-0.076)};
-          \addlegendentry{$L(N)\propto N^{-\alpha}$};
-          %% Plateau teórico
-          \addplot[dashed, gray, domain=1e9:1e11] {0.28};
-          \node[font=\tiny, gray, align=left] at (axis cs:5e10, 0.22)
-            {límite\\teórico?};
-          %% Puntos anotados
-          \addplot[only marks, mark=*, mark size=1.8pt, uncoBlue!60]
-            coordinates {(1e7,2.8)(1e9,1.8)(1e11,1.2)};
-          \node[font=\tiny, above right] at (axis cs:1e11,1.2) {GPT-4?};
-        \end{axis}
-      \end{tikzpicture}
-
-      {\scriptsize\textcolor{gray}{Ley de potencias empírica
-      (Kaplan et al., 2020). Los valores son ilustrativos.}}
-    \end{column}
-
-  \end{columns}
-\end{frame}
-
-%--------------------------------------------------------------
-% DIAPOSITIVA 20 — CIERRE Y PREGUNTAS
-%--------------------------------------------------------------
-\begin{frame}[plain]
-  \begin{tikzpicture}[remember picture, overlay]
-    %% Fondo degradado suave
-    \fill[uncoBlue!8] (current page.south west) rectangle (current page.north east);
-    %% Banda superior e inferior decorativas
-    \fill[uncoBlue] (current page.north west)
-      rectangle ([yshift=-0.55cm]current page.north east);
-    \fill[uncoBlue] (current page.south west)
-      rectangle ([yshift= 0.45cm]current page.south east);
-  \end{tikzpicture}
-
-  \vspace{1.0em}
-
-  \begin{center}
-    {\color{uncoBlue}\large\bfseries
-      ``Dios mueve al jugador, y éste, la pieza.\\[0.1em]
-      ¿Qué Dios detrás de Dios la trama empieza?''}\\[0.3em]
-    {\small\color{gray} Jorge Luis Borges, \textit{Ajedrez}, 1960}
-  \end{center}
-
-  \vspace{0.9em}
-
-  \begin{center}
-    \begin{tikzpicture}
-      \node[draw=uncoBlue, thick, rounded corners=6pt,
-            fill=white, inner xsep=18pt, inner ysep=8pt,
-            align=center]
-        {%
-          {\color{uncoBlue}\Large\bfseries
-            Detrás de cada algoritmo, una pregunta matemática.}\\[0.4em]
-          {\normalsize\color{gray!80}
-            La tesina fue un paso; el camino sigue abierto.}
-        };
-    \end{tikzpicture}
-  \end{center}
-
-  \vspace{0.9em}
-
-  \begin{center}
-    {\Huge\color{uncoBlue}\bfseries Muchas gracias.}\\[0.4em]
-    {\large\color{gray} \textit{¿Preguntas?}}
-  \end{center}
-\end{frame}
+% % ─────────────────────────────────────────────────────────────
+% % BLOQUE 2: LA TRAMPA DE LA LIBERTAD
+% % ─────────────────────────────────────────────────────────────
+
+% %--------------------------------------------------------------
+% % DIAPOSITIVA 6 — EL ATAJO EMPÍRICO
+% %--------------------------------------------------------------
+% \begin{frame}{Riesgo Empírico}
+%   \begin{columns}[T]
+
+%     %% — Columna izquierda: la fórmula y su origen
+%     \begin{column}{0.54\textwidth}
+%       \textbf{Riesgo Empírico} (lo que \textit{sí} podemos calcular):
+%       \[
+%         \mathcal{R}_{\mathrm{emp}}(f)
+%         \;:=\;
+%         \frac{1}{n}\sum_{i=1}^{n}\ell\bigl(X_i,\,Y_i,\,f(X_i)\bigr)
+%       \]
+
+%       \vspace{0.5em}
+%       \textbf{Principio ERM} (Minimización del Riesgo Empírico):
+%       \[
+%         f_n \;:=\; \arg\min_{f \in \mathcal{F}}\;\mathcal{R}_{\mathrm{emp}}(f)
+%       \]
+
+%       \vspace{0.4em}
+%       {\small La motivación proviene de la \textbf{Ley de los Grandes Números}:}
+%       \[
+%         \frac{1}{n}\sum_{i=1}^{n}\xi_i
+%         \;\xrightarrow{\;n\to\infty\;}
+%         \mathbb{E}[\xi]
+%         \qquad (\xi_i \;\text{i.i.d.})
+%       \]
+%     \end{column}
+
+%     %% — Columna derecha: por qué parece funcionar y la advertencia
+%     \begin{column}{0.44\textwidth}
+%       \begin{block}{La promesa}
+%         Para $f$ \textbf{fija}, la LGN garantiza:
+%         \[
+%           \mathcal{R}_{\mathrm{emp}}(f)
+%           \;\xrightarrow{\;n\to\infty\;}
+%           \mathcal{R}(f)
+%         \]
+%         Más datos $\;\Rightarrow\;$ mejor estimación.
+%       \end{block}
+
+%       \vspace{0.7em}
+
+%       \begin{alertblock}{La trampa oculta}
+%         Nuestra $f_n$ \textbf{depende de los datos}.\\[0.3em]
+%         La LGN aplica a funciones \textit{fijas},
+%         no a funciones que cambian con la muestra.
+%       \end{alertblock}
+%     \end{column}
+
+%   \end{columns}
+% \end{frame}
+
+% %--------------------------------------------------------------
+% % DIAPOSITIVA 7 — EL COLAPSO DE LA MEMORIZACIÓN
+% %--------------------------------------------------------------
+% \begin{frame}{El Colapso de la Memorización: $\mathcal{F}_{\mathrm{all}}$}
+%   \begin{columns}[T]
+
+%     %% — Columna izquierda: el clasificador tramposo
+%     \begin{column}{0.50\textwidth}
+%       \textbf{El clasificador ``tramposo''}
+%       (búsqueda irrestricta en $\mathcal{F}_{\mathrm{all}}$):
+%       \[
+%         f_n(X) \;:=\;
+%         \begin{cases}
+%           Y_i & \text{si } X = X_i \text{ para algún } i \\
+%           +1  & \text{en otro caso}
+%         \end{cases}
+%       \]
+
+%       \vspace{0.6em}
+%       \begin{itemize}
+%         \setlength{\itemsep}{0.45em}
+%         \item $\mathcal{R}_{\mathrm{emp}}(f_n) = 0$ \hfill \textcolor{green!60!black}{(perfecto en train)}
+%         \item $\mathcal{R}(f_n) = \tfrac{1}{2}$ \hfill \alert{(moneda al aire en test)}
+%       \end{itemize}
+
+%       \vspace{0.6em}
+%       \begin{alertblock}{Diagnóstico}
+%         \textbf{Sobreajuste catastrófico.}\\
+%         El algoritmo aprendió los datos, no la regla.
+%       \end{alertblock}
+%     \end{column}
+
+%     %% — Columna derecha: figura intuitiva
+%     \begin{column}{0.48\textwidth}
+%       \centering
+%       \begin{tikzpicture}[scale=0.92]
+%         \begin{axis}[
+%             width=6.5cm, height=5.5cm,
+%             axis lines=center,
+%             xlabel=$x$, ylabel=$y$,
+%             xlabel style={font=\small, at={(axis description cs:1,0)}, anchor=west},
+%             ylabel style={font=\small, at={(axis description cs:0,1)}, anchor=south},
+%             xmin=-0.3, xmax=5.5,
+%             ymin=-0.5, ymax=2.0,
+%             xtick=\empty, ytick=\empty,
+%             clip=false,
+%           ]
+%           %% Puntos de entrenamiento clase +1
+%           \addplot[only marks, mark=*, mark size=3pt, uncoBlue]
+%             coordinates{(0.8,1.0)(1.5,1.0)(2.8,1.0)(4.2,1.0)};
+%           %% Puntos de entrenamiento clase -1
+%           \addplot[only marks, mark=square*, mark size=3pt, red]
+%             coordinates{(1.1,0.0)(2.2,0.0)(3.5,0.0)(4.8,0.0)};
+%           %% Punto de prueba nuevo (no visto)
+%           \addplot[only marks, mark=triangle*, mark size=4pt, orange]
+%             coordinates{(3.0,0.5)};
+%           %% Etiquetas
+%           \node[font=\scriptsize, uncoBlue, above] at (axis cs:0.8,1.0) {$+1$};
+%           \node[font=\scriptsize, uncoBlue, above] at (axis cs:1.5,1.0) {$+1$};
+%           \node[font=\scriptsize, uncoBlue, above] at (axis cs:2.8,1.0) {$+1$};
+%           \node[font=\scriptsize, uncoBlue, above] at (axis cs:4.2,1.0) {$+1$};
+%           \node[font=\scriptsize, red, below]  at (axis cs:1.1,0.0) {$-1$};
+%           \node[font=\scriptsize, red, below]  at (axis cs:2.2,0.0) {$-1$};
+%           \node[font=\scriptsize, red, below]  at (axis cs:3.5,0.0) {$-1$};
+%           \node[font=\scriptsize, red, below]  at (axis cs:4.8,0.0) {$-1$};
+%           %% Punto nuevo con predicción errónea
+%           \node[font=\scriptsize, orange, right] at (axis cs:3.0,0.5)
+%             {\;$x_{\mathrm{nuevo}}$\;\alert{$\hat{y}=+1$??}};
+%         \end{axis}
+%       \end{tikzpicture}
+
+%       \vspace{0.2em}
+%       {\scriptsize\textcolor{gray}{$f_n$ memoriza el train; ignora el test.}}
+%     \end{column}
+
+%   \end{columns}
+% \end{frame}
+
+% %--------------------------------------------------------------
+% % DIAPOSITIVA 8 — EL DILEMA DE LA COMPLEJIDAD
+% %--------------------------------------------------------------
+% \begin{frame}{El Dilema de la Complejidad}
+%   \begin{columns}[T]
+
+%     %% — Columna izquierda: la ecuación de descomposición
+%     \begin{column}{0.50\textwidth}
+%       \textbf{Descomposición del exceso de riesgo:}
+%       \[
+%         \underbrace{\mathcal{R}(f_n) - \mathcal{R}(f_{\mathrm{Bayes}})}_{\text{lo que queremos reducir}}
+%       \]
+%       \[
+%         =\;
+%         \underbrace{\mathcal{R}(f_n) - \mathcal{R}(f_{\mathcal{F}})}_{\textcolor{red}{\text{error de estimación}}}
+%         \;+\;
+%         \underbrace{\mathcal{R}(f_{\mathcal{F}}) - \mathcal{R}(f_{\mathrm{Bayes}})}_{\textcolor{uncoBlue}{\text{error de aproximación}}}
+%       \]
+
+%       \vspace{0.6em}
+%       \begin{itemize}
+%         \setlength{\itemsep}{0.4em}
+%         \item \textcolor{uncoBlue}{\textbf{Aprox.:}} $\mathcal{F}$ pequeño $\Rightarrow$ alto \textcolor{uncoBlue}{sesgo} (subajuste).
+%         \item \textcolor{red}{\textbf{Estim.:}} $\mathcal{F}$ grande $\Rightarrow$ alta \textcolor{red}{varianza} (sobreajuste).
+%       \end{itemize}
+%     \end{column}
+
+%     %% — Columna derecha: figura sesgo-varianza (Figura 2.3)
+%     \begin{column}{0.48\textwidth}
+%       \centering
+%       \begin{tikzpicture}
+%         \begin{axis}[
+%             width=6.8cm, height=5.2cm,
+%             axis lines=left,
+%             xlabel={complejidad de $\mathcal{F}$},
+%             ylabel={error},
+%             xlabel style={font=\scriptsize},
+%             ylabel style={font=\scriptsize},
+%             xmin=0, xmax=6,
+%             ymin=0, ymax=3.2,
+%             xtick=\empty, ytick=\empty,
+%             clip=false,
+%             legend pos=north east,
+%             legend style={font=\scriptsize, row sep=-2pt},
+%           ]
+%           %% Error de aproximación (decreasing)
+%           \addplot[thick, uncoBlue, domain=0.2:5.8, samples=100]
+%             {2.5*exp(-0.65*x) + 0.05};
+%           \addlegendentry{\textcolor{uncoBlue}{aprox.}};
+%           %% Error de estimación (increasing)
+%           \addplot[thick, red, domain=0.2:5.8, samples=100]
+%             {0.08*x^2 - 0.1*x + 0.15};
+%           \addlegendentry{\textcolor{red}{estim.}};
+%           %% Riesgo total (U-shaped)
+%           \addplot[thick, black, domain=0.2:5.8, samples=100]
+%             {2.5*exp(-0.65*x) + 0.08*x^2 - 0.1*x + 0.20};
+%           \addlegendentry{riesgo total};
+%           %% Mínimo óptimo (flecha)
+%           \draw[dashed, gray] (axis cs:2.05,0) -- (axis cs:2.05,1.45);
+%           \node[font=\scriptsize, gray, below] at (axis cs:2.05,0) {óptimo};
+%         \end{axis}
+%       \end{tikzpicture}
+
+%       \vspace{0.1em}
+%       {\scriptsize\textcolor{gray}{Inspirado en Figura 2.3 de la tesina.}}
+%     \end{column}
+
+%   \end{columns}
+% \end{frame}
+
+% %--------------------------------------------------------------
+% % DIAPOSITIVA 9 — LA NECESIDAD DE UN SESGO (PUENTE A VC)
+% %--------------------------------------------------------------
+% \begin{frame}{La Necesidad de un Sesgo Inductivo}
+%   \begin{columns}[T]
+
+%     %% — Columna izquierda: la conclusión forzosa
+%     \begin{column}{0.50\textwidth}
+%       \begin{block}{Conclusión del bloque}
+%         Para que ERM sea \textbf{consistente}, el espacio $\mathcal{F}$
+%         debe ser \alert{suficientemente restringido}.
+%       \end{block}
+
+%       \vspace{0.7em}
+%       \begin{itemize}
+%         \setlength{\itemsep}{0.55em}
+%         \item $\mathcal{F} = \mathcal{F}_{\mathrm{all}}$ \;\alert{$\Rightarrow$}\; inconsistencia garantizada.
+%         \item $\mathcal{F}$ pequeño (e.g., funciones lineales)\;
+%               \textcolor{green!60!black}{$\Rightarrow$}\; bajo error de estimación.
+%         \item Todo aprendizaje exitoso impone un \textbf{sesgo inductivo}.
+%       \end{itemize}
+
+%       \vspace{0.7em}
+%       {\small No existe conocimiento sin suposición. \\ La pregunta es cuál suposición elegir.}
+%     \end{column}
+
+%     %% — Columna derecha: la pregunta puente
+%     \begin{column}{0.48\textwidth}
+%       \begin{alertblock}{Pregunta puente}
+%         ¿Cómo \textbf{medir formalmente} si un espacio
+%         $\mathcal{F}$ es lo suficientemente ``restringido''
+%         para que ERM no nos mienta?
+%       \end{alertblock}
+
+%       \vspace{0.8em}
+
+%       \begin{tikzpicture}[scale=0.85]
+%         %% Círculo grande: F_all
+%         \draw[thick, uncoBlue!40, fill=uncoBlue!5]
+%               (0,0) circle (2.1cm);
+%         \node[font=\small, uncoBlue!70] at (0, 1.6) {$\mathcal{F}_{\mathrm{all}}$};
+%         %% Círculo pequeño: F restringido
+%         \draw[thick, uncoBlue, fill=uncoBlue!20]
+%               (0.2,-0.1) circle (0.9cm);
+%         \node[font=\small, uncoBlue] at (0.2,-0.1) {$\mathcal{F}$};
+%         %% Punto f_Bayes fuera de F
+%         \fill[red] (-1.2, 0.3) circle (3pt);
+%         \node[font=\scriptsize, red, left] at (-1.2, 0.3) {$f_{\mathrm{Bayes}}$};
+%         %% Flechas / etiqueta
+%         \node[font=\scriptsize, gray] at (0, -2.6)
+%           {Restringir $\Leftrightarrow$ controlar la capacidad};
+%       \end{tikzpicture}
+
+%       \vspace{0.4em}
+%       \centering
+%       \large $\;\longrightarrow\;$ \textbf{Teoría VC}
+%     \end{column}
+
+%   \end{columns}
+% \end{frame}
+
+% % ─────────────────────────────────────────────────────────────
+% % BLOQUE 3: EL ANDAMIAJE FORMAL — TEORÍA VC
+% % ─────────────────────────────────────────────────────────────
+
+% %--------------------------------------------------------------
+% % DIAPOSITIVA 10 — LA LEY QUE NOS QUEDÓ CHICA
+% %--------------------------------------------------------------
+% \begin{frame}{La Ley que nos Quedó Chica: Convergencia Uniforme}
+%   \begin{columns}[T]
+
+%     \begin{column}{0.52\textwidth}
+%       \textbf{LGN para $f$ fija} (lo que ya teníamos):
+%       \[
+%         \mathcal{R}_{\mathrm{emp}}(f)
+%         \;\xrightarrow{\;n\to\infty\;}
+%         \mathcal{R}(f)
+%         \qquad\textcolor{green!60!black}{\checkmark}
+%       \]
+
+%       \vspace{0.5em}
+%       \textbf{Lo que realmente necesitamos:}
+%       \[
+%         \sup_{f\,\in\,\mathcal{F}}
+%         \bigl|\mathcal{R}(f) - \mathcal{R}_{\mathrm{emp}}(f)\bigr|
+%         \;\xrightarrow{\;n\to\infty\;} 0
+%         \quad\alert{(?)}
+%       \]
+%       {\small Convergencia \textit{simultánea} para \textbf{todas} las $f\in\mathcal{F}$.}
+%     \end{column}
+
+%     \begin{column}{0.46\textwidth}
+%       \begin{alertblock}{¿Por qué la LGN no alcanza?}
+%         $f_n = \arg\min_{f\in\mathcal{F}}\mathcal{R}_{\mathrm{emp}}(f)$
+%         \textbf{depende de los datos}.\\[0.3em]
+%         La LGN aplica a funciones \textit{fijas}, no a funciones que cambian con la muestra.
+%       \end{alertblock}
+
+%       \vspace{0.5em}
+
+%       \begin{block}{Lo que hay que probar}
+%         \[
+%           P\!\left(
+%             \sup_{f\in\mathcal{F}}
+%             \bigl|\mathcal{R}(f)-\mathcal{R}_{\mathrm{emp}}(f)\bigr|>\varepsilon
+%           \right)
+%           \xrightarrow{n\to\infty} 0
+%         \]
+%         para todo $\varepsilon > 0$.
+%       \end{block}
+%     \end{column}
+
+%   \end{columns}
+% \end{frame}
+
+% %--------------------------------------------------------------
+% % DIAPOSITIVA 11 — COEFICIENTE DE FRAGMENTACIÓN
+% %--------------------------------------------------------------
+% \begin{frame}{Geometría de la Capacidad: Coeficiente de Fragmentación}
+%   \begin{columns}[T]
+
+%     \begin{column}{0.50\textwidth}
+%       \begin{block}{Coeficiente de fragmentación}
+%         \[
+%           N(\mathcal{F},\,n) \;:=\;
+%           \max_{x_1,\ldots,x_n\in\mathcal{X}}
+%           \bigl|\bigl\{(f(x_1),\ldots,f(x_n)):f\in\mathcal{F}\bigr\}\bigr|
+%         \]
+%       \end{block}
+
+%       \vspace{0.5em}
+%       \begin{itemize}
+%         \setlength{\itemsep}{0.45em}
+%         \item Reduce $\mathcal{F}$ (infinito) a un conteo \textbf{combinatorio finito}.
+%         \item $N(\mathcal{F},n) \leq 2^n$ siempre; la igualdad = \textit{fragmentación completa}.
+%         \item Clasificadores lineales en $\mathbb{R}^2$:
+%           \[N(\mathcal{F},\,3) = 8 = 2^3 \quad\textcolor{green!60!black}{\checkmark}\]
+%       \end{itemize}
+%     \end{column}
+
+%     \begin{column}{0.48\textwidth}
+%       \centering
+%       {\small\textbf{4 de 8 dicotomías posibles con clasificadores lineales:}}
+%       \vspace{0.4em}
+
+%       \begin{tikzpicture}[scale=0.78]
+%         %% Panel 1: (+,+,+) — línea por debajo de todo
+%         \begin{scope}[shift={(0, 0)}]
+%           \fill[uncoBlue] (0.2,0.25) circle (3.2pt);
+%           \fill[uncoBlue] (0.75,0.8) circle (3.2pt);
+%           \fill[uncoBlue] (1.3,0.25) circle (3.2pt);
+%           \draw[thick,gray!70] (-0.1,-0.05) -- (1.55,-0.05);
+%           \node[font=\tiny,gray] at (0.75,-0.35) {$(+,+,+)$};
+%         \end{scope}
+%         %% Panel 2: (+,+,-) — línea vertical entre punto central y derecho
+%         \begin{scope}[shift={(2.1,0)}]
+%           \fill[uncoBlue] (0.2,0.25) circle (3.2pt);
+%           \fill[uncoBlue] (0.75,0.8) circle (3.2pt);
+%           \fill[red]      (1.3,0.25) circle (3.2pt);
+%           \draw[thick,gray!70] (1.05,-0.1) -- (1.05,1.05);
+%           \node[font=\tiny,gray] at (0.75,-0.35) {$(+,+,-)$};
+%         \end{scope}
+%         %% Panel 3: (-,+,+) — línea vertical entre punto izquierdo y central
+%         \begin{scope}[shift={(0,-1.7)}]
+%           \fill[red]      (0.2,0.25) circle (3.2pt);
+%           \fill[uncoBlue] (0.75,0.8) circle (3.2pt);
+%           \fill[uncoBlue] (1.3,0.25) circle (3.2pt);
+%           \draw[thick,gray!70] (0.48,-0.1) -- (0.48,1.05);
+%           \node[font=\tiny,gray] at (0.75,-0.35) {$(-,+,+)$};
+%         \end{scope}
+%         %% Panel 4: (-,-,-) — línea por encima de todo
+%         \begin{scope}[shift={(2.1,-1.7)}]
+%           \fill[red] (0.2,0.25) circle (3.2pt);
+%           \fill[red] (0.75,0.8) circle (3.2pt);
+%           \fill[red] (1.3,0.25) circle (3.2pt);
+%           \draw[thick,gray!70] (-0.1,1.05) -- (1.55,1.05);
+%           \node[font=\tiny,gray] at (0.75,-0.35) {$(-,-,-)$};
+%         \end{scope}
+%       \end{tikzpicture}
+
+%       \vspace{0.3em}
+%       {\scriptsize\textcolor{gray}{$N(\mathcal{F},\,3)=2^3=8$\;: fragmentación completa.}}
+%     \end{column}
+
+%   \end{columns}
+% \end{frame}
+
+% %--------------------------------------------------------------
+% % DIAPOSITIVA 12 — LA DIMENSIÓN VC
+% %--------------------------------------------------------------
+% \begin{frame}{El Límite del Aprendizaje: La Dimensión VC}
+%   \begin{columns}[T]
+
+%     \begin{column}{0.52\textwidth}
+%       \begin{block}{Dimensión VC}
+%         \[
+%           \mathrm{VC}(\mathcal{F}) \;:=\;
+%           \max\bigl\{n\in\mathbb{N}
+%             \;\big|\;
+%             N(\mathcal{F},\,n)=2^n
+%           \bigr\}
+%         \]
+%         \small El tamaño máximo de una muestra que $\mathcal{F}$ puede fragmentar \textit{completamente}.
+%       \end{block}
+
+%       \vspace{0.5em}
+%       \begin{itemize}
+%         \setlength{\itemsep}{0.45em}
+%         \item Condensa la complejidad de $\mathcal{F}$ en un \textbf{número entero}.
+%         \item \textbf{Clasificadores lineales en $\mathbb{R}^2$}:\;
+%               $\mathrm{VC}(\mathcal{F}) = 3$.
+%         \item $\mathrm{VC}(\mathcal{F}) = \infty$\;\alert{$\Rightarrow$}\;
+%               sobreajuste garantizado ($\mathcal{F}_{\mathrm{all}}$).
+%       \end{itemize}
+%     \end{column}
+
+%     \begin{column}{0.46\textwidth}
+%       \centering
+%       {\small\textbf{4 puntos en configuración XOR: ningún clasificador lineal los fragmenta}}
+%       \vspace{0.5em}
+
+%       \begin{tikzpicture}[scale=1.05, >=Stealth]
+%         %% 4 puntos
+%         \fill[uncoBlue] (0,0)     circle (4pt);
+%         \fill[red]      (1.8,0)   circle (4pt);
+%         \fill[red]      (0,1.8)   circle (4pt);
+%         \fill[uncoBlue] (1.8,1.8) circle (4pt);
+%         %% Etiquetas
+%         \node[below left, font=\scriptsize, uncoBlue]  at (0,0)     {$+$};
+%         \node[below right,font=\scriptsize, red]       at (1.8,0)   {$-$};
+%         \node[above left, font=\scriptsize, red]       at (0,1.8)   {$-$};
+%         \node[above right,font=\scriptsize, uncoBlue]  at (1.8,1.8) {$+$};
+%         %% Intento 1: línea horizontal — falla
+%         \draw[dashed, gray, thick] (-0.3, 0.9) -- (2.1, 0.9);
+%         \node[font=\footnotesize, red] at (2.4, 0.9) {$\times$};
+%         %% Intento 2: línea vertical — falla
+%         \draw[dashed, gray!50, thick] (0.9, -0.3) -- (0.9, 2.1);
+%         \node[font=\footnotesize, red] at (0.9, 2.4) {$\times$};
+%         %% Anotación
+%         \node[font=\scriptsize, gray, align=center] at (0.9,-0.7)
+%           {configuración XOR};
+%       \end{tikzpicture}
+
+%       \vspace{0.2em}
+%       {\scriptsize\textcolor{gray}{$N(\mathcal{F},4) < 16 = 2^4
+%       \;\Rightarrow\;
+%       \mathrm{VC}(\text{lin. en }\mathbb{R}^2)=3$}}
+%     \end{column}
+
+%   \end{columns}
+% \end{frame}
+
+% %--------------------------------------------------------------
+% % DIAPOSITIVA 13 — EL LEMA DE SIMETRIZACIÓN
+% %--------------------------------------------------------------
+% \begin{frame}{El Truco Analítico: Lema de Simetrización}
+%   \begin{columns}[T]
+
+%     \begin{column}{0.50\textwidth}
+%       \textbf{El obstáculo:} la cota original depende de $P$:
+%       \[
+%         P\!\left(\sup_{f\in\mathcal{F}}
+%         \bigl|\mathcal{R}(f)-\mathcal{R}_{\mathrm{emp}}(f)\bigr|>\varepsilon\right)
+%       \]
+%       \hfill\alert{$\mathcal{R}(f) = \mathbb{E}_P[\cdots]$: incalculable.}
+
+%       \vspace{0.7em}
+%       \textbf{La idea:} introducir una \textbf{muestra fantasma} $S'$:
+%       \[
+%         \bigl|\mathcal{R}(f)-\mathcal{R}_{\mathrm{emp}}(f)\bigr|
+%         \;\lesssim\;
+%         \bigl|\mathcal{R}_{\mathrm{emp}}(f) - \mathcal{R}_{\mathrm{emp}}'(f)\bigr|
+%       \]
+
+%       \begin{block}{El resultado clave}
+%         \small
+%         \[
+%           P\!\left(\sup_f|\mathcal{R}-\mathcal{R}_{\mathrm{emp}}|>\varepsilon\right)
+%           \leq
+%           2\,P\!\left(\sup_f|\mathcal{R}_{\mathrm{emp}}-\mathcal{R}_{\mathrm{emp}}'|>\tfrac{\varepsilon}{2}\right)
+%         \]
+%       \end{block}
+%     \end{column}
+
+%     \begin{column}{0.48\textwidth}
+%       \centering
+%       \begin{tikzpicture}[>=Stealth, scale=0.88]
+%         %% Distribución P
+%         \node[draw, ellipse, fill=uncoBlue!10, thick,
+%               minimum width=3.4cm, minimum height=1.1cm, font=\small]
+%               (P) at (2.0,3.0) {$P(X,Y)$};
+%         %% Muestra real S
+%         \node[draw, rectangle, fill=uncoBlue!25, rounded corners=4pt,
+%               minimum width=2.9cm, minimum height=0.9cm, font=\small]
+%               (S) at (0.4,1.3) {\;Muestra $S$\;};
+%         %% Muestra fantasma S'
+%         \node[draw, rectangle, fill=gray!20, rounded corners=4pt, dashed,
+%               minimum width=2.9cm, minimum height=0.9cm, font=\small]
+%               (Sp) at (3.6,1.3) {\;Muestra $S'$\;};
+%         %% Flechas desde P
+%         \draw[->, thick, uncoBlue] (P.south west) -- (S.north);
+%         \draw[->, thick, gray, dashed] (P.south east) -- (Sp.north);
+%         %% Flecha de comparación
+%         \draw[<->, thick, red]
+%           (S.east) -- node[above,font=\scriptsize]{comparar} (Sp.west);
+%         %% Subetiquetas
+%         \node[font=\scriptsize, uncoBlue, below=2pt of S]
+%           {$\mathcal{R}_{\mathrm{emp}}(f)$};
+%         \node[font=\scriptsize, gray, below=2pt of Sp]
+%           {$\mathcal{R}_{\mathrm{emp}}'(f)$};
+%         %% Tachado sobre P
+%         \node[font=\small, red, below=1.5cm of P]
+%           {\alert{$P$ desconocida $\;\to\;$ eliminada}};
+%       \end{tikzpicture}
+
+%       \vspace{0.2em}
+%       \begin{alertblock}{La magia}
+%         \small Pasamos de comparar contra $P$ (desconocida) a comparar \textbf{dos muestras finitas}: problema \textbf{combinatorio}, no probabilístico.
+%       \end{alertblock}
+%     \end{column}
+
+%   \end{columns}
+% \end{frame}
+
+% %--------------------------------------------------------------
+% % DIAPOSITIVA 14 — EL TEOREMA FUNDAMENTAL
+% %--------------------------------------------------------------
+% \begin{frame}{El Teorema Fundamental del Aprendizaje Estadístico}
+
+%   \vspace{0.2em}
+%   \begin{alertblock}{}
+%     \centering\large\bfseries
+%     \vspace{0.2em}
+%     ERM es \textbf{universalmente consistente}
+%     \vspace{0.3em}
+%     \[
+%       \iff \quad \mathrm{VC}(\mathcal{F}) \;<\; \infty
+%     \]
+%     \vspace{0.1em}
+%   \end{alertblock}
+
+%   \vspace{0.5em}
+
+%   \begin{columns}[T]
+%     \begin{column}{0.48\textwidth}
+%       \begin{block}{Hoja de ruta de la prueba}
+%         \small
+%         \begin{enumerate}
+%           \setlength{\itemsep}{0.25em}
+%           \item \textbf{Simetrización:} $P$ desconocida $\to$ muestra fantasma $S'$.
+%           \item \textbf{Permutaciones:} problema combinatorio sobre $2n$ puntos.
+%           \item \textbf{Sauer–Shelah:}
+%             $N(\mathcal{F},2n) \leq \left(\frac{2n}{\mathrm{VC}(\mathcal{F})}\right)^{\!\mathrm{VC}(\mathcal{F})}$.
+%           \item \textbf{Unión de eventos:} la cota total $\to 0$ si $\mathrm{VC}<\infty$.
+%         \end{enumerate}
+%       \end{block}
+%     \end{column}
+%     \begin{column}{0.48\textwidth}
+%       \begin{block}{Interpretación}
+%         \small
+%         \textbf{Aprender es, fundamentalmente,\\
+%         un problema de \alert{capacidad finita}.}
+%         \vspace{0.4em}
+%         \begin{itemize}
+%           \setlength{\itemsep}{0.3em}
+%           \item De intuición estadística (``no sobreajustar'')\\
+%                 a \textbf{garantía matemática estricta}.
+%           \item $\mathrm{VC}(\mathcal{F})$ cuantifica la riqueza\\
+%                 estructural del modelo.
+%         \end{itemize}
+%       \end{block}
+%     \end{column}
+%   \end{columns}
+
+% \end{frame}
+
+% % ─────────────────────────────────────────────────────────────
+% % BLOQUE 4: LA REALIDAD Y SUS LÍMITES
+% % ─────────────────────────────────────────────────────────────
+
+% %--------------------------------------------------------------
+% % DIAPOSITIVA 15 — LA BÚSQUEDA DEL ALGORITMO UNIVERSAL
+% %--------------------------------------------------------------
+% \begin{frame}{¿Existe un Algoritmo Maestro?}
+%   \begin{columns}[T]
+
+%     \begin{column}{0.52\textwidth}
+%       \textbf{Hemos demostrado:}
+%       \vspace{0.4em}
+%       \begin{itemize}
+%         \setlength{\itemsep}{0.35em}
+%         \item ERM consistente $\iff$ $\mathrm{VC}(\mathcal{F}) < \infty$.
+%         \item Con $\mathcal{F}$ adecuado, el error es acotable.
+%         \item El ideal teórico es $f_{\mathrm{Bayes}}$.
+%       \end{itemize}
+
+%       \vspace{0.8em}
+%       \textbf{Pregunta natural:}
+
+%       \vspace{0.4em}
+%       ¿Existe $f^*$ que, \textbf{en promedio sobre todas las distribuciones} $P(X,Y)$, supere a cualquier otro clasificador?
+%     \end{column}
+
+%     \begin{column}{0.46\textwidth}
+%       \centering
+%       \begin{tikzpicture}[>=Stealth, scale=0.92]
+%         %% Cuatro algoritmos como nodos
+%         \node[draw, fill=uncoBlue!15, rounded corners=4pt,
+%               font=\scriptsize, thick, minimum height=0.65cm,
+%               minimum width=1.1cm] (A1) at (0.0, 0) {$k$-NN};
+%         \node[draw, fill=red!15, rounded corners=4pt,
+%               font=\scriptsize, thick, minimum height=0.65cm,
+%               minimum width=1.1cm] (A2) at (1.6, 0) {SVM};
+%         \node[draw, fill=gray!20, rounded corners=4pt,
+%               font=\scriptsize, thick, minimum height=0.65cm,
+%               minimum width=1.1cm] (A3) at (3.2, 0) {Red N.};
+%         \node[draw, fill=green!15, rounded corners=4pt,
+%               font=\scriptsize, thick, minimum height=0.65cm,
+%               minimum width=1.1cm] (A4) at (4.8, 0) {ERM};
+%         %% Gran signo de pregunta arriba
+%         \node[font=\huge\bfseries, uncoBlue] at (2.4, 2.3)
+%               {\Large\textbf{?}};
+%         \node[font=\small, gray] at (2.4, 1.6) {\textit{¿el mejor de todos?}};
+%         %% Flechas desde cada algoritmo
+%         \draw[->, thick, gray!55] (A1.north) to[out=80,in=220] (2.1, 1.5);
+%         \draw[->, thick, gray!55] (A2.north) -- (2.2, 1.5);
+%         \draw[->, thick, gray!55] (A3.north) -- (2.6, 1.5);
+%         \draw[->, thick, gray!55] (A4.north) to[out=100,in=320] (2.7, 1.5);
+%       \end{tikzpicture}
+%     \end{column}
+
+%   \end{columns}
+% \end{frame}
+
+% %--------------------------------------------------------------
+% % DIAPOSITIVA 16 — LOS TEOREMAS DE LA CHANCHA Y LOS VEINTE
+% %--------------------------------------------------------------
+% \begin{frame}{``Los Teoremas de la Chancha y los Veinte''}
+
+%   \begin{columns}[T]
+
+%     \begin{column}{0.50\textwidth}
+%       \begin{block}{Teorema 4.3.1 (Devroye, 1982)}
+%         \small
+%         Sea $\varepsilon>0$. Para cualquier $n\in\mathbb{N}$ y cualquier regla
+%         $f_n$, \textbf{existe} una distribución $P(X,Y)$ con
+%         $\mathcal{R}(f_{\mathrm{Bayes}})=0$ tal que:
+%         \[
+%           \mathbb{E}\bigl[\ell(X,Y,f_n)\bigr] \;\geq\; \frac{1}{2} - \varepsilon
+%         \]
+%       \end{block}
+
+%       \vspace{0.5em}
+%       \begin{itemize}
+%         \setlength{\itemsep}{0.38em}
+%         \item Por cada universo donde $f_n$ triunfa, existe un universo ``espejo'' donde falla como una moneda.
+%         \item Promediado sobre \textbf{todas} las $P$: \alert{todo algoritmo rinde igual.}
+%         \item \small No contradice consistencia: la distribución adversarial depende de $n$.
+%       \end{itemize}
+%     \end{column}
+
+%     \begin{column}{0.48\textwidth}
+%       \centering
+%       \begin{tikzpicture}
+%         \begin{axis}[
+%             width=6.8cm, height=5.0cm,
+%             axis lines=left,
+%             xlabel={distribuciones},
+%             ylabel={rendimiento},
+%             xlabel style={font=\scriptsize},
+%             ylabel style={font=\scriptsize},
+%             xmin=0, xmax=10,
+%             ymin=0, ymax=1.15,
+%             xtick=\empty, ytick=\empty,
+%             clip=false,
+%             legend pos=north east,
+%             legend style={font=\scriptsize, row sep=-2pt},
+%           ]
+%           %% Clasificador 1: especialista con pico pronunciado
+%           \addplot[thick, uncoBlue, domain=0:10, samples=250]
+%             {0.12 + 0.86*exp(-((x-3.0)^2)/1.6)};
+%           \addlegendentry{clasificador 1};
+%           %% Clasificador 2: generalista mediocre
+%           \addplot[thick, red, dashed, domain=0:10, samples=250]
+%             {0.15 + 0.07*sin(deg(x*2.2)) + 0.05*cos(deg(x*4.8))};
+%           \addlegendentry{clasificador 2};
+%           %% Línea de referencia: azar = 0.5
+%           \addplot[dotted, gray, domain=0:10] {0.5};
+%           \node[font=\tiny, gray] at (axis cs:10.4, 0.5) {azar};
+%           %% Doble flecha indicando áreas iguales
+%           \draw[<->, thin, gray!70]
+%             (axis cs:6.5, 0.22) -- (axis cs:6.5, 0.48);
+%           \node[font=\tiny, gray, right] at (axis cs:6.6, 0.35)
+%             {$\int\!=\!\int$};
+%         \end{axis}
+%       \end{tikzpicture}
+
+%       \vspace{0.1em}
+%       {\scriptsize\textcolor{gray}{Área bajo ambas curvas es igual.
+%       Inspirado en Figura 4.2 de la tesina.}}
+%     \end{column}
+
+%   \end{columns}
+% \end{frame}
+
+% %--------------------------------------------------------------
+% % DIAPOSITIVA 17 — EL SESGO INDUCTIVO
+% %--------------------------------------------------------------
+% \begin{frame}{El Sesgo Inductivo: La Moraleja del Machine Learning}
+%   \begin{columns}[T]
+
+%     \begin{column}{0.50\textwidth}
+%       \begin{alertblock}{La lección central}
+%         \centering\large
+%         Aprender ``en el vacío'' es \textbf{imposible}.\\[0.2em]
+%         Para aprender, debemos \textbf{asumir}.
+%       \end{alertblock}
+
+%       \vspace{0.55em}
+
+%       \begin{block}{Sesgo inductivo}
+%         \small
+%         Restricción sobre el espacio de distribuciones o funciones que el algoritmo considera plausibles.
+%       \end{block}
+
+%       \vspace{0.45em}
+%       \begin{itemize}
+%         \setlength{\itemsep}{0.3em}
+%         \item \textbf{$k$-NN:} puntos cercanos tienen etiquetas similares.
+%         \item \textbf{SVM:} las clases son separables por un margen.
+%         \item \textbf{Red neuronal:} la función es aproximable por composición de no-linealidades.
+%       \end{itemize}
+%     \end{column}
+
+%     \begin{column}{0.48\textwidth}
+%       \centering
+%       \begin{tikzpicture}[scale=0.85]
+%         %% Universo de todas las distribuciones
+%         \draw[thick, uncoBlue!30, fill=uncoBlue!5]
+%               (0,0) circle (2.5cm);
+%         \node[font=\small, uncoBlue!50] at (0, 2.0) {todas las $P$};
+%         %% Subconjunto compatible con el sesgo
+%         \draw[thick, uncoBlue, fill=uncoBlue!25]
+%               (0.4, -0.2) circle (1.0cm);
+%         \node[font=\scriptsize, uncoBlue, align=center] at (0.4,-0.2)
+%               {$P$ compatibles\\con el sesgo};
+%         %% Algoritmo con su sesgo
+%         \node[draw, rectangle, fill=gray!10, rounded corners=4pt,
+%               font=\scriptsize, thick, align=center, minimum width=2.0cm]
+%               (Alg) at (4.2, -0.2)
+%               {algoritmo $f_n$\\con sesgo};
+%         \draw[->, thick, uncoBlue] (Alg.west) -- (1.45, -0.2);
+%         %% Distribuciones adversariales
+%         \fill[red!50, opacity=0.5] (-1.4, 0.9)  circle (5pt);
+%         \fill[red!50, opacity=0.5] (-1.9,-0.2)  circle (5pt);
+%         \fill[red!50, opacity=0.5] (-1.3,-1.3)  circle (5pt);
+%         \node[font=\tiny, red!70, align=center] at (-1.6,-1.85)
+%               {distribuciones\\adversariales};
+%       \end{tikzpicture}
+
+%       \vspace{0.4em}
+%       \begin{block}{\small La clave del éxito práctico}
+%         \small
+%         No existe el algoritmo perfecto: el éxito es elegir aquel cuyas \textbf{suposiciones} coincidan con la \textbf{física del problema}.
+%       \end{block}
+%     \end{column}
+
+%   \end{columns}
+% \end{frame}
+
+% %==============================================================
+% %  BLOQUE 5 — REFLEXIONES FINALES Y EL PARADIGMA ACTUAL
+% %==============================================================
+
+% %--------------------------------------------------------------
+% % DIAPOSITIVA 18 — LA PARADOJA MODERNA
+% %--------------------------------------------------------------
+% \begin{frame}{La Paradoja Moderna: ¿Qué Dice la Teoría?}
+%   \begin{columns}[T]
+
+%     \begin{column}{0.50\textwidth}
+%       \begin{block}{El marco clásico predice}
+%         \small
+%         Si $\mathrm{VC}(\mathcal{F}) = d < \infty$, con alta probabilidad:
+%         \[
+%           \mathcal{R}(f_n) \;\leq\; \hat{\mathcal{R}}_n(f_n)
+%             + O\!\left(\!\sqrt{\frac{d + \ln(1/\delta)}{n}}\right)
+%         \]
+%         \vspace{-0.4em}
+%         \begin{itemize}\setlength\itemsep{0.2em}
+%           \item \textbf{Capacidad alta} $\Rightarrow$ cota grande.
+%           \item \textbf{Sobreparametrización} $\Rightarrow$ sobreajuste inevitable.
+%         \end{itemize}
+%       \end{block}
+
+%       \vspace{0.5em}
+%       \begin{alertblock}{Lo que observamos en la práctica}
+%         \small
+%         GPT-4: ${\sim}1.8$\,T parámetros, $n \ll \text{parámetros}$.\\[0.3em]
+%         Las cotas VC serían \textbf{astronómicamente grandes}…\\[0.3em]
+%         \centering\alert{…y sin embargo, generalizan.}
+%       \end{alertblock}
+%     \end{column}
+
+%     \begin{column}{0.48\textwidth}
+%       \centering
+%       %% f(x) = 0.08 + 0.80*exp(-0.55x) + 0.58*exp(-3.5*(x-5.5)^2)
+%       %% Valores clave:  x=0 → 0.88,  x=4 → 0.17,  x=5.5 → 0.70 (pico),
+%       %%                 x=7 → 0.09,  x=10 → 0.08
+%       %% Ambos trazos usan la MISMA función → curva continua
+%       \begin{tikzpicture}
+%         \begin{axis}[
+%             width=6.8cm, height=5.0cm,
+%             axis lines=left,
+%             xlabel={complejidad del modelo},
+%             ylabel={error de generalización},
+%             xlabel style={font=\scriptsize},
+%             ylabel style={font=\scriptsize},
+%             xmin=0, xmax=10,
+%             ymin=0, ymax=1.0,
+%             xtick=\empty, ytick=\empty,
+%             clip=false,
+%             legend style={font=\scriptsize, row sep=-2pt,
+%                           at={(0.98,0.98)}, anchor=north east},
+%           ]
+%           %% Régimen clásico (sesgo–varianza): x de 0 a 5.5
+%           \addplot[very thick, uncoBlue, domain=0.05:5.5, samples=200]
+%             {0.08 + 0.80*exp(-0.55*x) + 0.58*exp(-3.5*(x-5.5)^2)};
+%           \addlegendentry{\scriptsize teoría clásica};
+%           %% Régimen moderno (doble descenso): x de 5.5 a 10
+%           \addplot[very thick, red, dashed, domain=5.5:10, samples=200]
+%             {0.08 + 0.80*exp(-0.55*x) + 0.58*exp(-3.5*(x-5.5)^2)};
+%           \addlegendentry{\scriptsize DL moderno};
+%           %% Línea vertical en el umbral de interpolación
+%           \draw[dotted, gray!70, thick]
+%             (axis cs:5.5, 0) -- (axis cs:5.5, 0.72);
+%           \node[font=\tiny, gray, rotate=90] at (axis cs:5.18, 0.37)
+%             {umbral interp.};
+%           %% Etiqueta mínimo clásico
+%           \node[font=\tiny, uncoBlue, align=center] at (axis cs:2.2, 0.38)
+%             {sesgo-\\varianza};
+%           %% Etiqueta doble descenso
+%           \node[font=\tiny, red!80, align=center] at (axis cs:8.3, 0.30)
+%             {doble\\descenso};
+%         \end{axis}
+%       \end{tikzpicture}
+
+%       {\scriptsize\textcolor{gray}{Fenómeno de ``doble descenso'':
+%       el error \emph{vuelve a bajar} tras la sobreparametrización.}}
+%     \end{column}
+
+%   \end{columns}
+% \end{frame}
+
+% %--------------------------------------------------------------
+% % DIAPOSITIVA 19 — LEYES DE ESCALAMIENTO Y EL FUTURO
+% %--------------------------------------------------------------
+% \begin{frame}{Leyes de Escalamiento: Fuerza Bruta $\to$ Necesidad Teórica}
+%   \begin{columns}[T]
+
+%     \begin{column}{0.50\textwidth}
+%       \begin{block}{Empirismo a escala (Kaplan et al., 2020)}
+%         \small
+%         \[
+%           L(N) \;\approx\; \left(\frac{N_c}{N}\right)^{\alpha}, \quad \alpha \approx 0.076
+%         \]
+%         La pérdida sigue una \textbf{ley de potencias} en parámetros $N$,
+%         tokens y cómputo.\\ Transformers, LLMs, modelos de difusión.
+%       \end{block}
+
+%       \vspace{0.45em}
+%       \begin{itemize}\setlength{\itemsep}{0.3em}
+%         \item \textbf{Hoy:} escalamos porque funciona empíricamente.
+%         \item \textbf{Mañana:} los límites físicos y económicos frenarán el escalado.
+%         \item \textbf{La teoría es el cuello de botella:} sin fundamentos de
+%               generalización para regímenes sobreparametrizados, avanzamos a ciegas.
+%       \end{itemize}
+
+%       \vspace{0.4em}
+%       \begin{tikzpicture}[>=Stealth, node distance=0.5cm]
+%         \node[draw, rounded corners=4pt, fill=red!10, font=\small,
+%               align=center, minimum width=2.6cm, thick]
+%           (FB) {Fuerza\\Bruta};
+%         \node[draw, rounded corners=4pt, fill=uncoBlue!15, font=\small,
+%               align=center, minimum width=2.6cm, thick, right=1.6cm of FB]
+%           (NT) {Necesidad\\Teórica};
+%         \draw[->, very thick, uncoBlue] (FB) -- (NT)
+%           node[midway, above, font=\scriptsize] {límites};
+%       \end{tikzpicture}
+%     \end{column}
+
+%     \begin{column}{0.48\textwidth}
+%       \centering
+%       \begin{tikzpicture}
+%         \begin{axis}[
+%             width=6.8cm, height=5.2cm,
+%             axis lines=left,
+%             xmode=log, ymode=log,
+%             xlabel={parámetros / cómputo (log)},
+%             ylabel={pérdida de prueba (log)},
+%             xlabel style={font=\scriptsize},
+%             ylabel style={font=\scriptsize},
+%             xmin=1e3, xmax=1e11,
+%             ymin=0.2, ymax=20,
+%             xtick=\empty, ytick=\empty,
+%             clip=false,
+%             legend pos=north east,
+%             legend style={font=\tiny, row sep=-2pt},
+%           ]
+%           %% Scaling law: potencia negativa
+%           \addplot[thick, uncoBlue, domain=1000:1e11, samples=200]
+%             {12*(x)^(-0.076)};
+%           \addlegendentry{$L(N)\propto N^{-\alpha}$};
+%           %% Plateau teórico
+%           \addplot[dashed, gray, domain=1e9:1e11] {0.28};
+%           \node[font=\tiny, gray, align=left] at (axis cs:5e10, 0.22)
+%             {límite\\teórico?};
+%           %% Puntos anotados
+%           \addplot[only marks, mark=*, mark size=1.8pt, uncoBlue!60]
+%             coordinates {(1e7,2.8)(1e9,1.8)(1e11,1.2)};
+%           \node[font=\tiny, above right] at (axis cs:1e11,1.2) {GPT-4?};
+%         \end{axis}
+%       \end{tikzpicture}
+
+%       {\scriptsize\textcolor{gray}{Ley de potencias empírica
+%       (Kaplan et al., 2020). Los valores son ilustrativos.}}
+%     \end{column}
+
+%   \end{columns}
+% \end{frame}
+
+% %--------------------------------------------------------------
+% % DIAPOSITIVA 20 — CIERRE Y PREGUNTAS
+% %--------------------------------------------------------------
+% \begin{frame}[plain]
+%   \begin{tikzpicture}[remember picture, overlay]
+%     %% Fondo degradado suave
+%     \fill[uncoBlue!8] (current page.south west) rectangle (current page.north east);
+%     %% Banda superior e inferior decorativas
+%     \fill[uncoBlue] (current page.north west)
+%       rectangle ([yshift=-0.55cm]current page.north east);
+%     \fill[uncoBlue] (current page.south west)
+%       rectangle ([yshift= 0.45cm]current page.south east);
+%   \end{tikzpicture}
+
+%   \vspace{1.0em}
+
+%   \begin{center}
+%     {\color{uncoBlue}\large\bfseries
+%       ``Dios mueve al jugador, y éste, la pieza.\\[0.1em]
+%       ¿Qué Dios detrás de Dios la trama empieza?''}\\[0.3em]
+%     {\small\color{gray} Jorge Luis Borges, \textit{Ajedrez}, 1960}
+%   \end{center}
+
+%   \vspace{0.9em}
+
+%   \begin{center}
+%     \begin{tikzpicture}
+%       \node[draw=uncoBlue, thick, rounded corners=6pt,
+%             fill=white, inner xsep=18pt, inner ysep=8pt,
+%             align=center]
+%         {%
+%           {\color{uncoBlue}\Large\bfseries
+%             Detrás de cada algoritmo, una pregunta matemática.}\\[0.4em]
+%           {\normalsize\color{gray!80}
+%             La tesina fue un paso; el camino sigue abierto.}
+%         };
+%     \end{tikzpicture}
+%   \end{center}
+
+%   \vspace{0.9em}
+
+%   \begin{center}
+%     {\Huge\color{uncoBlue}\bfseries Muchas gracias.}\\[0.4em]
+%     {\large\color{gray} \textit{¿Preguntas?}}
+%   \end{center}
+% \end{frame}
 
 %==============================================================
 \end{document}
