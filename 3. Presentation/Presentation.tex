@@ -6,8 +6,8 @@
 % Uso: pdflatex presentacion.tex
 % Requiere: pgfplots, tikz, babel(spanish), lmodern
 %==============================================================
-\documentclass[aspectratio=169, 10pt]{beamer}
-
+%\documentclass[aspectratio=169, 10pt]{beamer}
+\documentclass[aspectratio=169,10pt,handout]{beamer}
 %--------------------------------------------------------------
 % TEMA Y PALETA DE COLORES (azul UNCo)
 %--------------------------------------------------------------
@@ -46,12 +46,12 @@
 %--------------------------------------------------------------
 % METADATOS
 %--------------------------------------------------------------
-\title[Fundamentos Matemáticos del Aprendizaje]{%
+\title[Fundamentos Matemáticos del Aprendizaje Automático]{%
   \large\textbf{Fundamentos Matemáticos\\[0.4em]del Aprendizaje Automático}}
 
-\author[N.~Silva Nash]{Nicolas Silva Nash}
+\author[Nicolas Silva Nash]{Nicolas Silva Nash}
 
-\institute[UNCo -- Dpto.~Matemática]{%
+\institute[UNCo -- Departamento de Matemática]{%
   Departamento de Matemática\\
   Universidad Nacional del Comahue\\[0.5em]
   {\footnotesize
@@ -121,12 +121,22 @@
         Nos interesa entender como una una computadora puede resolver ciertos problemas sin conocer las reglas de antemano,
         solo a partir de ejemplos y a través de un algoritmo de aprendizaje.\\
 
-        Nos gustaría que la máquina aprenda no solo las reglas de los ejemplos dados, si no que pueda generalizarlas
-        para ejemplos que todavía no vió.\\
+  % \centering
+  % % Fallback para compilar aun cuando no exista la secuencia de cuadros.
+  % \IfFileExists{images/frames/frame_000.png}{%
+  %   \animategraphics[loop, autoplay, width=0.82\linewidth]{12}{images/frames/frame_}{000}{180}%
+  % }{%
+  %   \begin{block}{Animación no disponible}
+  %     \centering
+  %     \small No se encontraron archivos en \texttt{images/frames/frame\_***}.
+  %   \end{block}
+  % }
 
-        Llamamos Machine Learning a la disciplina  que se enfoca en el estudio y desarrollo de algoritmos que permiten a las máquinas aprender de los datos.\\
+  % \vspace{0.3em}
+  % {\scriptsize\textcolor{gray}{Proceso Gaussiano ajustándose progresivamente a los datos de entrenamiento.}}
 
-        La consideramos una subdisciplina de la Inteligencia Artificial.
+
+
     \end{minipage}
   \end{center}
 \end{frame}
@@ -194,11 +204,13 @@
   \begin{center}
     \begin{minipage}{0.92\textwidth}
 
-        Consideremos dos espacios de variables: $X$, llamado espacio de entrada, e $Y$, el espacio de etiquetas. En un problema de
+        Consideremos dos espacios de variables: $X$, llamado espacio de entrada, e $Y$, el espacio de etiquetas.\\
+
+        \bigskip
+
+        En un problema de
         clasificación, deseamos poder etiquetar correctamente elementos de $X$ con los valores de $Y$.\\
 
-        Por ejemplo, podríamos querer clasificar un conjunto de imágenes de animales en base a los distintos tipos
-        de animales que aparecen en ellas.
 
     \end{minipage}
   \end{center}
@@ -239,17 +251,32 @@
   \end{center}
 \end{frame}
 
+\begin{frame}
+
+      \centering
+  \includegraphics[height=0.8\textheight,keepaspectratio]{images/BreastCancerAI.png}
+
+  {\scriptsize\textcolor{gray}{Clasificación de imágenes médicas para diagnóstico de cáncer de mama.}}
+\end{frame}
+\begin{frame}
+
+      \centering
+      \includegraphics[width=\linewidth,height=0.84\textheight,keepaspectratio]{images/weldingDefects.png}
+
+      \vspace{0.2em}
+      {\scriptsize\textcolor{gray}{Clasificación de defectos en soldaduras.}}
+\end{frame}
 
 \begin{frame}{Clasificación: Suposiciones básicas}
   \begin{itemize}
     \setlength{\itemsep}{0.45em}
     \item \textbf{No aplicamos restricciones sobre $P$:} no suponemos una forma paramétrica para la distribución que genera los datos.
     \item \textbf{Etiquetas no determinísticas:} modelamos $Y$ mediante probabilidades condicionales $P(Y=1\mid X=x)$. Esto se debe a que:
-      \begin{itemize}
-        \item Puede existir solapamiento entre las clases. (ej: imágenes lejanas de perros y gatos con características similares).
-        \item En la práctica, hay ruido en las etiquetas. (ej: distintos etiquetadores humanos no coincidiendo en si un email es spam;
-         errores de etiquetado).
-      \end{itemize}
+      % \begin{itemize}
+      %   \item Puede existir solapamiento entre las clases. (ej: imágenes lejanas de perros y gatos con características similares).
+      %   \item En la práctica, hay ruido en las etiquetas. (ej: distintos etiquetadores humanos no coincidiendo en si un email es spam;
+      %    errores de etiquetado).
+      % \end{itemize}
     \item \textbf{Muestreo iid:} los ejemplos se toman de manera independiente e idénticamente distribuida.
     \item \textbf{Distribución fija:} asumimos que el mecanismo que genera los datos no cambia entre entrenamiento y uso.
     \item \textbf{$P$ desconocida:} solo accedemos a la distribución a través de una muestra finita de datos. El valor de la teoría
@@ -287,7 +314,7 @@
 
 \begin{frame}
   \centering
-  \includegraphics[height=0.86\textheight,keepaspectratio]{images/Learning Problem 2.png}
+  \includegraphics[height=0.86\textheight,keepaspectratio]{images/diagram aprendizaje.png}
 \end{frame}
 
 
@@ -417,21 +444,21 @@ provienen los datos.
   \begin{frame}
   \begin{block}{Ejemplo: El perceptrón de Rosenblatt}
 Dado un conjunto de entrenamiento $S = \{(\mathbf{x}_i, y_i)\}_{i=1}^n \subset \mathbb{R}^d \times \{0, 1\}$,
-el Perceptrón se define como un clasificador binario $h: \mathbb{R}^d \to \{0, 1\}$ mediante la siguiente función:
+el Perceptrón se define como un clasificador binario $h: \mathbb{R}^d \to \{-1, 1\}$ mediante la siguiente función:
 
 \begin{equation*}
     h_{\mathbf{w}, b}(\mathbf{x}) = \sgn(\mathbf{w}^T \mathbf{x} > 0)
 \end{equation*}
 
-Donde $\mathbf{w} \in \mathbb{R}^d$ es el vector de pesos, $b \in \mathbb{R}$ es el sesgo (bias),
+Donde $\mathbf{w} \in \mathbb{R}^d$ es el vector de pesos
 y $\sgn(\cdot)$ denota la función Signum. El aprendizaje de los parámetros se realiza a través
 de una regla de actualización iterativa. Para cada muestra $(\mathbf{x}_i, y_i)$, la actualización se define como:
 
 \begin{align*}
-    \mathbf{w}^{(t+1)} &\gets \mathbf{w}^{(t)} + \eta (y_i - \hat{y}_i) \mathbf{x}_i 
+    \mathbf{w}^{(t+1)} &\gets \mathbf{w}^{(t)} + \eta (y_i - \hat{y}_i) \mathbf{x}_i
 \end{align*}
 
-donde $\hat{y}_i = h_{\mathbf{w}^{(t)}, b^{(t)}}(\mathbf{x}_i)$ es la predicción actual y $\eta \in (0, 1]$
+donde $\hat{y}_i = h_{\mathbf{w}^{(t)}}(\mathbf{x}_i)$ es la predicción actual y $\eta \in (0, 1]$
 es llamada la tasa de aprendizaje.
 
   \end{block}
@@ -563,19 +590,11 @@ es llamada la tasa de aprendizaje.
       ...\\
       ¿Qué podemos hacer?
   \end{alertblock}
-
+\pause
   Lo que si podemos hacer, dado un
-conjunto de entrenamiento, es “contar” (o medir, en general, para problemas
-que no son de clasificación binaria) el número de errores del clasificador sobre los
+conjunto de entrenamiento, es “contar”  el número de errores del clasificador sobre los
 datos de entrenamiento. \\
 
-A esta cantidad le daremos el nombre de riesgo empírico.\\
-
-La veremos presente en la literatura también como error de entrenamiento. \\
-
-Nuestro interés será ver bajo qué
-condiciones esta cantidad medible nos permite obtener conclusiones del riesgo real que no podemos observar.\\
-La definimos a continuación.
 \end{frame}
 
 \begin{frame}{Riesgo Empírico}
@@ -607,24 +626,17 @@ La definimos a continuación.
 
 
 \begin{frame}
-  El algoritmo de aprendizaje define la forma de la función clasificadora que construimos a partir de los datos de entrenamiento.\\
-
-  En general, buscamos la función $f$ que minimiza el riesgo empírico para los datos que tenemos.\\
-
-  Nos gustaría que el riesgo real se acercara al riesgo de Bayes de una porque
- queremos que sea un ``buen'' clasificador. Hemos llamado a esto \textbf{consistencia}.
-
-  También desearíamos que el riesgo empírico se halle ``cerca'' del real, porque podríamos inferir la calidad de nuestro clasificador
-  para toda la distribución y no solo en los datos de entrenamiento. Llamamos a esta idea el \textbf{generalización}.\\
-
+  Desearíamos que el riesgo empírico se halle ``cerca'' del real, porque podríamos inferir la calidad de nuestro clasificador
+  para toda la distribución y no solo en los datos de entrenamiento.\\
+  \bigskip
+  \pause
+  Llamamos a esta idea \textbf{generalización}.\\
+\pause
   \begin{block}{Generalización}
     Deseamos que
     \[
 \mathcal{R}_{\text{emp}}(f) \approx \mathcal{R}(f)
     \]
-    es decir, que el clasificador se comporte de forma similar en los datos de entrenamiento
-    y en los ejemplos que aún no vio, para que podamos afirmar cosas del riesgo real
-    a partir de lo que podemos medir en el empírico.
   \end{block}
 
   \end{frame}
@@ -634,7 +646,72 @@ La definimos a continuación.
   \centering
   \includegraphics[width=0.92\textwidth,height=0.78\textheight,keepaspectratio]{images/wolf.jpg}
 \end{frame}
+\begin{frame}{El Dilema de la Complejidad}
+  \begin{columns}[T]
 
+    %% — Columna izquierda: la ecuación de descomposición
+    \begin{column}{0.50\textwidth}
+      \textbf{Descomposición del exceso de riesgo:}
+      \[
+        \underbrace{\mathcal{R}(f_n) - \mathcal{R}(f_{\mathrm{Bayes}})}_{\text{lo que queremos reducir}}
+      \]
+      \[
+        =\;
+        \underbrace{\mathcal{R}(f_n) - \mathcal{R}(f_{\mathcal{F}})}_{\textcolor{red}{\text{error de estimación}}}
+        \;+\;
+        \underbrace{\mathcal{R}(f_{\mathcal{F}}) - \mathcal{R}(f_{\mathrm{Bayes}})}_{\textcolor{uncoBlue}{\text{error de aproximación}}}
+      \]
+
+      \vspace{0.6em}
+      \begin{itemize}
+        \setlength{\itemsep}{0.4em}
+        \item \textcolor{uncoBlue}{\textbf{Aprox.:}} $\mathcal{F}$ pequeño $\Rightarrow$ alto \textcolor{uncoBlue}{sesgo} (subajuste).
+        \item \textcolor{red}{\textbf{Estim.:}} $\mathcal{F}$ grande $\Rightarrow$ alta \textcolor{red}{varianza} (sobreajuste).
+      \end{itemize}
+    \end{column}
+
+    %% — Columna derecha: figura sesgo-varianza (Figura 2.3)
+    \begin{column}{0.48\textwidth}
+      \centering
+      \begin{tikzpicture}
+        \begin{axis}[
+            width=6.8cm, height=5.2cm,
+            axis lines=left,
+            xlabel={complejidad de $\mathcal{F}$},
+            ylabel={error},
+            xlabel style={font=\scriptsize},
+            ylabel style={font=\scriptsize},
+            xmin=0, xmax=6,
+            ymin=0, ymax=3.2,
+            xtick=\empty, ytick=\empty,
+            clip=false,
+            legend pos=north east,
+            legend style={font=\scriptsize, row sep=-2pt},
+          ]
+          %% Error de aproximación (decreasing)
+          \addplot[thick, uncoBlue, domain=0.2:5.8, samples=100]
+            {2.5*exp(-0.65*x) + 0.05};
+          \addlegendentry{\textcolor{uncoBlue}{aprox.}};
+          %% Error de estimación (increasing)
+          \addplot[thick, red, domain=0.2:5.8, samples=100]
+            {0.08*x^2 - 0.1*x + 0.15};
+          \addlegendentry{\textcolor{red}{estim.}};
+          %% Riesgo total (U-shaped)
+          \addplot[thick, black, domain=0.2:5.8, samples=100]
+            {2.5*exp(-0.65*x) + 0.08*x^2 - 0.1*x + 0.20};
+          \addlegendentry{riesgo total};
+          %% Mínimo óptimo (flecha)
+          \draw[dashed, gray] (axis cs:2.05,0) -- (axis cs:2.05,1.45);
+          \node[font=\scriptsize, gray, below] at (axis cs:2.05,0) {óptimo};
+        \end{axis}
+      \end{tikzpicture}
+
+      \vspace{0.1em}
+      {\scriptsize\textcolor{gray}{Inspirado en Figura 2.3 de la tesina.}}
+    \end{column}
+
+  \end{columns}
+\end{frame}
 \begin{frame}{Subajuste y sobreajuste}
   \centering
   \includegraphics[width=0.92\textwidth,height=0.78\textheight,keepaspectratio]{images/over-underfitting.png}
@@ -765,27 +842,33 @@ si se verifica la ley uniforme de los grandes números para este espacio.
 
 
 \begin{frame}
-Consideremos:
+Notemos que
 
 
 \[
-|R(f_n) - R(f_\mathcal{F})| = R(f_n) - R(f_\mathcal{F}).
+ R_{emp}(f_n) - R_{emp}(f_\mathcal{F}) \leq 0, \qquad R(f_n) - R(f_\mathcal{F}) \geq 0
+\]
+ por definición de \(f_n\) y \(f_\mathcal{F}\) respectivamente.  \pause Luego\\
+ \[
+ |R(f_n)-R(f_\mathcal{F})| = R(f_n)-R(f_\mathcal{F})
+ \]
+ \pause
+ Sumando y restando cantidades idénticas:
+ \[
+=R(f_n) + \left[\mathcal{R}_{\text{emp}}(f_n) - \mathcal{R}_{\text{emp}}(f_n)\right] + \left[ \mathcal{R}_{\text{emp}}(f_\mathcal{F}) - \mathcal{R}_{\text{emp}}(f_\mathcal{F})\right] - R(f_\mathcal{F})
 \]
 
-Puesto que  \(R(f_n) - R(f_\mathcal{F}) \geq 0\), por definición de \(f_\mathcal{F}\). Sumando y restando cantidades idénticas,
-esta expresión se puede reescribir como:
-\[
-R(f_n) - \mathcal{R}_{\text{emp}}(f_n) + \mathcal{R}_{\text{emp}}(f_n) - \mathcal{R}_{\text{emp}}(f_\mathcal{F}) + \mathcal{R}_{\text{emp}}(f_F) - R(f_\mathcal{F})
-\]
+ \pause
 \[
     \leq R(f_n) - \mathcal{R}_{\text{emp}}(f_n) + \mathcal{R}_{\text{emp}}(f_\mathcal{F}) - R(f_\mathcal{F})
 \]
+ \pause
 \[
     \leq 2 \sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)|.
 \]
-Dado que \(\mathcal{R}_{\text{emp}}(f_n) - \mathcal{R}_{\text{emp}}(f_\mathcal{F}) \leq 0\) por definición de \(f_n\), y luego acotando
-al tomar el supremo de todas las funciones en el espacio \(\mathcal{F}\).
 
+Acotando al tomar el supremo de todas las funciones en el espacio \(\mathcal{F}\).
+ \pause
 De esto podemos concluir:
 
 \[
@@ -797,6 +880,7 @@ P\left(|R(f_n) - R(f_\mathcal{F})| \geq \varepsilon \right) \leq P\left(\sup_{f 
 
 Bajo la ley uniforme de los grandes números, el lado derecho tiende a \(0\), lo que lleva a la consistencia de
 la minimización del riesgo empírico con respecto a la clase de funciones subyacente \(\mathcal{F}\).\\
+\pause
 En otras palabras,
 
 \begin{alertblock}{ }
@@ -804,9 +888,9 @@ En otras palabras,
 riesgo empírico sobre \(\mathcal{F}\).
 \end{alertblock}
 
-
+\pause
 Parte de la elegancia de la teoría VC radica en que el recíproco también es cierto. \\
-
+\pause
 \begin{block}{Vapnik y Chervonenkis, 1971}
 La convergencia uniforme
 
@@ -889,9 +973,9 @@ Llamaremos a dicha cantidad, la \textit{dimensión VC}.
 
 \begin{frame}{Simetrización}
 Como no podemos calcular directamente $\mathcal{R}$, desearíamos acotar
-la ecuación 
+la ecuación
 \[
-\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| 
+\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)|
 \]
 
 por una cantidad que dependa de valores empíricos en su totalidad.\\
@@ -916,8 +1000,8 @@ Con la ayuda de esta muestra fantasma, podemos demostrar el siguiente resultado.
  Sea $\mathcal{F}$ el espacio de funciones definido por un algoritmo de aprendizaje. Sean
 $(X_i,Y_i)_{i=1,\dots, m}$, $(X_i',Y_i')_{i=1,\dots, m}$ muestras aleatorias iid. Dada $f \in\mathcal{F}$,
 sean $\mathcal{R}(f)$ su riesgo, $\mathcal{R}_{emp}(f)$ su riesgo empírico sobre la primera muestra y
-$\mathcal{R}'_{emp}(f)$ el riesgo sobre la segunda. Entonces, para cualquier $\varepsilon > 0$ tal que $m \geq \frac{2}{\varepsilon^2}$, 
-se cumple que 
+$\mathcal{R}'_{emp}(f)$ el riesgo sobre la segunda. Entonces, para cualquier $\varepsilon > 0$ tal que $m \geq \frac{2}{\varepsilon^2}$,
+se cumple que
 
 \[
 P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| >
@@ -935,7 +1019,7 @@ las diferentes formas en que estas pueden clasificar un conjunto de entrenamient
 es finita.\\
 
 En efecto, para cualquier punto de entrenamiento dado en la muestra, una función puede tomar solo los valores
-\(-1\) o \(+1\). 
+\(-1\) o \(+1\).
 
 \begin{center}
   \includegraphics[width=\linewidth,height=0.48\textheight,keepaspectratio]{images/8.png}
@@ -1000,12 +1084,15 @@ supremo sobre una clase finita de funciones con como máximo \(2^{n}\) funciones
 \begin{frame}{Fragmentación}
   $\mathcal{N}(\mathcal{F}, n)$ es el número máximo de formas en las que \(\mathcal{F}\) puede separar en dos clases a una muestra
   de tamaño $n$ de $X$.\\
-
+\pause
+\bigskip
   Esto no implica que \(\mathcal{F}\) pueda separar a \textbf{todas} las muestras de tamaño \(n\) de esta manera.\\
-
-En el caso de clasificación binari el mayor cardinal posible para un conjunto de fragmentación
+\pause
+\bigskip
+En el caso de clasificación binaria, el mayor cardinal posible para un conjunto de fragmentación
 coincide con el cardinal del conjunto de partes de un conjunto de tamaño $n$.\\
-
+\pause
+\bigskip
 Si \(\mathcal{N}(\mathcal{F}, n) = 2^n\), existe al menos una muestra de tamaño \(n\) que puede ser separada
 de todas las formas posibles por funciones en \(\mathcal{F}\). En este caso, decimos que la clase de funciones
 \(\mathcal{F}\) \textit{fragmenta} al conjunto de \(n\) puntos.
@@ -1013,7 +1100,8 @@ de todas las formas posibles por funciones en \(\mathcal{F}\). En este caso, dec
 
 \begin{frame}{Fragmentación}
 En la definición, tomamos el máximo puesto que ciertas muestras pueden no ser fragmentables de la misma manera que otras por \(\mathcal{F}\).\\
- 
+ \pause
+ \bigskip
 Consideremos el espacio $\mathbb{R}^2$ y sea $\mathcal{F}=\{f: f(x)= \alpha x + \beta; \; \alpha, \beta\in\mathbb{R}\}$, el espacio
 de funciones lineales.
 
@@ -1030,9 +1118,9 @@ Consideremos una muestra de \(2n\) puntos. Volviendo al lema de simetrización, 
 \[
 \begin{aligned}
 P\left(\sup_{f \in \mathcal{F}} |R(f) - R_{\text{emp}}(f)| > \varepsilon\right) &\leq
-2P\left(\sup_{f \in \mathcal{F}} |R_{\text{emp}}(f) - R'_{\text{emp}}(f)| > \frac{\varepsilon}{2}\right).\\
-& = 2P\left(\sup_{f \in \mathcal{F}_{Z_{2n}}} |R_{\text{emp}}(f) - R'_{\text{emp}}(f)| > \frac{\varepsilon}{2}\right).\\
-& \leq 2  \mathcal{N}(\mathcal{F}, n)\cdot \exp\left(\frac{-n\varepsilon^2}{4}\right).
+2P\left(\sup_{f \in \mathcal{F}} |R_{\text{emp}}(f) - R'_{\text{emp}}(f)| > \frac{\varepsilon}{2}\right)\\
+\pause& = 2P\left(\sup_{f \in \mathcal{F}_{Z_{2n}}} |R_{\text{emp}}(f) - R'_{\text{emp}}(f)| > \frac{\varepsilon}{2}\right)\\
+\pause& \leq 2  \mathcal{N}(\mathcal{F}, n)\cdot \exp\left(\frac{-n\varepsilon^2}{4}\right).
 \end{aligned}
 \]
 \end{frame}
@@ -1041,15 +1129,18 @@ P\left(\sup_{f \in \mathcal{F}} |R(f) - R_{\text{emp}}(f)| > \varepsilon\right) 
 \begin{frame}{El Coeficiente de Fragmentación y la Consistencia}
 
 
-Tomemos $\mathcal{F}_{all}$, el espacio de todos los clasificadores posibles. Es claro que, en este caso, $\mathcal{N}(\mathcal{F}_{all}, n)=2^{2n}$,
-pues cualquier muestra de $2n$ puntos puede ser separada de $2^{2n}$ formas posibles. Entonces, la cota de convergencia uniforme para este espacio
+Tomemos $\mathcal{F}_{all}$, el espacio de todos los clasificadores posibles. \\
+ \pause
+ \bigskip
+En este caso, $\mathcal{N}(\mathcal{F}_{all}, n)=2^{2n}$,
+pues cualquier muestra de $2n$ puntos puede ser separada de $2^{2n}$ formas posibles. \pause Entonces, la cota de convergencia uniforme para este espacio
 es:
 
 \[
 \begin{aligned}
 P\left(\sup_{f \in \mathcal{F}_{all}} |R(f) - R_{\text{emp}}(f)| > \varepsilon \right)
 &\leq 2\cdot 2^{2n} \exp\left(-\frac{n\varepsilon^2}{4}\right) \\
-&= 2\exp\left(n\left( 2\log(2) - \frac{n\varepsilon^2}{4}\right)\right).
+\pause&= 2\exp\left(n\left( 2\log(2) - \frac{n\varepsilon^2}{4}\right)\right).
 \end{aligned}
 \]
 
@@ -1057,10 +1148,12 @@ P\left(\sup_{f \in \mathcal{F}_{all}} |R(f) - R_{\text{emp}}(f)| > \varepsilon \
 
 \begin{frame}
   Que es una expresión que no tiende a $0$ cuando $n$ tiende a infinito. \\
-  
+  \pause
+  \bigskip
   Esto no significa que podamos
 concluir que la MRE no es consistente con respecto a $\mathcal{F}_{all}$.\\
-
+\pause
+\bigskip
 Pero si podemos dar el siguiente resultado:
 \begin{block}{Teorema}
     La minimización del riesgo empírico es consistente con respecto a un espacio de funciones $\mathcal{F}$ si y solo si
@@ -1106,12 +1199,16 @@ Pero si podemos dar el siguiente resultado:
 
 Si \( n \geq \text{VC}(\mathcal{F}) \),
 el coeficiente de fragmentación se comporta como una función polinómica del tamaño de la muestra \( n \).\\
-
+\bigskip
+\pause
 Por los resultados de la sección anterior, esto implica la consistencia de la minimización del riesgo empírico.\\
-
+\bigskip
+\pause
 Nótese que también tenemos una afirmación en la otra dirección. Si la dimensión VC es infinita, esto significa
 que para cada \( n \) existe alguna muestra que puede ser fragmentada por \(\mathcal{F}\), es decir, tal que
 \(\mathcal{N}(\mathcal{F}, n) = 2^n. \)
+
+\pause
 
   \begin{block}{Teorema}
     La minimización del riesgo empírico es consistente con respecto a una clase de funciones \(\mathcal{F}\) si y solo si
@@ -1121,11 +1218,11 @@ que para cada \( n \) existe alguna muestra que puede ser fragmentada por \(\mat
 \end{frame}
 
 \begin{frame}{No hay almuerzos gratis}
-¿cuál de todos los clasificadores consistentes
-es \textit{el mejor} clasificador? ¿Existe un clasificador universalmente bueno?\\
+¿Cuál de todos los clasificadores consistentes
+es \textit{el mejor} clasificador? \pause ¿Existe un clasificador universalmente bueno?\\
 
 \bigskip
-
+\pause
 No solamente no existe un clasificador universalmente bueno, sino que, en promedio sobre todas las distribuciones
 posibles, todos los clasificadores son equivalentes.
 
@@ -1142,10 +1239,68 @@ regla de clasificación \(f_n\), existe una distribución \(P(X, Y)\) con riesgo
 \]
 \end{block}
 
-  
 
 \end{frame}
 
+\begin{frame}{La Paradoja Moderna: ¿Qué Dice la Teoría?}
+
+
+
+      \vspace{0.5em}
+      \begin{alertblock}{ }
+         En la práctica, los modelos de aprendizaje profundo modernos son \textbf{extremadamente sobreparametrizados}.
+         Por ejemplo,
+        GPT-4: ${\sim}1.8$\,T parámetros, $n \ll \text{parámetros}$.
+        Las cotas VC serían \textbf{astronómicamente grandes}
+        \centering\alert{…y sin embargo, generalizan.}
+      \end{alertblock}
+\pause
+      \centering
+      %% f(x) = 0.08 + 0.80*exp(-0.55x) + 0.58*exp(-3.5*(x-5.5)^2)
+      %% Valores clave:  x=0 → 0.88,  x=4 → 0.17,  x=5.5 → 0.70 (pico),
+      %%                 x=7 → 0.09,  x=10 → 0.08
+      %% Ambos trazos usan la MISMA función → curva continua
+      \begin{tikzpicture}
+        \begin{axis}[
+            width=6.8cm, height=5.0cm,
+            axis lines=left,
+            xlabel={complejidad del modelo},
+            ylabel={error de generalización},
+            xlabel style={font=\scriptsize},
+            ylabel style={font=\scriptsize},
+            xmin=0, xmax=10,
+            ymin=0, ymax=1.0,
+            xtick=\empty, ytick=\empty,
+            clip=false,
+            legend style={font=\scriptsize, row sep=-2pt,
+                          at={(0.98,0.98)}, anchor=north east},
+          ]
+          %% Régimen clásico (sesgo–varianza): x de 0 a 5.5
+          \addplot[very thick, uncoBlue, domain=0.05:5.5, samples=200]
+            {0.08 + 0.80*exp(-0.55*x) + 0.58*exp(-3.5*(x-5.5)^2)};
+          \addlegendentry{\scriptsize teoría clásica};
+          %% Régimen moderno (doble descenso): x de 5.5 a 10
+          \addplot[very thick, red, dashed, domain=5.5:10, samples=200]
+            {0.08 + 0.80*exp(-0.55*x) + 0.58*exp(-3.5*(x-5.5)^2)};
+          \addlegendentry{\scriptsize DL moderno};
+          %% Línea vertical en el umbral de interpolación
+          \draw[dotted, gray!70, thick]
+            (axis cs:5.5, 0) -- (axis cs:5.5, 0.72);
+          \node[font=\tiny, gray, rotate=90] at (axis cs:5.18, 0.37)
+            {umbral interp.};
+          %% Etiqueta mínimo clásico
+          \node[font=\tiny, uncoBlue, align=center] at (axis cs:2.2, 0.38)
+            {sesgo-\\varianza};
+          %% Etiqueta doble descenso
+          \node[font=\tiny, red!80, align=center] at (axis cs:8.3, 0.30)
+            {doble\\descenso};
+        \end{axis}
+      \end{tikzpicture}
+
+      {\scriptsize\textcolor{gray}{Fenómeno de ``doble descenso'':
+      el error \emph{vuelve a bajar} tras la sobreparametrización.}}
+
+\end{frame}
 
 % ─────────────────────────────────────────────────────────────
 % ─────────────────────────────────────────────────────────────
