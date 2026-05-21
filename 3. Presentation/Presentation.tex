@@ -346,7 +346,7 @@ mayores implican peor clasificación. \\
 Mientras que la función de pérdida mide el error del clasificador en un punto
 individual $x \in X$, llamamos riesgo, $R$, del clasificador a la pérdida esperada
 sobre todos los datos generados por la distribución de probabilidad P
-
+\pause
       \begin{block}{Riesgo}
       \[
         \mathcal{R}(f)
@@ -355,10 +355,13 @@ sobre todos los datos generados por la distribución de probabilidad P
       \]
 
       \end{block}
+\pause
+\bigskip
+El mejor clasificador posible minimiza $\mathcal{R}$.\\
 
-    El mejor clasificador posible minimiza $\mathcal{R}$.\\
-Es decir, el aprendizaje suele implicar un
-desafío de optimización en dónde deseamos hallar el mínimo de la función de
+\pause
+\bigskip
+Es decir, el aprendizaje implica un desafío de optimización en dónde deseamos hallar el mínimo de la función de
 riesgo.
 \end{frame}
 
@@ -441,7 +444,7 @@ provienen los datos.
 \end{frame}
 
 
-  \begin{frame}
+  \begin{frame}{Algoritmo de Aprendizaje}
   \begin{block}{Ejemplo: El perceptrón de Rosenblatt}
 Dado un conjunto de entrenamiento $S = \{(\mathbf{x}_i, y_i)\}_{i=1}^n \subset \mathbb{R}^d \times \{0, 1\}$,
 el Perceptrón se define como un clasificador binario $h: \mathbb{R}^d \to \{-1, 1\}$ mediante la siguiente función:
@@ -467,10 +470,13 @@ es llamada la tasa de aprendizaje.
 \begin{frame}
   \begin{figure}
     \centering
-    \subfloat{\includegraphics[width=0.27\textwidth]{images/perceptron 1.png}}\hspace{0.025\textwidth}
-    \subfloat{\includegraphics[width=0.27\textwidth]{images/perceptron 2.png}}\\[0.2em]
-    \subfloat{\includegraphics[width=0.27\textwidth]{images/perceptron 3.png}}\hspace{0.025\textwidth}
-    \subfloat{\includegraphics[width=0.27\textwidth]{images/perceptron 4.png}}
+    \includegraphics[width=0.27\textwidth]{images/perceptron 1.png}\hspace{0.025\textwidth}
+    \pause
+    \includegraphics[width=0.27\textwidth]{images/perceptron 2.png}\\[0.2em]
+    \pause
+    \includegraphics[width=0.27\textwidth]{images/perceptron 3.png}\hspace{0.025\textwidth}
+    \pause
+    \includegraphics[width=0.27\textwidth]{images/perceptron 4.png}
   \end{figure}
 \end{frame}
 
@@ -559,7 +565,7 @@ es llamada la tasa de aprendizaje.
     Sea $(X_i,Y_i)_{i\in\mathbb{N}}$ una sucesión infinita de puntos de entrenamiento que han sido tomados iid de una distribución $P$.
     Sea $\ell$ una función de pérdida. Por cada $n\in \mathbb{N}$, sea $f_n$ un clasificador construido por algún algoritmo de aprendizaje
     usando los primeros $n$ puntos de entrenamiento. Sea $\mathcal{F}$ el espacio funcional de todos los posibles clasificadores según
-    el mecanismo de construcción del algoritmo. Entonces
+    el mecanismo de construcción del algoritmo.\pause Entonces
     \begin{enumerate}
     \item  El algoritmo de aprendizaje se dice \textnormal{consistente con respecto a $\mathcal{F}$ y a $P$} si el riesgo $\mathcal{R}(f_n)$
      converge en probabilidad al riesgo  $\mathcal{R}(f_{\mathcal{F}})$ del mejor clasificador en $\mathcal{F}$. Esto es,
@@ -567,13 +573,16 @@ es llamada la tasa de aprendizaje.
      \[
      P\left(\mathcal{R}(f_n)-\mathcal{R}(f_{\mathcal{F}})>\varepsilon\right) \rightarrow 0 \qquad \text{ cuando } \qquad n\rightarrow \infty
      \]
+     \pause
      \item  El algoritmo de aprendizaje se dice \textnormal{Bayes-consistente con respecto a $P$} si el riesgo $\mathcal(R)(f_n)$
      converge en probabilidad al riesgo  $\mathcal(R)(f_{\text{Bayes}})$ del clasificador bayesiano. Esto es, para todo $\varepsilon>0$
     \[
      P\left(\mathcal{R}(f_n)-\mathcal{R}(f_{\text{Bayes}})>\varepsilon\right) \rightarrow 0 \qquad \text{ cuando } \qquad n\rightarrow \infty
     \]
+    \pause
     \item  El algoritmo de aprendizaje se dice \textnormal{universalmente consistente con respecto a $\mathcal{F}$} si
     es consistente con respecto a $\mathcal{F}$ para toda distribución de probabilidad $P$.
+    \pause
     \item  El algoritmo de aprendizaje se dice \textnormal{universalmente Bayes-consistente } si
     es Bayes-consistente para toda distribución de probabilidad $P$.
     \end{enumerate}
@@ -585,14 +594,16 @@ es llamada la tasa de aprendizaje.
 \begin{frame}
   \begin{alertblock}{Hay muchas cosas que no podemos calcular}
       No somos capaces de hallar al clasificador de Bayes.\\
-      No podemos hallar explícitamente al mejor clasificador de un espacio funcional.\\
+      \pause
+      En general, no podemos hallar explícitamente al mejor clasificador de un espacio funcional.\\
+      \pause
       Ni siquiera podemos calcular el riesgo de un clasificador conocido.\\
       ...\\
       ¿Qué podemos hacer?
   \end{alertblock}
 \pause
-  Lo que si podemos hacer, dado un
-conjunto de entrenamiento, es “contar”  el número de errores del clasificador sobre los
+\bigskip
+  Podemos “contar”  el número de errores del clasificador sobre los
 datos de entrenamiento. \\
 
 \end{frame}
@@ -647,74 +658,69 @@ datos de entrenamiento. \\
   \includegraphics[width=0.92\textwidth,height=0.78\textheight,keepaspectratio]{images/wolf.jpg}
 \end{frame}
 \begin{frame}{El Dilema de la Complejidad}
-  \begin{columns}[T]
+  \begin{columns}[c]
 
-    %% — Columna izquierda: la ecuación de descomposición
-    \begin{column}{0.50\textwidth}
-      \textbf{Descomposición del exceso de riesgo:}
+    %% — Columna izquierda: qué implica el tradeoff sesgo-varianza
+    \begin{column}[c]{0.50\textwidth}
+
       \[
         \underbrace{\mathcal{R}(f_n) - \mathcal{R}(f_{\mathrm{Bayes}})}_{\text{lo que queremos reducir}}
       \]
       \[
         =\;
-        \underbrace{\mathcal{R}(f_n) - \mathcal{R}(f_{\mathcal{F}})}_{\textcolor{red}{\text{error de estimación}}}
+        \underbrace{\mathcal{R}(f_n) - \mathcal{R}(f_{\mathcal{F}})}_{\textcolor{uncoBlue}{\text{error de estimación}}}
         \;+\;
-        \underbrace{\mathcal{R}(f_{\mathcal{F}}) - \mathcal{R}(f_{\mathrm{Bayes}})}_{\textcolor{uncoBlue}{\text{error de aproximación}}}
+        \underbrace{\mathcal{R}(f_{\mathcal{F}}) - \mathcal{R}(f_{\mathrm{Bayes}})}_{\textcolor{red}{\text{error de aproximación}}}
       \]
+    \end{column}
+    \pause
+    %% — Columna derecha: figura sesgo-varianza (Figura 2.3)
+    \begin{column}{0.48\textwidth}
+      \centering
+      \includegraphics[width=\linewidth,keepaspectratio]{images/bias-variance tradeoff.png}
 
-      \vspace{0.6em}
-      \begin{itemize}
-        \setlength{\itemsep}{0.4em}
-        \item \textcolor{uncoBlue}{\textbf{Aprox.:}} $\mathcal{F}$ pequeño $\Rightarrow$ alto \textcolor{uncoBlue}{sesgo} (subajuste).
-        \item \textcolor{red}{\textbf{Estim.:}} $\mathcal{F}$ grande $\Rightarrow$ alta \textcolor{red}{varianza} (sobreajuste).
-      \end{itemize}
+      {\scriptsize\textcolor{gray}{El error total puede ser descompuesto en dos componentes.}}
+    \end{column}
+
+  \end{columns}
+\end{frame}
+
+
+\begin{frame}{EL Dilema Sesgo-Varianza}
+  \begin{columns}[T]
+    \begin{column}{0.50\textwidth}
+      \begin{block}{\small ¿Qué implica el tradeoff sesgo-varianza?}
+        \small
+        \begin{itemize}
+          \setlength{\itemsep}{0.35em}
+          \item Si $\mathcal{F}$ es \textbf{poco compleja}, minimizamos el \textcolor{uncoBlue}{error de estimación} (alto sesgo).
+          \item Si $\mathcal{F}$ es \textbf{muy compleja}, minimizamos el \textcolor{red}{error de aproximación} (alta varianza).
+          \item La generalización mejora en un punto intermedio: \textbf{ni demasiado simple ni demasiado complejo}.
+        \end{itemize}
+      \end{block}
     \end{column}
 
     %% — Columna derecha: figura sesgo-varianza (Figura 2.3)
     \begin{column}{0.48\textwidth}
       \centering
-      \begin{tikzpicture}
-        \begin{axis}[
-            width=6.8cm, height=5.2cm,
-            axis lines=left,
-            xlabel={complejidad de $\mathcal{F}$},
-            ylabel={error},
-            xlabel style={font=\scriptsize},
-            ylabel style={font=\scriptsize},
-            xmin=0, xmax=6,
-            ymin=0, ymax=3.2,
-            xtick=\empty, ytick=\empty,
-            clip=false,
-            legend pos=north east,
-            legend style={font=\scriptsize, row sep=-2pt},
-          ]
-          %% Error de aproximación (decreasing)
-          \addplot[thick, uncoBlue, domain=0.2:5.8, samples=100]
-            {2.5*exp(-0.65*x) + 0.05};
-          \addlegendentry{\textcolor{uncoBlue}{aprox.}};
-          %% Error de estimación (increasing)
-          \addplot[thick, red, domain=0.2:5.8, samples=100]
-            {0.08*x^2 - 0.1*x + 0.15};
-          \addlegendentry{\textcolor{red}{estim.}};
-          %% Riesgo total (U-shaped)
-          \addplot[thick, black, domain=0.2:5.8, samples=100]
-            {2.5*exp(-0.65*x) + 0.08*x^2 - 0.1*x + 0.20};
-          \addlegendentry{riesgo total};
-          %% Mínimo óptimo (flecha)
-          \draw[dashed, gray] (axis cs:2.05,0) -- (axis cs:2.05,1.45);
-          \node[font=\scriptsize, gray, below] at (axis cs:2.05,0) {óptimo};
-        \end{axis}
-      \end{tikzpicture}
+      \includegraphics[width=\linewidth,keepaspectratio]{images/error de aproximación y de estimación.png}
 
       \vspace{0.1em}
-      {\scriptsize\textcolor{gray}{Inspirado en Figura 2.3 de la tesina.}}
+      {\scriptsize\textcolor{gray}{El error de aproximación disminuye con la complejidad, 
+      mientras que el error de estimación aumenta a partir de un punto \textit{óptimo}.}}
     \end{column}
-
   \end{columns}
 \end{frame}
+
 \begin{frame}{Subajuste y sobreajuste}
-  \centering
-  \includegraphics[width=0.92\textwidth,height=0.78\textheight,keepaspectratio]{images/over-underfitting.png}
+  \begin{figure}
+    \centering
+    \subfloat[\scriptsize Subajuste]{\includegraphics[width=0.31\textwidth]{images/classification underfitting.png}}\hspace{0.02\textwidth}
+    \pause
+    \subfloat[\scriptsize Balanceado]{\includegraphics[width=0.31\textwidth]{images/classification balanced.png}}\hspace{0.02\textwidth}
+    \pause
+    \subfloat[\scriptsize Sobreajuste]{\includegraphics[width=0.31\textwidth]{images/classification overfitting.png}}
+  \end{figure}
 \end{frame}
 
 
@@ -980,19 +986,13 @@ la ecuación
 
 por una cantidad que dependa de valores empíricos en su totalidad.\\
 
-Supongamos que tenemos una muestra
-\((X_i, Y_i)_{i=1,\dots,n}\). \\
+\bigskip
+\pause
+Vamos a necesitar una muestra fantasma.
+\begin{center}
+  \includegraphics[width=0.50\textwidth]{images/casper.png}
+\end{center}
 
-Ahora introducimos una nueva muestra \((X'_i, Y'_i)_{i=1,\dots,n}\), que también se extrae de manera
-\textit{iid} de la misma distribución subyacente y que es independiente de la primera. \\
-
-
-
-No necesitamos generar
-esta muestra en la práctica; es solo una herramienta matemática para realizar el análisis.
-
-Definimos el riesgo empírico con respecto a esta muestra como \(\mathcal{R}'_{\text{emp}}(f)\).
-Con la ayuda de esta muestra fantasma, podemos demostrar el siguiente resultado.
 \end{frame}
 
 \begin{frame}
@@ -1008,9 +1008,9 @@ P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| >
 \varepsilon \right) \leq 2P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}_{\text{emp}}(f) - \mathcal{R}'_{\text{emp}}(f)| > \frac{\varepsilon}{2}\right).
 \]
   \end{block}
-
+\bigskip
 Este lema  nos permite trabajar
-con eventos que dependen únicamente de las muestras observadas: Pudimos acotar el riesgo por el riesgo empírico.
+con eventos que dependen únicamente de las muestras observadas.
 \end{frame}
 
 \begin{frame}{Fragmentación}
@@ -1126,47 +1126,55 @@ P\left(\sup_{f \in \mathcal{F}} |R(f) - R_{\text{emp}}(f)| > \varepsilon\right) 
 \end{frame}
 
 
+% \begin{frame}{El Coeficiente de Fragmentación y la Consistencia}
+
+
+% Tomemos $\mathcal{F}_{all}$, el espacio de todos los clasificadores posibles. \\
+%  \pause
+%  \bigskip
+% En este caso, $\mathcal{N}(\mathcal{F}_{all}, n)=2^{2n}$,
+% pues cualquier muestra de $2n$ puntos puede ser separada de $2^{2n}$ formas posibles. \pause Entonces, la cota de convergencia uniforme para este espacio
+% es:
+
+% \[
+% \begin{aligned}
+% P\left(\sup_{f \in \mathcal{F}_{all}} |R(f) - R_{\text{emp}}(f)| > \varepsilon \right)
+% &\leq 2\cdot 2^{2n} \exp\left(-\frac{n\varepsilon^2}{4}\right) \\
+% \pause&= 2\exp\left(n\left( 2\log(2) - \frac{n\varepsilon^2}{4}\right)\right).
+% \end{aligned}
+% \]
+
+% \end{frame}
+
+% \begin{frame}
+%   Que es una expresión que no tiende a $0$ cuando $n$ tiende a infinito. \\
+%   \pause
+%   \bigskip
+%   Esto no significa que podamos
+% concluir que la MRE no es consistente con respecto a $\mathcal{F}_{all}$.\\
+% \pause
+% \bigskip
+% Pero si podemos dar el siguiente resultado:
+% \begin{block}{Teorema}
+%     La minimización del riesgo empírico es consistente con respecto a un espacio de funciones $\mathcal{F}$ si y solo si
+%     \[
+%     \frac{\log\left(\mathcal{N}(\mathcal{F}, n)\right)}{n} \rightarrow 0 \qquad \text{cuando } n \to \infty.
+%     \]
+% \end{block}
+% \end{frame}
+
 \begin{frame}{El Coeficiente de Fragmentación y la Consistencia}
-
-
-Tomemos $\mathcal{F}_{all}$, el espacio de todos los clasificadores posibles. \\
- \pause
- \bigskip
-En este caso, $\mathcal{N}(\mathcal{F}_{all}, n)=2^{2n}$,
-pues cualquier muestra de $2n$ puntos puede ser separada de $2^{2n}$ formas posibles. \pause Entonces, la cota de convergencia uniforme para este espacio
-es:
-
-\[
-\begin{aligned}
-P\left(\sup_{f \in \mathcal{F}_{all}} |R(f) - R_{\text{emp}}(f)| > \varepsilon \right)
-&\leq 2\cdot 2^{2n} \exp\left(-\frac{n\varepsilon^2}{4}\right) \\
-\pause&= 2\exp\left(n\left( 2\log(2) - \frac{n\varepsilon^2}{4}\right)\right).
-\end{aligned}
-\]
-
-\end{frame}
-
-\begin{frame}
-  Que es una expresión que no tiende a $0$ cuando $n$ tiende a infinito. \\
-  \pause
-  \bigskip
-  Esto no significa que podamos
-concluir que la MRE no es consistente con respecto a $\mathcal{F}_{all}$.\\
-\pause
-\bigskip
-Pero si podemos dar el siguiente resultado:
-\begin{block}{Teorema}
+  \begin{block}{Teorema}
     La minimización del riesgo empírico es consistente con respecto a un espacio de funciones $\mathcal{F}$ si y solo si
     \[
     \frac{\log\left(\mathcal{N}(\mathcal{F}, n)\right)}{n} \rightarrow 0 \qquad \text{cuando } n \to \infty.
     \]
 \end{block}
-\end{frame}
-
-\begin{frame}
+\pause
   \begin{block}{Corolario 1}
     Si $\mathcal{N}(\mathcal{F}, n)$ es polinómica, entonces la minimización del riesgo empírico es consistente con respecto a $\mathcal{F}$.\\
 \end{block}
+\pause
 \begin{block}{Corolario 2}
     Si $\mathcal{N}(\mathcal{F}, n)=2^n$, entonces la minimización del riesgo empírico no es consistente con respecto a $\mathcal{F}$. En
     particular, no es consistente con respecto al espacio de todas los clasificadores posibles $\mathcal{F}_{all}$.
@@ -1300,6 +1308,26 @@ regla de clasificación \(f_n\), existe una distribución \(P(X, Y)\) con riesgo
       {\scriptsize\textcolor{gray}{Fenómeno de ``doble descenso'':
       el error \emph{vuelve a bajar} tras la sobreparametrización.}}
 
+\end{frame}
+
+\begin{frame}
+  \begin{block}{ }
+  En aquel Imperio, el Arte de la Cartografía logró tal Perfección que el mapa de una sola Provincia ocupaba toda una Ciudad, 
+  y el mapa del Imperio, toda una Provincia. Con el tiempo, estos Mapas Desmesurados no satisficieron y los Colegios de Cartógrafos 
+  levantaron un Mapa del Imperio, que tenía el tamaño del Imperio y coincidía puntualmente con él.\\
+\bigskip
+Menos Adictas al Estudio de la Cartografía, las Generaciones Siguientes entendieron que ese dilatado Mapa era Inútil y 
+o sin Impiedad lo entregaron a las Inclemencias del Sol y los Inviernos. En los desiertos del Oeste perduran despedazadas 
+Ruinas del Mapa, habitadas por Animales y por Mendigos; en todo el País no hay otra reliquia de las Disciplinas Geográficas.
+\bigskip
+Suárez Miranda, Viajes de Varones Prudentes, Libro Cuarto, Cap. XLV, Lérida, 1658.
+        \vspace{0.5em}
+        \begin{flushright}
+          \normalfont\scriptsize
+          ---~Jorge Luis Borges,\\
+          \textit{Del Rigor en la Ciencia} (1946)
+        \end{flushright}
+  \end{block}
 \end{frame}
 
 % ─────────────────────────────────────────────────────────────
