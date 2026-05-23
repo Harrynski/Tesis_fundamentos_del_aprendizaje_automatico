@@ -6,8 +6,8 @@
 % Uso: pdflatex presentacion.tex
 % Requiere: pgfplots, tikz, babel(spanish), lmodern
 %==============================================================
-%\documentclass[aspectratio=169, 10pt]{beamer}
-\documentclass[aspectratio=169,10pt,handout]{beamer}
+\documentclass[aspectratio=169, 10pt]{beamer}
+%\documentclass[aspectratio=169,10pt,handout]{beamer}
 %--------------------------------------------------------------
 % TEMA Y PALETA DE COLORES (azul UNCo)
 %--------------------------------------------------------------
@@ -113,32 +113,20 @@
 
 
 \begin{frame}{¿Qué Entendemos por Aprendizaje?}
-  \vspace{0.4em}
-  \begin{center}
-    \begin{minipage}{0.9\textwidth}
-        El aprendizaje es el proceso a través del cual pueden inferirse reglas generales a partir de ejemplos.\\
 
+        El aprendizaje es el proceso a través del cual pueden inferirse reglas generales a partir de ejemplos.\\
+\bigskip
+\pause
+         En el caso de los seres humanos, el aprendizaje es un proceso complejo que involucra aspectos cognitivos, emocionales y sociales.\\
         Nos interesa entender como una una computadora puede resolver ciertos problemas sin conocer las reglas de antemano,
         solo a partir de ejemplos y a través de un algoritmo de aprendizaje.\\
 
-  % \centering
-  % % Fallback para compilar aun cuando no exista la secuencia de cuadros.
-  % \IfFileExists{images/frames/frame_000.png}{%
-  %   \animategraphics[loop, autoplay, width=0.82\linewidth]{12}{images/frames/frame_}{000}{180}%
-  % }{%
-  %   \begin{block}{Animación no disponible}
-  %     \centering
-  %     \small No se encontraron archivos en \texttt{images/frames/frame\_***}.
-  %   \end{block}
-  % }
+\end{frame}
 
-  % \vspace{0.3em}
-  % {\scriptsize\textcolor{gray}{Proceso Gaussiano ajustándose progresivamente a los datos de entrenamiento.}}
-
-
-
-    \end{minipage}
-  \end{center}
+\begin{frame}
+  \IfFileExists{images/frames/frame_180.png}{%
+    \includegraphics{images/frames/frame_180.png}%
+  }{}
 \end{frame}
 
 %--------------------------------------------------------------
@@ -271,14 +259,18 @@
   \begin{itemize}
     \setlength{\itemsep}{0.45em}
     \item \textbf{No aplicamos restricciones sobre $P$:} no suponemos una forma paramétrica para la distribución que genera los datos.
+    \pause
     \item \textbf{Etiquetas no determinísticas:} modelamos $Y$ mediante probabilidades condicionales $P(Y=1\mid X=x)$. Esto se debe a que:
       % \begin{itemize}
       %   \item Puede existir solapamiento entre las clases. (ej: imágenes lejanas de perros y gatos con características similares).
       %   \item En la práctica, hay ruido en las etiquetas. (ej: distintos etiquetadores humanos no coincidiendo en si un email es spam;
       %    errores de etiquetado).
       % \end{itemize}
+    \pause
     \item \textbf{Muestreo iid:} los ejemplos se toman de manera independiente e idénticamente distribuida.
+    \pause
     \item \textbf{Distribución fija:} asumimos que el mecanismo que genera los datos no cambia entre entrenamiento y uso.
+    \pause
     \item \textbf{$P$ desconocida:} solo accedemos a la distribución a través de una muestra finita de datos. El valor de la teoría
     estará en entender bajo qué condiciones podremos inferir algo sobre $P$.
   \end{itemize}
@@ -302,6 +294,7 @@
       \end{block}
 
       \vspace{0.9em}
+      \pause
 
       \begin{alertblock}{Diferencia clave con Estadística clásica}
         Somos \textbf{agnósticos} respecto a $P$:
@@ -326,7 +319,7 @@
 \begin{frame}{¿Qué Significa Equivocarse?: Función de Pérdida}
 
   Para medir la efectividad de la función clasificadora, definimos una Función de Pérdida $\ell$.\\
-
+\pause
   En el caso binario, la función más sencilla es
 \begin{block}{Función de pérdida 0-1}
   \[
@@ -337,7 +330,7 @@
         \end{cases}
       \]
 \end{block}
-
+\pause
 Por convención, una pérdida igual a 0 implica una clasificación perfecta y valores
 mayores implican peor clasificación. \\
 
@@ -403,15 +396,17 @@ riesgo.
           -1 & \text{en otro caso}
         \end{cases}
       \]
-
+\pause
       \vspace{0.5em}
       \begin{itemize}
         \setlength{\itemsep}{0.5em}
         \item Minimiza $\mathcal{R}(f)$ sobre \textbf{todas} las funciones medibles.
+        \pause
         \item Asigna siempre la etiqueta más probable dado $x$.
+        \pause
         \item Es el \textbf{techo teórico} de cualquier clasificador.
       \end{itemize}
-
+    \pause
       \begin{alertblock}{¿Por qué es inalcanzable?}
         Requiere conocer $P(X, Y)$,\textbf{ que es exactamente lo que desconocemos}.
       \end{alertblock}
@@ -419,16 +414,20 @@ riesgo.
 
 \begin{frame}{Definición del problema de clasificación binaria}
   Si el clasificador de Bayes es incomputable en la práctica, ¿Qué utilidad tiene definirlo?\\
-
+\pause
+\bigskip
   Lo hacemos porque nos permite definir el problema que estamos tratando.
 
+\pause
+\bigskip
   \begin{block}{Definición}
   Dado un conjunto de datos de entrenamiento $ \{ (X_1,Y_1), \dots ,(X_n, Y_m)\}$
 obtenidos iid de una distribución $P$, y dada una función de pérdida $\ell$, deseamos construir una función clasificadora
 $f:X\rightarrow Y$ cuyo riesgo $\mathcal{R}(f)$ sea lo más cercano posible al riesgo de $f_{\text{Bayes}}$.
 Llamamos a este problema \textbf{clasificación binaria}.
   \end{block}
-
+\pause
+\bigskip
 Pero... ¿Cómo construímos esta función clasificadora?
 \end{frame}
 
@@ -438,7 +437,8 @@ Pero... ¿Cómo construímos esta función clasificadora?
 de datos de entrenamiento $(X_i,Y_i)$, devuelve una función clasificadora $f$ sobre el espacio de entrada $\mathcal{X}$ y el espacio de etiquetas $\mathcal{Y}$ del que
 provienen los datos.
   \end{block}
-
+\pause
+\bigskip
   El algoritmo define la forma de la función clasificadora. En general, a través de este determinamos al espacio funcional $\mathcal{F}$ de
   donde extraemos los distintos clasificadores del proceso de aprendizaje.
 \end{frame}
@@ -715,11 +715,12 @@ datos de entrenamiento. \\
 \begin{frame}{Subajuste y sobreajuste}
   \begin{figure}
     \centering
+    \captionsetup[subfloat]{labelformat=empty,labelsep=none}
     \subfloat[\scriptsize Subajuste]{\includegraphics[width=0.31\textwidth]{images/classification underfitting.png}}\hspace{0.02\textwidth}
     \pause
-    \subfloat[\scriptsize Balanceado]{\includegraphics[width=0.31\textwidth]{images/classification balanced.png}}\hspace{0.02\textwidth}
-    \pause
     \subfloat[\scriptsize Sobreajuste]{\includegraphics[width=0.31\textwidth]{images/classification overfitting.png}}
+    \pause
+    \subfloat[\scriptsize Balanceado]{\includegraphics[width=0.31\textwidth]{images/classification balanced.png}}\hspace{0.02\textwidth}
   \end{figure}
 \end{frame}
 
@@ -752,20 +753,22 @@ En su forma más simple, la ley de los grandes números
 establece que, bajo condiciones suaves, la media de variables aleatorias \(\xi_i\) que han sido extraídas
 de manera \textit{iid} a partir de una distribución de probabilidad
 \(P\), converge a la media de la distribución subyacente cuando el tamaño de la muestra tiende a infinito:
-
+\pause
   \[
 \frac{1}{n} \sum_{i=1}^n \xi_i \to \mathbb{E}(\xi) \quad \text{cuando } n \to \infty.
 \]
 
-
+\pause
 Tomando
 \(\xi_i = \ell(X_i, Y_i, f(X_i))\)
 , \textbf{para una función fija \(f\)},
+\pause
 tenemos
 \[
 \frac{1}{n} \sum_{i=1}^n \ell(X_i, Y_i, f(X_i)) \to \mathbb{E}(\ell(X, Y, f(X))) \quad
 \text{cuando } n \to \infty.
 \]
+\pause
 O lo que es lo mismo:
 \begin{block}{}
 \[
@@ -784,7 +787,7 @@ acotadas en el intervalo $[0,1]$ con media $\mathbb{E}(\xi)$, entonces para cual
 P\left( \left| \frac{1}{n} \sum_{i=1}^n \xi_i - \mathbb{E}(\xi) \right| \geq \varepsilon \right) \leq
 2 \exp(-2n\varepsilon^2).
 \end{equation*}
-
+\pause
 Es decir, para una función fija $f$:
 \begin{block}{Cota de Chernoff-Hoefding}
   \begin{equation*}
@@ -795,15 +798,19 @@ P(|\mathcal{R}_{\text{emp}}(f) - \mathcal{R}(f)| \geq \varepsilon) \leq 2 \exp(-
 \begin{frame}
   Un algoritmo de aprendizaje arroja una función distinta por cada ejemplo de entrenamiento que ve. Esto implica que,
 a medida que el número de elementos $n$ en el conjunto de entrenamiento crece, la función que se define cambia.\\
-
+\pause
+\bigskip
 Nos gustaría poder aplicar la Ley de los Grandes Números a esta función, pero no podemos porque no es fija.\\
-
+\pause
+\bigskip
 Análogamente, la cota de Chernoff-Hoeffding no se puede aplicar directamente a nuestro caso porque cada punto
 nuevo cambia la función que estamos tratando.\\
-
+\pause
+\bigskip
 Nuestro objetivo será entonces encontrar condiciones bajo las cuales podamos aplicar esta cota
 a funciones que no son fijas, sino que cambian con cada nuevo ejemplo de entrenamiento.\\
-
+\pause
+\bigskip
 Esto efectivamente implica una generalización de la Ley de los Grandes Números,
 que se conoce como la \textbf{ley uniforme de los grandes números}.\\
 \end{frame}
@@ -816,11 +823,12 @@ que se conoce como la \textbf{ley uniforme de los grandes números}.\\
 \[
 \sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \leq \varepsilon.
 \]
+\pause
 Es claro que
 \begin{equation*}
 P(|R(f_n) - \mathcal{R}_{\text{emp}}(f_n)| \geq \varepsilon) \leq P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \geq \varepsilon\right).
 \end{equation*}
-
+\pause
 Decimos que la ley de los grandes números se cumple de manera uniforme sobre una clase de funciones \(\mathcal{F}\) si,
 para todo \(\varepsilon > 0\),
 
@@ -836,11 +844,17 @@ Definimos el clasificador \(f_n\) como la función:
 \[
 f_n := \arg\min_{f \in \mathcal{F}} \mathcal{R}_{\text{emp}}(f).
 \]
-
+\pause
+\bigskip
 Esta es la función del espacio que minimiza el riesgo empírico para la muestra de tamaño n.\\
 
-El proceso de encontrar esta función se conoce como \textbf{minimización del riesgo empírico} y
-es, como veremos a continuación, consistente con el espacio fundional $\mathcal{F}$
+\pause
+\bigskip
+El proceso de encontrar esta función se conoce como \textbf{minimización del riesgo empírico} (MRE).
+\pause
+\bigskip
+
+Veremos que la MRE es consistente con el espacio fundional $\mathcal{F}$
 si se verifica la ley uniforme de los grandes números para este espacio.
 
 
@@ -918,7 +932,7 @@ La convergencia uniforme
 \begin{equation*}
 P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| > \varepsilon \right). \label{eq:med_unif_riesgo_riesgo_emp}
 \end{equation*}
-
+\pause
 Consideremos entonces un espacio de funciones finito. Sea
 \(\mathcal{F}_{m} = \{f_1, f_2, \dots, f_m\}\) un conjunto de \(m\) funciones. Cada una de las funciones
 \(f_i \in \mathcal{F}_{m}\) satisface la ley estándar de los grandes números en la forma de la cota de Chernoff:
@@ -935,19 +949,21 @@ Ahora queremos transformar estas afirmaciones sobre funciones individuales \(f_i
 grandes números. Dada la subatividad de la probabilidad, tenemos:
 
 \[
-P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \geq \varepsilon \right) \leq \sum_{i=1}^m P\left(|R(f_i) - \mathcal{R}_{\text{emp}}(f_i)| \geq \varepsilon \right).
+P\left(\sup_{f \in \mathcal{F}_m} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \geq \varepsilon \right) \leq \sum_{i=1}^m P\left(|R(f_i) - \mathcal{R}_{\text{emp}}(f_i)| \geq \varepsilon \right).
 \]
 
+\pause
 
   Y aplicando la cota de Chernoff a cada término en la suma, obtenemos:
 
 \begin{equation*}
-P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \geq \varepsilon \right) \leq m\left( 2 \exp(-2n\varepsilon^2) \right).
+P\left(\sup_{f \in \mathcal{F}_m} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \geq \varepsilon \right) \leq m\left( 2 \exp(-2n\varepsilon^2) \right).
 \end{equation*}
 
-
+\pause
 Como \(m\) es constante
 \[2m \exp(-2n\varepsilon^2)\xrightarrow[n\to\infty]{} 0 \]
+\pause
 Por lo tanto,
 la minimización del riesgo empírico sobre un conjunto finito de funciones es consistente con respecto
 a \(\mathcal{F}_{m}\).
@@ -956,10 +972,12 @@ a \(\mathcal{F}_{m}\).
 
 \begin{frame}
   En la práctica, nuestros espacios de funciones serán infinitos. \\
-
+\pause
+\bigskip
 Veremos que podemos reemplazar a $m$ por un valor que depende
 de cada tipo de espacio funcional y que, de ser finito, será necesariamente polinómico, lo que nos permitirá obtener cotas de generalización.\\
-
+  \pause
+  \bigskip
 Llamaremos a dicha cantidad, la \textit{dimensión VC}.
 
 \vspace{0.8em}
@@ -1017,7 +1035,8 @@ con eventos que dependen únicamente de las muestras observadas.
 Notemos que, incluso si \(\mathcal{F}\) contiene un número infinito de funciones,
 las diferentes formas en que estas pueden clasificar un conjunto de entrenamiento de \(n\) puntos de muestra
 es finita.\\
-
+\pause
+\bigskip
 En efecto, para cualquier punto de entrenamiento dado en la muestra, una función puede tomar solo los valores
 \(-1\) o \(+1\).
 
@@ -1042,7 +1061,8 @@ En efecto, para cualquier punto de entrenamiento dado en la muestra, una funció
         f_1 \sim f_2 \quad \text{si} \quad f_1(X_i) = f_2(X_i) \quad \forall i = 1, \dots, n.
         \]
       \end{block}
-
+\pause
+\bigskip
       \begin{block}{Observación}
         La relación \(\sim\) es una relación de equivalencia sobre \(\mathcal{F}\).
       Luego, para una muestra fija, define una partición sobre \(\mathcal{F}\).
@@ -1050,15 +1070,15 @@ En efecto, para cualquier punto de entrenamiento dado en la muestra, una funció
 
 \end{frame}
 
-\begin{frame}{Fragmentación}
-  En una muestra de \(n\) puntos \(\{X_1, \dots, X_n\}\), una función puede actuar de, como
-máximo, \(2^n\) formas diferentes.\\
-\bigskip
- Así, las únicas funciones que
-necesitamos considerar para calcular el supremo son las \(2^{n}\) funciones que podemos obtener en la muestra
-original y la muestra fantasma juntas. Por lo tanto, podemos reemplazar el supremo sobre \(f \in \mathcal{F}\) por el
-supremo sobre una clase finita de funciones con como máximo \(2^{n}\) funciones
-\end{frame}
+% \begin{frame}{Fragmentación}
+%   En una muestra de \(n\) puntos \(\{X_1, \dots, X_n\}\), una función puede actuar de, como
+% máximo, \(2^n\) formas diferentes.\\
+% \bigskip
+%  Así, las únicas funciones que
+% necesitamos considerar para calcular el supremo son las \(2^{n}\) funciones que podemos obtener en la muestra
+% original y la muestra fantasma juntas. Por lo tanto, podemos reemplazar el supremo sobre \(f \in \mathcal{F}\) por el
+% supremo sobre una clase finita de funciones con como máximo \(2^{n}\) funciones
+% \end{frame}
 
 
 \begin{frame}{Fragmentación}
@@ -1066,8 +1086,22 @@ supremo sobre una clase finita de funciones con como máximo \(2^{n}\) funciones
     Definimos el \textbf{conjunto de fragmentación} \(\mathcal{F}_{Z_n}\) a cualquier conjunto de representantes de \(\mathcal{F}\)
     bajo la relación de equivalencia \(\sim\) para la muestra $Z_n$.
 \end{block}
+\pause
+\bigskip
+Consideremos el espacio $\mathbb{R}^2$ y sea $\mathcal{F}=\{f: f(x)= \alpha x + \beta; \; \alpha, \beta\in\mathbb{R}\}$, el espacio
+de funciones lineales.
+
+  \begin{figure}[ht]
+      \centering
+    \includegraphics[width=0.8\textwidth]{images/5.png}
+    \caption{Muestras en $\mathbb{R}^2$ de tres y cuatro puntos.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Fragmentación}
+
 \begin{block}{Definición}
-    Dado un espacio muestral \(X\) y una muestra de tamaño \(n\), denotada por
+    Dado un espacio muestral \(X\) y una muestra \textbf{cualquiera} de tamaño \(n\), denotada por
     \[
     Z_n := \{(X_1, Y_1), \dots, (X_n, Y_n)\},
     \]
@@ -1078,6 +1112,13 @@ supremo sobre una clase finita de funciones con como máximo \(2^{n}\) funciones
     \mathcal{N}(\mathcal{F}, n) = \max_{Z_n} \{|\mathcal{F}_{Z_n}|\} = \max_{\{X_1, \dots, X_n\}}\{|\mathcal{F}_{\{X_1, \dots, X_n\}}| \mid X_1, \dots, X_n \in X\}.
     \]
 \end{block}
+\pause
+\bigskip
+  \begin{block}{Definición}
+    Si \(\mathcal{N}(\mathcal{F}, n) = 2^n\), existe al menos una muestra de tamaño \(n\) que puede ser separada
+de todas las formas posibles por funciones en \(\mathcal{F}\). En este caso, decimos que la clase de funciones
+\(\mathcal{F}\) \textit{fragmenta} al conjunto de \(n\) puntos.
+  \end{block}
 
 \end{frame}
 
@@ -1098,19 +1139,7 @@ de todas las formas posibles por funciones en \(\mathcal{F}\). En este caso, dec
 \(\mathcal{F}\) \textit{fragmenta} al conjunto de \(n\) puntos.
 \end{frame}
 
-\begin{frame}{Fragmentación}
-En la definición, tomamos el máximo puesto que ciertas muestras pueden no ser fragmentables de la misma manera que otras por \(\mathcal{F}\).\\
- \pause
- \bigskip
-Consideremos el espacio $\mathbb{R}^2$ y sea $\mathcal{F}=\{f: f(x)= \alpha x + \beta; \; \alpha, \beta\in\mathbb{R}\}$, el espacio
-de funciones lineales.
 
-  \begin{figure}[ht]
-      \centering
-    \includegraphics[width=0.8\textwidth]{images/5.png}
-    \caption{Muestras en $\mathbb{R}^2$ de tres y cuatro puntos.}
-\end{figure}
-\end{frame}
 
 
 \begin{frame}{El Coeficiente de Fragmentación y la Consistencia}
@@ -1189,6 +1218,18 @@ P\left(\sup_{f \in \mathcal{F}} |R(f) - R_{\text{emp}}(f)| > \varepsilon\right) 
     \]
     Si no existe tal máximo, definimos \(\text{VC}(\mathcal{F}) = \infty\).
 \end{block}
+\pause
+\begin{block}{Teorema}
+  La dimensión VC del espacio de funciones lineales en \(\mathbb{R}^2\) es \(3\).
+\end{block}
+
+\pause
+
+
+\begin{block}{Teorema}
+  La dimensión VC del espacio de funciones lineales en \(\mathbb{R}^d\) es \(d+1\).
+\end{block}
+
 \end{frame}
 
 \begin{frame}{La dimensión VC}
@@ -1203,8 +1244,9 @@ P\left(\sup_{f \in \mathcal{F}} |R(f) - R_{\text{emp}}(f)| > \varepsilon\right) 
     \]
     \end{block}
 \end{frame}
-\begin{frame}{La dimensión VC}
 
+
+\begin{frame}{La dimensión VC}
 Si \( n \geq \text{VC}(\mathcal{F}) \),
 el coeficiente de fragmentación se comporta como una función polinómica del tamaño de la muestra \( n \).\\
 \bigskip
