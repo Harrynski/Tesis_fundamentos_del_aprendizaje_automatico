@@ -123,9 +123,24 @@
 
 \end{frame}
 
-\begin{frame}
+\begin{frame}[plain]
   \IfFileExists{images/frames/frame_180.png}{%
-    \includegraphics{images/frames/frame_180.png}%
+    \includegraphics[width=\paperwidth,height=\paperheight]{images/frames/frame_180.png}%
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[
+        anchor=south,
+        fill=black,
+        fill opacity=0.58,
+        text opacity=1,
+        rounded corners=2pt,
+        inner sep=7pt,
+        text=white,
+        text width=0.9\paperwidth,
+        align=center
+      ] at ([yshift=0.7cm]current page.south) {\footnotesize
+        \textbf{Proceso Gaussiano en tiempo real:} cada nuevo dato observado actualiza la media y la incertidumbre del modelo, refinando de forma progresiva su predicci\'on.
+      };
+    \end{tikzpicture}
   }{}
 \end{frame}
 
