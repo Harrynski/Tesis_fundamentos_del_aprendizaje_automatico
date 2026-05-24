@@ -6,8 +6,8 @@
 % Uso: pdflatex presentacion.tex
 % Requiere: pgfplots, tikz, babel(spanish), lmodern
 %==============================================================
-\documentclass[aspectratio=169, 10pt]{beamer}
-%\documentclass[aspectratio=169,10pt,handout]{beamer}
+%\documentclass[aspectratio=169, 10pt]{beamer}
+\documentclass[aspectratio=169,10pt,handout]{beamer}
 %--------------------------------------------------------------
 % TEMA Y PALETA DE COLORES (azul UNCo)
 %--------------------------------------------------------------
@@ -60,6 +60,38 @@
 
 \date{Defensa de Tesina de Licenciatura}
 
+\newcommand{\rotuloslide}[3]{%
+  \begin{frame}[plain]
+    \begin{tikzpicture}[remember picture, overlay]
+      \fill[uncoBlue!7] (current page.south west) rectangle (current page.north east);
+      \fill[uncoBlue] (current page.north west) rectangle ([yshift=-1.05cm]current page.north east);
+      \fill[uncoDark] (current page.south west) rectangle ([yshift=0.45cm]current page.south east);
+
+      \node[
+        anchor=north west,
+        text=white,
+        font=\Large\bfseries
+      ] at ([xshift=0.85cm,yshift=-0.28cm]current page.north west) {#1};
+
+      \node[
+        anchor=center,
+        text=uncoBlue,
+        align=center,
+        text width=0.82\paperwidth,
+        font=\huge\bfseries
+      ] at ([yshift=0.25cm]current page.center) {#2};
+
+      \node[
+        anchor=north,
+        text=uncoDark,
+        align=center,
+        text width=0.72\paperwidth,
+        font=\large
+      ] at ([yshift=-0.85cm]current page.center) {#3};
+    \end{tikzpicture}
+  \end{frame}
+}
+
 % Logos institucionales (descomentar cuando se tengan los archivos):
 % \titlegraphic{%
 %   \includegraphics[height=1.4cm]{logo_unco.png}\hspace{1.5cm}
@@ -80,7 +112,19 @@
   \titlepage
 \end{frame}
 
+\begin{frame}{Temario}
+  \begin{enumerate}
+    \setlength{\itemsep}{0.75em}
+    \item \textbf{Aprendizaje automático:} qué significa aprender a partir de ejemplos.
+    \item \textbf{Clasificación binaria:} datos, etiquetas, clasificadores, riesgo y clasificador de Bayes.
+    \item \textbf{Conceptos del aprendizaje:} generalización, riesgo empírico, consistencia y dilemas.
+    \item \textbf{Teoría VC:} ley uniforme, fragmentación y dimensión VC.
+    \item \textbf{Límites y panorama actual:} no hay almuerzos gratis y la paradoja moderna.
+  \end{enumerate}
+\end{frame}
 
+
+\rotuloslide{01}{Aprendizaje automático}{Qué significa aprender a partir de ejemplos}
 
 \begin{frame}
 \centering
@@ -115,11 +159,11 @@
 \begin{frame}{¿Qué Entendemos por Aprendizaje?}
 
         El aprendizaje es el proceso a través del cual pueden inferirse reglas generales a partir de ejemplos.\\
+
 \bigskip
-\pause
-         En el caso de los seres humanos, el aprendizaje es un proceso complejo que involucra aspectos cognitivos, emocionales y sociales.\\
-        Nos interesa entender como una una computadora puede resolver ciertos problemas sin conocer las reglas de antemano,
-        solo a partir de ejemplos y a través de un algoritmo de aprendizaje.\\
+\pause       
+  Nos interesa entender como una una computadora puede resolver ciertos problemas sin conocer las reglas de antemano,
+solo a partir de ejemplos y a través de un algoritmo de aprendizaje.\\
 
 \end{frame}
 
@@ -169,7 +213,7 @@
         \setlength{\itemsep}{0.8em}
         \item A partir de \textbf{ejemplos}, la máquina construye una regla
           de decisión.
-        \item No se programa la respuesta: se \textbf{infiere} desde los datos.
+        \item No se programa explícitamente la respuesta: se \textbf{infiere} desde los datos.
         \item El desafío matemático: garantizar que la regla
           \textbf{generalice} a casos nuevos.
       \end{itemize}
@@ -210,7 +254,7 @@
         Consideremos dos espacios de variables: $X$, llamado espacio de entrada, e $Y$, el espacio de etiquetas.\\
 
         \bigskip
-
+        \pause
         En un problema de
         clasificación, deseamos poder etiquetar correctamente elementos de $X$ con los valores de $Y$.\\
 
@@ -230,6 +274,7 @@
 \end{frame}
 
 
+\rotuloslide{02}{Clasificación binaria}{Datos, etiquetas, riesgo y clasificador de Bayes}
 
 \begin{frame}{Clasificación: Datos y Clasificador}
   \vspace{0.4em}
@@ -238,14 +283,17 @@
         Asumimos que entre el espacio de entrada y el espacio de etiquetas hay una distribución
         de probabilidad conjunta $P=P(X,Y)$.\\
 
+        \pause
         Con el fin de aprender, a un algoritmo se le muestran ejemplos de imágenes y sus respectivas
         etiquetas $(X_1,Y_1), (X_2,Y_2), \ldots, (X_n,Y_n)$, a partir de los cuales este debe
         encontrar una función $f : X \to Y$, que comete la menor cantidad de errores posibles. \\
 
+        \pause
         A esta función $f$ la llamamos clasificador.\\
 
+        \pause
         A fin de simplificar la teoría, nos centraremos en el más sencillo de los problemas del Machine Learning, el de
-        clasificación binaria. En este caso, tendremos dos categorías de etiquetas, por lo que
+        clasificación binaria.\pause En este caso, tendremos dos categorías de etiquetas, por lo que
         $$
           Y = \{-1,+1\}
         $$
@@ -449,7 +497,8 @@ Pero... ¿Cómo construímos esta función clasificadora?
 \begin{frame}{Algoritmo de Aprendizaje}
   \begin{block}{Definición}
     Llamamos \textbf{algoritmo de aprendizaje} a todo procedimiento matemático que, dado un conjunto
-de datos de entrenamiento $(X_i,Y_i)$, devuelve una función clasificadora $f$ sobre el espacio de entrada $\mathcal{X}$ y el espacio de etiquetas $\mathcal{Y}$ del que
+de datos de entrenamiento $(X_i,Y_i)$, devuelve una función clasificadora $f$ sobre el espacio de entrada $X$ 
+y el espacio de etiquetas $Y$ del que
 provienen los datos.
   \end{block}
 \pause
@@ -465,7 +514,7 @@ Dado un conjunto de entrenamiento $S = \{(\mathbf{x}_i, y_i)\}_{i=1}^n \subset \
 el Perceptrón se define como un clasificador binario $h: \mathbb{R}^d \to \{-1, 1\}$ mediante la siguiente función:
 
 \begin{equation*}
-    h_{\mathbf{w}, b}(\mathbf{x}) = \sgn(\mathbf{w}^T \mathbf{x} > 0)
+    h_{\mathbf{w}}(\mathbf{x}) = \sgn(\mathbf{w}^T \mathbf{x} > 0)
 \end{equation*}
 
 Donde $\mathbf{w} \in \mathbb{R}^d$ es el vector de pesos
@@ -575,12 +624,15 @@ es llamada la tasa de aprendizaje.
 % \end{frame}
 
 
+\rotuloslide{03}{Conceptos del aprendizaje}{Generalización, riesgo empírico, consistencia y dilemas}
+
 \begin{frame}{Consistencia}
 
     Sea $(X_i,Y_i)_{i\in\mathbb{N}}$ una sucesión infinita de puntos de entrenamiento que han sido tomados iid de una distribución $P$.
     Sea $\ell$ una función de pérdida. Por cada $n\in \mathbb{N}$, sea $f_n$ un clasificador construido por algún algoritmo de aprendizaje
     usando los primeros $n$ puntos de entrenamiento. Sea $\mathcal{F}$ el espacio funcional de todos los posibles clasificadores según
-    el mecanismo de construcción del algoritmo.\pause Entonces
+    el mecanismo de construcción del algoritmo. \pause Entonces
+    \bigskip
     \begin{enumerate}
     \item  El algoritmo de aprendizaje se dice \textnormal{consistente con respecto a $\mathcal{F}$ y a $P$} si el riesgo $\mathcal{R}(f_n)$
      converge en probabilidad al riesgo  $\mathcal{R}(f_{\mathcal{F}})$ del mejor clasificador en $\mathcal{F}$. Esto es,
@@ -589,18 +641,19 @@ es llamada la tasa de aprendizaje.
      P\left(\mathcal{R}(f_n)-\mathcal{R}(f_{\mathcal{F}})>\varepsilon\right) \rightarrow 0 \qquad \text{ cuando } \qquad n\rightarrow \infty
      \]
      \pause
-     \item  El algoritmo de aprendizaje se dice \textnormal{Bayes-consistente con respecto a $P$} si el riesgo $\mathcal(R)(f_n)$
-     converge en probabilidad al riesgo  $\mathcal(R)(f_{\text{Bayes}})$ del clasificador bayesiano. Esto es, para todo $\varepsilon>0$
+     \bigskip
+     \item  El algoritmo de aprendizaje se dice \textnormal{Bayes-consistente con respecto a $P$} si el riesgo $\mathcal{R}(f_n)$
+     converge en probabilidad al riesgo  $\mathcal{R}(f_{\text{Bayes}})$ del clasificador bayesiano. Esto es, para todo $\varepsilon>0$
     \[
      P\left(\mathcal{R}(f_n)-\mathcal{R}(f_{\text{Bayes}})>\varepsilon\right) \rightarrow 0 \qquad \text{ cuando } \qquad n\rightarrow \infty
     \]
-    \pause
-    \item  El algoritmo de aprendizaje se dice \textnormal{universalmente consistente con respecto a $\mathcal{F}$} si
-    es consistente con respecto a $\mathcal{F}$ para toda distribución de probabilidad $P$.
-    \pause
-    \item  El algoritmo de aprendizaje se dice \textnormal{universalmente Bayes-consistente } si
-    es Bayes-consistente para toda distribución de probabilidad $P$.
-    \end{enumerate}
+    % \pause
+    % \item  El algoritmo de aprendizaje se dice \textnormal{universalmente consistente con respecto a $\mathcal{F}$} si
+    % es consistente con respecto a $\mathcal{F}$ para toda distribución de probabilidad $P$.
+    % \pause
+    % \item  El algoritmo de aprendizaje se dice \textnormal{universalmente Bayes-consistente } si
+    % es Bayes-consistente para toda distribución de probabilidad $P$.
+     \end{enumerate}
 
 \end{frame}
 
@@ -704,7 +757,7 @@ datos de entrenamiento. \\
 \begin{frame}{EL Dilema Sesgo-Varianza}
   \begin{columns}[T]
     \begin{column}{0.50\textwidth}
-      \begin{block}{\small ¿Qué implica el tradeoff sesgo-varianza?}
+      \begin{block}{ }
         \small
         \begin{itemize}
           \setlength{\itemsep}{0.35em}
@@ -713,8 +766,13 @@ datos de entrenamiento. \\
           \item La generalización mejora en un punto intermedio: \textbf{ni demasiado simple ni demasiado complejo}.
         \end{itemize}
       \end{block}
+      \[
+        \underbrace{\mathcal{R}(f_n) - \mathcal{R}(f_{\mathcal{F}})}_{\textcolor{uncoBlue}{\text{error de estimación}}}
+        \;+\;
+        \underbrace{\mathcal{R}(f_{\mathcal{F}}) - \mathcal{R}(f_{\mathrm{Bayes}})}_{\textcolor{red}{\text{error de aproximación}}}
+      \]
     \end{column}
-
+\pause
     %% — Columna derecha: figura sesgo-varianza (Figura 2.3)
     \begin{column}{0.48\textwidth}
       \centering
@@ -762,6 +820,8 @@ datos de entrenamiento. \\
   \vfill
 \end{frame}
 
+
+\rotuloslide{04}{Teoría VC}{Ley uniforme, fragmentación y dimensión VC}
 
 \begin{frame}{La Ley de los Grandes Números}
 En su forma más simple, la ley de los grandes números
@@ -826,8 +886,10 @@ Nuestro objetivo será entonces encontrar condiciones bajo las cuales podamos ap
 a funciones que no son fijas, sino que cambian con cada nuevo ejemplo de entrenamiento.\\
 \pause
 \bigskip
-Esto efectivamente implica una generalización de la Ley de los Grandes Números,
-que se conoce como la \textbf{ley uniforme de los grandes números}.\\
+\begin{alertblock}{ }
+  Esto implica una generalización de la Ley de los Grandes Números,
+a la que llamamos la \textbf{ley uniforme de los grandes números}.
+\end{alertblock}
 \end{frame}
 
 
@@ -854,23 +916,24 @@ P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \
 \end{frame}
 
 \begin{frame}
-Definimos el clasificador \(f_n\) como la función:
+  \begin{block}{Definición}
+    Sea $\mathcal{F}$ un espacio funcional, $R_{emp}$ el riesgo empírico asociado a una
+    función de pérdida $\ell$. Supongamos que tenemos una muestra de tamaño $n$. Definimos el clasificador \(f_n\) como la función:
 
 \[
 f_n := \arg\min_{f \in \mathcal{F}} \mathcal{R}_{\text{emp}}(f).
 \]
+  \end{block}
+
 \pause
 \bigskip
-Esta es la función del espacio que minimiza el riesgo empírico para la muestra de tamaño n.\\
+Esta es la función del espacio que minimiza el riesgo empírico para la muestra de tamaño n.
 
 \pause
 \bigskip
 El proceso de encontrar esta función se conoce como \textbf{minimización del riesgo empírico} (MRE).
 \pause
 \bigskip
-
-Veremos que la MRE es consistente con el espacio fundional $\mathcal{F}$
-si se verifica la ley uniforme de los grandes números para este espacio.
 
 
 \end{frame}
@@ -924,9 +987,9 @@ riesgo empírico sobre \(\mathcal{F}\).
 \end{alertblock}
 
 \pause
-Parte de la elegancia de la teoría VC radica en que el recíproco también es cierto. \\
+En este trabajo demostramos que el recíproco también es cierto. \\
 \pause
-\begin{block}{Vapnik y Chervonenkis, 1971}
+\begin{block}{Teorema (Vapnik y Chervonenkis, 1971)}
 La convergencia uniforme
 
     \[
@@ -957,7 +1020,7 @@ P\left(|R(f_i) - \mathcal{R}_{\text{emp}}(f_i)| \geq \varepsilon \right) \leq 2 
 \]
 
 
-\end{frame}
+ \end{frame}
 
 \begin{frame}
 Ahora queremos transformar estas afirmaciones sobre funciones individuales \(f_i\) en una ley uniforme de los
@@ -1108,8 +1171,7 @@ de funciones lineales.
 
   \begin{figure}[ht]
       \centering
-    \includegraphics[width=0.8\textwidth]{images/5.png}
-    \caption{Muestras en $\mathbb{R}^2$ de tres y cuatro puntos.}
+    \includegraphics[width=0.8\textwidth]{images/linear fragmentation.png}
 \end{figure}
 \end{frame}
 
@@ -1137,22 +1199,22 @@ de todas las formas posibles por funciones en \(\mathcal{F}\). En este caso, dec
 
 \end{frame}
 
-\begin{frame}{Fragmentación}
-  $\mathcal{N}(\mathcal{F}, n)$ es el número máximo de formas en las que \(\mathcal{F}\) puede separar en dos clases a una muestra
-  de tamaño $n$ de $X$.\\
-\pause
-\bigskip
-  Esto no implica que \(\mathcal{F}\) pueda separar a \textbf{todas} las muestras de tamaño \(n\) de esta manera.\\
-\pause
-\bigskip
-En el caso de clasificación binaria, el mayor cardinal posible para un conjunto de fragmentación
-coincide con el cardinal del conjunto de partes de un conjunto de tamaño $n$.\\
-\pause
-\bigskip
-Si \(\mathcal{N}(\mathcal{F}, n) = 2^n\), existe al menos una muestra de tamaño \(n\) que puede ser separada
-de todas las formas posibles por funciones en \(\mathcal{F}\). En este caso, decimos que la clase de funciones
-\(\mathcal{F}\) \textit{fragmenta} al conjunto de \(n\) puntos.
-\end{frame}
+% \begin{frame}{Fragmentación}
+%   $\mathcal{N}(\mathcal{F}, n)$ es el número máximo de formas en las que \(\mathcal{F}\) puede separar en dos clases a una muestra
+%   de tamaño $n$ de $X$.\\
+% \pause
+% \bigskip
+%   Esto no implica que \(\mathcal{F}\) pueda separar a \textbf{todas} las muestras de tamaño \(n\) de esta manera.\\
+% \pause
+% \bigskip
+% En el caso de clasificación binaria, el mayor cardinal posible para un conjunto de fragmentación
+% coincide con el cardinal del conjunto de partes de un conjunto de tamaño $n$.\\
+% \pause
+% \bigskip
+% Si \(\mathcal{N}(\mathcal{F}, n) = 2^n\), existe al menos una muestra de tamaño \(n\) que puede ser separada
+% de todas las formas posibles por funciones en \(\mathcal{F}\). En este caso, decimos que la clase de funciones
+% \(\mathcal{F}\) \textit{fragmenta} al conjunto de \(n\) puntos.
+% \end{frame}
 
 
 
@@ -1282,9 +1344,14 @@ que para cada \( n \) existe alguna muestra que puede ser fragmentada por \(\mat
 
 \end{frame}
 
+\rotuloslide{05}{Límites y panorama actual}{No hay almuerzos gratis y la paradoja moderna}
+
 \begin{frame}{No hay almuerzos gratis}
 ¿Cuál de todos los clasificadores consistentes
-es \textit{el mejor} clasificador? \pause ¿Existe un clasificador universalmente bueno?\\
+es \textit{el mejor} clasificador?  \\
+\bigskip
+\pause
+¿Existe un clasificador universalmente bueno?\\
 
 \bigskip
 \pause
