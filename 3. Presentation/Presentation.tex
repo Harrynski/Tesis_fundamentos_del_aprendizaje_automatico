@@ -6,8 +6,8 @@
 % Uso: pdflatex presentacion.tex
 % Requiere: pgfplots, tikz, babel(spanish), lmodern
 %==============================================================
-%\documentclass[aspectratio=169, 10pt]{beamer}
-\documentclass[aspectratio=169,10pt,handout]{beamer}
+\documentclass[aspectratio=169, 10pt]{beamer}
+%\documentclass[aspectratio=169,10pt,handout]{beamer}
 %--------------------------------------------------------------
 % TEMA Y PALETA DE COLORES (azul UNCo)
 %--------------------------------------------------------------
@@ -17,6 +17,8 @@
 \DeclareMathOperator{\sgn}{sgn}
 \definecolor{uncoBlue}{RGB}{0,82,156}
 \definecolor{uncoDark}{RGB}{0,50,100}
+\colorlet{accentblue}{uncoBlue}
+\colorlet{primaryblue}{uncoBlue}
 
 \setbeamercolor{palette primary}  {bg=uncoBlue, fg=white}
 \setbeamercolor{palette secondary}{bg=uncoDark, fg=white}
@@ -24,6 +26,7 @@
 \setbeamercolor{structure}        {fg=uncoBlue}
 \setbeamercolor{block title}      {bg=uncoBlue, fg=white}
 \setbeamercolor{block body}       {bg=uncoBlue!8}
+\setbeamercolor{lightbg}          {bg=uncoBlue!8, fg=black}
 \setbeamercolor{alerted text}     {fg=red!75!black}
 
 %--------------------------------------------------------------
@@ -162,36 +165,43 @@
 
 \bigskip
 \pause       
-  Nos interesa entender como una una computadora puede resolver ciertos problemas sin conocer las reglas de antemano,
-solo a partir de ejemplos y a través de un algoritmo de aprendizaje.\\
+  Nos interesa entender como una una computadora puede resolver ciertos problemas:
+  \begin{itemize}
+    \pause 
+    \item sin conocer las reglas explícitamente de antemano,
+    \pause 
+    \item a partir de ejemplos,
+    \pause 
+    \item a través de un algoritmo de aprendizaje.
+  \end{itemize} 
 
 \end{frame}
 
-\begin{frame}[plain]
-  \IfFileExists{images/frames/frame_180.png}{%
-    \includegraphics[width=\paperwidth,height=\paperheight]{images/frames/frame_180.png}%
-    \begin{tikzpicture}[remember picture,overlay]
-      \node[
-        anchor=south,
-        fill=black,
-        fill opacity=0.58,
-        text opacity=1,
-        rounded corners=2pt,
-        inner sep=7pt,
-        text=white,
-        text width=0.9\paperwidth,
-        align=center
-      ] at ([yshift=0.7cm]current page.south) {\footnotesize
-        \textbf{Proceso Gaussiano en tiempo real:} cada nuevo dato observado actualiza la media y la incertidumbre del modelo, refinando de forma progresiva su predicci\'on.
-      };
-    \end{tikzpicture}
-  }{}
-\end{frame}
+% \begin{frame}[plain]
+%   \IfFileExists{images/frames/frame_180.png}{%
+%     \includegraphics[width=\paperwidth,height=\paperheight]{images/frames/frame_180.png}%
+%     \begin{tikzpicture}[remember picture,overlay]
+%       \node[
+%         anchor=south,
+%         fill=black,
+%         fill opacity=0.58,
+%         text opacity=1,
+%         rounded corners=2pt,
+%         inner sep=7pt,
+%         text=white,
+%         text width=0.9\paperwidth,
+%         align=center
+%       ] at ([yshift=0.7cm]current page.south) {\footnotesize
+%         \textbf{Proceso Gaussiano en tiempo real:} cada nuevo dato observado actualiza la media y la incertidumbre del modelo, refinando de forma progresiva su predicci\'on.
+%       };
+%     \end{tikzpicture}
+%   }{}
+% \end{frame}
 
 %--------------------------------------------------------------
 % DIAPOSITIVA 3 — LAS MÁQUINAS APRENDEN
 %--------------------------------------------------------------
-\begin{frame}{¿Qué Significa que una Máquina Aprenda?}
+\begin{frame}{¿Qué significa que una máquina aprenda a clasificar objetos?}
   \begin{columns}[T]
 
     \begin{column}{0.52\textwidth}
@@ -213,13 +223,16 @@ solo a partir de ejemplos y a través de un algoritmo de aprendizaje.\\
         \setlength{\itemsep}{0.8em}
         \item A partir de \textbf{ejemplos}, la máquina construye una regla
           de decisión.
+          \pause
         \item No se programa explícitamente la respuesta: se \textbf{infiere} desde los datos.
+        \pause
         \item El desafío matemático: garantizar que la regla
           \textbf{generalice} a casos nuevos.
       \end{itemize}
 
       \vspace{0.8em}
       \centering
+      \pause
       \large\alert{¿Cuándo y por qué funciona?}
     \end{column}
 
@@ -274,7 +287,7 @@ solo a partir de ejemplos y a través de un algoritmo de aprendizaje.\\
 \end{frame}
 
 
-\rotuloslide{02}{Clasificación binaria}{Datos, etiquetas, riesgo y clasificador de Bayes}
+%\rotuloslide{02}{Clasificación binaria}{Datos, etiquetas, riesgo y clasificador de Bayes}
 
 \begin{frame}{Clasificación: Datos y Clasificador}
   \vspace{0.4em}
@@ -293,7 +306,7 @@ solo a partir de ejemplos y a través de un algoritmo de aprendizaje.\\
 
         \pause
         A fin de simplificar la teoría, nos centraremos en el más sencillo de los problemas del Machine Learning, el de
-        clasificación binaria.\pause En este caso, tendremos dos categorías de etiquetas, por lo que
+        \textbf{clasificación binaria}.\pause En este caso, tendremos dos categorías de etiquetas, por lo que
         $$
           Y = \{-1,+1\}
         $$
@@ -323,7 +336,7 @@ solo a partir de ejemplos y a través de un algoritmo de aprendizaje.\\
     \setlength{\itemsep}{0.45em}
     \item \textbf{No aplicamos restricciones sobre $P$:} no suponemos una forma paramétrica para la distribución que genera los datos.
     \pause
-    \item \textbf{Etiquetas no determinísticas:} modelamos $Y$ mediante probabilidades condicionales $P(Y=1\mid X=x)$. Esto se debe a que:
+    \item \textbf{Etiquetas no determinísticas:} modelamos $Y$ mediante probabilidades condicionales $P(Y=1\mid X=x)$.
       % \begin{itemize}
       %   \item Puede existir solapamiento entre las clases. (ej: imágenes lejanas de perros y gatos con características similares).
       %   \item En la práctica, hay ruido en las etiquetas. (ej: distintos etiquetadores humanos no coincidiendo en si un email es spam;
@@ -333,9 +346,9 @@ solo a partir de ejemplos y a través de un algoritmo de aprendizaje.\\
     \item \textbf{Muestreo iid:} los ejemplos se toman de manera independiente e idénticamente distribuida.
     \pause
     \item \textbf{Distribución fija:} asumimos que el mecanismo que genera los datos no cambia entre entrenamiento y uso.
-    \pause
-    \item \textbf{$P$ desconocida:} solo accedemos a la distribución a través de una muestra finita de datos. El valor de la teoría
-    estará en entender bajo qué condiciones podremos inferir algo sobre $P$.
+  %   \pause
+  %   \item \textbf{$P$ desconocida:} solo accedemos a la distribución a través de una muestra finita de datos. El valor de la teoría
+  %   estará en entender bajo qué condiciones podremos inferir algo sobre $P$.
   \end{itemize}
 \end{frame}
 
@@ -368,12 +381,13 @@ solo a partir de ejemplos y a través de un algoritmo de aprendizaje.\\
 
 \end{frame}
 
+
+\rotuloslide{02}{Conceptos del aprendizaje}{Generalización, consistencia y dilemas del aprendizaje}
+
 \begin{frame}
   \centering
   \includegraphics[height=0.86\textheight,keepaspectratio]{images/diagram aprendizaje.png}
 \end{frame}
-
-
 
 
 %--------------------------------------------------------------
@@ -624,7 +638,7 @@ es llamada la tasa de aprendizaje.
 % \end{frame}
 
 
-\rotuloslide{03}{Conceptos del aprendizaje}{Generalización, riesgo empírico, consistencia y dilemas}
+%\rotuloslide{03}{Conceptos del aprendizaje}{Generalización, riesgo empírico, consistencia y dilemas}
 
 \begin{frame}{Consistencia}
 
@@ -725,8 +739,9 @@ datos de entrenamiento. \\
   \centering
   \includegraphics[width=0.92\textwidth,height=0.78\textheight,keepaspectratio]{images/wolf.jpg}
 \end{frame}
+
 \begin{frame}{El Dilema de la Complejidad}
-  \begin{columns}[c]
+  \begin{columns}
 
     %% — Columna izquierda: qué implica el tradeoff sesgo-varianza
     \begin{column}[c]{0.50\textwidth}
@@ -753,8 +768,7 @@ datos de entrenamiento. \\
   \end{columns}
 \end{frame}
 
-
-\begin{frame}{EL Dilema Sesgo-Varianza}
+\begin{frame}{El Dilema Sesgo-Varianza}
   \begin{columns}[T]
     \begin{column}{0.50\textwidth}
       \begin{block}{ }
@@ -772,7 +786,34 @@ datos de entrenamiento. \\
         \underbrace{\mathcal{R}(f_{\mathcal{F}}) - \mathcal{R}(f_{\mathrm{Bayes}})}_{\textcolor{red}{\text{error de aproximación}}}
       \]
     \end{column}
-\pause
+    \begin{column}{0.48\textwidth}
+      \centering
+      \includegraphics[width=\linewidth,keepaspectratio]{images/bias-variance tradeoff.png}
+
+      {\scriptsize\textcolor{gray}{El error total puede ser descompuesto en dos componentes.}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{El Dilema Sesgo-Varianza}
+  \begin{columns}[T]
+    \begin{column}{0.50\textwidth}
+      \begin{block}{ }
+        \small
+        \begin{itemize}
+          \setlength{\itemsep}{0.35em}
+          \item Si $\mathcal{F}$ es \textbf{poco compleja}, minimizamos el \textcolor{uncoBlue}{error de estimación} (alto sesgo).
+          \item Si $\mathcal{F}$ es \textbf{muy compleja}, minimizamos el \textcolor{red}{error de aproximación} (alta varianza).
+          \item La generalización mejora en un punto intermedio: \textbf{ni demasiado simple ni demasiado complejo}.
+        \end{itemize}
+      \end{block}
+      \[
+        \underbrace{\mathcal{R}(f_n) - \mathcal{R}(f_{\mathcal{F}})}_{\textcolor{uncoBlue}{\text{error de estimación}}}
+        \;+\;
+        \underbrace{\mathcal{R}(f_{\mathcal{F}}) - \mathcal{R}(f_{\mathrm{Bayes}})}_{\textcolor{red}{\text{error de aproximación}}}
+      \]
+    \end{column}
+
     %% — Columna derecha: figura sesgo-varianza (Figura 2.3)
     \begin{column}{0.48\textwidth}
       \centering
@@ -927,7 +968,7 @@ f_n := \arg\min_{f \in \mathcal{F}} \mathcal{R}_{\text{emp}}(f).
 
 \pause
 \bigskip
-Esta es la función del espacio que minimiza el riesgo empírico para la muestra de tamaño n.
+%Esta es la función del espacio que minimiza el riesgo empírico para la muestra de tamaño n.
 
 \pause
 \bigskip
@@ -976,14 +1017,13 @@ P\left(|R(f_n) - R(f_\mathcal{F})| \geq \varepsilon \right) \leq P\left(\sup_{f 
 
 \begin{frame}
 
-Bajo la ley uniforme de los grandes números, el lado derecho tiende a \(0\), lo que lleva a la consistencia de
-la minimización del riesgo empírico con respecto a la clase de funciones subyacente \(\mathcal{F}\).\\
-\pause
-En otras palabras,
+% Bajo la ley uniforme de los grandes números, el lado derecho tiende a \(0\), lo que lleva a la consistencia de
+% la minimización del riesgo empírico con respecto a la clase de funciones subyacente \(\mathcal{F}\).\\
+% \pause
+% En otras palabras,
 
 \begin{alertblock}{ }
-  La convergencia uniforme sobre \(\mathcal{F}\) es una condición suficiente para la consistencia de la minimización del
-riesgo empírico sobre \(\mathcal{F}\).
+La convergencia uniforme sobre \(\mathcal{F}\) es una condición suficiente para la consistencia de la MRE sobre \(\mathcal{F}\).
 \end{alertblock}
 
 \pause
@@ -1331,11 +1371,10 @@ el coeficiente de fragmentación se comporta como una función polinómica del t
 Por los resultados de la sección anterior, esto implica la consistencia de la minimización del riesgo empírico.\\
 \bigskip
 \pause
-Nótese que también tenemos una afirmación en la otra dirección. Si la dimensión VC es infinita, esto significa
-que para cada \( n \) existe alguna muestra que puede ser fragmentada por \(\mathcal{F}\), es decir, tal que
-\(\mathcal{N}(\mathcal{F}, n) = 2^n. \)
+Si la dimensión VC es infinita, para cada \( n \) existe alguna muestra que puede ser fragmentada por \(\mathcal{F}\).\\
 
 \pause
+\bigskip
 
   \begin{block}{Teorema}
     La minimización del riesgo empírico es consistente con respecto a una clase de funciones \(\mathcal{F}\) si y solo si
@@ -1434,25 +1473,148 @@ regla de clasificación \(f_n\), existe una distribución \(P(X, Y)\) con riesgo
 
 \end{frame}
 
-\begin{frame}
-  \begin{block}{ }
-  En aquel Imperio, el Arte de la Cartografía logró tal Perfección que el mapa de una sola Provincia ocupaba toda una Ciudad, 
-  y el mapa del Imperio, toda una Provincia. Con el tiempo, estos Mapas Desmesurados no satisficieron y los Colegios de Cartógrafos 
-  levantaron un Mapa del Imperio, que tenía el tamaño del Imperio y coincidía puntualmente con él.\\
-\bigskip
-Menos Adictas al Estudio de la Cartografía, las Generaciones Siguientes entendieron que ese dilatado Mapa era Inútil y 
-o sin Impiedad lo entregaron a las Inclemencias del Sol y los Inviernos. En los desiertos del Oeste perduran despedazadas 
-Ruinas del Mapa, habitadas por Animales y por Mendigos; en todo el País no hay otra reliquia de las Disciplinas Geográficas.
-\bigskip
-Suárez Miranda, Viajes de Varones Prudentes, Libro Cuarto, Cap. XLV, Lérida, 1658.
-        \vspace{0.5em}
-        \begin{flushright}
-          \normalfont\scriptsize
-          ---~Jorge Luis Borges,\\
-          \textit{Del Rigor en la Ciencia} (1946)
-        \end{flushright}
-  \end{block}
+
+% \begin{frame}
+%   \begin{block}{ }
+%   En aquel Imperio, el Arte de la Cartografía logró tal Perfección que el mapa de una sola Provincia ocupaba toda una Ciudad, 
+%   y el mapa del Imperio, toda una Provincia. Con el tiempo, estos Mapas Desmesurados no satisficieron y los Colegios de Cartógrafos 
+%   levantaron un Mapa del Imperio, que tenía el tamaño del Imperio y coincidía puntualmente con él.\\
+% \bigskip
+% Menos Adictas al Estudio de la Cartografía, las Generaciones Siguientes entendieron que ese dilatado Mapa era Inútil y 
+% o sin Impiedad lo entregaron a las Inclemencias del Sol y los Inviernos. En los desiertos del Oeste perduran despedazadas 
+% Ruinas del Mapa, habitadas por Animales y por Mendigos; en todo el País no hay otra reliquia de las Disciplinas Geográficas.
+% \bigskip
+% Suárez Miranda, Viajes de Varones Prudentes, Libro Cuarto, Cap. XLV, Lérida, 1658.
+%         \vspace{0.5em}
+%         \begin{flushright}
+%           \normalfont\scriptsize
+%           ---~Jorge Luis Borges,\\
+%           \textit{Del Rigor en la Ciencia} (1946)
+%         \end{flushright}
+%   \end{block}
+% \end{frame}
+
+
+
+% % ==============================================================================
+% % SLIDE 2: El quiebre de la teoría clásica
+% % ==============================================================================
+% \begin{frame}{El quiebre de la teoría clásica}
+%     \begin{columns}[c]
+%         \begin{column}{0.55\textwidth}
+%             \centering
+%             \begin{minipage}{\textwidth}
+%                 \textcolor{accentblue}{\textbf{Complejidad vs. generalización}}
+%                 \vspace{0.3cm}
+%                 \begin{itemize}
+%                     \item \textbf{Cotas vacías:} la teoría VC implica que, cuando el número de parámetros excede ampliamente al tamaño muestral ($d \gg n$), la brecha de generalización deja de ser informativa ($>100\%$).
+%                     \vspace{0.2cm}
+%                     \item \textbf{Capacidad casi infinita:} los LLM modernos tienen cientos de miles de millones de parámetros; en principio podrían fragmentar cualquier conjunto de datos, pero evitan el sobreajuste catastrófico.
+%                     \vspace{0.2cm}
+%                     \item \textbf{Paradoja estructural:} la estrategia clásica de restringir la capacidad de $\mathcal{F}$ para forzar convergencia uniforme queda tensionada por las arquitecturas modernas.
+%                 \end{itemize}
+%             \end{minipage}
+%         \end{column}
+        
+%         \begin{column}{0.4\textwidth}
+%             \begin{block}{Cota clásica de generalización}
+%                 \vspace{0.2cm}
+%                 \[
+%                 R(f) \le R_n(f) + \sqrt{\frac{d \left(\ln \frac{2n}{d} + 1\right) + \ln \frac{4}{\delta}}{n}}
+%                 \]
+%                 \vspace{0.1cm}
+%                 \centering \scriptsize \textcolor{gray}{Donde $d = \text{VC}(\mathcal{F})$ y $n = \text{tamaño muestral}$}
+%             \end{block}
+%             \vspace{0.3cm}
+%             \begin{center}
+%                 \scriptsize \textcolor{red!70!black}{\textbf{Problema:}} si $d \gg n$, el término radical explota y la cota se vuelve inútil para modelos profundos.
+%             \end{center}
+%         \end{column}
+%     \end{columns}
+% \end{frame}
+
+% ==============================================================================
+% SLIDE 3: Reconciliar teoría y realidad
+% ==============================================================================
+\begin{frame}{Reconciliar teoría y realidad}
+    \begin{columns}[t]
+        \begin{column}{0.31\textwidth}
+            \begin{block}{1. Doble descenso}
+                \small
+                El riesgo de prueba alcanza un pico en el umbral de interpolación y luego vuelve a caer cuando aumenta la capacidad.
+                \vspace{0.2cm}
+                
+                La sobreparametrización permite que la optimización elija \textbf{funciones más regulares} pese a la enorme capacidad disponible.
+            \end{block}
+        \end{column}
+        \pause
+        \begin{column}{0.31\textwidth}
+            \begin{block}{2. Sesgo implícito}
+                \small
+                El espacio de hipótesis $\mathcal{F}$ es nominalmente enorme, pero la optimización (SGD) actúa como un \textbf{regularizador implícito}.
+                \vspace{0.2cm}
+                
+                Selecciona soluciones en subregiones estrechas, estables o de norma mínima dentro del paisaje de pérdida.
+            \end{block}
+        \end{column}
+        \pause
+        \begin{column}{0.31\textwidth}
+            \begin{block}{3. Geometría de los datos}
+                \small
+                Las cotas de peor caso son demasiado conservadoras. Los datos reales de texto e imágenes se concentran en \textbf{variedades} de alta dimensión.
+                \vspace{0.2cm}
+                
+                La complejidad efectiva escala con la dimensión intrínseca de los datos, no con el número de parámetros.
+            \end{block}
+        \end{column}
+    \end{columns}
+    \pause
+    \vspace{0.6cm}
+    \begin{beamercolorbox}[wd=\textwidth, rounded=true, center, sep=8pt]{lightbg}
+        \textcolor{accentblue}{\textbf{Cambio conceptual:}} pasar de cotas uniformes globales sobre $\mathcal{F}$ a estabilidad algorítmica, geometría local y medidas dependientes de los datos.
+    \end{beamercolorbox}
 \end{frame}
+
+% % ==============================================================================
+% % SLIDE 4: Hoja de ruta para matemáticos
+% % ==============================================================================
+% \begin{frame}{Hoja de ruta para matemáticos}
+%     \begin{columns}[T]
+%         \begin{column}{0.45\textwidth}
+%             \small
+%             \textcolor{accentblue}{\textbf{Fronteras teóricas clave}}
+%             \vspace{0.15cm}
+%             \begin{itemize}
+%                 \setlength{\itemsep}{0.15cm}
+%                 \item Las herramientas tradicionales tienen dificultades con parametrizaciones altamente sobreparametrizadas.
+%                 \item El estado del arte exige formular preguntas estadísticas como problemas geométricos y algebraicos.
+%                 \item Tender puentes entre las trayectorias continuas de la optimización y la mecánica discreta de la complejidad muestral.
+%             \end{itemize}
+%         \end{column}
+        
+%         \begin{column}{0.5\textwidth}
+%             \setbeamercolor{block title}{bg=primaryblue, fg=white}
+%             \begin{block}{Teoría singular del aprendizaje (SLT)}
+%                 \scriptsize
+%                 Las parametrizaciones de redes neuronales son altamente singulares (no identificables). La SLT usa geometría algebraica para estudiar la generalización mediante el \textbf{Real Log Canonical Threshold (RLCT)}, que cuantifica la complejidad geométrica local de los valles singulares.
+%             \end{block}
+            
+%             \begin{block}{Análisis de trayectorias estocásticas}
+%                 \scriptsize
+%                 Modelar las trayectorias discretas de SGD como \textbf{ecuaciones diferenciales estocásticas (SDEs)} en tiempo continuo. El objetivo es vincular formalmente las trayectorias de optimización con cuencas de mínimos planas y buena generalización.
+%             \end{block}
+            
+%             \begin{block}{Más allá del cuello de botella NTK}
+%                 \scriptsize
+%                 Superar los límites estáticos de ancho infinito (\textit{lazy training}) para formalizar el verdadero \textbf{aprendizaje de representaciones}, donde el kernel reproductor asociado evoluciona dinámicamente con los datos.
+%             \end{block}
+%         \end{column}
+%     \end{columns}
+% \end{frame}
+
+
+
+
 
 % ─────────────────────────────────────────────────────────────
 % ─────────────────────────────────────────────────────────────
@@ -2456,6 +2618,71 @@ Suárez Miranda, Viajes de Varones Prudentes, Libro Cuarto, Cap. XLV, Lérida, 1
 %     {\large\color{gray} \textit{¿Preguntas?}}
 %   \end{center}
 % \end{frame}
+
+\begin{frame}{Bibliografía}
+  \tiny
+  \begin{columns}[T]
+    \begin{column}{0.49\textwidth}
+      \begin{itemize}
+        \setlength{\itemsep}{0.25em}
+        \item von Luxburg, U. \& Schölkopf, B. (2008). \textit{Statistical Learning Theory: Models, Concepts and Results}.
+        \item Vapnik, V. N. (1995). \textit{The Nature of Statistical Learning Theory}. Springer-Verlag.
+        \item Vapnik, V. N. (1998). \textit{Statistical Learning Theory}. Wiley.
+        \item Devroye, L., Györfi, L. \& Lugosi, G. (1996). \textit{A Probabilistic Theory of Pattern Recognition}. Springer.
+        \item Schölkopf, B. \& Smola, A. J. (1996). \textit{Learning with Kernels}. MIT Press.
+        \item Casella, G. \& Berger, R. L. (2002). \textit{Statistical Inference}. Duxbury.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.49\textwidth}
+      \begin{itemize}
+        \setlength{\itemsep}{0.25em}
+        \item Bishop, C. M. (2006). \textit{Pattern Recognition and Machine Learning}. Springer.
+        \item Vapnik, V. N. \& Chervonenkis, A. Ya. (1971). On the uniform convergence of relative frequencies of events to their probabilities.
+        \item Khinchin, A. Ya. (1956). On basic theorems of information theory.
+        \item Feller, W. (1957). \textit{Introduction to Probability Theory and its Applications}. Wiley.
+        \item Billingsley, P. (1995). \textit{Probability and Measure}. 3rd ed., Wiley.
+        \item Abu-Mostafa, Y. S., Magdon-Ismail, M. \& Lin, H.-T. (2012). \textit{Learning From Data}. AMLBook.
+        \item Minsky, M. \& Papert, S. (1969). \textit{Perceptrons: An Introduction to Computational Geometry}. MIT Press.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[plain]
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[uncoBlue!7] (current page.south west) rectangle (current page.north east);
+    \fill[uncoBlue] (current page.north west) rectangle ([yshift=-0.65cm]current page.north east);
+    \fill[uncoDark] (current page.south west) rectangle ([yshift=0.45cm]current page.south east);
+
+    \node[
+      anchor=center,
+      text=uncoBlue,
+      align=center,
+      text width=0.78\paperwidth,
+      font=\Large\bfseries
+    ] at ([yshift=0.95cm]current page.center) {``Examinadlo todo; retened lo bueno.''};
+
+    \node[
+      anchor=north,
+      text=gray!75!black,
+      font=\normalsize
+    ] at ([yshift=0.42cm]current page.center) {San Pablo, 1 Tesalonicenses 5:21};
+
+    \node[
+      anchor=center,
+      text=uncoBlue,
+      font=\Huge\bfseries
+    ] at ([yshift=-1.05cm]current page.center) {Muchas gracias};
+
+    \node[anchor=south west] at ([xshift=0.85cm,yshift=0.72cm]current page.south west) {%
+      \includegraphics[height=1.05cm,keepaspectratio]{\detokenize{../1. LaTeX/Images/logo_unco.png}}%
+    };
+
+    \node[anchor=south east] at ([xshift=-0.85cm,yshift=0.72cm]current page.south east) {%
+      \includegraphics[height=1.05cm,keepaspectratio]{\detokenize{../1. LaTeX/Images/logo_matematica_faea.png}}%
+    };
+  \end{tikzpicture}
+\end{frame}
 
 %==============================================================
 \end{document}
