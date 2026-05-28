@@ -119,7 +119,7 @@
   \begin{enumerate}
     \setlength{\itemsep}{0.75em}
     \item \textbf{Aprendizaje automático:} qué significa aprender a partir de ejemplos.
-    \item \textbf{Clasificación binaria:} datos, etiquetas, clasificadores, riesgo y clasificador de Bayes.
+    %\item \textbf{Clasificación binaria:} datos, etiquetas, clasificadores, riesgo y clasificador de Bayes.
     \item \textbf{Conceptos del aprendizaje:} generalización, riesgo empírico, consistencia y dilemas.
     \item \textbf{Teoría VC:} ley uniforme, fragmentación y dimensión VC.
     \item \textbf{Límites y panorama actual:} no hay almuerzos gratis y la paradoja moderna.
@@ -158,9 +158,24 @@
   \end{columns}
 \end{frame}
 
+\begin{frame}[plain]
+  \begin{columns}[c]
+  \begin{column}{0.45\textwidth}
+    \centering
+    \includegraphics[height=0.8\paperheight,keepaspectratio]{images/Vapnik.png}\\[-0.2em]
+    {\scriptsize Vladimir Vapnik}
+  \end{column}
+  \begin{column}{0.45\textwidth}
+    \centering
+    \includegraphics[height=0.8\paperheight,keepaspectratio]{images/Chervonenkis.JPG}\\[-0.2em]
+    {\scriptsize Alexey Chervonenkis}
+  \end{column}
+\end{columns}
+\end{frame}
+
 
 \begin{frame}{¿Qué Entendemos por Aprendizaje?}
-
+\large
         El aprendizaje es el proceso a través del cual pueden inferirse reglas generales a partir de ejemplos.\\
 
 \bigskip
@@ -333,6 +348,7 @@
 
 \begin{frame}{Clasificación: Suposiciones básicas}
   \begin{itemize}
+    \large
     \setlength{\itemsep}{0.45em}
     \item \textbf{No aplicamos restricciones sobre $P$:} no suponemos una forma paramétrica para la distribución que genera los datos.
     \pause
@@ -365,6 +381,7 @@
 \begin{frame}{Formalizando el Terreno de Juego}
 
       \begin{block}{Objetivo}
+        \Large
         Construir $f:X\to Y$ que generalice
         a puntos \textbf{no vistos}.
       \end{block}
@@ -373,9 +390,9 @@
       \pause
 
       \begin{alertblock}{Diferencia clave con Estadística clásica}
+        \Large
         Somos \textbf{agnósticos} respecto a $P$:
-        no asumimos ninguna forma paramétrica.\\
-
+        no asumimos ninguna forma paramétrica.
         Conocemos a la distribución $P$ \textit{solo} a través de la muestra finita.
       \end{alertblock}
 
@@ -399,6 +416,7 @@
 \pause
   En el caso binario, la función más sencilla es
 \begin{block}{Función de pérdida 0-1}
+  \Large
   \[
           \ell\bigl(X,Y,f(X)\bigr) \;:=\;
         \begin{cases}
@@ -418,10 +436,11 @@ individual $x \in X$, llamamos riesgo, $R$, del clasificador a la pérdida esper
 sobre todos los datos generados por la distribución de probabilidad P
 \pause
       \begin{block}{Riesgo}
+        \Large
       \[
         \mathcal{R}(f)
         \;:=\;
-        \mathbb{E}_P\bigl[\,\ell(X,Y,f(X))\,\bigr]
+        \mathbb{E}_P\bigl[\,\ell(X,Y,f(X))\,\bigr] = \int \ell(X,Y,f(X))\,dP(X,Y)
       \]
 
       \end{block}
@@ -431,8 +450,11 @@ El mejor clasificador posible minimiza $\mathcal{R}$.\\
 
 \pause
 \bigskip
-Es decir, el aprendizaje implica un desafío de optimización en dónde deseamos hallar el mínimo de la función de
+\begin{alertblock}{ }
+  Es decir, el aprendizaje implica un desafío de optimización en dónde deseamos hallar el mínimo de la función de
 riesgo.
+\end{alertblock}
+
 \end{frame}
 
 
@@ -465,7 +487,8 @@ riesgo.
 %--------------------------------------------------------------
 \begin{frame}{El Ideal Inalcanzable: $f_{\mathrm{Bayes}}$}
 
-      \textbf{Clasificador de Bayes:}
+      \begin{block}{Clasificador de Bayes:}
+        \large
       \[
         f_{\mathrm{Bayes}}(x) \;:=\;
         \begin{cases}
@@ -473,6 +496,7 @@ riesgo.
           -1 & \text{en otro caso}
         \end{cases}
       \]
+      \end{block}
 \pause
       \vspace{0.5em}
       \begin{itemize}
@@ -485,8 +509,23 @@ riesgo.
       \end{itemize}
     \pause
       \begin{alertblock}{¿Por qué es inalcanzable?}
+        \large
         Requiere conocer $P(X, Y)$,\textbf{ que es exactamente lo que desconocemos}.
       \end{alertblock}
+\end{frame}
+
+\begin{frame}
+  \begin{block}{Función Medible (Clasificador)}
+    Sea $(\mathcal{X}, \Sigma)$ un espacio medible, donde $\mathcal{X}$ es el espacio de características de entrada y $\Sigma$ es su $\sigma$-álgebra asociada (típicamente la $\sigma$-álgebra de Borel). Una regla de clasificación $f: \mathcal{X} \to \{0, 1\}$ es una \textbf{función medible} si la preimagen de cada conjunto medible en el espacio de etiquetas pertenece a $\Sigma$.
+    \end{block}
+    \begin{block}{}
+Dado que el espacio de etiquetas es discreto y finito, esto se simplifica significativamente: $f$ es medible si y solo si las regiones de decisión que define en el espacio de entrada son conjuntos medibles:
+\[
+\{x \in \mathcal{X} : f(x) = 1\} \in \Sigma \quad \text{y} \quad \{x \in \mathcal{X} : f(x) = 0\} \in \Sigma
+\]
+  \end{block}
+
+
 \end{frame}
 
 \begin{frame}{Definición del problema de clasificación binaria}
@@ -498,6 +537,7 @@ riesgo.
 \pause
 \bigskip
   \begin{block}{Definición}
+  \Large
   Dado un conjunto de datos de entrenamiento $ \{ (X_1,Y_1), \dots ,(X_n, Y_m)\}$
 obtenidos iid de una distribución $P$, y dada una función de pérdida $\ell$, deseamos construir una función clasificadora
 $f:X\rightarrow Y$ cuyo riesgo $\mathcal{R}(f)$ sea lo más cercano posible al riesgo de $f_{\text{Bayes}}$.
@@ -510,6 +550,7 @@ Pero... ¿Cómo construímos esta función clasificadora?
 
 \begin{frame}{Algoritmo de Aprendizaje}
   \begin{block}{Definición}
+    \Large
     Llamamos \textbf{algoritmo de aprendizaje} a todo procedimiento matemático que, dado un conjunto
 de datos de entrenamiento $(X_i,Y_i)$, devuelve una función clasificadora $f$ sobre el espacio de entrada $X$ 
 y el espacio de etiquetas $Y$ del que
@@ -642,25 +683,33 @@ es llamada la tasa de aprendizaje.
 
 \begin{frame}{Consistencia}
 
-    Sea $(X_i,Y_i)_{i\in\mathbb{N}}$ una sucesión infinita de puntos de entrenamiento que han sido tomados iid de una distribución $P$.
-    Sea $\ell$ una función de pérdida. Por cada $n\in \mathbb{N}$, sea $f_n$ un clasificador construido por algún algoritmo de aprendizaje
-    usando los primeros $n$ puntos de entrenamiento. Sea $\mathcal{F}$ el espacio funcional de todos los posibles clasificadores según
-    el mecanismo de construcción del algoritmo. \pause Entonces
-    \bigskip
+    % Sea $(X_i,Y_i)_{i\in\mathbb{N}}$ una sucesión infinita de puntos de entrenamiento que han sido tomados iid de una distribución $P$.
+    % Sea $\ell$ una función de pérdida. Por cada $n\in \mathbb{N}$, sea $f_n$ un clasificador construido por algún algoritmo de aprendizaje
+    % usando los primeros $n$ puntos de entrenamiento. Sea $\mathcal{F}$ el espacio funcional de todos los posibles clasificadores según
+    % el mecanismo de construcción del algoritmo. \pause Entonces
+    % \bigskip
     \begin{enumerate}
-    \item  El algoritmo de aprendizaje se dice \textnormal{consistente con respecto a $\mathcal{F}$ y a $P$} si el riesgo $\mathcal{R}(f_n)$
-     converge en probabilidad al riesgo  $\mathcal{R}(f_{\mathcal{F}})$ del mejor clasificador en $\mathcal{F}$. Esto es,
-     que para todo $\varepsilon>0$:
+      {\large
+    \item  Sea $\mathcal{R}(f_{\mathcal{F}})$ clasificador que minimiza el riesgo en $\mathcal{F}$. El algoritmo de aprendizaje se dice 
+    \textbf{consistente con respecto a $\mathcal{F}$ y a $P$} si para todo $\varepsilon>0$:
      \[
      P\left(\mathcal{R}(f_n)-\mathcal{R}(f_{\mathcal{F}})>\varepsilon\right) \rightarrow 0 \qquad \text{ cuando } \qquad n\rightarrow \infty
      \]
+      }
+     \pause
+
+\[ \text{Es decir } P(\omega \in \Omega : |\mathcal{R}(f_n)(\omega) - \mathcal{R}(f_{\mathcal{F}})(\omega)| > \varepsilon) \rightarrow 0 \quad \text{ cuando } \quad n \rightarrow \infty \]
      \pause
      \bigskip
-     \item  El algoritmo de aprendizaje se dice \textnormal{Bayes-consistente con respecto a $P$} si el riesgo $\mathcal{R}(f_n)$
-     converge en probabilidad al riesgo  $\mathcal{R}(f_{\text{Bayes}})$ del clasificador bayesiano. Esto es, para todo $\varepsilon>0$
+     {\large
+     \item  El algoritmo de aprendizaje se dice \textbf{Bayes-consistente con respecto a $P$} si para todo $\varepsilon>0$
     \[
      P\left(\mathcal{R}(f_n)-\mathcal{R}(f_{\text{Bayes}})>\varepsilon\right) \rightarrow 0 \qquad \text{ cuando } \qquad n\rightarrow \infty
     \]
+      }
+      \pause
+    \[ \text{Es decir } P(\omega \in \Omega : |\mathcal{R}(f_n)(\omega) - \mathcal{R}(f_{\text{Bayes}})(\omega)| > \varepsilon) \rightarrow 0 \quad \text{ cuando } \quad n \rightarrow \infty \]
+
     % \pause
     % \item  El algoritmo de aprendizaje se dice \textnormal{universalmente consistente con respecto a $\mathcal{F}$} si
     % es consistente con respecto a $\mathcal{F}$ para toda distribución de probabilidad $P$.
@@ -674,6 +723,7 @@ es llamada la tasa de aprendizaje.
 
 
 \begin{frame}
+  \Large
   \begin{alertblock}{Hay muchas cosas que no podemos calcular}
       No somos capaces de hallar al clasificador de Bayes.\\
       \pause
@@ -692,9 +742,12 @@ datos de entrenamiento. \\
 
 \begin{frame}{Riesgo Empírico}
   \begin{block}{Definición}
+    \large
     Sea $(X_i,Y_i)_{i=1}^n$ un conjunto de datos de entrenamiento, donde cada $(X_i,Y_i)$ es tomado iid de una distribución de probabilidad $P(X,Y)$. Sea
     $\ell$ una función de pérdida. Sea $f_n$ un clasificador binario construido a partir de ejemplos, luego
-    de ser presentado con los primeros $n$ datos de entrenamiento.
+    de ser presentado con los primeros $n$ datos de entrenamiento.\\
+\bigskip
+
     Entonces el \textbf{riesgo empírico} del clasificador $f$ es la pérdida promedio sobre los datos de entrenamiento, es decir
     \[
     R_{emp}(f) := \frac{1}{n} \sum_{i=1}^n \ell(X_i,Y_i,f(X_i))
@@ -719,6 +772,7 @@ datos de entrenamiento. \\
 
 
 \begin{frame}
+  \Large
   Desearíamos que el riesgo empírico se halle ``cerca'' del real, porque podríamos inferir la calidad de nuestro clasificador
   para toda la distribución y no solo en los datos de entrenamiento.\\
   \bigskip
@@ -726,6 +780,7 @@ datos de entrenamiento. \\
   Llamamos a esta idea \textbf{generalización}.\\
 \pause
   \begin{block}{Generalización}
+  
     Deseamos que
     \[
 \mathcal{R}_{\text{emp}}(f) \approx \mathcal{R}(f)
@@ -844,14 +899,15 @@ datos de entrenamiento. \\
   \begin{center}
     \begin{minipage}{0.78\textwidth}
       \begin{block}{}
-        \small\itshape
+        {\large\itshape
         ``[Funes] había aprendido sin esfuerzo el inglés, el francés, el portugués, el latín.
         Sospecho, sin embargo, que no era muy capaz de pensar. Pensar es olvidar
         diferencias, es generalizar, abstraer. En el abarrotado mundo de Funes
         no había sino detalles, casi inmediatos.''
+        }
         \vspace{0.5em}
         \begin{flushright}
-          \normalfont\scriptsize
+      
           ---~Jorge Luis Borges,\\
           \textit{Funes el memorioso}
         \end{flushright}
@@ -912,24 +968,16 @@ P(|\mathcal{R}_{\text{emp}}(f) - \mathcal{R}(f)| \geq \varepsilon) \leq 2 \exp(-
 \end{block}
 \end{frame}
 \begin{frame}
-  Un algoritmo de aprendizaje arroja una función distinta por cada ejemplo de entrenamiento que ve. Esto implica que,
-a medida que el número de elementos $n$ en el conjunto de entrenamiento crece, la función que se define cambia.\\
+  \large
+  Un algoritmo de aprendizaje arroja una función potencialmente distinta por cada ejemplo de entrenamiento que ve.\\
 \pause
 \bigskip
-Nos gustaría poder aplicar la Ley de los Grandes Números a esta función, pero no podemos porque no es fija.\\
-\pause
-\bigskip
-Análogamente, la cota de Chernoff-Hoeffding no se puede aplicar directamente a nuestro caso porque cada punto
-nuevo cambia la función que estamos tratando.\\
-\pause
-\bigskip
-Nuestro objetivo será entonces encontrar condiciones bajo las cuales podamos aplicar esta cota
-a funciones que no son fijas, sino que cambian con cada nuevo ejemplo de entrenamiento.\\
+Nos gustaría poder aplicar la Ley de los Grandes Números a una clase de funciones en vez de solo a una.\\
 \pause
 \bigskip
 \begin{alertblock}{ }
-  Esto implica una generalización de la Ley de los Grandes Números,
-a la que llamamos la \textbf{ley uniforme de los grandes números}.
+  Esto implicará una generalización de la Ley de los Grandes Números,
+a la que llamaremos la \textbf{ley uniforme de los grandes números}.
 \end{alertblock}
 \end{frame}
 
@@ -958,6 +1006,7 @@ P\left(\sup_{f \in \mathcal{F}} |\mathcal{R}(f) - \mathcal{R}_{\text{emp}}(f)| \
 
 \begin{frame}
   \begin{block}{Definición}
+    \Large
     Sea $\mathcal{F}$ un espacio funcional, $R_{emp}$ el riesgo empírico asociado a una
     función de pérdida $\ell$. Supongamos que tenemos una muestra de tamaño $n$. Definimos el clasificador \(f_n\) como la función:
 
@@ -1030,6 +1079,7 @@ La convergencia uniforme sobre \(\mathcal{F}\) es una condición suficiente para
 En este trabajo demostramos que el recíproco también es cierto. \\
 \pause
 \begin{block}{Teorema (Vapnik y Chervonenkis, 1971)}
+  \large
 La convergencia uniforme
 
     \[
@@ -1133,6 +1183,7 @@ Vamos a necesitar una muestra fantasma.
 
 \begin{frame}
   \begin{block}{Lema de Simetrización}
+    \large
  Sea $\mathcal{F}$ el espacio de funciones definido por un algoritmo de aprendizaje. Sean
 $(X_i,Y_i)_{i=1,\dots, m}$, $(X_i',Y_i')_{i=1,\dots, m}$ muestras aleatorias iid. Dada $f \in\mathcal{F}$,
 sean $\mathcal{R}(f)$ su riesgo, $\mathcal{R}_{emp}(f)$ su riesgo empírico sobre la primera muestra y
@@ -1218,6 +1269,7 @@ de funciones lineales.
 \begin{frame}{Fragmentación}
 
 \begin{block}{Definición}
+  \large
     Dado un espacio muestral \(X\) y una muestra \textbf{cualquiera} de tamaño \(n\), denotada por
     \[
     Z_n := \{(X_1, Y_1), \dots, (X_n, Y_n)\},
@@ -1311,6 +1363,7 @@ P\left(\sup_{f \in \mathcal{F}} |R(f) - R_{\text{emp}}(f)| > \varepsilon\right) 
 
 \begin{frame}{El Coeficiente de Fragmentación y la Consistencia}
   \begin{block}{Teorema}
+    \large
     La minimización del riesgo empírico es consistente con respecto a un espacio de funciones $\mathcal{F}$ si y solo si
     \[
     \frac{\log\left(\mathcal{N}(\mathcal{F}, n)\right)}{n} \rightarrow 0 \qquad \text{cuando } n \to \infty.
@@ -1329,6 +1382,7 @@ P\left(\sup_{f \in \mathcal{F}} |R(f) - R_{\text{emp}}(f)| > \varepsilon\right) 
 
 \begin{frame}{La dimensión VC}
 \begin{block}{Definición}
+  \large
     La dimensión VC de una clase de funciones \(\mathcal{F}\) es el tamaño máximo de una muestra que puede ser fragmentada por \(\mathcal{F}\), es decir:
     \[
     \text{VC}(\mathcal{F}) = \max \{n \in \mathbb{N} \mid \mathcal{N}(\mathcal{F}, n) = 2^n\}.
@@ -1351,6 +1405,7 @@ P\left(\sup_{f \in \mathcal{F}} |R(f) - R_{\text{emp}}(f)| > \varepsilon\right) 
 
 \begin{frame}{La dimensión VC}
   \begin{block}{Lema}
+    \Large
       Sea $\mathcal{F}$ una clase de funciones con dimensión VC finita. Entonces
     \[
     \mathcal{N}(\mathcal{F}, n) \leq \sum_{i=0}^{\text{VC}(\mathcal{F})} \binom{n}{i} , \qquad \forall n \in \mathbb{N}.
@@ -1377,6 +1432,7 @@ Si la dimensión VC es infinita, para cada \( n \) existe alguna muestra que pue
 \bigskip
 
   \begin{block}{Teorema}
+    \Large
     La minimización del riesgo empírico es consistente con respecto a una clase de funciones \(\mathcal{F}\) si y solo si
     la dimensión VC de \(\mathcal{F}\) es finita.
 \end{block}
@@ -1386,6 +1442,7 @@ Si la dimensión VC es infinita, para cada \( n \) existe alguna muestra que pue
 \rotuloslide{05}{Límites y panorama actual}{No hay almuerzos gratis y la paradoja moderna}
 
 \begin{frame}{No hay almuerzos gratis}
+  \large
 ¿Cuál de todos los clasificadores consistentes
 es \textit{el mejor} clasificador?  \\
 \bigskip
@@ -1400,6 +1457,7 @@ posibles, todos los clasificadores son equivalentes.
 
 \end{frame}
 \begin{frame}
+  \Large
 \begin{block}{El Teorema de la chancha y los veinte}
     Sea \(\varepsilon > 0\). Para cualquier entero \(n\) y cualquier
 regla de clasificación \(f_n\), existe una distribución \(P(X, Y)\) con riesgo bayesiano
@@ -1413,7 +1471,7 @@ regla de clasificación \(f_n\), existe una distribución \(P(X, Y)\) con riesgo
 
 \end{frame}
 
-\begin{frame}{La Paradoja Moderna: ¿Qué Dice la Teoría?}
+\begin{frame}{La Paradoja Moderna}
 
 
 
@@ -1536,15 +1594,13 @@ regla de clasificación \(f_n\), existe una distribución \(P(X, Y)\) con riesgo
 % ==============================================================================
 % SLIDE 3: Reconciliar teoría y realidad
 % ==============================================================================
-\begin{frame}{Reconciliar teoría y realidad}
+\begin{frame}{El rol de la Matemática en la era de la IA}
     \begin{columns}[t]
         \begin{column}{0.31\textwidth}
             \begin{block}{1. Doble descenso}
                 \small
-                El riesgo de prueba alcanza un pico en el umbral de interpolación y luego vuelve a caer cuando aumenta la capacidad.
-                \vspace{0.2cm}
-                
-                La sobreparametrización permite que la optimización elija \textbf{funciones más regulares} pese a la enorme capacidad disponible.
+                La sobreparametrización permite que la optimización elija 
+                \textbf{funciones más regulares} pese a la enorme capacidad disponible.
             \end{block}
         \end{column}
         \pause
@@ -1553,15 +1609,13 @@ regla de clasificación \(f_n\), existe una distribución \(P(X, Y)\) con riesgo
                 \small
                 El espacio de hipótesis $\mathcal{F}$ es nominalmente enorme, pero la optimización (SGD) actúa como un \textbf{regularizador implícito}.
                 \vspace{0.2cm}
-                
-                Selecciona soluciones en subregiones estrechas, estables o de norma mínima dentro del paisaje de pérdida.
-            \end{block}
+               \end{block}
         \end{column}
         \pause
         \begin{column}{0.31\textwidth}
             \begin{block}{3. Geometría de los datos}
                 \small
-                Las cotas de peor caso son demasiado conservadoras. Los datos reales de texto e imágenes se concentran en \textbf{variedades} de alta dimensión.
+               Los datos de texto e imágenes se concentran en \textbf{variedades} de alta dimensión.
                 \vspace{0.2cm}
                 
                 La complejidad efectiva escala con la dimensión intrínseca de los datos, no con el número de parámetros.
@@ -1571,8 +1625,8 @@ regla de clasificación \(f_n\), existe una distribución \(P(X, Y)\) con riesgo
     \pause
     \vspace{0.6cm}
     \begin{beamercolorbox}[wd=\textwidth, rounded=true, center, sep=8pt]{lightbg}
-        \textcolor{accentblue}{\textbf{Cambio conceptual:}} pasar de cotas uniformes globales sobre $\mathcal{F}$ a estabilidad algorítmica, geometría local y medidas dependientes de los datos.
-    \end{beamercolorbox}
+        \textcolor{accentblue}{\textbf{El desarollo de una teoría robusta para explicar la generalización en los LLMs es un problema abierto}} 
+      \end{beamercolorbox}
 \end{frame}
 
 % % ==============================================================================
