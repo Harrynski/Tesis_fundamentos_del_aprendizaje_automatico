@@ -50,9 +50,9 @@
 % METADATOS
 %--------------------------------------------------------------
 \title[Fundamentos Matemáticos del Aprendizaje Automático]{%
-  \large\textbf{Fundamentos Matemáticos\\[0.4em]del Aprendizaje Automático}}
+  \Large\textbf{Fundamentos Matemáticos\\[0.4em]del Aprendizaje Automático}}
 
-\author[Nicolas Silva Nash]{Nicolas Silva Nash}
+\large\author[Nicolas Silva Nash]{Nicolas Silva Nash}
 
 \institute[UNCo -- Departamento de Matemática]{%
   Departamento de Matemática\\
@@ -95,10 +95,9 @@
   \end{frame}
 }
 
-% Logos institucionales (descomentar cuando se tengan los archivos):
-% \titlegraphic{%
-%   \includegraphics[height=1.4cm]{logo_unco.png}\hspace{1.5cm}
-%   \includegraphics[height=1.4cm]{logo_dpto_mat.png}}
+\titlegraphic{%
+  \includegraphics[height=1.25cm,keepaspectratio]{\detokenize{../1. LaTeX/Images/logo_matematica_faea.png}}\hspace{1.5cm}%
+  \includegraphics[height=1.25cm,keepaspectratio]{\detokenize{../1. LaTeX/Images/logo_unco.png}}}
 
 %==============================================================
 \begin{document}
@@ -540,7 +539,8 @@ Dado que el espacio de etiquetas es discreto y finito, esto se simplifica signif
   \Large
   Dado un conjunto de datos de entrenamiento $ \{ (X_1,Y_1), \dots ,(X_n, Y_m)\}$
 obtenidos iid de una distribución $P$, y dada una función de pérdida $\ell$, deseamos construir una función clasificadora
-$f:X\rightarrow Y$ cuyo riesgo $\mathcal{R}(f)$ sea lo más cercano posible al riesgo de $f_{\text{Bayes}}$.
+$f:X\rightarrow Y$ cuyo riesgo $\mathcal{R}(f)$ sea lo más cercano posible al riesgo de $f_{\text{Bayes}}$.\\
+
 Llamamos a este problema \textbf{clasificación binaria}.
   \end{block}
 \pause
@@ -698,7 +698,7 @@ es llamada la tasa de aprendizaje.
       }
      \pause
 
-\[ \text{Es decir } P(\omega \in \Omega : |\mathcal{R}(f_n)(\omega) - \mathcal{R}(f_{\mathcal{F}})(\omega)| > \varepsilon) \rightarrow 0 \quad \text{ cuando } \quad n \rightarrow \infty \]
+\[ \text{Es decir } P(\{\omega \in \Omega : |\mathcal{R}(f_n)(\omega) - \mathcal{R}(f_{\mathcal{F}})(\omega)| > \varepsilon\}) \rightarrow 0 \quad \text{ cuando } \quad n \rightarrow \infty \]
      \pause
      \bigskip
      {\large
@@ -708,7 +708,7 @@ es llamada la tasa de aprendizaje.
     \]
       }
       \pause
-    \[ \text{Es decir } P(\omega \in \Omega : |\mathcal{R}(f_n)(\omega) - \mathcal{R}(f_{\text{Bayes}})(\omega)| > \varepsilon) \rightarrow 0 \quad \text{ cuando } \quad n \rightarrow \infty \]
+    \[ \text{Es decir } P(\{\omega \in \Omega : |\mathcal{R}(f_n)(\omega) - \mathcal{R}(f_{\text{Bayes}})(\omega)| > \varepsilon\}) \rightarrow 0 \quad \text{ cuando } \quad n \rightarrow \infty \]
 
     % \pause
     % \item  El algoritmo de aprendizaje se dice \textnormal{universalmente consistente con respecto a $\mathcal{F}$} si
@@ -1607,7 +1607,7 @@ regla de clasificación \(f_n\), existe una distribución \(P(X, Y)\) con riesgo
         \begin{column}{0.31\textwidth}
             \begin{block}{2. Sesgo implícito}
                 \small
-                El espacio de hipótesis $\mathcal{F}$ es nominalmente enorme, pero la optimización (SGD) actúa como un \textbf{regularizador implícito}.
+                El espacio $\mathcal{F}$ es nominalmente enorme, pero la optimización (SGD) actúa como un \textbf{regularizador implícito}.
                 \vspace{0.2cm}
                \end{block}
         \end{column}
@@ -1615,18 +1615,19 @@ regla de clasificación \(f_n\), existe una distribución \(P(X, Y)\) con riesgo
         \begin{column}{0.31\textwidth}
             \begin{block}{3. Geometría de los datos}
                 \small
-               Los datos de texto e imágenes se concentran en \textbf{variedades} de alta dimensión.
-                \vspace{0.2cm}
-                
-                La complejidad efectiva escala con la dimensión intrínseca de los datos, no con el número de parámetros.
+               Los datos de texto e imágenes se concentran en \textbf{variedades} de baja dimensión,
+               por lo que la capacidad efectiva de $\mathcal{F}$ es mucho menor que la dimensión VC.
             \end{block}
         \end{column}
     \end{columns}
     \pause
     \vspace{0.6cm}
     \begin{beamercolorbox}[wd=\textwidth, rounded=true, center, sep=8pt]{lightbg}
-        \textcolor{accentblue}{\textbf{El desarollo de una teoría robusta para explicar la generalización en los LLMs es un problema abierto}} 
+        \textcolor{accentblue}{\textbf{El desarollo de una teoría robusta para explicar la generalización en los LLMs es un problema abierto.}
+        } \pause \\
+        La humanidad necesita que los matemáticos contribuyan a entender y \textit{desarmar} la IA.
       \end{beamercolorbox}
+
 \end{frame}
 
 % % ==============================================================================
@@ -2697,6 +2698,7 @@ regla de clasificación \(f_n\), existe una distribución \(P(X, Y)\) con riesgo
         \item Billingsley, P. (1995). \textit{Probability and Measure}. 3rd ed., Wiley.
         \item Abu-Mostafa, Y. S., Magdon-Ismail, M. \& Lin, H.-T. (2012). \textit{Learning From Data}. AMLBook.
         \item Minsky, M. \& Papert, S. (1969). \textit{Perceptrons: An Introduction to Computational Geometry}. MIT Press.
+        \item Pope Leo XIV. (2026). \textit{Magnifica Humanitas: On Safeguarding the Human Person in the Time of Artificial Intelligence}. Encyclical letter.
       \end{itemize}
     \end{column}
   \end{columns}
